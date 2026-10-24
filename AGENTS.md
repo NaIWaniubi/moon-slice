@@ -21,8 +21,8 @@ This repo is built by parallel Tower missions. Read `CONTRACT.md` first.
 - MoonBit packages are directories; each has a `moon.pkg`. Blackbox tests end
   in `_test.mbt`, whitebox tests in `_wbtest.mbt`.
 - Keep code in `///|`-separated blocks.
-- Run `./dev.sh fmt` and `./dev.sh info` before the final commit; check `.mbti`
-  diffs for unexpected public API changes.
+- Do **not** run `moon fmt` or `moon info`: they rewrite shared/frozen files
+  and cause cross-mission merge conflicts. The coordinator formats after merge.
 - `./dev.sh test` runs tests; `./dev.sh test --update` refreshes snapshots.
 - Prefer `assert_eq`/`assert_true` for stable results; use `debug_inspect` for
   structured debugging snapshots.
