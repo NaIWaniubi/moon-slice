@@ -1,0 +1,5 @@
+// import {
+//   "username/moon-slice" @lib,
+// }
+
+pkgtype(kind: "executable")

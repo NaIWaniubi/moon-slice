@@ -1,0 +1,103 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/core"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Cdg {
+  edges : Array[(Int32, Int32)]
+} derive(@debug.Debug)
+
+pub(all) struct Cfg {
+  edges : Array[(Int32, Int32)]
+  entry : Int32
+  exit : Int32
+} derive(@debug.Debug)
+
+pub(all) struct DefUse {
+  reaching : Array[(Int32, Int32)]
+} derive(@debug.Debug)
+
+pub(all) enum EdgeKind {
+  Data
+  Control
+} derive(Eq, @debug.Debug)
+
+pub(all) struct FunctionInfo {
+  name : String
+  entry : Int32
+  exit : Int32
+} derive(@debug.Debug)
+
+pub(all) struct Loc {
+  start_line : Int32
+  start_col : Int32
+  end_line : Int32
+  end_col : Int32
+} derive(Eq, Hash, @debug.Debug)
+
+pub(all) struct Pdg {
+  edges : Array[PdgEdge]
+} derive(@debug.Debug)
+
+pub(all) struct PdgEdge {
+  from : Int32
+  to : Int32
+  kind : EdgeKind
+} derive(@debug.Debug)
+
+pub(all) struct Program {
+  nodes : Array[SNode]
+  functions : Array[FunctionInfo]
+  errors : Array[String]
+} derive(@debug.Debug)
+
+pub(all) struct SNode {
+  id : Int32
+  kind : SNodeKind
+  loc : Loc
+  defs : Array[VarId]
+  uses : Array[VarId]
+  children : Array[Int32]
+  parent : Int32?
+} derive(@debug.Debug)
+
+pub(all) enum SNodeKind {
+  Let
+  LetMut
+  Assign
+  If
+  While
+  For
+  Match
+  Return
+  Break
+  Continue
+  Call
+  Expr
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SliceDirection {
+  Backward
+  Forward
+} derive(Eq, @debug.Debug)
+
+pub(all) struct SliceResult {
+  nodes : Array[Int32]
+  lines : Array[Int32]
+} derive(@debug.Debug)
+
+pub(all) struct VarId {
+  name : String
+  scope : Int32
+} derive(Eq, Hash, @debug.Debug)
+
+// Type aliases
+
+// Traits
