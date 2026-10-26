@@ -25,6 +25,19 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `node web/smoke.mjs` | `web smoke ok: 6217 bytes` (JS engine, full HTML report) |
 | `node bench/gen.mjs 500 /tmp/big.mbt && time ./dev.sh run cmd/main -- slice --file /tmp/big.mbt --line 502 --direction backward` | 1.58 s wall, 500-statement function |
 
+## Remote verification (2026-10-27)
+
+| Check | Result |
+| --- | --- |
+| CI `40374947890` | success: install, `moon update`, `check`, `test`, corpus, CLI smoke, web smoke |
+| Pages `40374947987` | success: deployed `web/` to GitHub Pages |
+| `curl -I https://cs6210501-lab.github.io/moon-slice/` | `HTTP/1.1 200 OK`, `text/html`, title `moon-slice playground` |
+| `curl -I https://cs6210501-lab.github.io/moon-slice/moon-slice.js` | `HTTP/1.1 200 OK`, 10,042,607 bytes |
+
+Public repo: https://github.com/cs6210501-lab/moon-slice
+CI runs: https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml
+Pages runs: https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml
+
 ## Integration bugs found and fixed
 
 1. **Def-use worklist never visited parameterless straight-line functions.**
@@ -66,5 +79,6 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 - [x] 20+ meaningful commits
 - [x] push to GitHub: public repo `cs6210501-lab/moon-slice`, branch `master`
 - [x] GitHub Actions CI and Pages workflows added; Pages enabled for `web/`
+- [x] live playground verified at https://cs6210501-lab.github.io/moon-slice/
 - [ ] fill author / team / contact in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59
