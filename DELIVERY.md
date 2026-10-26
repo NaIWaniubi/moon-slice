@@ -55,6 +55,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] library line coverage 88.5% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
+- [x] GitHub Pages workflow for `web/`
 - [x] data-flow path query (`path --from A --to B`)
 - [x] conservative inter-procedural expansion (`--interprocedural`)
 - [x] deterministic fuzz-style invariant tests
