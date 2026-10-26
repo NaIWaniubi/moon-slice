@@ -2,3 +2,6 @@ target/
 .mooncakes/
 .moonagent/
 _build/
+.tower/
+.zcode-fleet/
+.v2c/
