@@ -103,5 +103,5 @@ The rendered page is `docs/report.png`.
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 177, passed: 177, failed: 0`, and
+Expected: 0 errors, `Total tests: 188, passed: 188, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

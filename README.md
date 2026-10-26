@@ -18,7 +18,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (177 tests, including a
+All layers are implemented and covered by `moon test` (188 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -287,7 +287,7 @@ PowerShell / cmd users: replace `./dev.sh` with `dev.cmd`.
 them inside a feature branch rewrites shared files and causes merge conflicts.
 
 Deeper notes: [algorithm map](docs/ALGORITHMS.md) ·
-[demo walkthrough](docs/DEMO.md).
+[demo walkthrough](docs/DEMO.md) · [coverage report](COVERAGE.md).
 
 ## License
 
