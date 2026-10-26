@@ -17,7 +17,7 @@
 fn run_pipeline(source : String) -> (@core.Program, @core.Cfg, @core.DefUse) {
   let program = @parser_adapter.parse_source(source, "robust.mbt")
   let cfg = @cfg.build(program)
-  let defuse = analyze(program, cfg)
+  let defuse = @defuse.analyze(program, cfg)
   (program, cfg, defuse)
 }
 
@@ -29,7 +29,7 @@ fn check_invariants(
   program : @core.Program,
   cfg : @core.Cfg,
   defuse : @core.DefUse,
-) -> Unit {
+) -> Unit raise {
   let count = program.nodes.length()
   // Node ids are dense and equal to their index, which the CFG indexes by.
   let mut i = 0
@@ -113,7 +113,7 @@ test "malformed source reports errors without crashing" {
   sources.each(fn(source) {
     let program = @parser_adapter.parse_source(source, "bad.mbt")
     let cfg = @cfg.build(program)
-    let defuse = analyze(program, cfg)
+    let defuse = @defuse.analyze(program, cfg)
     // Either the source parsed (and the invariants hold) or it reported errors.
     // Both outcomes are acceptable; a panic is not.
     if program.errors.length() == 0 {
@@ -128,7 +128,7 @@ test "malformed source reports errors without crashing" {
 test "deeply nested blocks stay linear and terminate" {
   // 40 nested ifs: enough to catch a quadratic blowup or a recursion issue,
   // small enough to keep the test fast.
-  let mut source = String::new()
+  let mut source = ""
   let mut depth = 0
   while depth < 40 {
     source = source + "if c {\n"
@@ -155,7 +155,7 @@ test "deeply nested blocks stay linear and terminate" {
 
 ///|
 test "a long statement chain stays linear" {
-  let mut body = String::new()
+  let mut body = ""
   let mut n = 0
   while n < 200 {
     body = body + "let x" + n.to_string() + " = " + n.to_string() + "\n"
@@ -190,7 +190,7 @@ test "empty and whitespace-only sources yield an empty program" {
     assert_eq(program.functions.length(), 0)
     let cfg = @cfg.build(program)
     assert_eq(cfg.edges.length(), 0)
-    let defuse = analyze(program, cfg)
+    let defuse = @defuse.analyze(program, cfg)
     assert_eq(defuse.reaching.length(), 0)
   })
 }
