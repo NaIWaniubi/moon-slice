@@ -7,3 +7,6 @@ _build/
 .v2c/
 *.coverage
 uncovered.log
+
+# generated proposal HTML (the PDF is committed)
+submission/PROPOSAL.html

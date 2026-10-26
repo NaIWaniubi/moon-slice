@@ -1,7 +1,6 @@
 # moon-slice — 项目申报书（一页）
 
 > 仓库：https://github.com/cs6210501-lab/moon-slice ｜ 在线演示：https://cs6210501-lab.github.io/moon-slice/
-> 作者、团队、联系方式按实际信息填写后提交。
 
 ## 1. 项目名称
 
