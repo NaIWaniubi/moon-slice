@@ -1,0 +1,20 @@
+// The MoonBit source that e2e_test.mbt models as a hand-built @core.Program.
+// It is data, not a compiled fixture: nothing in this module parses it.
+//
+//   1: fn sum_first(n : Int) -> Int {
+//   2:   let total = 0
+//   3:   let mut i = 0
+//   4:   while i < n {
+//   5:     if i % 2 == 0 {
+//   6:       total = total + i
+//   7:     } else {
+//   8:       i = i + 1
+//   9:     }
+//  10:   }
+//  11:   return total
+//  12: }
+//
+// Expected slices, as asserted in e2e_test.mbt:
+//
+//   backward from line 11 -> nodes 0..6, lines [2, 3, 4, 5, 6, 8, 11]
+//   forward  from line  2 -> nodes 0,2,3,4,5,6, lines [2, 4, 5, 6, 8, 11]

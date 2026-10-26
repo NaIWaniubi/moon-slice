@@ -1,0 +1,21 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/slice"
+
+import {
+  "chen/moon-slice/src/core",
+}
+
+// Values
+pub fn backward(@core.Pdg, Int32, program? : @core.Program) -> @core.SliceResult
+
+pub fn forward(@core.Pdg, Int32, program? : @core.Program) -> @core.SliceResult
+
+pub fn lines_of(@core.Program, Array[Int32]) -> Array[Int32]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
