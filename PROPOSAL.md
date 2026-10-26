@@ -42,8 +42,8 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 切片：backward / forward，输出节点集合与源码行号。
 - 报告：JSON、DOT、自包含 HTML（内联 SVG 依赖图 + 源码高亮 + 切片节点表）。
 - 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
-- CLI：`slice`、`graph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
-- 测试：173 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- CLI：`slice`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
+- 测试：174 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 工程化：GitHub Actions CI、500 语句输入的性能冒烟、零网络依赖报告。
 
@@ -61,7 +61,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 173/173 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 174/174 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`

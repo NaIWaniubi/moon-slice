@@ -333,3 +333,32 @@ pub fn nodes_using_name(program : @core.Program, name : String) -> Array[Int32] 
   out.sort()
   out
 }
+
+///|
+/// Heuristic call graph: for each function, a `Call` node's first use is the
+/// callee name when the callee is a free function. Only edges to functions
+/// defined in the same program are emitted; method calls and function values
+/// are intentionally omitted. The result is deduplicated and in function order.
+pub fn call_edges(program : @core.Program) -> Array[(String, String)] {
+  let names : Set[String] = Set([])
+  for f in program.functions {
+    names.add(f.name)
+  }
+  let out : Array[(String, String)] = []
+  for f in program.functions {
+    let mut i = f.entry + 1
+    while i < f.exit {
+      let node = program.nodes[i]
+      for v in node.uses {
+        if names.contains(v.name) && v.name != f.name {
+          let edge = (f.name, v.name)
+          if !out.contains(edge) {
+            out.push(edge)
+          }
+        }
+      }
+      i = i + 1
+    }
+  }
+  out
+}

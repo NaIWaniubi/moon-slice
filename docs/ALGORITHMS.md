@@ -96,6 +96,15 @@ nodes with a parent map, returning the shortest directed PDG path. The CLI
 `path --from A --to B` seeds starts with definitions of `A` and goals with uses
 of `B`, which is the taint-lite source→sink query.
 
+## Call graph
+
+`src/query::call_edges` scans the nodes of each function for uses whose name
+matches a function defined in the same program. This is a heuristic: it finds
+free-function calls, including calls folded into a `let` or assignment; it does
+not resolve method calls, function values, or cross-module targets. The CLI
+`callgraph` renders the result as DOT. Full inter-procedural slicing (inlining
+callee summaries into the PDG) is future work.
+
 ## Complexity and bounds
 
 - CFG: O(N) edges for N statements.

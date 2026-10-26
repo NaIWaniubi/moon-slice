@@ -429,3 +429,14 @@ pub fn to_html(
   escape_html(to_dot(pdg)) +
   "</pre>\n</details>\n</body>\n</html>\n"
 }
+
+///|
+/// DOT for a function-level call graph.
+pub fn to_call_dot(edges : Array[(String, String)]) -> String {
+  let mut out = "digraph callgraph {\n  rankdir=LR;\n"
+  for e in edges {
+    out = out + "  \"" + e.0 + "\" -> \"" + e.1 + "\";\n"
+  }
+  out = out + "}\n"
+  out
+}

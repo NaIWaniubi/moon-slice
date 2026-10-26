@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn to_call_dot(Array[(String, String)]) -> String
+
 pub fn to_dot(@core.Pdg) -> String
 
 pub fn to_html(String, @core.Program, @core.Pdg, @core.SliceResult, Int32, Int32) -> String

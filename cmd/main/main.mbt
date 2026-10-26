@@ -18,6 +18,7 @@ fn usage() -> Unit {
     "Commands:\n" +
     "  slice --file F --line N --direction backward|forward [--json]\n" +
     "  graph --file F [--format dot]\n" +
+    "  callgraph --file F\n" +
     "  dead  --file F\n" +
     "  path  --file F --from VAR --to VAR\n" +
     "  html  --file F --line N [--out report.html]\n" +
@@ -187,6 +188,14 @@ fn main {
       } else {
         println("error: unsupported --format \{format} (use dot)")
       }
+    "callgraph" => {
+      let edges = @query.call_edges(program)
+      if edges.length() == 0 {
+        println("no internal calls")
+      } else {
+        println(@report.to_call_dot(edges))
+      }
+    }
     "dead" => {
       let dead = @query.dead_nodes(program, defuse)
       let cfg = @cfg.build(program)

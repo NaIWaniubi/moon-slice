@@ -128,3 +128,12 @@ test "unreachable code is flagged" {
   let all = @query.union_sorted(dead, unreach)
   assert_eq(@query.visible_lines(program, all), [3, 4])
 }
+
+///|
+test "call graph finds free-function calls" {
+  let source = @fs.read_file_to_string("bench/callgraph.mbt") catch {
+    _ => panic()
+  }
+  let program = @parser_adapter.parse_source(source, "bench/callgraph.mbt")
+  assert_eq(@query.call_edges(program), [("twice", "inc"), ("main_fn", "twice")])
+}

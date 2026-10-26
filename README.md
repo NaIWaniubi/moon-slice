@@ -16,7 +16,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (173 tests, including a
+All layers are implemented and covered by `moon test` (174 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -30,7 +30,7 @@ All layers are implemented and covered by `moon test` (173 tests, including a
 | Slicing | `src/slice` | implemented — backward/forward BFS |
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
 | Report | `src/report` | implemented — JSON, DOT, inline SVG, HTML |
-| CLI | `cmd/main` | implemented — `slice`, `graph`, `dead`, `path`, `html`, debug dumps |
+| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead`, `path`, `html`, debug dumps |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
 ## Quickstart
@@ -52,6 +52,8 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
 # {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ./dev.sh run cmd/main -- graph --file examples/04_while.mbt --format dot
+./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt
+# digraph callgraph { "twice" -> "inc"; "main_fn" -> "twice"; }
 ./dev.sh run cmd/main -- dead  --file examples/08_dead_assignment.mbt
 # 4,5
 ./dev.sh run cmd/main -- path  --file examples/04_while.mbt --from i --to total
@@ -226,6 +228,12 @@ and a sink variable, and read the flow in one line.
 ./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total
 # n1 L4 -> n3 L6 -> n4 L7
 ```
+
+## Call graph
+
+`callgraph --file F` prints a function-level DOT graph. The heuristic is: a
+use of a function defined in the same file counts as a call. Method calls and
+function values are omitted; full inter-procedural slicing remains future work.
 
 ## Verifying the corpus
 

@@ -51,7 +51,17 @@ reachable from any function entry.
 Starts are definitions of `--from`; goals are uses of `--to`; the output is the
 shortest directed PDG path.
 
-## 5. HTML report
+## 5. Call graph
+
+```bash
+./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt
+# digraph callgraph { "twice" -> "inc"; "main_fn" -> "twice"; }
+```
+
+A function-level dependency overview; method calls and function values are
+omitted.
+
+## 6. HTML report
 
 ```bash
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
@@ -67,14 +77,14 @@ Open `report.html`. It contains:
 
 The rendered page is `docs/report.png`.
 
-## 6. JSON
+## 7. JSON
 
 ```bash
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
 # {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ```
 
-## 7. Full verification
+## 8. Full verification
 
 ```bash
 ./dev.sh check
@@ -82,5 +92,5 @@ The rendered page is `docs/report.png`.
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 173, passed: 173, failed: 0`, and
+Expected: 0 errors, `Total tests: 174, passed: 174, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.
