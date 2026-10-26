@@ -15,7 +15,7 @@ version = "0.2.0"
 
 readme = "README.mbt.md"
 
-repository = "https://github.com/TARGET/moon-slice"
+repository = "https://github.com/cs6210501-lab/moon-slice"
 
 license = "Apache-2.0"
 

@@ -234,7 +234,7 @@ direction, and the report renders in the iframe. The prebuilt engine is
 ![moon-slice playground](docs/playground.png)
 
 If GitHub Pages is enabled, `.github/workflows/pages.yml` publishes `web/` as a
-static site; the URL is `https://TARGET.github.io/moon-slice/`.
+static site; the URL is `https://cs6210501-lab.github.io/moon-slice/`.
 
 ## Data-flow paths
 

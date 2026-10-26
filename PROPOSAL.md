@@ -1,6 +1,6 @@
 # moon-slice — 项目申报书（一页）
 
-> 提交前把 `TARGET`、`AUTHOR`、仓库链接替换成真实值；正文由本人撰写/核对，不使用 AI 代写。
+> 提交前把 `cs6210501-lab`、`cs6210501-lab`、仓库链接替换成真实值；正文由本人撰写/核对，不使用 AI 代写。
 
 ## 1. 项目名称
 
@@ -57,7 +57,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 7. GitHub 仓库
 
-`https://github.com/TARGET/moon-slice`
+`https://github.com/cs6210501-lab/moon-slice`
 
 仓库包含不少于 10 个有效 commits，保留连续开发记录、测试与 README。
 

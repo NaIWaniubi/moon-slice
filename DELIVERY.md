@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
+Date: 2026-10-26. Repository: `moon-slice` (local; push to `cs6210501-lab/moon-slice`).
 
 ## Verification run in this session
 
@@ -63,6 +63,6 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] deterministic fuzz-style invariant tests
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
-- [ ] push to GitHub and replace `TARGET` in `PROPOSAL.md`
+- [ ] push to GitHub and replace `cs6210501-lab` in `PROPOSAL.md`
 - [ ] fill author/repo in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59
