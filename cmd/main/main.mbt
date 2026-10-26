@@ -18,12 +18,13 @@ fn usage() -> Unit {
     "Commands:\n" +
     "  slice --file F --line N --direction backward|forward [--json] [--interprocedural]\n" +
     "  graph --file F [--format dot]\n" +
-    "  callgraph --file F\n" +
-    "  dead  --file F\n" +
-    "  path  --file F --from VAR --to VAR\n" +
+    "  callgraph --file F [--json]\n" +
+    "  dead  --file F [--json]\n" +
+    "  path  --file F --from VAR --to VAR [--json]\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural]\n" +
     "  dump  --file F --line N\n" +
-    "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n",
+    "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
+    "  version | help\n",
   )
 }
 
@@ -112,6 +113,14 @@ fn main {
     return
   }
   let command = argv[1]
+  if command == "version" || command == "--version" {
+    println("moon-slice 0.2.0")
+    return
+  }
+  if command == "help" || command == "--help" {
+    usage()
+    return
+  }
   let mut file = ""
   let mut line = 0
   let mut direction = "backward"
@@ -199,7 +208,9 @@ fn main {
       }
     "callgraph" => {
       let edges = @query.call_edges(program)
-      if edges.length() == 0 {
+      if json {
+        println(@report.to_call_json(edges))
+      } else if edges.length() == 0 {
         println("no internal calls")
       } else {
         println(@report.to_call_dot(edges))
@@ -210,7 +221,15 @@ fn main {
       let cfg = @cfg.build(program)
       let unreach = @query.unreachable_nodes(program, cfg)
       let all = @query.union_sorted(dead, unreach)
-      print_lines({ nodes: all, lines: @query.visible_lines(program, all), })
+      let result = @core.SliceResult::{
+        nodes: all,
+        lines: @query.visible_lines(program, all),
+      }
+      if json {
+        println(@report.to_json(program, result))
+      } else {
+        print_lines(result)
+      }
     }
     "html" => {
       let target = match @query.target_node(program, line.to_int64().to_int()) {
@@ -262,22 +281,35 @@ fn main {
       }
       match @query.path_between(pdg, starts, goals) {
         Some(path) => {
-          let mut line_out = ""
-          let mut first = true
-          for id in path {
-            if !first {
-              line_out = line_out + " -> "
-            }
-            line_out = line_out +
-              "n" +
-              id.to_string() +
-              " L" +
-              program.nodes[id].loc.start_line.to_string()
-            first = false
+          let result = @core.SliceResult::{
+            nodes: path,
+            lines: @query.lines_of(program, path),
           }
-          println(line_out)
+          if json {
+            println(@report.to_json(program, result))
+          } else {
+            let mut line_out = ""
+            let mut first = true
+            for id in path {
+              if !first {
+                line_out = line_out + " -> "
+              }
+              line_out = line_out +
+                "n" +
+                id.to_string() +
+                " L" +
+                program.nodes[id].loc.start_line.to_string()
+              first = false
+            }
+            println(line_out)
+          }
         }
-        None => println("no path from \{from_var} to \{to_var}")
+        None =>
+          if json {
+            println("{\"found\":false}")
+          } else {
+            println("no path from \{from_var} to \{to_var}")
+          }
       }
     }
     "dump-errors" => {

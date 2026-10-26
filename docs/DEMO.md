@@ -109,5 +109,5 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 189, passed: 189, failed: 0`, and
+Expected: 0 errors, `Total tests: 190, passed: 190, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

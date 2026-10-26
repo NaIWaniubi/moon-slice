@@ -440,3 +440,18 @@ pub fn to_call_dot(edges : Array[(String, String)]) -> String {
   out = out + "}\n"
   out
 }
+
+///|
+/// JSON array of `[caller, callee]` pairs, for tooling.
+pub fn to_call_json(edges : Array[(String, String)]) -> String {
+  let mut out = "["
+  let mut first = true
+  for e in edges {
+    if !first {
+      out = out + ","
+    }
+    out = out + "[" + json_string(e.0) + "," + json_string(e.1) + "]"
+    first = false
+  }
+  out + "]"
+}

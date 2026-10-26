@@ -20,7 +20,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (189 tests, including a
+All layers are implemented and covered by `moon test` (190 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -50,6 +50,8 @@ Everything goes through the wrapper, which puts the MoonBit toolchain on `PATH`:
 Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
+./dev.sh run cmd/main -- version
+# moon-slice 0.2.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -295,6 +297,7 @@ packages, so it runs before the analysis passes exist.
 ./dev.sh test                     # run tests
 ./dev.sh test --update            # refresh snapshot tests
 ./dev.sh coverage analyze > uncovered.log
+bash test/cli_smoke.sh         # CLI end-to-end assertions
 ```
 
 PowerShell / cmd users: replace `./dev.sh` with `dev.cmd`.

@@ -124,3 +124,9 @@ test "html includes graph, source highlighting and table" {
   assert_true(html.contains("Slice nodes"))
   assert_true(html.contains("PDG (DOT)"))
 }
+
+///|
+test "call json renders pairs" {
+  let json = @report.to_call_json([("f", "g"), ("g", "h")])
+  assert_eq(json, "[[\"f\",\"g\"],[\"g\",\"h\"]]")
+}

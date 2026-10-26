@@ -25,5 +25,8 @@ jobs:
       - name: Verify example corpus
         run: bash testdata/verify_corpus.sh
 
+      - name: CLI smoke
+        run: bash test/cli_smoke.sh
+
       - name: Web playground smoke
         run: node web/smoke.mjs

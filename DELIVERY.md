@@ -7,8 +7,9 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 189, passed: 189, failed: 0` |
+| `./dev.sh test` | `Total tests: 190, passed: 190, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
+| `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input) |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward` | `4,5,6,7,8` |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward` | `7,10` |
 | `./dev.sh run cmd/main -- slice --file examples/06_match.mbt --line 7 --direction forward` | `7,10` |
@@ -50,8 +51,9 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 189 tests, including 10 end-to-end corpus tests and path/unreachable tests
+- [x] 190 tests, including 10 end-to-end corpus tests and path/unreachable tests
 - [x] zero compiler warnings
+- [x] CLI smoke test with every command, JSON mode and malformed input
 - [x] library line coverage 88.5% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)

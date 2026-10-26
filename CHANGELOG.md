@@ -9,7 +9,8 @@
 - Data-flow path query (`path --from A --to B`).
 - `dead` now unions unused definitions and unreachable statements.
 - Inline-SVG HTML report with source-order layout, slice-node table and metrics.
-- Deterministic fuzz-style invariant tests; 188 tests total.
+- Deterministic fuzz-style invariant tests; 190 tests total.
 - Browser playground: `src/web` compiled to JavaScript + `web/index.html`;
   prebuilt engine and `web/smoke.mjs`.
+- CLI: `version`/`help`, `--json` for dead/path/callgraph, and a full CLI smoke test.
 - Zero compiler warnings; docs/ALGORITHMS.md, docs/DEMO.md, CI, benchmark.
