@@ -1,0 +1,76 @@
+{
+  "$comment": "Expected slices for the moon-slice example corpus. Lines are 1-based and inclusive of the target. Keep in sync with testdata/README.md and the EXPECT-* headers in examples/.",
+  "version": 1,
+  "examples": [
+    {
+      "file": "examples/01_let.mbt",
+      "case": "let",
+      "target_line": 5,
+      "backward": [4, 5],
+      "forward": [5, 6, 8]
+    },
+    {
+      "file": "examples/02_mut.mbt",
+      "case": "mut",
+      "target_line": 6,
+      "backward": [5, 6],
+      "forward": [6, 7, 8]
+    },
+    {
+      "file": "examples/03_if_else.mbt",
+      "case": "if/else",
+      "target_line": 6,
+      "backward": [5, 6],
+      "forward": [6, 10]
+    },
+    {
+      "file": "examples/04_while.mbt",
+      "case": "while",
+      "target_line": 7,
+      "backward": [4, 5, 6, 7, 8],
+      "forward": [7, 10]
+    },
+    {
+      "file": "examples/05_for.mbt",
+      "case": "for",
+      "target_line": 7,
+      "backward": [4, 5, 6, 7],
+      "forward": [7, 9]
+    },
+    {
+      "file": "examples/06_match.mbt",
+      "case": "match",
+      "target_line": 7,
+      "backward": [5, 7],
+      "forward": [7, 10]
+    },
+    {
+      "file": "examples/07_return.mbt",
+      "case": "return",
+      "target_line": 6,
+      "backward": [4, 5, 6],
+      "forward": [6, 7, 8, 10]
+    },
+    {
+      "file": "examples/08_dead_assignment.mbt",
+      "case": "dead assignment",
+      "target_line": 7,
+      "backward": [6, 7],
+      "forward": [7, 8, 9]
+    },
+    {
+      "file": "examples/09_shadowing.mbt",
+      "case": "shadowing",
+      "target_line": 6,
+      "backward": [5, 6],
+      "forward": [6, 7]
+    },
+    {
+      "file": "examples/10_field_write.mbt",
+      "case": "field write",
+      "target_line": 11,
+      "backward": [9, 10, 11],
+      "forward": [11, 12]
+    }
+  ]
+}
