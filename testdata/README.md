@@ -23,7 +23,8 @@ definition is part of its slice. Line lists are unique and ascending; they are
 `examples/` deliberately has no `moon.pkg`: the directory is data for the
 test corpus, not a package, so `moon check` and `moon test` never try to build
 it. All files are nevertheless valid MoonBit — they were type-checked with the
-real compiler (0 errors, unused-value warnings only).
+real compiler (0 errors; 12 `unused_value` warnings and one `missing_priv`
+warning, both inherent to standalone snippets).
 
 `expected.json` is the same table in machine-readable form, for the wave-2
 end-to-end test.
@@ -59,7 +60,7 @@ the implementation must reproduce:
   backward slice of 7, because 8's value reaches the next iteration of 7, and
   7 itself is a reaching definition of `total` on the back edge.
 - **Forward stops at the last use.** `03` forward is `[6, 10]`, not every later
-  line: 8 is a sibling branch and is not affected by 7's write.
+  line: 8 is a sibling branch and is not affected by 6's write.
 - **Shadowing is scope-sensitive.** `09` backward excludes 4; a name-based
   (scope-insensitive) def-use would wrongly include it.
 - **Fields alias conservatively.** `10` treats `p.left` and `p.right` as

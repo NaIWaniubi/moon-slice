@@ -71,7 +71,24 @@ const root = process.argv[2];
 const data = JSON.parse(fs.readFileSync(path.join(root, "testdata/expected.json"), "utf8"));
 let bad = 0;
 const seen = new Set();
+const diskFiles = fs.readdirSync(path.join(root, "examples")).filter((f) => f.endsWith(".mbt")).map((f) => `examples/${f}`).sort();
+const jsonFiles = data.examples.map((e) => e.file).sort();
+if (jsonFiles.length !== diskFiles.length) {
+  console.error(`FAIL expected.json lists ${jsonFiles.length} examples, examples/ has ${diskFiles.length}`);
+  bad++;
+}
+if (new Set(jsonFiles).size !== jsonFiles.length) {
+  console.error("FAIL expected.json contains duplicate example entries");
+  bad++;
+}
+for (let i = 0; i < Math.max(jsonFiles.length, diskFiles.length); i++) {
+  if (jsonFiles[i] !== diskFiles[i]) {
+    console.error(`FAIL expected.json/disk mismatch at index ${i}: ${jsonFiles[i]} vs ${diskFiles[i]}`);
+    bad++;
+  }
+}
 for (const ex of data.examples) {
+  if (seen.has(ex.file)) { console.error(`FAIL duplicate JSON entry ${ex.file}`); bad++; }
   seen.add(ex.file);
   const file = path.join(root, ex.file);
   if (!fs.existsSync(file)) { console.error(`FAIL ${ex.file}: missing`); bad++; continue; }

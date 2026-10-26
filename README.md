@@ -152,9 +152,9 @@ may report a larger slice than a precise analysis would:
   structured subset above, but it does not model irreducible control flow, and
   `return`/`break`/`continue` are handled conservatively (treated as depending
   on every enclosing controller).
-- **No inter-procedural `dead` precision.** Unreachable code after an
-  unconditional `return` is flagged, but a store that is dead only because a
-  callee never reads it is not.
+- **No inter-procedural `dead` precision (wave 2).** The `dead` command will
+  flag unreachable code after an unconditional `return`; a store that is dead
+  only because a callee never reads it will not be flagged.
 - **No points-to, no reflection, no macro expansion.** Dynamic dispatch and
   metaprogramming are opaque; the conservative "all identifiers are uses" rule
   applies.
@@ -199,9 +199,10 @@ the real compiler.
 
 ## Verifying the corpus
 
-The headers, the table in `testdata/README.md`, and `testdata/expected.json`
-must agree, and every mutation described above must stay consistent. One script
-checks all of it:
+The headers and `testdata/expected.json` must agree, and every mutation
+described above must stay consistent. The table in `testdata/README.md` is the
+human-readable version; the script does not parse that Markdown table, so keep
+the table and JSON in sync by review. One script checks the headers and JSON:
 
 ```bash
 bash testdata/verify_corpus.sh
