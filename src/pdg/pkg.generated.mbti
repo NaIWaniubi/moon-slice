@@ -1,0 +1,17 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/pdg"
+
+import {
+  "chen/moon-slice/src/core",
+}
+
+// Values
+pub fn build(@core.DefUse, @core.Cdg) -> @core.Pdg
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
