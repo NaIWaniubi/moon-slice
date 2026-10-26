@@ -1,0 +1,5 @@
+import {
+  "chen/moon-slice/src/core" @core,
+  "moonbitlang/parser" @parser,
+  "moonbitlang/parser/syntax" @syntax,
+}
