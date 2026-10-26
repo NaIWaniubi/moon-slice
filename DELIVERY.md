@@ -54,7 +54,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] 190 tests, including 10 end-to-end corpus tests and path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
-- [x] library line coverage 88.5% (see COVERAGE.md; legacy reporter)
+- [x] library line coverage 88.8% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`
