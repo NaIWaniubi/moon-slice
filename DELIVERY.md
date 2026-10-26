@@ -1,6 +1,7 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-26. Repository: `moon-slice` (local; push to `cs6210501-lab/moon-slice`).
+Date: 2026-10-27. Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
 
@@ -63,6 +64,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `cs6210501-lab/moon-s
 - [x] deterministic fuzz-style invariant tests
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
-- [ ] push to GitHub and replace `cs6210501-lab` in `PROPOSAL.md`
-- [ ] fill author/repo in `PROPOSAL.md`
+- [x] push to GitHub: public repo `cs6210501-lab/moon-slice`, branch `master`
+- [x] GitHub Actions CI and Pages workflows added; Pages enabled for `web/`
+- [ ] fill author / team / contact in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59

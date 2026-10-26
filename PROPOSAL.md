@@ -1,6 +1,7 @@
 # moon-slice — 项目申报书（一页）
 
-> 提交前把 `cs6210501-lab`、`cs6210501-lab`、仓库链接替换成真实值；正文由本人撰写/核对，不使用 AI 代写。
+> 仓库：https://github.com/cs6210501-lab/moon-slice ｜ 在线演示：https://cs6210501-lab.github.io/moon-slice/
+> 作者、团队、联系方式按实际信息填写后提交。
 
 ## 1. 项目名称
 

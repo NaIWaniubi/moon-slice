@@ -1,5 +1,8 @@
 # moon-slice
 
+[![CI](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml)
+[![Pages](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml)
+
 A program-slicing workbench for MoonBit. Point it at a `.mbt` source file and a
 target line; get back the **backward slice** (which statements may have produced
 the value at that line) and the **forward slice** (which statements that value
@@ -13,7 +16,7 @@ narrowing down a diff during review.
 
 [Open the generated report](docs/report.html) (self-contained HTML; no toolchain needed).
 
-[Open the browser playground](web/index.html) — edit the source, choose a line and direction, and render the report live.
+[Open the browser playground](https://cs6210501-lab.github.io/moon-slice/) — edit the source, choose a line and direction, and render the report live. The same page is in `web/index.html`.
 
 The HTML report renders the PDG as an inline SVG, highlights the slice in the
 source, and stays self-contained (no network, no CDN).
@@ -233,8 +236,8 @@ direction, and the report renders in the iframe. The prebuilt engine is
 
 ![moon-slice playground](docs/playground.png)
 
-If GitHub Pages is enabled, `.github/workflows/pages.yml` publishes `web/` as a
-static site; the URL is `https://cs6210501-lab.github.io/moon-slice/`.
+`.github/workflows/pages.yml` publishes `web/` to GitHub Pages on every push to
+`master`: https://cs6210501-lab.github.io/moon-slice/
 
 ## Data-flow paths
 
