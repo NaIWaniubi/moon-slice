@@ -1,0 +1,7 @@
+import {
+  "chen/moon-slice/src/core" @core,
+}
+
+import {
+  "chen/moon-slice/src/parser_adapter" @parser_adapter,
+} for "test"

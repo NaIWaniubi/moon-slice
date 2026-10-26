@@ -1,0 +1,17 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/defuse"
+
+import {
+  "chen/moon-slice/src/core",
+}
+
+// Values
+pub fn analyze(@core.Program, @core.Cfg) -> @core.DefUse
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
