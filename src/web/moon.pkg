@@ -1,0 +1,16 @@
+import {
+  "chen/moon-slice/src/core",
+  "chen/moon-slice/src/parser_adapter",
+  "chen/moon-slice/src/cfg",
+  "chen/moon-slice/src/defuse",
+  "chen/moon-slice/src/cdg",
+  "chen/moon-slice/src/pdg",
+  "chen/moon-slice/src/slice",
+  "chen/moon-slice/src/query",
+  "chen/moon-slice/src/report",
+  "moonbitlang/core/string",
+}
+
+supported_targets = "+js"
+
+pkgtype(kind: "executable")

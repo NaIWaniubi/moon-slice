@@ -47,6 +47,7 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 测试：188 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 工程化：GitHub Actions CI、500 语句输入的性能冒烟、零网络依赖报告。
+- 浏览器 playground：同一 MoonBit 管线编译到 JavaScript，单页编辑/选行/切片，开箱即用。
 
 ## 6. 原创 / 移植说明
 

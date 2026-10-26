@@ -20,6 +20,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 | `./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt` | `twice -> inc`, `main_fn -> twice` |
 | `./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural` | `2,6,7,8,12` |
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
+| `node web/smoke.mjs` | `web smoke ok: 6217 bytes` (JS engine, full HTML report) |
 | `node bench/gen.mjs 500 /tmp/big.mbt && time ./dev.sh run cmd/main -- slice --file /tmp/big.mbt --line 502 --direction backward` | 1.58 s wall, 500-statement function |
 
 ## Integration bugs found and fixed
@@ -53,6 +54,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] zero compiler warnings
 - [x] library line coverage 88.5% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
+- [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] data-flow path query (`path --from A --to B`)
 - [x] conservative inter-procedural expansion (`--interprocedural`)
 - [x] deterministic fuzz-style invariant tests

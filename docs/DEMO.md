@@ -88,14 +88,20 @@ Open `report.html`. It contains:
 
 The rendered page is `docs/report.png`.
 
-## 8. JSON
+## 8. Browser playground
+
+Open `web/index.html` directly. It renders the live report in an iframe; the
+engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
+`node web/smoke.mjs`.
+
+## 9. JSON
 
 ```bash
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
 # {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ```
 
-## 9. Full verification
+## 10. Full verification
 
 ```bash
 ./dev.sh check

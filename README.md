@@ -13,6 +13,8 @@ narrowing down a diff during review.
 
 [Open the generated report](docs/report.html) (self-contained HTML; no toolchain needed).
 
+[Open the browser playground](web/index.html) — edit the source, choose a line and direction, and render the report live.
+
 The HTML report renders the PDG as an inline SVG, highlights the slice in the
 source, and stays self-contained (no network, no CDN).
 
@@ -33,6 +35,7 @@ All layers are implemented and covered by `moon test` (188 tests, including a
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
 | Report | `src/report` | implemented — JSON, DOT, inline SVG, HTML |
 | CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead`, `path`, `html`, debug dumps |
+| Browser playground | `src/web`, `web/` | implemented — JS build + single page |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
 ## Quickstart
@@ -218,6 +221,15 @@ SVG layered in source order (solid = data, dashed = control; orange = target,
 green = slice), followed by highlighted source, metrics, parse errors, and the
 DOT fallback. The page has no network dependency. See `docs/report.png` for a
 rendered example.
+
+## Browser playground
+
+The same MoonBit pipeline compiles to JavaScript (`moon build --target js src/web`).
+`web/index.html` is a no-server playground: edit source, choose a line and
+direction, and the report renders in the iframe. The prebuilt engine is
+`web/moon-slice.js`; `web/build.sh` rebuilds it and `web/smoke.mjs` asserts it.
+
+![moon-slice playground](docs/playground.png)
 
 ## Data-flow paths
 
