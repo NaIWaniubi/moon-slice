@@ -10,7 +10,7 @@ let add_source : String = "fn add(a : Int, b : Int) -> Int {\n  let s = a + b\n 
 
 ///|
 fn loc(line : Int32) -> @core.Loc {
-  { start_line: line, start_col: 0, end_line: line, end_col: 0 }
+  { start_line: line, start_col: 0, end_line: line, end_col: 0, }
 }
 
 ///|

@@ -49,12 +49,12 @@ pub fn build(defuse : @core.DefUse, cdg : @core.Cdg) -> @core.Pdg {
   let collected : Array[@core.PdgEdge] = []
   for (def_id, use_id) in defuse.reaching {
     if def_id != use_id {
-      collected.push({ from: def_id, to: use_id, kind: @core.Data })
+      collected.push({ from: def_id, to: use_id, kind: @core.Data, })
     }
   }
   for (controller, controlled) in cdg.edges {
     if controller != controlled {
-      collected.push({ from: controller, to: controlled, kind: @core.Control })
+      collected.push({ from: controller, to: controlled, kind: @core.Control, })
     }
   }
   let seen : Set[(Int32, Int32, Int32)] = Set([])

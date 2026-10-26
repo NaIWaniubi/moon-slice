@@ -37,9 +37,7 @@ test "a statement list keeps declaration order" {
   assert_eq(program.errors.length(), 0)
   // Scopes increase monotonically in source order.
   let scopes : Array[Int32] = []
-  program.nodes.each(fn(node) {
-    node.defs.each(fn(d) { scopes.push(d.scope) })
-  })
+  program.nodes.each(fn(node) { node.defs.each(fn(d) { scopes.push(d.scope) }) })
   let mut i = 0
   while i + 1 < scopes.length() {
     assert_true(scopes[i] < scopes[i + 1])

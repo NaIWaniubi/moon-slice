@@ -1,6 +1,6 @@
 ///|
 fn loc(line : Int32) -> @core.Loc {
-  { start_line: line, start_col: 1, end_line: line, end_col: 8 }
+  { start_line: line, start_col: 1, end_line: line, end_col: 8, }
 }
 
 ///|
@@ -11,17 +11,17 @@ fn node(
   children~ : Array[Int32] = [],
   parent~ : Int32? = None,
 ) -> @core.SNode {
-  { id, kind, loc: loc(line), defs: [], uses: [], children, parent }
+  { id, kind, loc: loc(line), defs: [], uses: [], children, parent, }
 }
 
 ///|
 fn program(nodes : Array[@core.SNode]) -> @core.Program {
-  { nodes, functions: [], errors: [] }
+  { nodes, functions: [], errors: [], }
 }
 
 ///|
 fn cfg(edges : Array[(Int32, Int32)], entry : Int32, exit : Int32) -> @core.Cfg {
-  { edges, entry, exit }
+  { edges, entry, exit, }
 }
 
 ///|
@@ -49,7 +49,10 @@ test "if controls both branches and nested statements" {
     node(4, @core.Assign, 5, parent=Some(0)),
     node(5, @core.Assign, 6),
   ])
-  let result = @cdg.build(prog, cfg([(0, 1), (0, 4), (1, 2), (2, 3), (2, 5)], 0, 5))
+  let result = @cdg.build(
+    prog,
+    cfg([(0, 1), (0, 4), (1, 2), (2, 3), (2, 5)], 0, 5),
+  )
   assert_eq(result.edges, [(0, 1), (0, 2), (0, 3), (0, 4), (2, 3)])
 }
 
@@ -136,7 +139,10 @@ test "continue inside if is bounded by the enclosing loop" {
     node(2, @core.Continue, 3, parent=Some(1)),
     node(3, @core.Assign, 4, parent=Some(0)),
   ])
-  let result = @cdg.build(prog, cfg([(0, 1), (1, 2), (1, 3), (2, 0), (3, 0)], 0, 0))
+  let result = @cdg.build(
+    prog,
+    cfg([(0, 1), (1, 2), (1, 3), (2, 0), (3, 0)], 0, 0),
+  )
   assert_eq(result.edges, [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3)])
 }
 
@@ -176,7 +182,7 @@ test "a return nested in a loop reaches past the loop via the return edge" {
 }
 
 ///|
-test "break alone in a loop does not create an escape edge" {  // A loop naturally ends, so the statement after it is not control dependent
+test "break alone in a loop does not create an escape edge" { // A loop naturally ends, so the statement after it is not control dependent
   // on the loop condition.
   let prog = program([
     node(0, @core.While, 1, children=[1], parent=None),
@@ -255,15 +261,20 @@ test "a loop containing an if with a return controls code after the loop" {
   // iteration can return and skip the exit. The if controls its return, the
   // body statement it skips, and node 4. Node 0 is an ancestor of the if, so it
   // is never marked controlled by it.
-  assert_eq(
-    result.edges,
-    [(0, 1), (0, 2), (0, 3), (0, 4), (1, 2), (1, 3), (1, 4)],
-  )
+  assert_eq(result.edges, [
+    (0, 1),
+    (0, 2),
+    (0, 3),
+    (0, 4),
+    (1, 2),
+    (1, 3),
+    (1, 4),
+  ])
 }
 
 ///|
 test "empty program yields an empty cdg" {
-  let prog : @core.Program = { nodes: [], functions: [], errors: [] }
+  let prog : @core.Program = { nodes: [], functions: [], errors: [], }
   let result = @cdg.build(prog, cfg([], 0, 0))
   assert_eq(result.edges, [])
 }

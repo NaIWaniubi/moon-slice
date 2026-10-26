@@ -66,10 +66,7 @@ fn index_program(program : @core.Program) -> Index {
       Some(p) =>
         match children.get(p) {
           None => children.set(p, [node.id])
-          Some(kids) =>
-            if !kids.contains(node.id) {
-              kids.push(node.id)
-            }
+          Some(kids) => if !kids.contains(node.id) { kids.push(node.id) }
         }
     }
   }

@@ -11,27 +11,22 @@ narrowing down a diff during review.
 
 ## Status
 
-The data model is frozen; the analysis passes are being built in parallel
-missions and the CLI is wave 2. What is in the tree **today** is only
-`src/core` (types) and `src/smoke` (a parser smoke test) — the rest of the table
-is the target layout, not shipped code.
+All layers are implemented and covered by `moon test` (170 tests, including a
+10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
 | --- | --- | --- |
-| Data model | `src/core` | **frozen**, present — types only, no logic |
-| Parser adapter | `src/parser_adapter` | planned (mission 1) — not in this tree |
-| CFG | `src/cfg` | planned (mission 1) — not in this tree |
-| Def-use | `src/defuse` | planned (mission 1) — not in this tree |
-| CDG | `src/cdg` | planned (mission 2) — not in this tree |
-| PDG | `src/pdg` | planned (mission 2) — not in this tree |
-| Slicing | `src/slice` | planned (mission 2) — not in this tree |
-| Report (JSON/DOT) | `src/report` | wave 2 — not implemented |
-| CLI (`slice`, `graph`, `dead`, `html`) | `cmd/main` | wave 2 — `cmd/main` currently only prints a placeholder |
-| Example corpus | `examples/`, `testdata/` | **available now** |
-
-The CLI does not exist yet. Until it lands, use the library API shown below.
-The example corpus and its expected results *are* complete and validated, so
-they can be used as the specification while the passes are written.
+| Data model | `src/core` | frozen — types only |
+| Parser adapter | `src/parser_adapter` | implemented — MoonBit AST → `SNode` |
+| CFG | `src/cfg` | implemented — sequence, branch, loop, jump edges |
+| Def-use | `src/defuse` | implemented — reaching definitions |
+| CDG | `src/cdg` | implemented — structured control dependence |
+| PDG | `src/pdg` | implemented — data + control edges |
+| Slicing | `src/slice` | implemented — backward/forward BFS |
+| Query helpers | `src/query` | implemented — line → node, dead definitions |
+| Report | `src/report` | implemented — JSON, DOT, HTML |
+| CLI | `cmd/main` | implemented — `slice`, `graph`, `dead`, `html`, debug dumps |
+| Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
 ## Quickstart
 
@@ -42,21 +37,22 @@ Everything goes through the wrapper, which puts the MoonBit toolchain on `PATH`:
 ./dev.sh test       # run the test suite
 ```
 
-Run the CLI with `./dev.sh run cmd/main -- ...`. Once wave 2 lands, the commands
-will be:
+Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
+# 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
+# 7,10
+./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
+# {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ./dev.sh run cmd/main -- graph --file examples/04_while.mbt --format dot
 ./dev.sh run cmd/main -- dead  --file examples/08_dead_assignment.mbt
+# 4,5
 ./dev.sh run cmd/main -- html  --file examples/04_while.mbt --line 7 --out report.html
 ```
 
-Today those arguments are parsed by nothing: `cmd/main` ignores them and prints
-`Hello`. Once the wave-1 packages land, the pipeline is driven from MoonBit code
-like this (this snippet is the target API from `CONTRACT.md`, not code that
-compiles in this tree yet):
+The same pipeline from MoonBit code:
 
 ```moonbit
 let program = @parser_adapter.parse_source(source, "examples/04_while.mbt")
@@ -64,8 +60,9 @@ let cfg     = @cfg.build(program)
 let defuse  = @defuse.analyze(program, cfg)
 let cdg     = @cdg.build(program, cfg)
 let pdg     = @pdg.build(defuse, cdg)
-let result  = @slice.backward(pdg, target_node_id)
-println(result.lines) // e.g. [4, 5, 6, 7, 8]
+let node    = @query.target_node(program, 7).unwrap()
+let result  = @slice.backward(pdg, node, program=program)
+println(result.lines) // [4, 5, 6, 7, 8]
 ```
 
 ## Architecture
@@ -152,9 +149,9 @@ may report a larger slice than a precise analysis would:
   structured subset above, but it does not model irreducible control flow, and
   `return`/`break`/`continue` are handled conservatively (treated as depending
   on every enclosing controller).
-- **No inter-procedural `dead` precision (wave 2).** The `dead` command will
-  flag unreachable code after an unconditional `return`; a store that is dead
-  only because a callee never reads it will not be flagged.
+- **`dead` is definition-based.** It reports definitions with no reaching use.
+  It does not infer unreachable code after an unconditional `return`; a store
+  that is dead only because a callee never reads it is not flagged either.
 - **No points-to, no reflection, no macro expansion.** Dynamic dispatch and
   metaprogramming are opaque; the conservative "all identifiers are uses" rule
   applies.

@@ -1,8 +1,8 @@
 import {
-  "chen/moon-slice/src/core" @core,
+  "chen/moon-slice/src/core",
 }
 
 import {
-  "chen/moon-slice/src/cdg" @cdg,
-  "chen/moon-slice/src/pdg" @pdg,
+  "chen/moon-slice/src/cdg",
+  "chen/moon-slice/src/pdg",
 } for "test"

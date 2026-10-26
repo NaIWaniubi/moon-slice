@@ -42,7 +42,7 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   let node_count = program.nodes.length()
   if node_count == 0 {
     let none : Array[(Int32, Int32)] = []
-    return @core.DefUse::{ reaching: none }
+    return @core.DefUse::{ reaching: none, }
   }
   // Reaching definitions arrive at each node as a set of (var, def-node) pairs.
   // Stored per node as a flat pair array; the CFG is small enough that the
@@ -57,17 +57,15 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   }
   let preds = predecessors(cfg, node_count)
   let work : Array[Int32] = []
-  // Seed with every node that has no predecessor plus every CFG entry, so a
-  // CFG whose nodes are all in a cycle still converges.
+  // Seed every node, not only the roots. A root with an empty out-state (for
+  // example a parameterless entry) never changes, so a work-list that only
+  // enqueues successors on change would never visit the rest of a straight-line
+  // CFG. Processing every node once is cheap and makes convergence independent
+  // of which node happens to carry the first definition.
   let mut n = 0
   while n < node_count {
-    if preds[n].length() == 0 {
-      work.push(n)
-    }
+    work.push(n)
     n = n + 1
-  }
-  if !contains_int(work, cfg.entry) {
-    work.push(cfg.entry)
   }
   let mut rounds = 0
   let limit = 8 * node_count + 64
@@ -109,7 +107,7 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
       a.1.compare(b.1)
     }
   })
-  @core.DefUse::{ reaching }
+  @core.DefUse::{ reaching, }
 }
 
 ///|
@@ -120,7 +118,7 @@ fn collect_facts(program : @core.Program) -> Facts {
     node.defs.each(fn(var_) { defs.push((node.id, var_)) })
     node.uses.each(fn(var_) { uses.push((node.id, var_)) })
   })
-  { defs, uses }
+  { defs, uses, }
 }
 
 ///|
@@ -133,21 +131,13 @@ fn transfer(
 ) -> Array[(Int32, @core.VarId)] {
   let out : Array[(Int32, @core.VarId)] = []
   let defined : Array[@core.VarId] = []
-  facts.defs.each(fn(pair) {
-    if pair.0 == node {
-      defined.push(pair.1)
-    }
-  })
+  facts.defs.each(fn(pair) { if pair.0 == node { defined.push(pair.1) } })
   incoming.each(fn(pair) {
     if !array_has_var(defined, pair.1) {
       push_unique_pair(out, pair)
     }
   })
-  facts.defs.each(fn(pair) {
-    if pair.0 == node {
-      push_unique_pair(out, pair)
-    }
-  })
+  facts.defs.each(fn(pair) { if pair.0 == node { push_unique_pair(out, pair) } })
   out
 }
 
@@ -164,7 +154,7 @@ fn join_predecessor_out(
 }
 
 ///|
-fn predecessors(cfg : @core.Cfg, node_count : Int) -> Array[Array[Int32]] {
+fn predecessors(cfg : @core.Cfg, node_count : Int32) -> Array[Array[Int32]] {
   let preds : Array[Array[Int32]] = []
   let mut i = 0
   while i < node_count {
@@ -188,7 +178,7 @@ fn predecessors(cfg : @core.Cfg, node_count : Int) -> Array[Array[Int32]] {
 fn successors(
   cfg : @core.Cfg,
   node : Int32,
-  node_count : Int,
+  node_count : Int32,
 ) -> Array[Int32] {
   let out : Array[Int32] = []
   cfg.edges.each(fn(edge) {
@@ -247,7 +237,11 @@ fn push_unique_pair(
 }
 
 ///|
-fn add_pair_unique(items : Array[(Int32, Int32)], from : Int32, to : Int32) -> Unit {
+fn add_pair_unique(
+  items : Array[(Int32, Int32)],
+  from : Int32,
+  to : Int32,
+) -> Unit {
   let mut i = 0
   let mut found = false
   while i < items.length() {

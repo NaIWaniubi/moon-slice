@@ -58,7 +58,7 @@ priv struct Builder {
 /// yield one connected component per function; use `Program.functions` for the
 /// per-function boundaries.
 pub fn build(program : @core.Program) -> @core.Cfg {
-  let builder : Builder = { nodes: program.nodes, edges: [], exit_slot: [0] }
+  let builder : Builder = { nodes: program.nodes, edges: [], exit_slot: [0], }
   program.functions.each(fn(function) {
     builder.exit_slot[0] = function.exit
     let top : Array[Int32] = []
@@ -86,7 +86,7 @@ pub fn build(program : @core.Program) -> @core.Cfg {
   } else {
     0
   }
-  @core.Cfg::{ edges: builder.edges, entry, exit }
+  @core.Cfg::{ edges: builder.edges, entry, exit, }
 }
 
 ///|
@@ -147,7 +147,7 @@ fn dispatch(
         add_edge(builder, node.id, next)
       } else {
         let inner = copy_loops(loops)
-        inner.push({ continue_to: node.id, break_to: next })
+        inner.push({ continue_to: node.id, break_to: next, })
         walk_loop_body(builder, node.id, regions[0], inner)
         if regions.length() > 1 {
           walk_branch(builder, node.id, regions[1], next, loops)

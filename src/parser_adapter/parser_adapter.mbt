@@ -48,13 +48,8 @@ priv struct Adapter {
 /// top-level items (`impl` blocks, `let` declarations, type definitions, tests)
 /// are skipped: the analysis is intra-procedural over free functions.
 pub fn parse_source(source : String, name : String) -> @core.Program {
-  let (impls, reports) = @parser.parse_string(source, name=name)
-  let ctx : Adapter = {
-    nodes: [],
-    functions: [],
-    env: [],
-    scope_counter: [1],
-  }
+  let (impls, reports) = @parser.parse_string(source, name~)
+  let ctx : Adapter = { nodes: [], functions: [], env: [], scope_counter: [1], }
   let errors : Array[String] = []
   reports.each(fn(report) {
     let pos = report.loc.start
@@ -96,7 +91,8 @@ fn emit_function(
     Some(params) =>
       params.each(fn(param) {
         match param {
-          Positional(binder~, ..) => param_ids.push(bind_fresh(ctx, binder.name))
+          Positional(binder~, ..) =>
+            param_ids.push(bind_fresh(ctx, binder.name))
           Labelled(binder~, ..) => param_ids.push(bind_fresh(ctx, binder.name))
           Optional(binder~, ..) => param_ids.push(bind_fresh(ctx, binder.name))
           QuestionOptional(binder~, ..) =>
@@ -106,7 +102,14 @@ fn emit_function(
       })
     None => ()
   }
-  let entry = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, param_ids, [], None)
+  let entry = begin_node(
+    ctx,
+    @core.SNodeKind::Expr,
+    fn_loc,
+    param_ids,
+    [],
+    None,
+  )
   emit_expr(ctx, body, None)
   ctx.env.truncate(outer_mark)
   let exit = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, [], [], None)
@@ -127,6 +130,12 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       exprs.each(fn(item) { emit_expr(ctx, item, parent) })
       emit_expr(ctx, last_expr, parent)
     }
+    // A labelled block (and a plain braced arm body) is transparent for
+    // statement lowering: the label is not part of the data flow.
+    LabelledBlock(body~, ..) => emit_expr(ctx, body, parent)
+    // `{ ... }` in expression position is a Group node around the inner
+    // expression; the braces are not part of the data flow either.
+    Group(expr~, ..) => emit_expr(ctx, expr, parent)
     // ---- bindings ---------------------------------------------------------
     Let(pattern=pat, expr=rhs, body=rest, ..) => {
       let uses = uses_of(ctx, rhs)
@@ -222,9 +231,9 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       push_unique_vars(node.uses, base_uses)
       append_uses(ctx, value, node.uses)
     }
-    ArraySet(array=base, index=idx, value=value, ..) =>
+    ArraySet(array=base, index=idx, value~, ..) =>
       emit_element_write(ctx, whole, base, idx, value, parent)
-    ArrayAugmentedSet(array=base, index=idx, value=value, ..) =>
+    ArrayAugmentedSet(array=base, index=idx, value~, ..) =>
       emit_element_write(ctx, whole, base, idx, value, parent)
     // ---- field / element reads -------------------------------------------
     // A read through a projection is a plain `Expr` node whose uses cover the
@@ -394,9 +403,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       continue_block.each(fn(pair) { append_uses(ctx, pair.1, uses) })
       let head = begin_node(ctx, @core.SNodeKind::For, loc, [], uses, parent)
       let mark = ctx.env.length()
-      binders.each(fn(pair) {
-        head.defs.push(bind_fresh(ctx, pair.0.name))
-      })
+      binders.each(fn(pair) { head.defs.push(bind_fresh(ctx, pair.0.name)) })
       let region = begin_region(ctx, head, @core.SNodeKind::For)
       emit_into_region(ctx, region, loop_body)
       continue_block.each(fn(pair) { append_uses(ctx, pair.1, region.uses) })
@@ -425,9 +432,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       let pattern_exprs : Array[@syntax.Expr] = []
       patterns.each(fn(pat) { collect_pattern(pat, bound, pattern_exprs) })
       pattern_exprs.each(fn(item) { append_uses(ctx, item, head.uses) })
-      bound.each(fn(bound_name) {
-        head.defs.push(bind_fresh(ctx, bound_name))
-      })
+      bound.each(fn(bound_name) { head.defs.push(bind_fresh(ctx, bound_name)) })
       let region = begin_region(ctx, head, @core.SNodeKind::For)
       emit_into_region(ctx, region, loop_body)
       continue_block.each(fn(pair) { append_uses(ctx, pair.1, region.uses) })
@@ -613,7 +618,7 @@ fn begin_node(
 fn bind_fresh(ctx : Adapter, name : String) -> @core.VarId {
   let scope = ctx.scope_counter[0]
   ctx.scope_counter[0] = scope + 1
-  let id : @core.VarId = { name, scope }
+  let id : @core.VarId = { name, scope, }
   ctx.env.push((name, id))
   id
 }
@@ -632,7 +637,7 @@ fn resolve_name(ctx : Adapter, name : String) -> @core.VarId {
     }
     i = i - 1
   }
-  { name, scope: -1 }
+  { name, scope: -1, }
 }
 
 ///|
@@ -711,7 +716,7 @@ impl @syntax.IterVisitor for IdCollector with fn visit_Expr_Ident(
 
 ///|
 fn identifier_names(expr : @syntax.Expr) -> Array[String] {
-  let collector : IdCollector = { names: [] }
+  let collector : IdCollector = { names: [], }
   @syntax.IterVisitor::visit_Expr(collector, expr)
   collector.names
 }
@@ -815,4 +820,3 @@ fn loc_from_to(head : @syntax.Expr, tail : @syntax.Expr) -> @core.Loc {
     end_col: stop.column(),
   }
 }
-

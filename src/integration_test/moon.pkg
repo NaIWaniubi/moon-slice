@@ -1,0 +1,13 @@
+import {
+  "chen/moon-slice/src/parser_adapter",
+  "chen/moon-slice/src/cfg",
+  "chen/moon-slice/src/defuse",
+  "chen/moon-slice/src/cdg",
+  "chen/moon-slice/src/pdg",
+  "chen/moon-slice/src/slice",
+  "chen/moon-slice/src/query",
+}
+
+import {
+  "moonbitlang/x/fs",
+} for "test"

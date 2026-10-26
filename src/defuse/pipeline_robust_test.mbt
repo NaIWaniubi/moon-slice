@@ -70,28 +70,27 @@ test "unsupported expression forms do not crash the pipeline" {
     // try / catch
     "fn f(a : Int) -> Int {\n  try { a } catch {\n    _ => 0\n  }\n}\n",
     // labelled block
-    "fn f(a : Int) -> Int {\n  lbl~: { a }\n}\n",
+     "fn f(a : Int) -> Int {\n  lbl~: { a }\n}\n",
     // record construction and update
-    "fn f(a : Int) -> R {\n  { x: a, y: 1 }\n}\n",
-    "fn f(r : R, a : Int) -> R {\n  { ..r, x: a }\n}\n",
+     "fn f(a : Int) -> R {\n  { x: a, y: 1 }\n}\n", "fn f(r : R, a : Int) -> R {\n  { ..r, x: a }\n}\n",
     // pipe and reverse pipe
-    "fn f(a : Int) -> Int {\n  a |> g\n}\n",
+     "fn f(a : Int) -> Int {\n  a |> g\n}\n",
     // tuple
-    "fn f(a : Int, b : Int) -> (Int, Int) {\n  (a, b)\n}\n",
+     "fn f(a : Int, b : Int) -> (Int, Int) {\n  (a, b)\n}\n",
     // array literal and spread
-    "fn f(a : Int) -> Array[Int] {\n  [a, 1, 2]\n}\n",
+     "fn f(a : Int) -> Array[Int] {\n  [a, 1, 2]\n}\n",
     // list comprehension
-    "fn f(xs : Array[Int]) -> Array[Int] {\n  [for x in xs => x]\n}\n",
+     "fn f(xs : Array[Int]) -> Array[Int] {\n  [for x in xs => x]\n}\n",
     // interpolated string
-    "fn f(a : Int) -> String {\n  \"v=\\{a}\"\n}\n",
+     "fn f(a : Int) -> String {\n  \"v=\\{a}\"\n}\n",
     // lambda in expression position
-    "fn f(a : Int) -> (Int) -> Int {\n  fn(y) { y + a }\n}\n",
+     "fn f(a : Int) -> (Int) -> Int {\n  fn(y) { y + a }\n}\n",
     // as-cast and constraint
-    "fn f(a : Int) -> Int {\n  (a : Int)\n}\n",
+     "fn f(a : Int) -> Int {\n  (a : Int)\n}\n",
     // defer
-    "fn f(a : Int) -> Int {\n  defer { g(a) }\n  a\n}\n",
+     "fn f(a : Int) -> Int {\n  defer { g(a) }\n  a\n}\n",
     // raise
-    "fn f(a : Int) -> Int raise {\n  if a > 0 { raise E }\n  a\n}\n",
+     "fn f(a : Int) -> Int raise {\n  if a > 0 { raise E }\n  a\n}\n",
   ]
   sources.each(fn(source) {
     let (program, cfg, defuse) = run_pipeline(source)
@@ -102,12 +101,7 @@ test "unsupported expression forms do not crash the pipeline" {
 ///|
 test "malformed source reports errors without crashing" {
   let sources : Array[String] = [
-    "fn f( {\n",
-    "fn f() -> { }\n",
-    "let = 1\n",
-    "fn f() { if }\n",
-    "fn\n",
-    "@#$%^&\n",
+    "fn f( {\n", "fn f() -> { }\n", "let = 1\n", "fn f() { if }\n", "fn\n", "@#$%^&\n",
     "fn f() -> Int { 1 } extra_tokens_here\n",
   ]
   sources.each(fn(source) {
@@ -183,7 +177,9 @@ test "unicode identifiers survive lowering" {
 
 ///|
 test "empty and whitespace-only sources yield an empty program" {
-  let sources : Array[String] = ["", "   \n\t\n  ", "\n\n\n", "// just a comment\n"]
+  let sources : Array[String] = [
+    "", "   \n\t\n  ", "\n\n\n", "// just a comment\n",
+  ]
   sources.each(fn(source) {
     let program = @parser_adapter.parse_source(source, "blank.mbt")
     assert_eq(program.nodes.length(), 0)

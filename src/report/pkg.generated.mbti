@@ -1,0 +1,21 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/report"
+
+import {
+  "chen/moon-slice/src/core",
+}
+
+// Values
+pub fn to_dot(@core.Pdg) -> String
+
+pub fn to_html(String, @core.Program, @core.SliceResult, Int32, String) -> String
+
+pub fn to_json(@core.Program, @core.SliceResult) -> String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

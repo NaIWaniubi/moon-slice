@@ -220,10 +220,16 @@ test "a use with two reaching definitions yields two pairs" {
   let source = "fn f(c : Bool) -> Int {\n  let mut x = 0\n  if c {\n    x = 1\n  } else {\n    x = 2\n  }\n  x\n}\n"
   let pairs = edges_of(source)
   let mut count = 0
-  pairs.each(fn(pair) {
-    if pair.1 == 7 {
-      count = count + 1
-    }
-  })
+  pairs.each(fn(pair) { if pair.1 == 7 { count = count + 1 } })
   assert_eq(count, 2)
+}
+
+///|
+test "parameterless straight-line chain propagates definitions" {
+  // 0 entry, 1 letmut x, 2 assign, 3 assign, 4 use x, 5 exit
+  let source = "fn f() -> Int {\n  let mut x = 1\n  x = 2\n  x = 3\n  x\n}\n"
+  let pairs = edges_of(source)
+  assert_true(has(pairs, 3, 4))
+  assert_true(!has(pairs, 1, 4))
+  assert_true(!has(pairs, 2, 4))
 }

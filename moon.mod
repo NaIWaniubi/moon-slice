@@ -27,4 +27,5 @@ description = ""
 
 import {
   "moonbitlang/parser@0.4.6",
+  "moonbitlang/x@0.5.1",
 }

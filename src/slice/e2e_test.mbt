@@ -4,12 +4,12 @@
 
 ///|
 fn e2e_loc(start_line : Int32, start_col : Int32) -> @core.Loc {
-  { start_line, start_col, end_line: start_line, end_col: start_col + 1 }
+  { start_line, start_col, end_line: start_line, end_col: start_col + 1, }
 }
 
 ///|
 fn e2e_var(name : String) -> @core.VarId {
-  { name, scope: 0 }
+  { name, scope: 0, }
 }
 
 ///|
@@ -23,7 +23,15 @@ fn e2e_node(
   children : Array[Int32],
   parent : Int32?,
 ) -> @core.SNode {
-  { id, kind, loc: e2e_loc(start_line, start_col), defs, uses, children, parent }
+  {
+    id,
+    kind,
+    loc: e2e_loc(start_line, start_col),
+    defs,
+    uses,
+    children,
+    parent,
+  }
 }
 
 ///|
@@ -64,7 +72,7 @@ test "end to end: cdg -> pdg -> backward and forward slices" {
       e2e_node(5, @core.Assign, 8, 7, [i_var], [i_var], [], Some(3)),
       e2e_node(6, @core.Return, 11, 3, [], [total], [], None),
     ],
-    functions: [{ name: "sum_first", entry: 0, exit: 6 }],
+    functions: [{ name: "sum_first", entry: 0, exit: 6, }],
     errors: [],
   }
   // CFG: straight line, loop back edge, if branches rejoin at the while header.
@@ -123,11 +131,11 @@ test "end to end: a dead assignment stays out of the backward slice" {
       e2e_node(1, @core.Let, 3, 3, [live], [n_var], [], None),
       e2e_node(2, @core.Expr, 4, 3, [], [live], [], None),
     ],
-    functions: [{ name: "f", entry: 0, exit: 2 }],
+    functions: [{ name: "f", entry: 0, exit: 2, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2 }
-  let defuse : @core.DefUse = { reaching: [(1, 2)] }
+  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
+  let defuse : @core.DefUse = { reaching: [(1, 2)], }
   let cdg = @cdg.build(prog, cfg)
   assert_eq(cdg.edges, [])
   let pdg = @pdg.build(defuse, cdg)
@@ -155,7 +163,7 @@ test "end to end: return inside a branch widens the control slice" {
       e2e_node(2, @core.Let, 5, 3, [y_var], [x_var], [], None),
       e2e_node(3, @core.Expr, 6, 3, [], [y_var], [], None),
     ],
-    functions: [{ name: "g", entry: 0, exit: 3 }],
+    functions: [{ name: "g", entry: 0, exit: 3, }],
     errors: [],
   }
   let cfg : @core.Cfg = {
@@ -163,7 +171,7 @@ test "end to end: return inside a branch widens the control slice" {
     entry: 0,
     exit: 3,
   }
-  let defuse : @core.DefUse = { reaching: [(2, 3)] }
+  let defuse : @core.DefUse = { reaching: [(2, 3)], }
   let cdg = @cdg.build(prog, cfg)
   // The if controls its return; the escape rule also marks lines 5 and 6,
   // because reaching them means the branch did not return.

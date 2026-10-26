@@ -40,18 +40,15 @@ test "if/else forks at the head and joins after the branches" {
     "fn f(c : Bool) -> Int {\n  if c {\n    1\n  } else {\n    2\n  }\n}\n",
   )
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2), // head -> then region
-      (1, 4), // head -> else region
-      (2, 3), // then region -> then body
-      (3, 6), // then body -> exit
-      (4, 5), // else region -> else body
-      (5, 6), // else body -> exit
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2), // head -> then region
+    (1, 4), // head -> else region
+    (2, 3), // then region -> then body
+    (3, 6), // then body -> exit
+    (4, 5), // else region -> else body
+    (5, 6), // else body -> exit
+  ])
 }
 
 ///|
@@ -61,32 +58,24 @@ test "if without else forks to the join point directly" {
     "fn f(c : Bool) -> Int {\n  if c {\n    1\n  }\n  0\n}\n",
   )
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2), // head -> then region
-      (1, 4), // head -> after the if (no else branch)
-      (2, 3), // then region -> then body
-      (3, 4), // then body -> after the if
-      (4, 5),
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2), // head -> then region
+    (1, 4), // head -> after the if (no else branch)
+    (2, 3), // then region -> then body
+    (3, 4), // then body -> after the if
+    (4, 5),
+  ])
 }
 
 ///|
 test "empty then branch keeps the join point reachable" {
   //  0 entry, 1 head, 2 region (empty), 3 trailing, 4 exit
-  let program = program_of(
-    "fn f(c : Bool) -> Int {\n  if c {\n  }\n  0\n}\n",
-  )
+  let program = program_of("fn f(c : Bool) -> Int {\n  if c {\n  }\n  0\n}\n")
   let cfg = @cfg.build(program)
   // `if c {}` has no else branch, so the head points at the join point directly
   // as well as into the (empty) then-region.
-  assert_eq(
-    edges_sorted(cfg),
-    [(0, 1), (1, 2), (1, 3), (2, 3), (3, 4)],
-  )
+  assert_eq(edges_sorted(cfg), [(0, 1), (1, 2), (1, 3), (2, 3), (3, 4)])
 }
 
 ///|
@@ -96,18 +85,15 @@ test "while forms a loop with a back edge and an exit edge" {
     "fn f(n : Int) -> Int {\n  let mut i = 0\n  while i < n {\n    i = i + 1\n  }\n  i\n}\n",
   )
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2),
-      (2, 3), // head -> body region
-      (2, 5), // head -> after the loop
-      (3, 4), // body region -> body
-      (4, 2), // back edge
-      (5, 6),
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2),
+    (2, 3), // head -> body region
+    (2, 5), // head -> after the loop
+    (3, 4), // body region -> body
+    (4, 2), // back edge
+    (5, 6),
+  ])
 }
 
 ///|
@@ -133,18 +119,15 @@ test "for loop back edge targets the head" {
     "fn f(xs : Array[Int]) -> Int {\n  let mut t = 0\n  for x in xs {\n    t = t + x\n  }\n  t\n}\n",
   )
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2),
-      (2, 3), // head -> body region
-      (2, 5),
-      (3, 4), // body region -> body
-      (4, 2), // back edge to the for head
-      (5, 6),
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2),
+    (2, 3), // head -> body region
+    (2, 5),
+    (3, 4), // body region -> body
+    (4, 2), // back edge to the for head
+    (5, 6),
+  ])
 }
 
 ///|
@@ -175,21 +158,16 @@ test "return jumps to the function exit" {
   //  0 entry, 1 return, 2 exit
   let program = program_of("fn f(a : Int) -> Int {\n  return a\n}\n")
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2), // return -> exit
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2), // return -> exit
+  ])
 }
 
 ///|
 test "statements after return keep their incoming edge" {
   //  0 entry, 1 return, 2 trailing expression, 3 exit
-  let program = program_of(
-    "fn f(a : Int) -> Int {\n  return a\n  a\n}\n",
-  )
+  let program = program_of("fn f(a : Int) -> Int {\n  return a\n  a\n}\n")
   let cfg = @cfg.build(program)
   assert_true(edges_sorted(cfg).contains((2, 3)))
 }
@@ -201,18 +179,15 @@ test "match forks into one edge per case" {
     "fn f(a : Int) -> Int {\n  match a {\n    0 => 1\n    _ => 2\n  }\n}\n",
   )
   let cfg = @cfg.build(program)
-  assert_eq(
-    edges_sorted(cfg),
-    [
-      (0, 1),
-      (1, 2), // head -> case region
-      (1, 4), // head -> case region
-      (2, 3), // case region -> case body
-      (3, 6), // case body -> join
-      (4, 5), // case region -> case body
-      (5, 6), // case body -> join
-    ],
-  )
+  assert_eq(edges_sorted(cfg), [
+    (0, 1),
+    (1, 2), // head -> case region
+    (1, 4), // head -> case region
+    (2, 3), // case region -> case body
+    (3, 6), // case body -> join
+    (4, 5), // case region -> case body
+    (5, 6), // case body -> join
+  ])
 }
 
 ///|
@@ -248,7 +223,9 @@ test "explicit break outside any loop still produces an edge" {
 
 ///|
 test "edges are deduplicated" {
-  let program = program_of("fn f(c : Bool) -> Int {\n  if c {\n    1\n  } else {\n    2\n  }\n}\n")
+  let program = program_of(
+    "fn f(c : Bool) -> Int {\n  if c {\n    1\n  } else {\n    2\n  }\n}\n",
+  )
   let cfg = @cfg.build(program)
   let sorted = edges_sorted(cfg)
   let mut i = 0

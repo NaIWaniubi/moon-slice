@@ -96,7 +96,7 @@ pub fn lines_of(program : @core.Program, nodes : Array[Int32]) -> Array[Int32] {
 /// ascending, making the result independent of edge order.
 pub fn backward(
   pdg : @core.Pdg,
-  target : Int,
+  target : Int32,
   program? : @core.Program,
 ) -> @core.SliceResult {
   let nodes = reachable(adjacency(pdg, false), target)
@@ -104,7 +104,7 @@ pub fn backward(
     None => []
     Some(prog) => lines_of(prog, nodes)
   }
-  { nodes, lines }
+  { nodes, lines, }
 }
 
 ///|
@@ -116,7 +116,7 @@ pub fn backward(
 /// unique sorted set of `loc.start_line` values.
 pub fn forward(
   pdg : @core.Pdg,
-  target : Int,
+  target : Int32,
   program? : @core.Program,
 ) -> @core.SliceResult {
   let nodes = reachable(adjacency(pdg, true), target)
@@ -124,5 +124,5 @@ pub fn forward(
     None => []
     Some(prog) => lines_of(prog, nodes)
   }
-  { nodes, lines }
+  { nodes, lines, }
 }

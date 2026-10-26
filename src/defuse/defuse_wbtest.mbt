@@ -6,12 +6,12 @@
 
 ///|
 fn empty_loc() -> @core.Loc {
-  { start_line: 0, start_col: 0, end_line: 0, end_col: 0 }
+  { start_line: 0, start_col: 0, end_line: 0, end_col: 0, }
 }
 
 ///|
 fn mkvar(name : String, scope : Int32) -> @core.VarId {
-  { name, scope }
+  { name, scope, }
 }
 
 ///|
@@ -40,18 +40,18 @@ test "a hand-built chain produces one edge per step" {
       node(1, [], [mkvar("x", 1)]),
       node(2, [mkvar("y", 2)], []),
     ],
-    functions: [{ name: "f", entry: 0, exit: 2 }],
+    functions: [{ name: "f", entry: 0, exit: 2, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2 }
+  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(0, 1)])
 }
 
 ///|
 test "an empty program yields no reaching definitions" {
-  let program : @core.Program = { nodes: [], functions: [], errors: [] }
-  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0 }
+  let program : @core.Program = { nodes: [], functions: [], errors: [], }
+  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching.length(), 0)
 }
@@ -61,10 +61,10 @@ test "an isolated node with no predecessors still reads its own definition" {
   // Node 0 defines and uses the same var, with no CFG edges at all.
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], [mkvar("x", 1)])],
-    functions: [{ name: "f", entry: 0, exit: 0 }],
+    functions: [{ name: "f", entry: 0, exit: 0, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0 }
+  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }
   let defuse = analyze(program, cfg)
   // GEN happens after the incoming set is computed, so a node's own definition
   // does not reach its own uses. This documents that choice.
@@ -80,10 +80,10 @@ test "two definitions of the same var reaching one use both appear" {
       node(1, [mkvar("x", 1)], []),
       node(2, [], [mkvar("x", 1)]),
     ],
-    functions: [{ name: "f", entry: 0, exit: 2 }],
+    functions: [{ name: "f", entry: 0, exit: 2, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 2), (1, 2)], entry: 0, exit: 2 }
+  let cfg : @core.Cfg = { edges: [(0, 2), (1, 2)], entry: 0, exit: 2, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(0, 2), (1, 2)])
 }
@@ -97,10 +97,10 @@ test "a definition of another variable is not killed" {
       node(1, [mkvar("y", 2)], []),
       node(2, [], [mkvar("x", 1)]),
     ],
-    functions: [{ name: "f", entry: 0, exit: 2 }],
+    functions: [{ name: "f", entry: 0, exit: 2, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2 }
+  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(0, 2)])
 }
@@ -114,10 +114,10 @@ test "distinct scopes of the same name are distinct variables" {
       node(1, [mkvar("x", 2)], []),
       node(2, [], [mkvar("x", 2)]),
     ],
-    functions: [{ name: "f", entry: 0, exit: 2 }],
+    functions: [{ name: "f", entry: 0, exit: 2, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2 }
+  let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(1, 2)])
 }
@@ -126,10 +126,14 @@ test "distinct scopes of the same name are distinct variables" {
 test "edges pointing outside the node range are ignored" {
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], []), node(1, [], [mkvar("x", 1)])],
-    functions: [{ name: "f", entry: 0, exit: 1 }],
+    functions: [{ name: "f", entry: 0, exit: 1, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (0, 99), (99, 1)], entry: 0, exit: 1 }
+  let cfg : @core.Cfg = {
+    edges: [(0, 1), (0, 99), (99, 1)],
+    entry: 0,
+    exit: 1,
+  }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(0, 1)])
 }
@@ -139,10 +143,10 @@ test "a cyclic CFG converges instead of looping forever" {
   //  0 d(x), 1 use(x), 1 -> 0 back edge
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], []), node(1, [], [mkvar("x", 1)])],
-    functions: [{ name: "f", entry: 0, exit: 1 }],
+    functions: [{ name: "f", entry: 0, exit: 1, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [(0, 1), (1, 0)], entry: 0, exit: 1 }
+  let cfg : @core.Cfg = { edges: [(0, 1), (1, 0)], entry: 0, exit: 1, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching, [(0, 1)])
 }
@@ -151,10 +155,10 @@ test "a cyclic CFG converges instead of looping forever" {
 test "a use of a var with no definition site stays unreached" {
   let program : @core.Program = {
     nodes: [node(0, [], [mkvar("ghost", -1)])],
-    functions: [{ name: "f", entry: 0, exit: 0 }],
+    functions: [{ name: "f", entry: 0, exit: 0, }],
     errors: [],
   }
-  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0 }
+  let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching.length(), 0)
 }

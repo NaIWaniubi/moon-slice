@@ -1,5 +1,16 @@
-// import {
-//   "username/moon-slice" @lib,
-// }
+import {
+  "chen/moon-slice/src/core",
+  "chen/moon-slice/src/parser_adapter",
+  "chen/moon-slice/src/cfg",
+  "chen/moon-slice/src/defuse",
+  "chen/moon-slice/src/cdg",
+  "chen/moon-slice/src/pdg",
+  "chen/moon-slice/src/slice",
+  "chen/moon-slice/src/report",
+  "chen/moon-slice/src/query",
+  "moonbitlang/x/fs",
+  "moonbitlang/core/env",
+  "moonbitlang/core/string",
+}
 
 pkgtype(kind: "executable")
