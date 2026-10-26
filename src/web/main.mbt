@@ -47,7 +47,7 @@ fn main {
         lines: @query.visible_lines(program, result.nodes),
       }
       let result = if direction == "interprocedural" {
-        @query.expand_calls(program, result)
+        @query.expand_calls(program, pdg, result)
       } else {
         result
       }

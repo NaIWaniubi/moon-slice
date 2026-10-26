@@ -1,5 +1,6 @@
 import {
   "chen/moon-slice/src/core",
+  "chen/moon-slice/src/slice",
 }
 
 import {

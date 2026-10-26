@@ -68,9 +68,9 @@ omitted.
 # 2,6,7,8,12
 ```
 
-The call at line 12 expands `twice` (lines 6-8), whose calls expand `inc`
-(line 2) transitively. This is a conservative whole-callee expansion, not a
-precise parameter/return summary.
+The call at line 12 expands `twice`'s return-value cone (lines 6-8), whose
+calls expand `inc`'s return cone (line 2) transitively. A bare call statement
+still expands the whole body; a value-returning call excludes dead stores.
 
 ## 7. HTML report
 
@@ -109,5 +109,5 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 188, passed: 188, failed: 0`, and
+Expected: 0 errors, `Total tests: 189, passed: 189, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

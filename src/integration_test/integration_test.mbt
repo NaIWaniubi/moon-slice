@@ -153,10 +153,32 @@ test "conservative interprocedural expansion includes callee bodies" {
     None => panic()
   }
   let base = @slice.backward(pdg, node, program~)
-  let expanded = @query.expand_calls(program, base)
+  let expanded = @query.expand_calls(program, pdg, base)
   assert_true(expanded.lines.contains(2))
   assert_true(expanded.lines.contains(6))
   assert_true(expanded.lines.contains(7))
   assert_true(expanded.lines.contains(8))
   assert_true(expanded.lines.contains(12))
+}
+
+///|
+test "interprocedural return cone excludes dead callee stores" {
+  let source = "fn inc(x : Int) -> Int {\n  let dead = 99\n  return x + 1\n}\n\nfn main_fn(x : Int) -> Int {\n  let y = inc(x)\n  y\n}\n"
+  let program = @parser_adapter.parse_source(source, "cone.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  let node = match @query.target_node(program, 7) {
+    Some(id) => id
+    None => panic()
+  }
+  let base = @slice.backward(pdg, node, program~)
+  let base = @core.SliceResult::{
+    nodes: base.nodes,
+    lines: @query.visible_lines(program, base.nodes),
+  }
+  let expanded = @query.expand_calls(program, pdg, base)
+  assert_true(expanded.lines.contains(3))
+  assert_true(!expanded.lines.contains(2))
 }

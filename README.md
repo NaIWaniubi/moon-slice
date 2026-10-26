@@ -20,7 +20,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (188 tests, including a
+All layers are implemented and covered by `moon test` (189 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -155,9 +155,9 @@ may report a larger slice than a precise analysis would:
 
 - **Intra-procedural by default.** Each function is analyzed on its own. A call
   is a data dependency on its arguments; the callee body is not inlined. The
-  optional `--interprocedural` mode conservatively adds callee bodies at call
-  lines (transitively), but it does not map arguments/returns precisely and does
-  not propagate mutations back.
+  optional `--interprocedural` mode adds callee return-value cones (whole body
+  for bare call statements), transitively; it does not map arguments precisely
+  and does not propagate mutations/side effects back.
 - **Conservative aliasing.** Distinct names that may refer to the same object
   are not tracked. `p.left` and `p.right` are both treated as a use/def of `p`,
   so a write to one field is assumed to affect reads of any field. This shows up
@@ -256,11 +256,12 @@ calls and function values are omitted.
 
 ## Inter-procedural mode
 
-`slice ... --interprocedural` expands the recorded call sites transitively: if
-the current slice contains a call line, every body node of the callee is added,
-then calls inside that body are expanded too. It is a conservative
-over-approximation — larger than a precise summary but never missing a callee.
-The HTML report honors the same flag. The default remains intra-procedural.
+`slice ... --interprocedural` expands the recorded call sites transitively. A
+value-returning call adds only the callee's return-value cone (so dead stores in
+the callee are excluded); a bare call statement adds the whole callee body
+because its side effects cannot be summarized yet. Calls inside an added body
+expand too. Side effects of value-returning calls are not modeled. The HTML
+report honors the same flag. The default remains intra-procedural.
 
 ```bash
 ./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 6 --direction backward --interprocedural

@@ -10,7 +10,7 @@ pub fn call_edges(@core.Program) -> Array[(String, String)]
 
 pub fn dead_nodes(@core.Program, @core.DefUse) -> Array[Int32]
 
-pub fn expand_calls(@core.Program, @core.SliceResult) -> @core.SliceResult
+pub fn expand_calls(@core.Program, @core.Pdg, @core.SliceResult) -> @core.SliceResult
 
 pub fn lines_of(@core.Program, Array[Int32]) -> Array[Int32]
 

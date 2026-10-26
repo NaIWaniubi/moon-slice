@@ -2,7 +2,8 @@
 
 ## 0.2.0 — 2026-10-26
 
-- Conservative inter-procedural expansion: `slice --interprocedural` and
+- Inter-procedural expansion: return-value cone for value-returning calls,
+  whole body for bare call statements; `slice --interprocedural` and
   `html --interprocedural`; `Program.calls` records direct call sites.
 - Call graph from recorded call sites, including calls in `let`/assign/return.
 - Data-flow path query (`path --from A --to B`).

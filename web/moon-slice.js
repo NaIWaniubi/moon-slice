@@ -22724,14 +22724,14 @@ const _M0MPC16string10StringView4trimN6recordS784 = new _M0TPC16string10StringVi
 const _M0FP211moonbitlang6parser18attach__docstringsN6recordS48502 = new _M0TP311moonbitlang5lexer5basic8Position("", -1, 0, 0);
 const _M0FP211moonbitlang5lexer20tokens__from__stringN6recordS5201 = new _M0TP311moonbitlang5lexer5basic8Position("", 1, 0, 0);
 const _M0MPC16string10StringView4findN6constrS523 = 0;
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49126 = new _M0TPC16string10StringView("&", 0, 1);
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49127 = new _M0TPC16string10StringView("&amp;", 0, 5);
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49128 = new _M0TPC16string10StringView("<", 0, 1);
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49129 = new _M0TPC16string10StringView("&lt;", 0, 4);
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49130 = new _M0TPC16string10StringView(">", 0, 1);
-const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49131 = new _M0TPC16string10StringView("&gt;", 0, 4);
-const _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS49215 = new _M0TPC16string10StringView("\n", 0, 1);
-const _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS49312 = new _M0TPC16string10StringView("@@MOONSLICE@@", 0, 13);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49215 = new _M0TPC16string10StringView("&", 0, 1);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49216 = new _M0TPC16string10StringView("&amp;", 0, 5);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49217 = new _M0TPC16string10StringView("<", 0, 1);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49218 = new _M0TPC16string10StringView("&lt;", 0, 4);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49219 = new _M0TPC16string10StringView(">", 0, 1);
+const _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49220 = new _M0TPC16string10StringView("&gt;", 0, 4);
+const _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS49304 = new _M0TPC16string10StringView("\n", 0, 1);
+const _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS49338 = new _M0TPC16string10StringView("@@MOONSLICE@@", 0, 13);
 function _M0FPB13consume4__acc(acc, input) {
   const _p = (acc >>> 0) + ((Math.imul(input, -1028477379) | 0) >>> 0) | 0;
   const _p$2 = 17;
@@ -170625,6 +170625,147 @@ function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
   _M0MPC15array5Array8sort__byGUiiEE(edges, _M0FP44chen12moon_2dslice3src3pdg9cmp__edge);
   return new _M0TP44chen12moon_2dslice3src4core3Pdg(edges);
 }
+function _M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, forward) {
+  const _bind$2 = [];
+  const adj = _M0MPB3Map3MapGiRPB5ArrayGiEE(new _M0TPB9ArrayViewGUiRPB5ArrayGiEEE(_bind$2, 0, 0), undefined);
+  const _bind$3 = pdg.edges;
+  const _bind$4 = _bind$3.length;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind$4) {
+      const edge = _bind$3[_];
+      const source = forward ? edge.from : edge.to;
+      const target = forward ? edge.to : edge.from;
+      const _bind$5 = _M0MPB3Map3getGiRPB5ArrayGiEE(adj, source);
+      if (_bind$5.$tag === 0) {
+        _M0MPB3Map3setGiRPB5ArrayGiEE(adj, source, [target]);
+      } else {
+        const _Some = _bind$5;
+        const _next = _Some._0;
+        _M0MPC15array5Array4pushGiE(_next, target);
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  return adj;
+}
+function _M0FP44chen12moon_2dslice3src5slice9reachable(adj, target) {
+  const _bind$2 = [];
+  const seen = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
+  _M0MPC13set3Set3addGiE(seen, target);
+  const nodes = [target];
+  const queue = [target];
+  let head = 0;
+  while (true) {
+    if (head < queue.length) {
+      const current = _M0MPC15array5Array2atGiE(queue, head);
+      head = head + 1 | 0;
+      const _bind$3 = _M0MPB3Map3getGiRPB5ArrayGiEE(adj, current);
+      if (_bind$3.$tag === 0) {
+      } else {
+        const _Some = _bind$3;
+        const _next = _Some._0;
+        const _bind$4 = _next.length;
+        let _tmp = 0;
+        while (true) {
+          const _ = _tmp;
+          if (_ < _bind$4) {
+            const candidate = _next[_];
+            if (!_M0MPC13set3Set8containsGiE(seen, candidate)) {
+              _M0MPC13set3Set3addGiE(seen, candidate);
+              _M0MPC15array5Array4pushGiE(nodes, candidate);
+              _M0MPC15array5Array4pushGiE(queue, candidate);
+            }
+            _tmp = _ + 1 | 0;
+            continue;
+          } else {
+            break;
+          }
+        }
+      }
+      continue;
+    } else {
+      break;
+    }
+  }
+  _M0MPC15array5Array4sortGiE(nodes);
+  return nodes;
+}
+function _M0FP44chen12moon_2dslice3src5slice9lines__of(program, nodes) {
+  const _bind$2 = [];
+  const line_of = _M0MPB3Map3MapGiiE(new _M0TPB9ArrayViewGUiiEE(_bind$2, 0, 0), undefined);
+  const _bind$3 = program.nodes;
+  const _bind$4 = _bind$3.length;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind$4) {
+      const node = _bind$3[_];
+      if (!_M0MPB3Map8containsGiiE(line_of, node.id)) {
+        _M0MPB3Map3setGiiE(line_of, node.id, node.loc.start_line);
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  const _bind$5 = [];
+  const seen = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$5, 0, 0), undefined);
+  const lines = [];
+  const _bind$6 = nodes.length;
+  let _tmp$2 = 0;
+  while (true) {
+    const _ = _tmp$2;
+    if (_ < _bind$6) {
+      const id = nodes[_];
+      const _bind$7 = _M0MPB3Map3getGiiE(line_of, id);
+      if (_bind$7 === undefined) {
+      } else {
+        const _Some = _bind$7;
+        const _line = _Some;
+        if (!_M0MPC13set3Set8containsGiE(seen, _line)) {
+          _M0MPC13set3Set3addGiE(seen, _line);
+          _M0MPC15array5Array4pushGiE(lines, _line);
+        }
+      }
+      _tmp$2 = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  _M0MPC15array5Array4sortGiE(lines);
+  return lines;
+}
+function _M0FP44chen12moon_2dslice3src5slice8backward(pdg, target, program) {
+  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, false), target);
+  let lines;
+  if (program === undefined) {
+    lines = [];
+  } else {
+    const _Some = program;
+    const _prog = _Some;
+    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
+  }
+  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
+}
+function _M0FP44chen12moon_2dslice3src5slice7forward(pdg, target, program) {
+  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, true), target);
+  let lines;
+  if (program === undefined) {
+    lines = [];
+  } else {
+    const _Some = program;
+    const _prog = _Some;
+    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
+  }
+  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
+}
 function _M0FP44chen12moon_2dslice3src5query13is__synthetic(program, node) {
   const _bind$2 = program.functions;
   const _bind$3 = _bind$2.length;
@@ -170769,7 +170910,76 @@ function _M0FP44chen12moon_2dslice3src5query14visible__lines(program, nodes) {
   _M0MPC15array5Array4sortGiE(out);
   return out;
 }
-function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, result) {
+function _M0FP44chen12moon_2dslice3src5query15function__named(program, name) {
+  const _bind$2 = program.functions;
+  const _bind$3 = _bind$2.length;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind$3) {
+      const f = _bind$2[_];
+      if (f.name === name) {
+        return f;
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  return undefined;
+}
+function _M0FP44chen12moon_2dslice3src5query16call__site__node(program, caller, line, nodes) {
+  const _bind$2 = nodes.length;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind$2) {
+      const id = nodes[_];
+      if (id > caller.entry && (id < caller.exit && _M0MPC15array5Array2atGsE(program.nodes, id).loc.start_line === line)) {
+        return _M0MPC15array5Array2atGsE(program.nodes, id);
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  return undefined;
+}
+function _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, callee) {
+  const out = [];
+  let i = callee.entry + 1 | 0;
+  while (true) {
+    if (i < callee.exit) {
+      if (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_M0MPC15array5Array2atGsE(program.nodes, i).kind, 7)) {
+        const slice = _M0FP44chen12moon_2dslice3src5slice8backward(pdg, i, program);
+        const _bind$2 = slice.nodes;
+        const _bind$3 = _bind$2.length;
+        let _tmp = 0;
+        while (true) {
+          const _ = _tmp;
+          if (_ < _bind$3) {
+            const id = _bind$2[_];
+            if (!_M0MPC15array5Array8containsGiE(out, id)) {
+              _M0MPC15array5Array4pushGiE(out, id);
+            }
+            _tmp = _ + 1 | 0;
+            continue;
+          } else {
+            break;
+          }
+        }
+      }
+      i = i + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  return out;
+}
+function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result) {
   const nodes = [];
   const _bind$2 = result.nodes;
   const _bind$3 = _bind$2.length;
@@ -170801,65 +171011,68 @@ function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, result) {
         const _ = _tmp$2;
         if (_ < _bind$5) {
           const call = _bind$4[_];
-          let caller = undefined;
-          let callee = undefined;
-          const _bind$6 = program.functions;
-          const _bind$7 = _bind$6.length;
-          let _tmp$3 = 0;
-          while (true) {
-            const _$2 = _tmp$3;
-            if (_$2 < _bind$7) {
-              const f = _bind$6[_$2];
-              if (f.name === call.caller) {
-                caller = f;
-              }
-              if (f.name === call.callee) {
-                callee = f;
-              }
-              _tmp$3 = _$2 + 1 | 0;
-              continue;
-            } else {
-              break;
-            }
-          }
-          const _bind$8 = caller;
-          const _bind$9 = callee;
-          if (_bind$8 === undefined) {
+          const caller = _M0FP44chen12moon_2dslice3src5query15function__named(program, call.caller);
+          const callee = _M0FP44chen12moon_2dslice3src5query15function__named(program, call.callee);
+          if (caller === undefined) {
           } else {
-            const _Some = _bind$8;
+            const _Some = caller;
             const _cf = _Some;
-            if (_bind$9 === undefined) {
+            if (callee === undefined) {
             } else {
-              const _Some$2 = _bind$9;
+              const _Some$2 = callee;
               const _ef = _Some$2;
-              let hit = false;
-              const _bind$10 = nodes.length;
-              let _tmp$4 = 0;
-              while (true) {
-                const _$2 = _tmp$4;
-                if (_$2 < _bind$10) {
-                  const id = nodes[_$2];
-                  if (id > _cf.entry && (id < _cf.exit && _M0MPC15array5Array2atGsE(program.nodes, id).loc.start_line === call.line)) {
-                    hit = true;
-                  }
-                  _tmp$4 = _$2 + 1 | 0;
-                  continue;
-                } else {
-                  break;
-                }
-              }
-              if (hit) {
-                let i = _ef.entry + 1 | 0;
-                while (true) {
-                  if (i < _ef.exit) {
-                    if (!_M0MPC15array5Array8containsGiE(nodes, i)) {
-                      _M0MPC15array5Array4pushGiE(nodes, i);
-                      changed = true;
+              const _bind$6 = _M0FP44chen12moon_2dslice3src5query16call__site__node(program, _cf, call.line, nodes);
+              if (_bind$6 === undefined) {
+              } else {
+                const _Some$3 = _bind$6;
+                const _node = _Some$3;
+                if (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_node.kind, 10)) {
+                  let i = _ef.entry + 1 | 0;
+                  while (true) {
+                    if (i < _ef.exit) {
+                      if (!_M0MPC15array5Array8containsGiE(nodes, i)) {
+                        _M0MPC15array5Array4pushGiE(nodes, i);
+                        changed = true;
+                      }
+                      i = i + 1 | 0;
+                      continue;
+                    } else {
+                      break;
                     }
-                    i = i + 1 | 0;
-                    continue;
+                  }
+                } else {
+                  const cone = _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, _ef);
+                  if (cone.length === 0) {
+                    let i = _ef.entry + 1 | 0;
+                    while (true) {
+                      if (i < _ef.exit) {
+                        if (!_M0MPC15array5Array8containsGiE(nodes, i)) {
+                          _M0MPC15array5Array4pushGiE(nodes, i);
+                          changed = true;
+                        }
+                        i = i + 1 | 0;
+                        continue;
+                      } else {
+                        break;
+                      }
+                    }
                   } else {
-                    break;
+                    const _bind$7 = cone.length;
+                    let _tmp$3 = 0;
+                    while (true) {
+                      const _$2 = _tmp$3;
+                      if (_$2 < _bind$7) {
+                        const id = cone[_$2];
+                        if (!_M0MPC15array5Array8containsGiE(nodes, id)) {
+                          _M0MPC15array5Array4pushGiE(nodes, id);
+                          changed = true;
+                        }
+                        _tmp$3 = _$2 + 1 | 0;
+                        continue;
+                      } else {
+                        break;
+                      }
+                    }
                   }
                 }
               }
@@ -170906,7 +171119,7 @@ function _M0FP44chen12moon_2dslice3src6report7to__dot(pdg) {
   return out;
 }
 function _M0FP44chen12moon_2dslice3src6report12escape__html(s) {
-  return _M0MPC16string6String7replace(_M0MPC16string6String7replace(_M0MPC16string6String7replace(s, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49126, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49127), _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49128, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49129), _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49130, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49131);
+  return _M0MPC16string6String7replace(_M0MPC16string6String7replace(_M0MPC16string6String7replace(s, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49215, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49216), _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49217, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49218), _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49219, _M0FP44chen12moon_2dslice3src6report12escape__htmlN6recordS49220);
 }
 function _M0FP44chen12moon_2dslice3src6report9has__line(lines, line) {
   const _bind$2 = lines.length;
@@ -171222,7 +171435,7 @@ function _M0FP44chen12moon_2dslice3src6report10vars__text(vars) {
   return out;
 }
 function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, result, target_line, target_node) {
-  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS49215), (line) => _M0MPC16string10StringView9to__owned(line)));
+  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS49304), (line) => _M0MPC16string10StringView9to__owned(line)));
   let body = "";
   let n = 1;
   const _bind$2 = lines.length;
@@ -171282,150 +171495,9 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
   const metrics = `nodes ${_M0MPC13int3Int18to__string_2einner(program.nodes.length, 10)} · edges ${_M0MPC13int3Int18to__string_2einner(pdg.edges.length, 10)} · slice nodes ${_M0MPC13int3Int18to__string_2einner(result.nodes.length, 10)} · slice lines ${_M0MPC13int3Int18to__string_2einner(result.lines.length, 10)}`;
   return `<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}</h1>\n<p class=\"metrics\">${metrics}</p>\n<div class=\"graph\">${svg}</div>\n<h2>Source</h2>\n<pre>${body}</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th>node</th><th>kind</th><th>line</th><th>defs</th><th>uses</th></tr></thead><tbody>${rows}</tbody></table>\n<h2>Errors</h2>\n<ul>${errs}</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>${_M0FP44chen12moon_2dslice3src6report12escape__html(_M0FP44chen12moon_2dslice3src6report7to__dot(pdg))}</pre>\n</details>\n</body>\n</html>\n`;
 }
-function _M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, forward) {
-  const _bind$2 = [];
-  const adj = _M0MPB3Map3MapGiRPB5ArrayGiEE(new _M0TPB9ArrayViewGUiRPB5ArrayGiEEE(_bind$2, 0, 0), undefined);
-  const _bind$3 = pdg.edges;
-  const _bind$4 = _bind$3.length;
-  let _tmp = 0;
-  while (true) {
-    const _ = _tmp;
-    if (_ < _bind$4) {
-      const edge = _bind$3[_];
-      const source = forward ? edge.from : edge.to;
-      const target = forward ? edge.to : edge.from;
-      const _bind$5 = _M0MPB3Map3getGiRPB5ArrayGiEE(adj, source);
-      if (_bind$5.$tag === 0) {
-        _M0MPB3Map3setGiRPB5ArrayGiEE(adj, source, [target]);
-      } else {
-        const _Some = _bind$5;
-        const _next = _Some._0;
-        _M0MPC15array5Array4pushGiE(_next, target);
-      }
-      _tmp = _ + 1 | 0;
-      continue;
-    } else {
-      break;
-    }
-  }
-  return adj;
-}
-function _M0FP44chen12moon_2dslice3src5slice9reachable(adj, target) {
-  const _bind$2 = [];
-  const seen = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
-  _M0MPC13set3Set3addGiE(seen, target);
-  const nodes = [target];
-  const queue = [target];
-  let head = 0;
-  while (true) {
-    if (head < queue.length) {
-      const current = _M0MPC15array5Array2atGiE(queue, head);
-      head = head + 1 | 0;
-      const _bind$3 = _M0MPB3Map3getGiRPB5ArrayGiEE(adj, current);
-      if (_bind$3.$tag === 0) {
-      } else {
-        const _Some = _bind$3;
-        const _next = _Some._0;
-        const _bind$4 = _next.length;
-        let _tmp = 0;
-        while (true) {
-          const _ = _tmp;
-          if (_ < _bind$4) {
-            const candidate = _next[_];
-            if (!_M0MPC13set3Set8containsGiE(seen, candidate)) {
-              _M0MPC13set3Set3addGiE(seen, candidate);
-              _M0MPC15array5Array4pushGiE(nodes, candidate);
-              _M0MPC15array5Array4pushGiE(queue, candidate);
-            }
-            _tmp = _ + 1 | 0;
-            continue;
-          } else {
-            break;
-          }
-        }
-      }
-      continue;
-    } else {
-      break;
-    }
-  }
-  _M0MPC15array5Array4sortGiE(nodes);
-  return nodes;
-}
-function _M0FP44chen12moon_2dslice3src5slice9lines__of(program, nodes) {
-  const _bind$2 = [];
-  const line_of = _M0MPB3Map3MapGiiE(new _M0TPB9ArrayViewGUiiEE(_bind$2, 0, 0), undefined);
-  const _bind$3 = program.nodes;
-  const _bind$4 = _bind$3.length;
-  let _tmp = 0;
-  while (true) {
-    const _ = _tmp;
-    if (_ < _bind$4) {
-      const node = _bind$3[_];
-      if (!_M0MPB3Map8containsGiiE(line_of, node.id)) {
-        _M0MPB3Map3setGiiE(line_of, node.id, node.loc.start_line);
-      }
-      _tmp = _ + 1 | 0;
-      continue;
-    } else {
-      break;
-    }
-  }
-  const _bind$5 = [];
-  const seen = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$5, 0, 0), undefined);
-  const lines = [];
-  const _bind$6 = nodes.length;
-  let _tmp$2 = 0;
-  while (true) {
-    const _ = _tmp$2;
-    if (_ < _bind$6) {
-      const id = nodes[_];
-      const _bind$7 = _M0MPB3Map3getGiiE(line_of, id);
-      if (_bind$7 === undefined) {
-      } else {
-        const _Some = _bind$7;
-        const _line = _Some;
-        if (!_M0MPC13set3Set8containsGiE(seen, _line)) {
-          _M0MPC13set3Set3addGiE(seen, _line);
-          _M0MPC15array5Array4pushGiE(lines, _line);
-        }
-      }
-      _tmp$2 = _ + 1 | 0;
-      continue;
-    } else {
-      break;
-    }
-  }
-  _M0MPC15array5Array4sortGiE(lines);
-  return lines;
-}
-function _M0FP44chen12moon_2dslice3src5slice8backward(pdg, target, program) {
-  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, false), target);
-  let lines;
-  if (program === undefined) {
-    lines = [];
-  } else {
-    const _Some = program;
-    const _prog = _Some;
-    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
-  }
-  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
-}
-function _M0FP44chen12moon_2dslice3src5slice7forward(pdg, target, program) {
-  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, true), target);
-  let lines;
-  if (program === undefined) {
-    lines = [];
-  } else {
-    const _Some = program;
-    const _prog = _Some;
-    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
-  }
-  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
-}
 (() => {
   const input = _M0FP44chen12moon_2dslice3src3web11read__input();
-  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS49312), (p) => _M0MPC16string10StringView9to__owned(p)));
+  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS49338), (p) => _M0MPC16string10StringView9to__owned(p)));
   if (parts.length < 3) {
     const _p = "bad input";
     _M0FP44chen12moon_2dslice3src3web13write__output(`<!doctype html><html><body style=\"margin:0;padding:2rem;background:#0f1115;color:#ffb4a2;font-family:ui-monospace,monospace\"><h2>moon-slice</h2><p>${_p}</p></body></html>`);
@@ -171470,7 +171542,7 @@ function _M0FP44chen12moon_2dslice3src5slice7forward(pdg, target, program) {
     const _node = _Some;
     const result = direction === "forward" ? _M0FP44chen12moon_2dslice3src5slice7forward(pdg, _node, program) : _M0FP44chen12moon_2dslice3src5slice8backward(pdg, _node, program);
     const result$2 = new _M0TP44chen12moon_2dslice3src4core11SliceResult(result.nodes, _M0FP44chen12moon_2dslice3src5query14visible__lines(program, result.nodes));
-    const result$3 = direction === "interprocedural" ? _M0FP44chen12moon_2dslice3src5query13expand__calls(program, result$2) : result$2;
+    const result$3 = direction === "interprocedural" ? _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result$2) : result$2;
     const html = _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, result$3, line32, _node);
     _M0FP44chen12moon_2dslice3src3web13write__output(html);
     return;

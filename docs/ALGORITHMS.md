@@ -106,12 +106,14 @@ renders the result as DOT.
 
 ## Inter-procedural expansion
 
-`src/query::expand_calls` is a conservative fixed-point expansion: for each
-recorded call whose line is already in the slice and whose caller function
-contains that line, every body node of the callee is added; the loop repeats so
-chains expand transitively. It over-approximates (no parameter/return mapping,
-no mutation summary) but never misses a callee body. `slice --interprocedural`
-and `html --interprocedural` use it; the default is intra-procedural.
+`src/query::expand_calls` is a fixed-point expansion. For a value-returning
+call (its caller node is a `let`/assignment/return), it adds the callee's
+return-value cone computed by backward-slicing every return node, so dead stores
+are excluded. For a bare call statement it adds the whole body, because side
+effects are not summarized yet. The loop repeats so chains expand transitively.
+Argument-to-parameter mapping and mutation summaries remain future work.
+`slice --interprocedural` and `html --interprocedural` use it; the default is
+intra-procedural.
 
 ## Complexity and bounds
 

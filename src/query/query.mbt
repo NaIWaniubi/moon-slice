@@ -359,13 +359,70 @@ pub fn call_edges(program : @core.Program) -> Array[(String, String)] {
 }
 
 ///|
-/// Conservative inter-procedural expansion: for every recorded call whose line
-/// is already in the slice (and whose caller function contains that line), add
-/// every body node of the callee. Repeats to a fixed point so chains of calls
-/// expand transitively. This is deliberately an over-approximation: it does not
-/// map arguments to parameters and does not track return values precisely.
+fn function_named(
+  program : @core.Program,
+  name : String,
+) -> @core.FunctionInfo? {
+  for f in program.functions {
+    if f.name == name {
+      return Some(f)
+    }
+  }
+  None
+}
+
+///|
+fn call_site_node(
+  program : @core.Program,
+  caller : @core.FunctionInfo,
+  line : Int32,
+  nodes : Array[Int32],
+) -> @core.SNode? {
+  for id in nodes {
+    if id > caller.entry &&
+      id < caller.exit &&
+      program.nodes[id].loc.start_line == line {
+      return Some(program.nodes[id])
+    }
+  }
+  None
+}
+
+///|
+/// Nodes that can reach any return of `callee`. This is the callee's
+/// return-value cone: dead stores and branches that do not affect the return
+/// are excluded.
+fn return_cone(
+  program : @core.Program,
+  pdg : @core.Pdg,
+  callee : @core.FunctionInfo,
+) -> Array[Int32] {
+  let out : Array[Int32] = []
+  let mut i = callee.entry + 1
+  while i < callee.exit {
+    if program.nodes[i].kind == @core.SNodeKind::Return {
+      let slice = @slice.backward(pdg, i, program~)
+      for id in slice.nodes {
+        if !out.contains(id) {
+          out.push(id)
+        }
+      }
+    }
+    i = i + 1
+  }
+  out
+}
+
+///|
+/// Inter-procedural expansion. A value-returning call (`let`/assignment/return
+/// position) adds only the callee's return-value cone, so dead stores in the
+/// callee are excluded. A bare call statement adds the whole callee body,
+/// because its side effects cannot be summarized yet. Repeats to a fixed point
+/// so chains expand transitively. Side effects of value-returning calls are not
+/// modeled; this is the documented conservative boundary.
 pub fn expand_calls(
   program : @core.Program,
+  pdg : @core.Pdg,
   result : @core.SliceResult,
 ) -> @core.SliceResult {
   let nodes : Array[Int32] = []
@@ -381,37 +438,43 @@ pub fn expand_calls(
     changed = false
     rounds = rounds + 1
     for call in program.calls {
-      let mut caller : @core.FunctionInfo? = None
-      let mut callee : @core.FunctionInfo? = None
-      for f in program.functions {
-        if f.name == call.caller {
-          caller = Some(f)
-        }
-        if f.name == call.callee {
-          callee = Some(f)
-        }
-      }
+      let caller = function_named(program, call.caller)
+      let callee = function_named(program, call.callee)
       match (caller, callee) {
-        (Some(cf), Some(ef)) => {
-          let mut hit = false
-          for id in nodes {
-            if id > cf.entry &&
-              id < cf.exit &&
-              program.nodes[id].loc.start_line == call.line {
-              hit = true
-            }
-          }
-          if hit {
-            let mut i = ef.entry + 1
-            while i < ef.exit {
-              if !nodes.contains(i) {
-                nodes.push(i)
-                changed = true
+        (Some(cf), Some(ef)) =>
+          match call_site_node(program, cf, call.line, nodes) {
+            Some(node) =>
+              if node.kind == @core.SNodeKind::Call {
+                let mut i = ef.entry + 1
+                while i < ef.exit {
+                  if !nodes.contains(i) {
+                    nodes.push(i)
+                    changed = true
+                  }
+                  i = i + 1
+                }
+              } else {
+                let cone = return_cone(program, pdg, ef)
+                if cone.length() == 0 {
+                  let mut i = ef.entry + 1
+                  while i < ef.exit {
+                    if !nodes.contains(i) {
+                      nodes.push(i)
+                      changed = true
+                    }
+                    i = i + 1
+                  }
+                } else {
+                  for id in cone {
+                    if !nodes.contains(id) {
+                      nodes.push(id)
+                      changed = true
+                    }
+                  }
+                }
               }
-              i = i + 1
-            }
+            None => ()
           }
-        }
         _ => ()
       }
     }

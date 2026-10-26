@@ -101,7 +101,7 @@ test "fuzz: interprocedural expansion is a superset" {
     nodes: base.nodes,
     lines: @query.visible_lines(program, base.nodes),
   }
-  let expanded = @query.expand_calls(program, base)
+  let expanded = @query.expand_calls(program, pdg, base)
   for id in base.nodes {
     assert_true(expanded.nodes.contains(id))
   }

@@ -7,7 +7,7 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 188, passed: 188, failed: 0` |
+| `./dev.sh test` | `Total tests: 189, passed: 189, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward` | `4,5,6,7,8` |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward` | `7,10` |
@@ -50,14 +50,14 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 188 tests, including 10 end-to-end corpus tests and path/unreachable tests
+- [x] 189 tests, including 10 end-to-end corpus tests and path/unreachable tests
 - [x] zero compiler warnings
 - [x] library line coverage 88.5% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`
 - [x] data-flow path query (`path --from A --to B`)
-- [x] conservative inter-procedural expansion (`--interprocedural`)
+- [x] inter-procedural return-value cone (whole body for bare calls)
 - [x] deterministic fuzz-style invariant tests
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
