@@ -11,6 +11,8 @@ narrowing down a diff during review.
 
 ![moon-slice report](docs/report.png)
 
+[Open the generated report](docs/report.html) (self-contained HTML; no toolchain needed).
+
 The HTML report renders the PDG as an inline SVG, highlights the slice in the
 source, and stays self-contained (no network, no CDN).
 

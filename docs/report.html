@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>moon-slice report</title>
+<style>
+body{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}
+h1{margin:0 0 .25rem}h1 span{color:#ffb74d}
+.muted{color:#9aa0a6}
+.hit{background:#1f3b2a;color:#b7f7c1}
+pre{white-space:pre-wrap;line-height:1.45}
+.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}
+.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}
+.metrics{color:#9aa0a6;font-size:13px}
+details{margin:.5rem 0}
+summary{cursor:pointer;color:#8ab4f8}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}
+th{background:#151922;color:#9aa0a6}
+</style>
+</head>
+<body>
+<h1>moon-slice <span>·</span> line 7</h1>
+<p class="metrics">nodes 9 · edges 14 · slice nodes 7 · slice lines 5</p>
+<div class="graph"><svg xmlns="http://www.w3.org/2000/svg" width="440" height="630" viewBox="0 0 440 630"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#9aa0a6"/></marker></defs><rect width="100%" height="100%" fill="#0f1115"/><line x1="85" y1="76" x2="85" y2="220" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="76" x2="85" y2="310" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="76" x2="85" y2="400" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="166" x2="85" y2="310" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="166" x2="85" y2="490" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="256" x2="265" y2="220" stroke="#f6bd60" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/><line x1="85" y1="256" x2="85" y2="310" stroke="#f6bd60" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/><line x1="85" y1="256" x2="85" y2="400" stroke="#f6bd60" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/><line x1="265" y1="256" x2="85" y2="310" stroke="#f6bd60" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/><line x1="265" y1="256" x2="85" y2="400" stroke="#f6bd60" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arrow)"/><line x1="85" y1="346" x2="85" y2="490" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="436" x2="85" y2="220" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="85" y1="436" x2="85" y2="310" stroke="#8ab4f8" stroke-width="1.5" marker-end="url(#arrow)"/><g><rect x="40" y="40" width="90" height="36" rx="6" fill="#2e7d32" stroke="#81c784"/><text x="85" y="63" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n1 L4</text><title>let mut · line 4 · defs 1 · uses 0</title></g><g><rect x="40" y="130" width="90" height="36" rx="6" fill="#2e7d32" stroke="#81c784"/><text x="85" y="153" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n2 L5</text><title>let mut · line 5 · defs 1 · uses 0</title></g><g><rect x="40" y="220" width="90" height="36" rx="6" fill="#2e7d32" stroke="#81c784"/><text x="85" y="243" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n3 L6</text><title>while · line 6 · defs 0 · uses 2</title></g><g><rect x="220" y="220" width="90" height="36" rx="6" fill="#2e7d32" stroke="#81c784"/><text x="265" y="243" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n4 L6</text><title>while · line 6 · defs 0 · uses 0</title></g><g><rect x="40" y="310" width="90" height="36" rx="6" fill="#ff9800" stroke="#ffb74d"/><text x="85" y="333" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n5 L7</text><title>assign · line 7 · defs 1 · uses 2</title></g><g><rect x="40" y="400" width="90" height="36" rx="6" fill="#2e7d32" stroke="#81c784"/><text x="85" y="423" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n6 L8</text><title>assign · line 8 · defs 1 · uses 1</title></g><g><rect x="40" y="490" width="90" height="36" rx="6" fill="#2b2f3a" stroke="#4b5563"/><text x="85" y="513" text-anchor="middle" fill="#eef2f7" font-size="12" font-family="monospace">n7 L10</text><title>return · line 10 · defs 0 · uses 1</title></g><text x="16" y="618" fill="#9aa0a6" font-size="11" font-family="monospace">solid = data · dashed = control · orange = target · green = slice</text></svg></div>
+<h2>Source</h2>
+<pre><span>  1  // EXPECT-BACKWARD 7 -&gt; [4, 5, 6, 7, 8]</span>
+<span>  2  // EXPECT-FORWARD 7 -&gt; [7, 10]</span>
+<span>  3  fn loop_sum(n : Int) -&gt; Int {</span>
+<span class="hit">• 4    let mut i = 0</span>
+<span class="hit">• 5    let mut total = 0</span>
+<span class="hit">• 6    while i &lt; n {</span>
+<span class="hit">• 7      total = total + i // target</span>
+<span class="hit">• 8      i = i + 1</span>
+<span>  9    }</span>
+<span>  10    return total</span>
+<span>  11  }</span>
+<span>  12  </span>
+</pre>
+<h2>Slice nodes</h2>
+<table><thead><tr><th>node</th><th>kind</th><th>line</th><th>defs</th><th>uses</th></tr></thead><tbody><tr><td>n1</td><td>let mut</td><td>4</td><td>i#2</td><td></td></tr><tr><td>n2</td><td>let mut</td><td>5</td><td>total#3</td><td></td></tr><tr><td>n3</td><td>while</td><td>6</td><td></td><td>i#2, n#1</td></tr><tr><td>n4</td><td>while</td><td>6</td><td></td><td></td></tr><tr><td>n5</td><td>assign</td><td>7</td><td>total#3</td><td>total#3, i#2</td></tr><tr><td>n6</td><td>assign</td><td>8</td><td>i#2</td><td>i#2</td></tr></tbody></table>
+<h2>Errors</h2>
+<ul><li>none</li></ul>
+<details><summary>PDG (DOT)</summary>
+<pre>digraph pdg {
+  rankdir=LR;
+  n0 -&gt; n3 [label="data"];
+  n1 -> n3 [label="data"];
+  n1 -> n5 [label="data"];
+  n1 -> n6 [label="data"];
+  n2 -> n5 [label="data"];
+  n2 -> n7 [label="data"];
+  n3 -> n4 [label="control"];
+  n3 -> n5 [label="control"];
+  n3 -> n6 [label="control"];
+  n4 -> n5 [label="control"];
+  n4 -> n6 [label="control"];
+  n5 -> n7 [label="data"];
+  n6 -> n3 [label="data"];
+  n6 -> n5 [label="data"];
+}
+</pre>
+</details>
+</body>
+</html>
