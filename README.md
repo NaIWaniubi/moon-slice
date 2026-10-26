@@ -18,7 +18,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (174 tests, including a
+All layers are implemented and covered by `moon test` (177 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -150,10 +150,11 @@ below.
 These are real and intentional for the MVP. They are the places where the tool
 may report a larger slice than a precise analysis would:
 
-- **Intra-procedural only.** Each function is analyzed on its own. A call is a
-  data dependency on its arguments; the callee body is not inlined, and its
-  effect on arguments (mutation) is not propagated back. Slicing across
-  functions is not supported.
+- **Intra-procedural by default.** Each function is analyzed on its own. A call
+  is a data dependency on its arguments; the callee body is not inlined. The
+  optional `--interprocedural` mode conservatively adds callee bodies at call
+  lines (transitively), but it does not map arguments/returns precisely and does
+  not propagate mutations back.
 - **Conservative aliasing.** Distinct names that may refer to the same object
   are not tracked. `p.left` and `p.right` are both treated as a use/def of `p`,
   so a write to one field is assumed to affect reads of any field. This shows up
@@ -233,9 +234,25 @@ and a sink variable, and read the flow in one line.
 
 ## Call graph
 
-`callgraph --file F` prints a function-level DOT graph. The heuristic is: a
-use of a function defined in the same file counts as a call. Method calls and
-function values are omitted; full inter-procedural slicing remains future work.
+`callgraph --file F` prints a function-level DOT graph from the recorded call
+sites (calls in `let`/assignment/return position are included, not just bare
+call statements). Only callees defined in the same file are emitted; method
+calls and function values are omitted.
+
+## Inter-procedural mode
+
+`slice ... --interprocedural` expands the recorded call sites transitively: if
+the current slice contains a call line, every body node of the callee is added,
+then calls inside that body are expanded too. It is a conservative
+over-approximation — larger than a precise summary but never missing a callee.
+The HTML report honors the same flag. The default remains intra-procedural.
+
+```bash
+./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 6 --direction backward --interprocedural
+# 2,6
+./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural
+# 2,6,7,8,12
+```
 
 ## Verifying the corpus
 

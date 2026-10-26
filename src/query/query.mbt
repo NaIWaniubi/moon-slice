@@ -345,20 +345,77 @@ pub fn call_edges(program : @core.Program) -> Array[(String, String)] {
     names.add(f.name)
   }
   let out : Array[(String, String)] = []
-  for f in program.functions {
-    let mut i = f.entry + 1
-    while i < f.exit {
-      let node = program.nodes[i]
-      for v in node.uses {
-        if names.contains(v.name) && v.name != f.name {
-          let edge = (f.name, v.name)
-          if !out.contains(edge) {
-            out.push(edge)
-          }
-        }
+  for call in program.calls {
+    if call.caller != "" &&
+      names.contains(call.callee) &&
+      call.callee != call.caller {
+      let edge = (call.caller, call.callee)
+      if !out.contains(edge) {
+        out.push(edge)
       }
-      i = i + 1
     }
   }
   out
+}
+
+///|
+/// Conservative inter-procedural expansion: for every recorded call whose line
+/// is already in the slice (and whose caller function contains that line), add
+/// every body node of the callee. Repeats to a fixed point so chains of calls
+/// expand transitively. This is deliberately an over-approximation: it does not
+/// map arguments to parameters and does not track return values precisely.
+pub fn expand_calls(
+  program : @core.Program,
+  result : @core.SliceResult,
+) -> @core.SliceResult {
+  let nodes : Array[Int32] = []
+  for id in result.nodes {
+    if !nodes.contains(id) {
+      nodes.push(id)
+    }
+  }
+  let mut changed = true
+  let mut rounds = 0
+  let max_rounds = program.functions.length() + 2
+  while changed && rounds < max_rounds {
+    changed = false
+    rounds = rounds + 1
+    for call in program.calls {
+      let mut caller : @core.FunctionInfo? = None
+      let mut callee : @core.FunctionInfo? = None
+      for f in program.functions {
+        if f.name == call.caller {
+          caller = Some(f)
+        }
+        if f.name == call.callee {
+          callee = Some(f)
+        }
+      }
+      match (caller, callee) {
+        (Some(cf), Some(ef)) => {
+          let mut hit = false
+          for id in nodes {
+            if id > cf.entry &&
+              id < cf.exit &&
+              program.nodes[id].loc.start_line == call.line {
+              hit = true
+            }
+          }
+          if hit {
+            let mut i = ef.entry + 1
+            while i < ef.exit {
+              if !nodes.contains(i) {
+                nodes.push(i)
+                changed = true
+              }
+              i = i + 1
+            }
+          }
+        }
+        _ => ()
+      }
+    }
+  }
+  nodes.sort()
+  @core.SliceResult::{ nodes, lines: visible_lines(program, nodes), }
 }

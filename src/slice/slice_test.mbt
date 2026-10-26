@@ -10,7 +10,7 @@ fn node(id : Int32, kind : @core.SNodeKind, line : Int32) -> @core.SNode {
 
 ///|
 fn program(nodes : Array[@core.SNode]) -> @core.Program {
-  { nodes, functions: [], errors: [], }
+  { nodes, functions: [], calls: [], errors: [], }
 }
 
 ///|

@@ -5,7 +5,7 @@ fn loc(line : Int32) -> @core.Loc {
 
 ///|
 fn program(nodes : Array[@core.SNode]) -> @core.Program {
-  { nodes, functions: [], errors: [], }
+  { nodes, functions: [], calls: [], errors: [], }
 }
 
 ///|

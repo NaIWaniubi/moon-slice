@@ -41,6 +41,7 @@ test "a hand-built chain produces one edge per step" {
       node(2, [mkvar("y", 2)], []),
     ],
     functions: [{ name: "f", entry: 0, exit: 2, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
@@ -50,7 +51,12 @@ test "a hand-built chain produces one edge per step" {
 
 ///|
 test "an empty program yields no reaching definitions" {
-  let program : @core.Program = { nodes: [], functions: [], errors: [], }
+  let program : @core.Program = {
+    nodes: [],
+    functions: [],
+    calls: [],
+    errors: [],
+  }
   let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }
   let defuse = analyze(program, cfg)
   assert_eq(defuse.reaching.length(), 0)
@@ -62,6 +68,7 @@ test "an isolated node with no predecessors still reads its own definition" {
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], [mkvar("x", 1)])],
     functions: [{ name: "f", entry: 0, exit: 0, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }
@@ -81,6 +88,7 @@ test "two definitions of the same var reaching one use both appear" {
       node(2, [], [mkvar("x", 1)]),
     ],
     functions: [{ name: "f", entry: 0, exit: 2, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 2), (1, 2)], entry: 0, exit: 2, }
@@ -98,6 +106,7 @@ test "a definition of another variable is not killed" {
       node(2, [], [mkvar("x", 1)]),
     ],
     functions: [{ name: "f", entry: 0, exit: 2, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
@@ -115,6 +124,7 @@ test "distinct scopes of the same name are distinct variables" {
       node(2, [], [mkvar("x", 2)]),
     ],
     functions: [{ name: "f", entry: 0, exit: 2, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
@@ -127,6 +137,7 @@ test "edges pointing outside the node range are ignored" {
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], []), node(1, [], [mkvar("x", 1)])],
     functions: [{ name: "f", entry: 0, exit: 1, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = {
@@ -144,6 +155,7 @@ test "a cyclic CFG converges instead of looping forever" {
   let program : @core.Program = {
     nodes: [node(0, [mkvar("x", 1)], []), node(1, [], [mkvar("x", 1)])],
     functions: [{ name: "f", entry: 0, exit: 1, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 1), (1, 0)], entry: 0, exit: 1, }
@@ -156,6 +168,7 @@ test "a use of a var with no definition site stays unreached" {
   let program : @core.Program = {
     nodes: [node(0, [], [mkvar("ghost", -1)])],
     functions: [{ name: "f", entry: 0, exit: 0, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [], entry: 0, exit: 0, }

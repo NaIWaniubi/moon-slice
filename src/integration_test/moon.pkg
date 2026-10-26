@@ -1,4 +1,5 @@
 import {
+  "chen/moon-slice/src/core",
   "chen/moon-slice/src/parser_adapter",
   "chen/moon-slice/src/cfg",
   "chen/moon-slice/src/defuse",

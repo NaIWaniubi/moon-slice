@@ -137,3 +137,26 @@ test "call graph finds free-function calls" {
   let program = @parser_adapter.parse_source(source, "bench/callgraph.mbt")
   assert_eq(@query.call_edges(program), [("twice", "inc"), ("main_fn", "twice")])
 }
+
+///|
+test "conservative interprocedural expansion includes callee bodies" {
+  let source = @fs.read_file_to_string("bench/callgraph.mbt") catch {
+    _ => panic()
+  }
+  let program = @parser_adapter.parse_source(source, "bench/callgraph.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  let node = match @query.target_node(program, 12) {
+    Some(id) => id
+    None => panic()
+  }
+  let base = @slice.backward(pdg, node, program~)
+  let expanded = @query.expand_calls(program, base)
+  assert_true(expanded.lines.contains(2))
+  assert_true(expanded.lines.contains(6))
+  assert_true(expanded.lines.contains(7))
+  assert_true(expanded.lines.contains(8))
+  assert_true(expanded.lines.contains(12))
+}

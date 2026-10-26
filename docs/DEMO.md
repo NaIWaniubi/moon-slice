@@ -61,7 +61,18 @@ shortest directed PDG path.
 A function-level dependency overview; method calls and function values are
 omitted.
 
-## 6. HTML report
+## 6. Inter-procedural mode
+
+```bash
+./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural
+# 2,6,7,8,12
+```
+
+The call at line 12 expands `twice` (lines 6-8), whose calls expand `inc`
+(line 2) transitively. This is a conservative whole-callee expansion, not a
+precise parameter/return summary.
+
+## 7. HTML report
 
 ```bash
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
@@ -77,14 +88,14 @@ Open `report.html`. It contains:
 
 The rendered page is `docs/report.png`.
 
-## 7. JSON
+## 8. JSON
 
 ```bash
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
 # {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ```
 
-## 8. Full verification
+## 9. Full verification
 
 ```bash
 ./dev.sh check
@@ -92,5 +103,5 @@ The rendered page is `docs/report.png`.
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 174, passed: 174, failed: 0`, and
+Expected: 0 errors, `Total tests: 177, passed: 177, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

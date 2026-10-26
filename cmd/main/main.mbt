@@ -16,12 +16,12 @@ fn usage() -> Unit {
     "moon-slice — program slicing for MoonBit\n" +
     "\n" +
     "Commands:\n" +
-    "  slice --file F --line N --direction backward|forward [--json]\n" +
+    "  slice --file F --line N --direction backward|forward [--json] [--interprocedural]\n" +
     "  graph --file F [--format dot]\n" +
     "  callgraph --file F\n" +
     "  dead  --file F\n" +
     "  path  --file F --from VAR --to VAR\n" +
-    "  html  --file F --line N [--out report.html]\n" +
+    "  html  --file F --line N [--out report.html] [--interprocedural]\n" +
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n",
   )
@@ -118,6 +118,7 @@ fn main {
   let mut format = "dot"
   let mut out = ""
   let mut json = false
+  let mut interproc = false
   let mut from_var = ""
   let mut to_var = ""
   let mut i = 2
@@ -147,6 +148,9 @@ fn main {
     } else if arg == "--json" {
       json = true
       i = i + 1
+    } else if arg == "--interprocedural" {
+      interproc = true
+      i = i + 1
     } else {
       println("error: unknown argument \{arg}")
       i = i + 1
@@ -175,6 +179,11 @@ fn main {
       let result = @core.SliceResult::{
         nodes: result.nodes,
         lines: @query.visible_lines(program, result.nodes),
+      }
+      let result = if interproc {
+        @query.expand_calls(program, result)
+      } else {
+        result
       }
       if json {
         println(@report.to_json(program, result))
@@ -215,6 +224,11 @@ fn main {
       let result = @core.SliceResult::{
         nodes: result.nodes,
         lines: @query.visible_lines(program, result.nodes),
+      }
+      let result = if interproc {
+        @query.expand_calls(program, result)
+      } else {
+        result
       }
       let html = @report.to_html(
         source,

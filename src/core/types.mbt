@@ -50,9 +50,20 @@ pub(all) struct FunctionInfo {
 } derive(Debug)
 
 ///|
+/// A direct call site recorded while lowering a function body. `callee` is the
+/// syntactic name; `line` is the call's source line. Indirect calls, method
+/// dispatch, and function values are not represented.
+pub(all) struct CallSite {
+  caller : String
+  callee : String
+  line : Int32
+} derive(Debug, Eq, Hash)
+
+///|
 pub(all) struct Program {
   nodes : Array[SNode]
   functions : Array[FunctionInfo]
+  calls : Array[CallSite]
   errors : Array[String]
 } derive(Debug)
 

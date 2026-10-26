@@ -16,7 +16,7 @@ fn node(
 
 ///|
 fn program(nodes : Array[@core.SNode]) -> @core.Program {
-  { nodes, functions: [], errors: [], }
+  { nodes, functions: [], calls: [], errors: [], }
 }
 
 ///|
@@ -274,7 +274,12 @@ test "a loop containing an if with a return controls code after the loop" {
 
 ///|
 test "empty program yields an empty cdg" {
-  let prog : @core.Program = { nodes: [], functions: [], errors: [], }
+  let prog : @core.Program = {
+    nodes: [],
+    functions: [],
+    calls: [],
+    errors: [],
+  }
   let result = @cdg.build(prog, cfg([], 0, 0))
   assert_eq(result.edges, [])
 }

@@ -73,6 +73,7 @@ test "end to end: cdg -> pdg -> backward and forward slices" {
       e2e_node(6, @core.Return, 11, 3, [], [total], [], None),
     ],
     functions: [{ name: "sum_first", entry: 0, exit: 6, }],
+    calls: [],
     errors: [],
   }
   // CFG: straight line, loop back edge, if branches rejoin at the while header.
@@ -132,6 +133,7 @@ test "end to end: a dead assignment stays out of the backward slice" {
       e2e_node(2, @core.Expr, 4, 3, [], [live], [], None),
     ],
     functions: [{ name: "f", entry: 0, exit: 2, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = { edges: [(0, 1), (1, 2)], entry: 0, exit: 2, }
@@ -164,6 +166,7 @@ test "end to end: return inside a branch widens the control slice" {
       e2e_node(3, @core.Expr, 6, 3, [], [y_var], [], None),
     ],
     functions: [{ name: "g", entry: 0, exit: 3, }],
+    calls: [],
     errors: [],
   }
   let cfg : @core.Cfg = {

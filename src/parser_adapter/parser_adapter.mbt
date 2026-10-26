@@ -37,8 +37,10 @@
 priv struct Adapter {
   nodes : Array[@core.SNode]
   functions : Array[@core.FunctionInfo]
+  calls : Array[@core.CallSite]
   env : Array[(String, @core.VarId)]
   scope_counter : Array[Int32]
+  current_function : Array[String]
 }
 
 ///|
@@ -46,10 +48,18 @@ priv struct Adapter {
 ///
 /// Only `Impl::TopFuncDef` with a `DeclBody` expression is lowered. Other
 /// top-level items (`impl` blocks, `let` declarations, type definitions, tests)
-/// are skipped: the analysis is intra-procedural over free functions.
+/// are skipped. Direct call sites are recorded alongside the node IR so later
+/// passes can build a call graph and do conservative inter-procedural expansion.
 pub fn parse_source(source : String, name : String) -> @core.Program {
   let (impls, reports) = @parser.parse_string(source, name~)
-  let ctx : Adapter = { nodes: [], functions: [], env: [], scope_counter: [1], }
+  let ctx : Adapter = {
+    nodes: [],
+    functions: [],
+    calls: [],
+    env: [],
+    scope_counter: [1],
+    current_function: [""],
+  }
   let errors : Array[String] = []
   reports.each(fn(report) {
     let pos = report.loc.start
@@ -65,7 +75,12 @@ pub fn parse_source(source : String, name : String) -> @core.Program {
       _ => ()
     }
   })
-  @core.Program::{ nodes: ctx.nodes, functions: ctx.functions, errors, }
+  @core.Program::{
+    nodes: ctx.nodes,
+    functions: ctx.functions,
+    calls: ctx.calls,
+    errors,
+  }
 }
 
 ///|
@@ -85,6 +100,7 @@ fn emit_function(
     end_line: body_loc.end.lnum,
     end_col: body_loc.end.column(),
   }
+  ctx.current_function[0] = fun_decl.name.name
   let outer_mark = ctx.env.length()
   let param_ids : Array[@core.VarId] = []
   match fun_decl.decl_params {
@@ -118,6 +134,36 @@ fn emit_function(
     entry: entry.id,
     exit: exit.id,
   })
+  ctx.current_function[0] = ""
+}
+
+///|
+fn record_call(ctx : Adapter, callee : String, loc : @core.Loc) -> Unit {
+  if callee != "" && ctx.current_function[0] != "" {
+    ctx.calls.push(@core.CallSite::{
+      caller: ctx.current_function[0],
+      callee,
+      line: loc.start_line,
+    })
+  }
+}
+
+///|
+/// Record a direct call in RHS/return position. The call is folded into the
+/// enclosing statement's `uses`, so this is the only place its callee name is
+/// still visible. Calls nested inside a larger expression are not recorded yet.
+fn record_call_in_expr(ctx : Adapter, expr : @syntax.Expr) -> Unit {
+  match expr {
+    Apply(func=callee, ..) => {
+      let callee_uses = uses_of(ctx, callee)
+      if callee_uses.length() > 0 {
+        record_call(ctx, callee_uses[0].name, loc_whole(expr))
+      }
+    }
+    DotApply(method_name=name, ..) =>
+      record_call(ctx, name.name, loc_whole(expr))
+    _ => ()
+  }
 }
 
 ///|
@@ -138,6 +184,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     Group(expr~, ..) => emit_expr(ctx, expr, parent)
     // ---- bindings ---------------------------------------------------------
     Let(pattern=pat, expr=rhs, body=rest, ..) => {
+      record_call_in_expr(ctx, rhs)
       let uses = uses_of(ctx, rhs)
       let bound : Array[String] = []
       let pattern_exprs : Array[@syntax.Expr] = []
@@ -155,6 +202,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       emit_expr(ctx, rest, parent)
     }
     LetMut(binder~, expr=rhs, body=rest, ..) => {
+      record_call_in_expr(ctx, rhs)
       let uses = uses_of(ctx, rhs)
       let node = begin_node(
         ctx,
@@ -198,6 +246,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     }
     // ---- writes -----------------------------------------------------------
     Assign(var_~, expr=rhs, augmented_by~, ..) => {
+      record_call_in_expr(ctx, rhs)
       let uses = uses_of(ctx, rhs)
       let target = var_id_of(ctx, var_)
       match augmented_by {
@@ -278,6 +327,9 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     // ---- calls ------------------------------------------------------------
     Apply(func=callee, args=call_args, ..) => {
       let uses = uses_of(ctx, callee)
+      if uses.length() > 0 {
+        record_call(ctx, uses[0].name, loc_whole(whole))
+      }
       call_args.each(fn(arg) { append_uses(ctx, arg.value, uses) })
       let node = begin_node(
         ctx,
@@ -289,7 +341,8 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       )
       ignore(node)
     }
-    DotApply(self=receiver, args=call_args, ..) => {
+    DotApply(self=receiver, method_name~, args=call_args, ..) => {
+      record_call(ctx, method_name.name, loc_whole(whole))
       let uses = uses_of(ctx, receiver)
       call_args.each(fn(arg) { append_uses(ctx, arg.value, uses) })
       let node = begin_node(
@@ -306,7 +359,10 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     Return(return_value~, ..) => {
       let uses : Array[@core.VarId] = []
       match return_value {
-        Some(value) => append_uses(ctx, value, uses)
+        Some(value) => {
+          append_uses(ctx, value, uses)
+          record_call_in_expr(ctx, value)
+        }
         None => ()
       }
       let node = begin_node(

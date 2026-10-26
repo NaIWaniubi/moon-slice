@@ -25,7 +25,7 @@ fn program_of_nodes(
   nodes : Array[@core.SNode],
   functions : Array[@core.FunctionInfo],
 ) -> @core.Program {
-  { nodes, functions, errors: [], }
+  { nodes, functions, calls: [], errors: [], }
 }
 
 ///|

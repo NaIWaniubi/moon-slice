@@ -98,12 +98,20 @@ of `B`, which is the taint-lite source→sink query.
 
 ## Call graph
 
-`src/query::call_edges` scans the nodes of each function for uses whose name
-matches a function defined in the same program. This is a heuristic: it finds
-free-function calls, including calls folded into a `let` or assignment; it does
-not resolve method calls, function values, or cross-module targets. The CLI
-`callgraph` renders the result as DOT. Full inter-procedural slicing (inlining
-callee summaries into the PDG) is future work.
+`src/query::call_edges` reads `Program.calls`, the direct call sites recorded
+by the parser adapter (including calls folded into `let`/assignment/return
+position). Edges are emitted only when the callee is defined in the same
+program; method calls and function values are not resolved. The CLI `callgraph`
+renders the result as DOT.
+
+## Inter-procedural expansion
+
+`src/query::expand_calls` is a conservative fixed-point expansion: for each
+recorded call whose line is already in the slice and whose caller function
+contains that line, every body node of the callee is added; the loop repeats so
+chains expand transitively. It over-approximates (no parameter/return mapping,
+no mutation summary) but never misses a callee body. `slice --interprocedural`
+and `html --interprocedural` use it; the default is intra-procedural.
 
 ## Complexity and bounds
 
@@ -116,8 +124,8 @@ callee summaries into the PDG) is future work.
 
 ## Known limits
 
-- Intra-procedural: a call is a data dependence on its arguments; the callee
-  body is not inlined and mutations are not propagated back.
+- Intra-procedural by default; `--interprocedural` expands whole callee bodies
+  conservatively and does not map parameters/returns.
 - No points-to, reflection, or macro expansion; dynamic dispatch is opaque.
 - Field/array writes use the base-variable abstraction.
 - `dead` is definition- and reachability-based; it does not infer that a store
