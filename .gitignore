@@ -5,3 +5,5 @@ _build/
 .tower/
 .zcode-fleet/
 .v2c/
+*.coverage
+uncovered.log
