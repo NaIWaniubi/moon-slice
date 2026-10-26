@@ -15,15 +15,15 @@ version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = ""
+repository = "https://github.com/TARGET/moon-slice"
 
 license = "Apache-2.0"
 
-keywords = [ ]
+keywords = [ "slicing", "static-analysis", "developer-tools", "pdg" ]
 
 preferred_target = "wasm"
 
-description = ""
+description = "Program slicing, dependency graphs, and data-flow paths for MoonBit"
 
 import {
   "moonbitlang/parser@0.4.6",

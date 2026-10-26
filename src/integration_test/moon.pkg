@@ -6,8 +6,5 @@ import {
   "chen/moon-slice/src/pdg",
   "chen/moon-slice/src/slice",
   "chen/moon-slice/src/query",
-}
-
-import {
   "moonbitlang/x/fs",
 } for "test"

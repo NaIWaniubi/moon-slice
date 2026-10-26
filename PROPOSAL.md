@@ -12,7 +12,9 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 工具基于 MoonBit 官方 AST 构建控制流图（CFG）、定义-使用链（def-use）、
 控制依赖图（CDG）与程序依赖图（PDG），输出向后切片（这个值从哪来）
 和向前切片（改这个值会影响谁），并给出源码高亮、JSON、DOT 和自包含 HTML 报告。
-它解决的是“值从哪来、改动影响谁、哪段代码是死的”这三个日常调试与重构问题。
+报告内联 SVG 依赖图（按源码顺序分层，数据边实线、控制边虚线），不依赖网络；
+另有 `path --from A --to B` 数据流路径查询，用于 source→sink 的 taint-lite 审计。
+它解决的是“值从哪来、改动影响谁、哪段代码是死的/不可达”这三个日常问题。
 
 ## 3. 项目方向与通用性说明
 
@@ -27,8 +29,8 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
    工具列出所有可能影响该值的赋值、分支条件和调用，快速缩小排查范围。
 2. **重构 / 影响分析**：准备修改一个变量或函数的返回值。先做向前切片，
    工具列出所有受影响的语句与分支，避免漏改调用方或破坏边界条件。
-3. **代码审查 / 安全审计**：用死代码检测找出无使用的赋值与不可达分支；
-   后续用污点模式标记 source 与 sink，沿 PDG 找可达路径，辅助审计敏感数据流。
+3. **代码审查 / 安全审计**：`dead` 找出无使用的赋值与 `return` 后的不可达代码；
+   `path --from A --to B` 沿 PDG 找 source→sink 的最短数据流路径，辅助审计敏感数据流。
 
 ## 5. 拟实现的核心功能
 
@@ -38,9 +40,12 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - CDG：结构化控制依赖；return/break/continue 保守连接。
 - PDG：数据依赖 + 控制依赖。
 - 切片：backward / forward，输出节点集合与源码行号。
-- 报告：JSON、DOT、自包含 HTML（源码高亮 + 图）。
-- CLI：`slice`、`graph`、`dead`、`html`。
-- 测试：parser smoke、CFG 精确边、def-use、切片节点集合、10 个示例的端到端断言。
+- 报告：JSON、DOT、自包含 HTML（内联 SVG 依赖图 + 源码高亮 + 切片节点表）。
+- 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
+- CLI：`slice`、`graph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
+- 测试：173 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+  10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
+- 工程化：GitHub Actions CI、500 语句输入的性能冒烟、零网络依赖报告。
 
 ## 6. 原创 / 移植说明
 
@@ -56,9 +61,11 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 与 `./dev.sh test` 全绿。
-- `./dev.sh run cmd/main -- slice --file examples/bug.mbt --line <n> --direction backward`
-  输出与 `examples/` 中的 EXPECT 注释一致。
-- `./dev.sh run cmd/main -- html --file examples/bug.mbt --line <n> --out report.html`
-  生成可打开的 HTML 报告。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 173/173 通过。
+- `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
+  输出 `4,5,6,7,8`；forward 输出 `7,10`。
+- `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`
+  输出 `n1 L4 -> n5 L7`。
+- `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html`
+  生成可打开的自包含 HTML；渲染截图见 `docs/report.png`。
 - README 提供可复现 quickstart、架构说明、支持子集与诚实的局限性。

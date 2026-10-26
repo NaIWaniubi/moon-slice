@@ -19,8 +19,10 @@ fn usage() -> Unit {
     "  slice --file F --line N --direction backward|forward [--json]\n" +
     "  graph --file F [--format dot]\n" +
     "  dead  --file F\n" +
+    "  path  --file F --from VAR --to VAR\n" +
     "  html  --file F --line N [--out report.html]\n" +
-    "  dump  --file F --line N\n",
+    "  dump  --file F --line N\n" +
+    "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n",
   )
 }
 
@@ -28,7 +30,7 @@ fn usage() -> Unit {
 fn read_source(path : String) -> String {
   @fs.read_file_to_string(path) catch {
     @fs.IOError(msg) => {
-      println("error: failed to read {path}: {msg}")
+      println("error: failed to read \{path}: \{msg}")
       ""
     }
   }
@@ -115,6 +117,8 @@ fn main {
   let mut format = "dot"
   let mut out = ""
   let mut json = false
+  let mut from_var = ""
+  let mut to_var = ""
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -132,6 +136,12 @@ fn main {
       i = i + 2
     } else if arg == "--out" && i + 1 < argv.length() {
       out = argv[i + 1]
+      i = i + 2
+    } else if arg == "--from" && i + 1 < argv.length() {
+      from_var = argv[i + 1]
+      i = i + 2
+    } else if arg == "--to" && i + 1 < argv.length() {
+      to_var = argv[i + 1]
       i = i + 2
     } else if arg == "--json" {
       json = true
@@ -179,7 +189,10 @@ fn main {
       }
     "dead" => {
       let dead = @query.dead_nodes(program, defuse)
-      print_lines({ nodes: dead, lines: @query.visible_lines(program, dead), })
+      let cfg = @cfg.build(program)
+      let unreach = @query.unreachable_nodes(program, cfg)
+      let all = @query.union_sorted(dead, unreach)
+      print_lines({ nodes: all, lines: @query.visible_lines(program, all), })
     }
     "html" => {
       let target = match @query.target_node(program, line.to_int64().to_int()) {
@@ -197,17 +210,57 @@ fn main {
       let html = @report.to_html(
         source,
         program,
+        pdg,
         result,
         line.to_int64().to_int(),
-        @report.to_dot(pdg),
+        target,
       )
       if out == "" {
         println(html)
       } else {
         @fs.write_string_to_file(out, html) catch {
-          @fs.IOError(msg) => println("error: failed to write {out}: {msg}")
+          @fs.IOError(msg) => println("error: failed to write \{out}: \{msg}")
         }
         println("wrote \{out}")
+      }
+    }
+    "path" => {
+      if from_var == "" || to_var == "" {
+        println("error: --from and --to are required")
+        return
+      }
+      let mut starts = @query.nodes_defining_name(program, from_var)
+      if starts.length() == 0 {
+        starts = @query.nodes_with_name(program, from_var)
+      }
+      let mut goals = @query.nodes_using_name(program, to_var)
+      if goals.length() == 0 {
+        goals = @query.nodes_with_name(program, to_var)
+      }
+      match @query.path_between(pdg, starts, goals) {
+        Some(path) => {
+          let mut line_out = ""
+          let mut first = true
+          for id in path {
+            if !first {
+              line_out = line_out + " -> "
+            }
+            line_out = line_out +
+              "n" +
+              id.to_string() +
+              " L" +
+              program.nodes[id].loc.start_line.to_string()
+            first = false
+          }
+          println(line_out)
+        }
+        None => println("no path from \{from_var} to \{to_var}")
+      }
+    }
+    "dump-errors" => {
+      println("errors \{program.errors.length()}")
+      for e in program.errors {
+        println(e)
       }
     }
     "dump-cfg" => {

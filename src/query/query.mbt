@@ -160,3 +160,176 @@ pub fn visible_lines(
   out.sort()
   out
 }
+
+///|
+/// Nodes not reachable from any function entry in `cfg`. Synthetic entry/exit
+/// nodes are excluded from the result.
+pub fn unreachable_nodes(
+  program : @core.Program,
+  cfg : @core.Cfg,
+) -> Array[Int32] {
+  let n = program.nodes.length()
+  let seen : Set[Int32] = Set([])
+  let queue : Array[Int32] = []
+  for f in program.functions {
+    if f.entry >= 0 && f.entry < n && !seen.contains(f.entry) {
+      seen.add(f.entry)
+      queue.push(f.entry)
+    }
+  }
+  let mut head = 0
+  while head < queue.length() {
+    let current = queue[head]
+    head = head + 1
+    for edge in cfg.edges {
+      if edge.0 == current &&
+        edge.1 >= 0 &&
+        edge.1 < n &&
+        !seen.contains(edge.1) {
+        seen.add(edge.1)
+        queue.push(edge.1)
+      }
+    }
+  }
+  let out : Array[Int32] = []
+  for node in program.nodes {
+    if !seen.contains(node.id) && !is_synthetic(program, node) {
+      out.push(node.id)
+    }
+  }
+  out.sort()
+  out
+}
+
+///|
+/// Sorted union of two node-id arrays.
+pub fn union_sorted(a : Array[Int32], b : Array[Int32]) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for x in a {
+    if !out.contains(x) {
+      out.push(x)
+    }
+  }
+  for x in b {
+    if !out.contains(x) {
+      out.push(x)
+    }
+  }
+  out.sort()
+  out
+}
+
+///|
+/// Nodes that define or use a variable with the given source name.
+pub fn nodes_with_name(program : @core.Program, name : String) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for node in program.nodes {
+    let mut hit = false
+    for v in node.defs {
+      if v.name == name {
+        hit = true
+      }
+    }
+    for v in node.uses {
+      if v.name == name {
+        hit = true
+      }
+    }
+    if hit {
+      out.push(node.id)
+    }
+  }
+  out.sort()
+  out
+}
+
+///|
+/// Shortest directed PDG path from any start node to any goal node.
+/// Returns the nodes in flow order, or `None` when no path exists.
+pub fn path_between(
+  pdg : @core.Pdg,
+  starts : Array[Int32],
+  goals : Array[Int32],
+) -> Array[Int32]? {
+  let goal_set : Set[Int32] = Set([])
+  for g in goals {
+    goal_set.add(g)
+  }
+  let visited : Set[Int32] = Set([])
+  let parent : Map[Int32, Int32] = Map([])
+  let queue : Array[Int32] = []
+  for s in starts {
+    if !visited.contains(s) {
+      visited.add(s)
+      queue.push(s)
+    }
+  }
+  let mut head = 0
+  let mut found : Int32? = None
+  while head < queue.length() && found == None {
+    let current = queue[head]
+    head = head + 1
+    if goal_set.contains(current) {
+      found = Some(current)
+    } else {
+      for e in pdg.edges {
+        if e.from == current && !visited.contains(e.to) {
+          visited.add(e.to)
+          parent.set(e.to, current)
+          queue.push(e.to)
+        }
+      }
+    }
+  }
+  match found {
+    None => None
+    Some(goal) => {
+      let reversed : Array[Int32] = [goal]
+      let mut current = goal
+      while parent.contains(current) {
+        current = parent.get(current).unwrap()
+        reversed.push(current)
+      }
+      let path : Array[Int32] = []
+      let mut i = reversed.length() - 1
+      while i >= 0 {
+        path.push(reversed[i])
+        i = i - 1
+      }
+      Some(path)
+    }
+  }
+}
+
+///|
+/// Nodes that define a variable with the given name.
+pub fn nodes_defining_name(
+  program : @core.Program,
+  name : String,
+) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for node in program.nodes {
+    for v in node.defs {
+      if v.name == name {
+        out.push(node.id)
+      }
+    }
+  }
+  out.sort()
+  out
+}
+
+///|
+/// Nodes that use a variable with the given name.
+pub fn nodes_using_name(program : @core.Program, name : String) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for node in program.nodes {
+    for v in node.uses {
+      if v.name == name {
+        out.push(node.id)
+      }
+    }
+  }
+  out.sort()
+  out
+}

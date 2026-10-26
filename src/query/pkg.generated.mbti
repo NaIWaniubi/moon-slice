@@ -12,7 +12,19 @@ pub fn lines_of(@core.Program, Array[Int32]) -> Array[Int32]
 
 pub fn nodes_at_line(@core.Program, Int32) -> Array[Int32]
 
+pub fn nodes_defining_name(@core.Program, String) -> Array[Int32]
+
+pub fn nodes_using_name(@core.Program, String) -> Array[Int32]
+
+pub fn nodes_with_name(@core.Program, String) -> Array[Int32]
+
+pub fn path_between(@core.Pdg, Array[Int32], Array[Int32]) -> Array[Int32]?
+
 pub fn target_node(@core.Program, Int32) -> Int32?
+
+pub fn union_sorted(Array[Int32], Array[Int32]) -> Array[Int32]
+
+pub fn unreachable_nodes(@core.Program, @core.Cfg) -> Array[Int32]
 
 pub fn visible_lines(@core.Program, Array[Int32]) -> Array[Int32]
 

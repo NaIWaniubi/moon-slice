@@ -1,0 +1,86 @@
+# Demo
+
+Run these from the repository root. The wrapper puts `moon` on `PATH`, so the
+commands work in Git Bash (`./dev.sh`) and in cmd/PowerShell (`dev.cmd`).
+
+## 1. Backward and forward slicing
+
+```bash
+./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
+# 4,5,6,7,8
+./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
+# 7,10
+```
+
+Line 7 is `total = total + i`. The backward slice includes the loop preheader,
+the guard, the target, and the loop-carried `i = i + 1`; the forward slice
+includes the target and `return total`.
+
+## 2. A match arm is a real assignment
+
+```bash
+./dev.sh run cmd/main -- slice --file examples/06_match.mbt --line 7 --direction forward
+# 7,10
+```
+
+The parser represents `{ label = 20 }` as a `Group`; the adapter lowers it
+transparently, so the arm is an `Assign` with a `label` definition rather than an
+opaque `Expr`.
+
+## 3. Dead stores and unreachable code
+
+```bash
+./dev.sh run cmd/main -- dead --file examples/08_dead_assignment.mbt
+# 4,5
+./dev.sh run cmd/main -- dead --file /tmp/unreachable.mbt
+# 3,4
+```
+
+`dead` unions two sets: definitions with no reaching use, and statements not
+reachable from any function entry.
+
+## 4. Data-flow path (taint-lite)
+
+```bash
+./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total
+# n1 L4 -> n5 L7
+./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total
+# n1 L4 -> n3 L6 -> n4 L7
+```
+
+Starts are definitions of `--from`; goals are uses of `--to`; the output is the
+shortest directed PDG path.
+
+## 5. HTML report
+
+```bash
+./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
+```
+
+Open `report.html`. It contains:
+
+- an inline SVG of the PDG, laid out in source order (solid = data, dashed =
+  control; orange = target, green = slice);
+- the source with slice lines highlighted;
+- metrics (nodes, edges, slice size) and parse errors;
+- the DOT text in a collapsible section.
+
+The rendered page is `docs/report.png`.
+
+## 6. JSON
+
+```bash
+./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward --json
+# {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
+```
+
+## 7. Full verification
+
+```bash
+./dev.sh check
+./dev.sh test
+bash testdata/verify_corpus.sh
+```
+
+Expected: 0 errors, `Total tests: 173, passed: 173, failed: 0`, and
+`corpus ok: 10 examples, headers and expected.json agree`.

@@ -83,3 +83,48 @@ test "09 shadowing" {
 test "10 field write" {
   check("examples/10_field_write.mbt", 11, [9, 10, 11], [11, 12])
 }
+
+///|
+test "data-flow path from a definition to a use" {
+  let source = @fs.read_file_to_string("examples/01_let.mbt") catch {
+    _ => panic()
+  }
+  let program = @parser_adapter.parse_source(source, "examples/01_let.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  let starts = @query.nodes_defining_name(program, "a")
+  let goals = @query.nodes_using_name(program, "b")
+  match @query.path_between(pdg, starts, goals) {
+    Some(path) => assert_eq(path, [1, 2, 3])
+    None => fail("expected a path from a to b")
+  }
+}
+
+///|
+test "no path in the reverse direction" {
+  let source = @fs.read_file_to_string("examples/01_let.mbt") catch {
+    _ => panic()
+  }
+  let program = @parser_adapter.parse_source(source, "examples/01_let.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  let starts = @query.nodes_defining_name(program, "c")
+  let goals = @query.nodes_using_name(program, "a")
+  assert_eq(@query.path_between(pdg, starts, goals), None)
+}
+
+///|
+test "unreachable code is flagged" {
+  let source = "fn f() -> Int {\n  return 1\n  let x = 2\n  x\n}\n"
+  let program = @parser_adapter.parse_source(source, "unreachable.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let dead = @query.dead_nodes(program, defuse)
+  let unreach = @query.unreachable_nodes(program, cfg)
+  let all = @query.union_sorted(dead, unreach)
+  assert_eq(@query.visible_lines(program, all), [3, 4])
+}

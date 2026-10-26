@@ -36,7 +36,7 @@ fn check_invariants(
   while i < count {
     assert_eq(program.nodes[i].id, i)
     // A child id always names a node that exists.
-    program.nodes[i].children.each(fn(child) {
+    program.nodes[i].children.each(child => {
       assert_true(child >= 0 && child < count)
     })
     // A parent id, when present, names a node that exists.
@@ -47,17 +47,17 @@ fn check_invariants(
     i = i + 1
   }
   // Every CFG endpoint names a node that exists.
-  cfg.edges.each(fn(edge) {
+  cfg.edges.each(edge => {
     assert_true(edge.0 >= 0 && edge.0 < count)
     assert_true(edge.1 >= 0 && edge.1 < count)
   })
   // Every reaching pair names a node that exists.
-  defuse.reaching.each(fn(pair) {
+  defuse.reaching.each(pair => {
     assert_true(pair.0 >= 0 && pair.0 < count)
     assert_true(pair.1 >= 0 && pair.1 < count)
   })
   // A function's entry and exit are real nodes, with entry first.
-  program.functions.each(fn(function) {
+  program.functions.each(function => {
     assert_true(function.entry >= 0 && function.entry < count)
     assert_true(function.exit >= 0 && function.exit < count)
     assert_true(function.entry < function.exit)
@@ -92,7 +92,7 @@ test "unsupported expression forms do not crash the pipeline" {
     // raise
      "fn f(a : Int) -> Int raise {\n  if a > 0 { raise E }\n  a\n}\n",
   ]
-  sources.each(fn(source) {
+  sources.each(source => {
     let (program, cfg, defuse) = run_pipeline(source)
     check_invariants(program, cfg, defuse)
   })
@@ -104,7 +104,7 @@ test "malformed source reports errors without crashing" {
     "fn f( {\n", "fn f() -> { }\n", "let = 1\n", "fn f() { if }\n", "fn\n", "@#$%^&\n",
     "fn f() -> Int { 1 } extra_tokens_here\n",
   ]
-  sources.each(fn(source) {
+  sources.each(source => {
     let program = @parser_adapter.parse_source(source, "bad.mbt")
     let cfg = @cfg.build(program)
     let defuse = @defuse.analyze(program, cfg)
@@ -180,7 +180,7 @@ test "empty and whitespace-only sources yield an empty program" {
   let sources : Array[String] = [
     "", "   \n\t\n  ", "\n\n\n", "// just a comment\n",
   ]
-  sources.each(fn(source) {
+  sources.each(source => {
     let program = @parser_adapter.parse_source(source, "blank.mbt")
     assert_eq(program.nodes.length(), 0)
     assert_eq(program.functions.length(), 0)

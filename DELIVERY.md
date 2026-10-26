@@ -6,15 +6,19 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 
 | Command | Result |
 | --- | --- |
-| `./dev.sh check` | 0 errors |
-| `./dev.sh test` | `Total tests: 170, passed: 170, failed: 0` |
+| `./dev.sh check` | 0 errors, 0 warnings |
+| `./dev.sh test` | `Total tests: 173, passed: 173, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward` | `4,5,6,7,8` |
 | `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward` | `7,10` |
 | `./dev.sh run cmd/main -- slice --file examples/06_match.mbt --line 7 --direction forward` | `7,10` |
 | `./dev.sh run cmd/main -- slice --file examples/08_dead_assignment.mbt --line 7 --direction backward` | `6,7` |
 | `./dev.sh run cmd/main -- dead --file examples/08_dead_assignment.mbt` | `4,5` |
-| `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | writes a self-contained HTML report |
+| `./dev.sh run cmd/main -- dead --file /tmp/unreachable.mbt` | `3,4` (unreachable after `return`) |
+| `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total` | `n1 L4 -> n5 L7` |
+| `./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total` | `n1 L4 -> n3 L6 -> n4 L7` |
+| `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
+| `node bench/gen.mjs 500 /tmp/big.mbt && time ./dev.sh run cmd/main -- slice --file /tmp/big.mbt --line 502 --direction backward` | 1.58 s wall, 500-statement function |
 
 ## Integration bugs found and fixed
 
@@ -43,7 +47,11 @@ Date: 2026-10-26. Repository: `moon-slice` (local; push to `TARGET/moon-slice`).
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 170 tests, including 10 end-to-end corpus tests
+- [x] 173 tests, including 10 end-to-end corpus tests and path/unreachable tests
+- [x] zero compiler warnings
+- [x] inline-SVG HTML report + `docs/report.png`
+- [x] data-flow path query (`path --from A --to B`)
+- [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
 - [ ] push to GitHub and replace `TARGET` in `PROPOSAL.md`
 - [ ] fill author/repo in `PROPOSAL.md`

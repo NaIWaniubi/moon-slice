@@ -9,9 +9,14 @@ Slicing is the standard way to answer "what here matters to this line", and it i
 the usual first step for debugging, impact analysis before a refactor, and
 narrowing down a diff during review.
 
+![moon-slice report](docs/report.png)
+
+The HTML report renders the PDG as an inline SVG, highlights the slice in the
+source, and stays self-contained (no network, no CDN).
+
 ## Status
 
-All layers are implemented and covered by `moon test` (170 tests, including a
+All layers are implemented and covered by `moon test` (173 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -23,9 +28,9 @@ All layers are implemented and covered by `moon test` (170 tests, including a
 | CDG | `src/cdg` | implemented — structured control dependence |
 | PDG | `src/pdg` | implemented — data + control edges |
 | Slicing | `src/slice` | implemented — backward/forward BFS |
-| Query helpers | `src/query` | implemented — line → node, dead definitions |
-| Report | `src/report` | implemented — JSON, DOT, HTML |
-| CLI | `cmd/main` | implemented — `slice`, `graph`, `dead`, `html`, debug dumps |
+| Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
+| Report | `src/report` | implemented — JSON, DOT, inline SVG, HTML |
+| CLI | `cmd/main` | implemented — `slice`, `graph`, `dead`, `path`, `html`, debug dumps |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
 ## Quickstart
@@ -49,8 +54,15 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 ./dev.sh run cmd/main -- graph --file examples/04_while.mbt --format dot
 ./dev.sh run cmd/main -- dead  --file examples/08_dead_assignment.mbt
 # 4,5
+./dev.sh run cmd/main -- path  --file examples/04_while.mbt --from i --to total
+# n1 L4 -> n5 L7
 ./dev.sh run cmd/main -- html  --file examples/04_while.mbt --line 7 --out report.html
 ```
+
+`path --from A --to B` is the taint-lite query: it finds the shortest directed
+PDG path from a definition of `A` to a use of `B`. `dead` reports both
+definitions with no reaching use and statements unreachable from a function
+entry.
 
 The same pipeline from MoonBit code:
 
@@ -149,9 +161,9 @@ may report a larger slice than a precise analysis would:
   structured subset above, but it does not model irreducible control flow, and
   `return`/`break`/`continue` are handled conservatively (treated as depending
   on every enclosing controller).
-- **`dead` is definition-based.** It reports definitions with no reaching use.
-  It does not infer unreachable code after an unconditional `return`; a store
-  that is dead only because a callee never reads it is not flagged either.
+- **`dead` is definition- and reachability-based.** It reports definitions with
+  no reaching use and statements unreachable from a function entry. It does not
+  infer that a store is dead only because a callee never reads it.
 - **No points-to, no reflection, no macro expansion.** Dynamic dispatch and
   metaprogramming are opaque; the conservative "all identifiers are uses" rule
   applies.
@@ -194,6 +206,27 @@ surprise in a slicing result.
 package; it is data. The files are still valid MoonBit and were verified with
 the real compiler.
 
+## HTML report
+
+`html` writes a single self-contained file: the dependency graph is an inline
+SVG layered in source order (solid = data, dashed = control; orange = target,
+green = slice), followed by highlighted source, metrics, parse errors, and the
+DOT fallback. The page has no network dependency. See `docs/report.png` for a
+rendered example.
+
+## Data-flow paths
+
+`path --from A --to B` finds the shortest directed PDG path from a definition
+of `A` to a use of `B`. It is the taint-lite use case: mark a source variable
+and a sink variable, and read the flow in one line.
+
+```bash
+./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total
+# n1 L4 -> n5 L7
+./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total
+# n1 L4 -> n3 L6 -> n4 L7
+```
+
 ## Verifying the corpus
 
 The headers and `testdata/expected.json` must agree, and every mutation
@@ -225,6 +258,9 @@ PowerShell / cmd users: replace `./dev.sh` with `dev.cmd`.
 
 `moon fmt` and `moon info` are coordinate-after-merge steps in this repo; running
 them inside a feature branch rewrites shared files and causes merge conflicts.
+
+Deeper notes: [algorithm map](docs/ALGORITHMS.md) ·
+[demo walkthrough](docs/DEMO.md).
 
 ## License
 

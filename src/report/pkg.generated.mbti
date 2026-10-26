@@ -8,9 +8,11 @@ import {
 // Values
 pub fn to_dot(@core.Pdg) -> String
 
-pub fn to_html(String, @core.Program, @core.SliceResult, Int32, String) -> String
+pub fn to_html(String, @core.Program, @core.Pdg, @core.SliceResult, Int32, Int32) -> String
 
 pub fn to_json(@core.Program, @core.SliceResult) -> String
+
+pub fn to_svg(@core.Program, @core.Pdg, @core.SliceResult, Int32) -> String
 
 // Errors
 
