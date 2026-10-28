@@ -29,12 +29,60 @@ fn usage() -> Unit {
 }
 
 ///|
+fn fail(message : String) -> Unit {
+  println(message)
+  @sys.exit(2)
+}
+
+///|
 fn read_source(path : String) -> String {
   @fs.read_file_to_string(path) catch {
     @fs.IOError(msg) => {
-      println("error: failed to read \{path}: \{msg}")
+      fail("error: failed to read \{path}: \{msg}")
       ""
     }
+  }
+}
+
+///|
+fn known_command(command : String) -> Bool {
+  command == "slice" ||
+  command == "graph" ||
+  command == "callgraph" ||
+  command == "dead" ||
+  command == "path" ||
+  command == "html" ||
+  command == "dump" ||
+  command == "dump-errors" ||
+  command == "dump-cfg" ||
+  command == "dump-defuse" ||
+  command == "dump-pdg"
+}
+
+///|
+fn require_value(argv : Array[String], i : Int, _flag : String) -> String {
+  if i + 1 >= argv.length() {
+    fail("error: \{_flag} requires a value")
+    ""
+  } else {
+    argv[i + 1]
+  }
+}
+
+///|
+fn parse_line(value : String) -> Int {
+  @string.parse_int(value) catch {
+    _ => {
+      fail("error: invalid integer for --line: \{value}")
+      0
+    }
+  }
+}
+
+///|
+fn require_line(command : String, line : Int) -> Unit {
+  if (command == "slice" || command == "html" || command == "dump") && line <= 0 {
+    fail("error: --line is required for \{command}")
   }
 }
 
@@ -121,6 +169,9 @@ fn main {
     usage()
     return
   }
+  if !known_command(command) {
+    fail("error: unknown command \{command}")
+  }
   let mut file = ""
   let mut line = 0
   let mut direction = "backward"
@@ -133,26 +184,32 @@ fn main {
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
-    if arg == "--file" && i + 1 < argv.length() {
-      file = argv[i + 1]
+    if arg == "--file" {
+      file = require_value(argv, i, arg)
       i = i + 2
-    } else if arg == "--line" && i + 1 < argv.length() {
-      line = @string.parse_int(argv[i + 1]) catch { _ => 0 }
+    } else if arg == "--line" {
+      line = parse_line(require_value(argv, i, arg))
       i = i + 2
-    } else if arg == "--direction" && i + 1 < argv.length() {
-      direction = argv[i + 1]
+    } else if arg == "--direction" {
+      direction = require_value(argv, i, arg)
+      if direction != "backward" && direction != "forward" {
+        fail("error: unsupported --direction \{direction} (use backward or forward)")
+      }
       i = i + 2
-    } else if arg == "--format" && i + 1 < argv.length() {
-      format = argv[i + 1]
+    } else if arg == "--format" {
+      format = require_value(argv, i, arg)
+      if format != "dot" {
+        fail("error: unsupported --format \{format} (use dot)")
+      }
       i = i + 2
-    } else if arg == "--out" && i + 1 < argv.length() {
-      out = argv[i + 1]
+    } else if arg == "--out" {
+      out = require_value(argv, i, arg)
       i = i + 2
-    } else if arg == "--from" && i + 1 < argv.length() {
-      from_var = argv[i + 1]
+    } else if arg == "--from" {
+      from_var = require_value(argv, i, arg)
       i = i + 2
-    } else if arg == "--to" && i + 1 < argv.length() {
-      to_var = argv[i + 1]
+    } else if arg == "--to" {
+      to_var = require_value(argv, i, arg)
       i = i + 2
     } else if arg == "--json" {
       json = true
@@ -161,23 +218,28 @@ fn main {
       interproc = true
       i = i + 1
     } else {
-      println("error: unknown argument \{arg}")
-      i = i + 1
+      fail("error: unknown argument \{arg}")
     }
   }
   if file == "" {
-    println("error: --file is required")
-    return
+    fail("error: --file is required")
+  }
+  require_line(command, line)
+  if command == "path" && (from_var == "" || to_var == "") {
+    fail("error: --from and --to are required")
   }
   let source = read_source(file)
   let (program, defuse, pdg) = analyze(source, file)
+  if command != "dump-errors" && program.errors.length() > 0 {
+    fail("error: source contains \{program.errors.length()} parser diagnostic(s); use dump-errors to inspect them")
+  }
   match command {
     "slice" => {
       let target = match @query.target_node(program, line.to_int64().to_int()) {
         Some(id) => id
         None => {
-          println("error: no node starts at line \{line}")
-          return
+          fail("error: no node starts at line \{line}")
+          0
         }
       }
       let result = if direction == "forward" {
@@ -204,7 +266,7 @@ fn main {
       if format == "dot" {
         println(@report.to_dot(pdg))
       } else {
-        println("error: unsupported --format \{format} (use dot)")
+        fail("error: unsupported --format \{format} (use dot)")
       }
     "callgraph" => {
       let edges = @query.call_edges(program)
@@ -235,8 +297,8 @@ fn main {
       let target = match @query.target_node(program, line.to_int64().to_int()) {
         Some(id) => id
         None => {
-          println("error: no node starts at line \{line}")
-          return
+          fail("error: no node starts at line \{line}")
+          0
         }
       }
       let result = @slice.backward(pdg, target, program~)
@@ -261,7 +323,7 @@ fn main {
         println(html)
       } else {
         @fs.write_string_to_file(out, html) catch {
-          @fs.IOError(msg) => println("error: failed to write \{out}: \{msg}")
+          @fs.IOError(msg) => fail("error: failed to write \{out}: \{msg}")
         }
         println("wrote \{out}")
       }

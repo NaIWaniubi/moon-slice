@@ -24,6 +24,23 @@ expect_contains() {
   fi
 }
 
+# Expect a nonzero exit and an error line. A successful command here is a bug:
+# automation must never mistake a missing file or bad flag for a real result.
+expect_fail() {
+  local want="$1"; shift
+  set +e
+  local got; got="$(run "$@")"; local rc=$?
+  set -e
+  if [ "$rc" -eq 0 ]; then
+    printf 'FAIL: %s exited 0 (expected failure)\n  output: %s\n' "$*" "$got" >&2
+    exit 1
+  fi
+  if ! printf '%s' "$got" | grep -Fq -- "$want"; then
+    printf 'FAIL: %s\n  missing: %s\n  output: %s\n' "$*" "$want" "$got" >&2
+    exit 1
+  fi
+}
+
 # Version and help
 expect_eq "moon-slice 0.2.0" version
 expect_contains "Commands:" help
@@ -62,5 +79,12 @@ grep -Fq 'Slice nodes' "$tmp_html"
 tmp_bad="$(mktemp)"
 printf 'fn broken( {\n  let x =\n}\n' > "$tmp_bad"
 expect_contains "errors" dump-errors --file "$tmp_bad"
+
+# Error paths: these must exit nonzero and must not emit a plausible result.
+expect_fail "failed to read" graph --file "$tmp_bad.missing.mbt"
+expect_fail "unsupported --direction" slice --file examples/04_while.mbt --line 7 --direction sideways
+expect_fail "unknown argument" slice --file examples/04_while.mbt --line 7 --bogus
+expect_fail "requires a value" slice --file
+expect_fail "parser diagnostic" slice --file "$tmp_bad" --line 1
 
 printf 'cli smoke ok\n'

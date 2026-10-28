@@ -149,21 +149,50 @@ fn record_call(ctx : Adapter, callee : String, loc : @core.Loc) -> Unit {
 }
 
 ///|
-/// Record a direct call in RHS/return position. The call is folded into the
-/// enclosing statement's `uses`, so this is the only place its callee name is
-/// still visible. Calls nested inside a larger expression are not recorded yet.
-fn record_call_in_expr(ctx : Adapter, expr : @syntax.Expr) -> Unit {
-  match expr {
-    Apply(func=callee, ..) => {
-      let callee_uses = uses_of(ctx, callee)
-      if callee_uses.length() > 0 {
-        record_call(ctx, callee_uses[0].name, loc_whole(expr))
+fn record_calls_in_expr(ctx : Adapter, expr : @syntax.Expr) -> Unit {
+  let collector : CallCollector = { names: [], }
+  @syntax.IterVisitor::visit_Expr(collector, expr)
+  collector.names.each(fn(pair) {
+    record_call(
+      ctx,
+      pair.0,
+      { start_line: pair.1, start_col: 0, end_line: pair.1, end_col: 0, },
+    )
+  })
+}
+
+///|
+priv struct CallCollector {
+  names : Array[(String, Int32)]
+}
+
+///|
+extend CallCollector with @syntax.IterVisitor::{base}
+
+///|
+impl @syntax.IterVisitor for CallCollector with fn visit_Expr_Apply(
+  self,
+  func~,
+  args~,
+  loc~,
+) {
+  match func {
+    Ident(id~, ..) =>
+      match id.name {
+        Ident(name~) => self.names.push((name, loc.start.lnum))
+        Dot(..) => ()
       }
-    }
-    DotApply(method_name=name, ..) =>
-      record_call(ctx, name.name, loc_whole(expr))
     _ => ()
   }
+  @syntax.IterVisitor::visit_Expr_Apply(self.base(), func~, args~, loc~)
+}
+
+///|
+/// Record direct calls in RHS/return position. The visitor also finds calls
+/// nested inside arguments, so a statement containing `g(h(x))` records both
+/// `g` and `h`.
+fn record_call_in_expr(ctx : Adapter, expr : @syntax.Expr) -> Unit {
+  record_calls_in_expr(ctx, expr)
 }
 
 ///|
@@ -326,10 +355,8 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     Unit(..) => ()
     // ---- calls ------------------------------------------------------------
     Apply(func=callee, args=call_args, ..) => {
+      record_calls_in_expr(ctx, whole)
       let uses = uses_of(ctx, callee)
-      if uses.length() > 0 {
-        record_call(ctx, uses[0].name, loc_whole(whole))
-      }
       call_args.each(fn(arg) { append_uses(ctx, arg.value, uses) })
       let node = begin_node(
         ctx,
@@ -341,8 +368,8 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       )
       ignore(node)
     }
-    DotApply(self=receiver, method_name~, args=call_args, ..) => {
-      record_call(ctx, method_name.name, loc_whole(whole))
+    DotApply(self=receiver, args=call_args, ..) => {
+      record_calls_in_expr(ctx, whole)
       let uses = uses_of(ctx, receiver)
       call_args.each(fn(arg) { append_uses(ctx, arg.value, uses) })
       let node = begin_node(
@@ -407,6 +434,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     // ---- conditional branches --------------------------------------------
     If(cond~, ifso~, ifnot~, ..) => {
       let loc = loc_whole(whole)
+      record_calls_in_expr(ctx, cond)
       let head = begin_node(
         ctx,
         @core.SNodeKind::If,
@@ -423,17 +451,27 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     }
     Guard(cond~, otherwise~, body=rest, ..) => {
       let loc = loc_whole(whole)
-      let uses = uses_of(ctx, cond)
+      record_calls_in_expr(ctx, cond)
+      let head = begin_node(
+        ctx,
+        @core.SNodeKind::If,
+        loc,
+        [],
+        uses_of(ctx, cond),
+        parent,
+      )
+      // A guard's successful continuation is the first branch; its `else`
+      // body is a real alternate branch and must remain visible to CFG/PDG.
+      emit_branch(ctx, head, @core.SNodeKind::If, rest)
       match otherwise {
-        Some(branch) => append_uses(ctx, branch, uses)
+        Some(branch) => emit_branch(ctx, head, @core.SNodeKind::If, branch)
         None => ()
       }
-      let head = begin_node(ctx, @core.SNodeKind::If, loc, [], uses, parent)
-      emit_branch(ctx, head, @core.SNodeKind::If, rest)
     }
     // ---- loops ------------------------------------------------------------
     While(loop_cond~, loop_body~, while_else~, ..) => {
       let loc = loc_whole(whole)
+      record_calls_in_expr(ctx, loop_cond)
       let head = begin_node(
         ctx,
         @core.SNodeKind::While,
@@ -451,18 +489,21 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     For(binders~, condition~, continue_block~, body=loop_body, for_else~, ..) => {
       let loc = loc_whole(whole)
       let uses : Array[@core.VarId] = []
+      // Initializers run before the loop binders become visible.
       binders.each(fn(pair) { append_uses(ctx, pair.1, uses) })
+      let head = begin_node(ctx, @core.SNodeKind::For, loc, [], uses, parent)
+      binders.each(fn(pair) { head.defs.push(bind_fresh(ctx, pair.0.name)) })
       match condition {
-        Some(cond) => append_uses(ctx, cond, uses)
+        Some(cond) => {
+          record_calls_in_expr(ctx, cond)
+          append_uses(ctx, cond, head.uses)
+        }
         None => ()
       }
-      continue_block.each(fn(pair) { append_uses(ctx, pair.1, uses) })
-      let head = begin_node(ctx, @core.SNodeKind::For, loc, [], uses, parent)
       let mark = ctx.env.length()
-      binders.each(fn(pair) { head.defs.push(bind_fresh(ctx, pair.0.name)) })
       let region = begin_region(ctx, head, @core.SNodeKind::For)
       emit_into_region(ctx, region, loop_body)
-      continue_block.each(fn(pair) { append_uses(ctx, pair.1, region.uses) })
+      emit_loop_updates(ctx, region, continue_block)
       ctx.env.truncate(mark)
       match for_else {
         Some(branch) => emit_branch(ctx, head, @core.SNodeKind::For, branch)
@@ -479,6 +520,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       ..
     ) => {
       let loc = loc_whole(whole)
+      record_calls_in_expr(ctx, iterated)
       let uses = uses_of(ctx, iterated)
       init.each(fn(pair) { append_uses(ctx, pair.1, uses) })
       continue_block.each(fn(pair) { append_uses(ctx, pair.1, uses) })
@@ -501,6 +543,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     // ---- match ------------------------------------------------------------
     Match(expr=scrutinee, cases~, ..) => {
       let loc = loc_whole(whole)
+      record_calls_in_expr(ctx, scrutinee)
       let uses = uses_of(ctx, scrutinee)
       cases.each(fn(case_) {
         match case_.guard_ {
@@ -596,6 +639,29 @@ fn emit_element_write(
   push_unique_vars(node.uses, base_uses)
   append_uses(ctx, index, node.uses)
   append_uses(ctx, value, node.uses)
+}
+
+///|
+/// Lower loop update assignments as real nodes in the body region. The CFG's
+/// back edge then executes these definitions before returning to the loop head.
+fn emit_loop_updates(
+  ctx : Adapter,
+  region : @core.SNode,
+  updates : @list.List[(@syntax.Binder, @syntax.Expr)],
+) -> Unit {
+  updates.each(fn(pair) {
+    record_calls_in_expr(ctx, pair.1)
+    let node = begin_node(
+      ctx,
+      @core.SNodeKind::Assign,
+      loc_whole(pair.1),
+      [],
+      uses_of(ctx, pair.1),
+      Some(region.id),
+    )
+    node.defs.push(resolve_name(ctx, pair.0.name))
+    region.children.push(node.id)
+  })
 }
 
 ///|

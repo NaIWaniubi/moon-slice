@@ -23,7 +23,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (190 tests, including a
+All layers are implemented and covered by `moon test` (198 tests, including a
 10-example end-to-end corpus). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
@@ -141,6 +141,9 @@ Modeled with precise data and control edges:
 - `if` / `else` (including `else if` chains) and merges after the join
 - `while` and `for` / `for .. in` loops, with loop-carried definitions
 - `match` with multiple arms
+- `guard ... else` (the continuation and the else body are both branches)
+- C-style `for init; condition; update`: the loop binder is visible to the
+  condition and the update is a real definition in the body region
 - `return`, `break`, `continue`
 - expression statements, operator expressions, calls
 - identifiers and field access (`p.x`)
@@ -255,9 +258,10 @@ and a sink variable, and read the flow in one line.
 ## Call graph
 
 `callgraph --file F` prints a function-level DOT graph from the recorded call
-sites (calls in `let`/assignment/return position are included, not just bare
-call statements). Only callees defined in the same file are emitted; method
-calls and function values are omitted.
+sites. Every free-function application in a statement is recorded, including
+nested applications such as `g(h(x))` and calls in `if`/`while`/`for`
+conditions; method calls and function values are omitted. Only callees defined
+in the same file are emitted. A call from a function to itself is a real edge.
 
 ## Inter-procedural mode
 

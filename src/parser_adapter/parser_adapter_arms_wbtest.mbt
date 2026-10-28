@@ -102,14 +102,21 @@ test "continue carries its arguments as uses" {
 }
 
 ///|
-test "guard becomes an If head with a single region" {
+test "guard keeps both its continuation and its else branch" {
   let source = "fn f(n : Int) -> Int {\n  guard n > 0 else { return 0 }\n  n\n}\n"
   let program = parse_source(source, "guard.mbt")
   assert_eq(program.errors.length(), 0)
   let head = program.nodes[1]
   assert_eq(kind_name(head.kind), "If")
   assert_true(use_names(head).contains("n"))
-  assert_true(head.children.length() >= 1)
+  assert_eq(head.children.length(), 2)
+  // The continuation (`n`) and the else body (`return 0`) are both regions.
+  let then_region = program.nodes[head.children[0]]
+  let else_region = program.nodes[head.children[1]]
+  assert_eq(else_region.children.length(), 1)
+  let else_body = program.nodes[else_region.children[0]]
+  assert_eq(kind_name(else_body.kind), "Return")
+  assert_eq(then_region.children.length(), 1)
 }
 
 ///|

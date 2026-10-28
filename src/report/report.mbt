@@ -16,13 +16,32 @@ fn join_ints(xs : Array[Int32]) -> String {
 
 ///|
 fn json_string(s : String) -> String {
-  let escaped = s
-    .replace(old="\\", new="\\\\")
-    .replace(old="\"", new="\\\"")
-    .replace(old="\n", new="\\n")
-    .replace(old="\r", new="\\r")
-    .replace(old="\t", new="\\t")
-  "\"" + escaped + "\""
+  let out = StringBuilder()
+  for ch in s.iter() {
+    match ch {
+      '\\' => out.write_string("\\\\")
+      '"' => out.write_string("\\\"")
+      '\n' => out.write_string("\\n")
+      '\r' => out.write_string("\\r")
+      '\t' => out.write_string("\\t")
+      '\b' => out.write_string("\\b")
+      '\f' => out.write_string("\\f")
+      _ => {
+        let code = ch.to_int()
+        if code < 0x20 {
+          let hex = code.to_string(radix=16)
+          out.write_string("\\u00")
+          if hex.length() == 1 {
+            out.write_char('0')
+          }
+          out.write_string(hex)
+        } else {
+          out.write_char(ch)
+        }
+      }
+    }
+  }
+  "\"" + out.to_string() + "\""
 }
 
 ///|
@@ -72,10 +91,18 @@ pub fn to_dot(pdg : @core.Pdg) -> String {
 
 ///|
 fn escape_html(s : String) -> String {
-  s
-  .replace(old="&", new="&amp;")
-  .replace(old="<", new="&lt;")
-  .replace(old=">", new="&gt;")
+  let out = StringBuilder()
+  for ch in s.iter() {
+    match ch {
+      '&' => out.write_string("&amp;")
+      '<' => out.write_string("&lt;")
+      '>' => out.write_string("&gt;")
+      '"' => out.write_string("&quot;")
+      '\'' => out.write_string("&#39;")
+      _ => out.write_char(ch)
+    }
+  }
+  out.to_string()
 }
 
 ///|
@@ -122,6 +149,7 @@ pub fn to_svg(
   }
   let max_nodes_int = if n > 200 { 200 } else { n }
   let max_nodes : Int32 = max_nodes_int.to_int64().to_int()
+  let truncated = n > 200
   let skip : Array[Bool] = []
   let mut i : Int32 = 0
   while i < max_nodes {
@@ -220,7 +248,7 @@ pub fn to_svg(
   }
   let width = 80 + max_count * 180
   let height = 90 + (max_layer + 1) * 90
-  let mut svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" +
+  let mut svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-labelledby=\"graph-title graph-desc\" width=\"" +
     width.to_string() +
     "\" height=\"" +
     height.to_string() +
@@ -228,7 +256,7 @@ pub fn to_svg(
     width.to_string() +
     " " +
     height.to_string() +
-    "\">"
+    "\"><title id=\"graph-title\">Program dependence graph</title><desc id=\"graph-desc\">Solid edges are data dependencies; dashed edges are control dependencies. Orange is the target and green nodes are in the slice.</desc>"
   svg = svg +
     "<defs><marker id=\"arrow\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L0,6 L8,3 z\" fill=\"#9aa0a6\"/></marker></defs>"
   svg = svg + "<rect width=\"100%\" height=\"100%\" fill=\"#0f1115\"/>"
@@ -322,7 +350,13 @@ pub fn to_svg(
   svg = svg +
     "<text x=\"16\" y=\"" +
     (height - 12).to_string() +
-    "\" fill=\"#9aa0a6\" font-size=\"11\" font-family=\"monospace\">solid = data · dashed = control · orange = target · green = slice</text>"
+    "\" fill=\"#9aa0a6\" font-size=\"11\" font-family=\"monospace\">solid = data · dashed = control · orange = target · green = slice" +
+    (if truncated {
+      " · showing first 200 nodes; table and metrics contain the full result"
+    } else {
+      ""
+    }) +
+    "</text>"
   svg = svg + "</svg>"
   svg
 }
@@ -345,7 +379,7 @@ fn vars_text(vars : Array[@core.VarId]) -> String {
     if !first {
       out = out + ", "
     }
-    out = out + v.name + "#" + v.scope.to_string()
+    out = out + escape_html(v.name) + "#" + v.scope.to_string()
     first = false
   }
   out
@@ -421,7 +455,7 @@ pub fn to_html(
   svg +
   "</div>\n<h2>Source</h2>\n<pre>" +
   body +
-  "</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th>node</th><th>kind</th><th>line</th><th>defs</th><th>uses</th></tr></thead><tbody>" +
+  "</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>" +
   rows +
   "</tbody></table>\n<h2>Errors</h2>\n<ul>" +
   errs +
@@ -435,7 +469,7 @@ pub fn to_html(
 pub fn to_call_dot(edges : Array[(String, String)]) -> String {
   let mut out = "digraph callgraph {\n  rankdir=LR;\n"
   for e in edges {
-    out = out + "  \"" + e.0 + "\" -> \"" + e.1 + "\";\n"
+    out = out + "  " + json_string(e.0) + " -> " + json_string(e.1) + ";\n"
   }
   out = out + "}\n"
   out

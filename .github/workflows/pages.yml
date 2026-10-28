@@ -23,6 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install MoonBit
+        run: curl -fsSL https://cli.moonbitlang.cn/install/unix.sh | bash
+
+      - name: Add MoonBit to PATH
+        run: echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Update registry index
+        run: moon update
+
+      - name: Build browser engine
+        run: bash web/build.sh
+
+      - name: Check browser bundle is committed
+        run: git diff --exit-code -- web/moon-slice.js
+
+      - name: Run browser smoke test
+        run: node web/smoke.mjs
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

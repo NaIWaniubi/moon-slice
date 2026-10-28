@@ -130,3 +130,31 @@ test "call json renders pairs" {
   let json = @report.to_call_json([("f", "g"), ("g", "h")])
   assert_eq(json, "[[\"f\",\"g\"],[\"g\",\"h\"]]")
 }
+
+///|
+test "json escapes every control character" {
+  let program = sample_program()
+  let program = @core.Program::{
+    nodes: program.nodes,
+    functions: program.functions,
+    calls: program.calls,
+    errors: ["bad\u{1}\u{8}\u{c}\u{1f}"],
+  }
+  let json = @report.to_json(program, sample_result())
+  assert_true(json.contains("bad\\u0001\\b\\f\\u001f"))
+}
+
+///|
+test "html escapes repeated source delimiters and quotes" {
+  let html = @report.to_html(
+    "<one> <two> & <script>probe()</script> 'quote' \"double\"",
+    sample_program(),
+    sample_pdg(),
+    sample_result(),
+    2,
+    1,
+  )
+  assert_true(html.contains("&lt;one&gt; &lt;two&gt; &amp; &lt;script&gt;probe()&lt;/script&gt;"))
+  assert_true(html.contains("&#39;quote&#39; &quot;double&quot;"))
+  assert_true(!html.contains("<script>probe()</script>"))
+}

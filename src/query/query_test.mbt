@@ -94,3 +94,29 @@ test "union is sorted and deduplicated" {
   assert_eq(@query.union_sorted([1, 3], [2, 3]), [1, 2, 3])
   assert_eq(@query.union_sorted([], []), [])
 }
+
+///|
+test "queries resolve node ids when they are not array indexes" {
+  let node : (@core.SNodeKind, Int32) -> @core.SNode = fn(kind, id) {
+    @core.SNode::{
+      id,
+      kind,
+      loc: { start_line: id, start_col: 0, end_line: id, end_col: 1, },
+      defs: [],
+      uses: [],
+      children: [],
+      parent: None,
+    }
+  }
+  let program : @core.Program = {
+    nodes: [node(@core.SNodeKind::Let, 10), node(@core.SNodeKind::Expr, 20)],
+    functions: [],
+    calls: [],
+    errors: [],
+  }
+  // Sparse ids: id 20 sits at array index 1, not index 20.
+  assert_eq(@query.lines_of(program, [10, 20]), [10, 20])
+  assert_eq(@query.visible_lines(program, [20]), [20])
+  assert_eq(@query.nodes_at_line(program, 20), [20])
+  assert_eq(@query.target_node(program, 20), Some(20))
+}

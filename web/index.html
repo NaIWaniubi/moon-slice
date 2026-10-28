@@ -62,34 +62,56 @@ fn loop_sum(n : Int) -> Int {
     <p class="hint">Target a statement line. Backward answers “where did this value come from?”, forward answers “what does this value affect?”, interprocedural expands callee return-value cones.</p>
   </section>
   <section class="right">
-    <div class="status" id="status">loading engine…</div>
+    <div class="status" id="status" role="status" aria-live="polite">loading engine…</div>
     <iframe id="out" title="moon-slice report"></iframe>
+    <iframe id="engine" title="analysis engine" aria-hidden="true" hidden></iframe>
   </section>
 </main>
 <script>
-  globalThis.moonSliceReadInput = () => [
-    document.getElementById('direction').value,
-    document.getElementById('line').value,
-    document.getElementById('source').value,
-  ].join('@@MOONSLICE@@');
+  let runSerial = 0;
 
-  globalThis.moonSliceWriteOutput = (html) => {
+  function currentInput() {
+    return {
+      direction: document.getElementById('direction').value,
+      line: document.getElementById('line').value,
+      source: document.getElementById('source').value,
+    };
+  }
+
+  function run() {
+    const serial = ++runSerial;
+    const old = document.getElementById('engine');
+    if (old) old.remove();
+    const status = document.getElementById('status');
+    status.textContent = 'running…';
+    const frame = document.createElement('iframe');
+    frame.id = 'engine';
+    frame.title = 'analysis engine';
+    frame.hidden = true;
+    const input = currentInput();
+    const token = String(serial);
+    const closeTag = '<' + '/script>';
+    frame.srcdoc = `<!doctype html><script>
+      globalThis.moonSliceReadInput = () => parent.moonSliceReadInput(${JSON.stringify(token)});
+      globalThis.moonSliceWriteOutput = (html) => parent.moonSliceWriteOutput(${JSON.stringify(token)}, html);
+    ${closeTag}<script src="moon-slice.js?run=${serial}">${closeTag}`;
+    frame.onerror = () => {
+      if (serial === runSerial) status.textContent = 'failed to load moon-slice.js — run bash web/build.sh';
+    };
+    document.querySelector('.right').appendChild(frame);
+  }
+
+  globalThis.moonSliceReadInput = (token) => {
+    if (token !== String(runSerial)) return 'backward\n0\n';
+    const input = currentInput();
+    return input.direction + '\n' + input.line + '\n' + input.source;
+  };
+
+  globalThis.moonSliceWriteOutput = (token, html) => {
+    if (token !== String(runSerial)) return;
     document.getElementById('out').srcdoc = html;
     document.getElementById('status').textContent = 'rendered ' + html.length + ' bytes';
   };
-
-  function run() {
-    const old = document.getElementById('engine');
-    if (old) old.remove();
-    document.getElementById('status').textContent = 'running…';
-    const s = document.createElement('script');
-    s.id = 'engine';
-    s.src = 'moon-slice.js?t=' + Date.now();
-    s.onerror = () => {
-      document.getElementById('status').textContent = 'failed to load moon-slice.js — run bash web/build.sh';
-    };
-    document.body.appendChild(s);
-  }
 
   document.getElementById('run').addEventListener('click', run);
   window.addEventListener('DOMContentLoaded', run);

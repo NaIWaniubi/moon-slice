@@ -162,6 +162,55 @@ test "conservative interprocedural expansion includes callee bodies" {
 }
 
 ///|
+test "call graph includes nested and recursive calls" {
+  let source = "fn h(x : Int) -> Int { x }\nfn g(x : Int) -> Int { x }\nfn f(x : Int) -> Int {\n  let y = g(h(x))\n  y\n}\nfn rec(n : Int) -> Int {\n  if n <= 0 { return 0 }\n  return rec(n - 1)\n}\n"
+  let program = @parser_adapter.parse_source(source, "calls.mbt")
+  let edges = @query.call_edges(program)
+  assert_true(edges.contains(("f", "g")))
+  assert_true(edges.contains(("f", "h")))
+  assert_true(edges.contains(("rec", "rec")))
+}
+
+///|
+test "method names are not mistaken for free functions" {
+  let source = "fn m(x : Int) -> Int { x }\nfn f(s : S) -> Unit {\n  s.m()\n}\n"
+  let program = @parser_adapter.parse_source(source, "method.mbt")
+  assert_eq(@query.call_edges(program), [])
+}
+
+///|
+test "two calls on one line expand only the matching callee" {
+  let source = "fn h(x : Int) -> Int {\n  return x\n}\nfn k(x : Int) -> Int {\n  let dead = 7\n  return x + 1\n}\nfn f(x : Int) -> Int {\n  let a = h(x); let b = k(x); a\n}\n"
+  let program = @parser_adapter.parse_source(source, "sameline.mbt")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  let node = match @query.target_node(program, 9) {
+    Some(id) => id
+    None => panic()
+  }
+  let base = @slice.backward(pdg, node, program~)
+  let base = @core.SliceResult::{
+    nodes: base.nodes,
+    lines: @query.visible_lines(program, base.nodes),
+  }
+  let expanded = @query.expand_calls(program, pdg, base)
+  assert_true(expanded.lines.contains(2))
+  // `k` is called on the same line, but its dead store is not in `h`'s cone.
+  assert_true(!expanded.lines.contains(5))
+}
+
+///|
+test "calls in conditions and loop bounds are recorded" {
+  let source = "fn h(x : Int) -> Bool { x > 0 }\nfn w(x : Int) -> Bool { x > 0 }\nfn f(x : Int) -> Int {\n  if h(x) {\n    1\n  }\n  while w(x) {\n    return 2\n  }\n  0\n}\n"
+  let program = @parser_adapter.parse_source(source, "condcalls.mbt")
+  let edges = @query.call_edges(program)
+  assert_true(edges.contains(("f", "h")))
+  assert_true(edges.contains(("f", "w")))
+}
+
+///|
 test "interprocedural return cone excludes dead callee stores" {
   let source = "fn inc(x : Int) -> Int {\n  let dead = 99\n  return x + 1\n}\n\nfn main_fn(x : Int) -> Int {\n  let y = inc(x)\n  y\n}\n"
   let program = @parser_adapter.parse_source(source, "cone.mbt")

@@ -58,8 +58,8 @@ shortest directed PDG path.
 # digraph callgraph { "twice" -> "inc"; "main_fn" -> "twice"; }
 ```
 
-A function-level dependency overview; method calls and function values are
-omitted.
+A function-level dependency overview; nested calls and recursive calls are
+included, while method calls and function values are omitted.
 
 ## 6. Inter-procedural mode
 
@@ -109,5 +109,5 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 190, passed: 190, failed: 0`, and
+Expected: 0 errors, `Total tests: 198, passed: 198, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

@@ -2,9 +2,10 @@
 // build expects, load the bundle, and assert that it produced a report.
 import fs from 'node:fs';
 
-const source = fs.readFileSync(new URL('../examples/04_while.mbt', import.meta.url), 'utf8');
+const source = fs.readFileSync(new URL('../examples/04_while.mbt', import.meta.url), 'utf8') + '\n// @@MOONSLICE@@ preserved';
 let output = '';
-globalThis.moonSliceReadInput = () => ['backward', '7', source].join('@@MOONSLICE@@');
+let input = ['backward', '7', source].join('\n');
+globalThis.moonSliceReadInput = () => input;
 globalThis.moonSliceWriteOutput = (html) => { output = html; };
 await import('../web/moon-slice.js');
 if (!output.includes('<!doctype html>')) throw new Error('no HTML document');

@@ -67,10 +67,7 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
     work.push(n)
     n = n + 1
   }
-  let mut rounds = 0
-  let limit = 8 * node_count + 64
-  while work.length() > 0 && rounds < limit {
-    rounds = rounds + 1
+  while work.length() > 0 {
     let current = work.pop().unwrap()
     let joined = join_predecessor_out(preds[current], out_state)
     in_state[current] = joined

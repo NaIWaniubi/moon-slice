@@ -11,23 +11,55 @@ extern "js" fn read_input() -> String = "moonSliceReadInput"
 extern "js" fn write_output(s : String) -> Unit = "moonSliceWriteOutput"
 
 ///|
+fn escape_error_text(s : String) -> String {
+  let out = StringBuilder()
+  for ch in s.iter() {
+    match ch {
+      '&' => out.write_string("&amp;")
+      '<' => out.write_string("&lt;")
+      '>' => out.write_string("&gt;")
+      '"' => out.write_string("&quot;")
+      '\'' => out.write_string("&#39;")
+      _ => out.write_char(ch)
+    }
+  }
+  out.to_string()
+}
+
+///|
 fn error_html(message : String) -> String {
   "<!doctype html><html><body style=\"margin:0;padding:2rem;background:#0f1115;color:#ffb4a2;font-family:ui-monospace,monospace\"><h2>moon-slice</h2><p>" +
-  message +
+  escape_error_text(message) +
   "</p></body></html>"
+}
+
+///|
+fn join_source(parts : Array[String]) -> String {
+  let mut source = ""
+  let mut i = 2
+  while i < parts.length() {
+    if i > 2 {
+      source = source + "\n"
+    }
+    source = source + parts[i]
+    i = i + 1
+  }
+  source
 }
 
 ///|
 fn main {
   let input = read_input()
-  let parts = input.split("@@MOONSLICE@@").map(p => p.to_owned()).to_array()
+  // The first two newline-delimited fields are controlled by the host;
+  // everything after them is source text and is joined without interpretation.
+  let parts = input.split("\n").map(p => p.to_owned()).to_array()
   if parts.length() < 3 {
     write_output(error_html("bad input"))
     return
   }
   let direction = parts[0]
   let line = @string.parse_int(parts[1]) catch { _ => 0 }
-  let source = parts[2]
+  let source = join_source(parts)
   let program = @parser_adapter.parse_source(source, "playground.mbt")
   let cfg = @cfg.build(program)
   let defuse = @defuse.analyze(program, cfg)

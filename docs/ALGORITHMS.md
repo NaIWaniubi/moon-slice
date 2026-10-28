@@ -99,10 +99,12 @@ of `B`, which is the taint-lite source→sink query.
 ## Call graph
 
 `src/query::call_edges` reads `Program.calls`, the direct call sites recorded
-by the parser adapter (including calls folded into `let`/assignment/return
-position). Edges are emitted only when the callee is defined in the same
-program; method calls and function values are not resolved. The CLI `callgraph`
-renders the result as DOT.
+by the parser adapter. The adapter walks each statement expression, so nested
+applications (`g(h(x))`) and calls in conditions are recorded too; method
+labels are never recorded, because a method name is not a function in the
+program. Edges are emitted only when the callee is defined in the same program,
+and a recursive call is kept as a self-edge. Function values are not resolved.
+The CLI `callgraph` renders the result as DOT.
 
 ## Inter-procedural expansion
 
@@ -118,16 +120,19 @@ intra-procedural.
 ## Complexity and bounds
 
 - CFG: O(N) edges for N statements.
-- Def-use: work-list to a fixed point; in practice linear for the structured
-  programs in the corpus, worst-case O(N·E) with the flat set representation.
+- Def-use: work-list to a fixed point. The lattice is finite and transfer is
+  monotone, so it terminates without a round cap; worst case O(N·E) with the
+  flat set representation.
 - Slicing: O(V+E) per query.
 - HTML SVG: truncated at 200 nodes so a huge file cannot produce a
-  multi-megabyte report; the DOT output has no truncation.
+  multi-megabyte report; the graph states that it is truncated and the metrics
+  and node table still cover the full result. The DOT output has no truncation.
 
 ## Known limits
 
-- Intra-procedural by default; `--interprocedural` expands whole callee bodies
-  conservatively and does not map parameters/returns.
+- Intra-procedural by default; `--interprocedural` adds the callee return-value
+  cone for value-returning calls and the whole body for bare calls. It does not
+  map arguments to parameters or summarize side effects.
 - No points-to, reflection, or macro expansion; dynamic dispatch is opaque.
 - Field/array writes use the base-variable abstraction.
 - `dead` is definition- and reachability-based; it does not infer that a store

@@ -3,8 +3,12 @@
 Generate a straight-line program with `N` assignments:
 
 ```bash
-node bench/gen.mjs 500 /tmp/big.mbt
+node bench/gen.mjs 500 big.mbt
+./dev.sh run cmd/main -- slice --file big.mbt --line 502 --direction backward
 ```
+
+The output path defaults to `big.mbt` in the current directory, so the command
+works the same on Windows and POSIX. Delete the generated file after measuring.
 
 Measured on Windows 10, MoonBit `0.1.20261023`, warm `moon run` cache:
 

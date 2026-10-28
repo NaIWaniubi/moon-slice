@@ -1,6 +1,16 @@
 // Query helpers over a lowered `@core.Program`.
 
 ///|
+fn node_by_id(program : @core.Program, id : Int32) -> @core.SNode? {
+  for node in program.nodes {
+    if node.id == id {
+      return Some(node)
+    }
+  }
+  None
+}
+
+///|
 fn is_synthetic(program : @core.Program, node : @core.SNode) -> Bool {
   for f in program.functions {
     if node.id == f.entry || node.id == f.exit {
@@ -22,10 +32,10 @@ fn is_region(program : @core.Program, node : @core.SNode) -> Bool {
   match node.parent {
     None => false
     Some(pid) =>
-      pid >= 0 &&
-      pid < program.nodes.length() &&
-      program.nodes[pid].kind == node.kind &&
-      program.nodes[pid].loc == node.loc
+      match node_by_id(program, pid) {
+        None => false
+        Some(parent) => parent.kind == node.kind && parent.loc == node.loc
+      }
   }
 }
 
@@ -127,10 +137,13 @@ pub fn dead_nodes(
 pub fn lines_of(program : @core.Program, nodes : Array[Int32]) -> Array[Int32] {
   let out : Array[Int32] = []
   for id in nodes {
-    if id >= 0 && id < program.nodes.length() {
-      let line = program.nodes[id].loc.start_line
-      if !out.contains(line) {
-        out.push(line)
+    match node_by_id(program, id) {
+      None => ()
+      Some(node) => {
+        let line = node.loc.start_line
+        if !out.contains(line) {
+          out.push(line)
+        }
       }
     }
   }
@@ -147,14 +160,15 @@ pub fn visible_lines(
 ) -> Array[Int32] {
   let out : Array[Int32] = []
   for id in nodes {
-    if id >= 0 && id < program.nodes.length() {
-      let node = program.nodes[id]
-      if !is_synthetic(program, node) {
-        let line = node.loc.start_line
-        if !out.contains(line) {
-          out.push(line)
+    match node_by_id(program, id) {
+      None => ()
+      Some(node) =>
+        if !is_synthetic(program, node) {
+          let line = node.loc.start_line
+          if !out.contains(line) {
+            out.push(line)
+          }
         }
-      }
     }
   }
   out.sort()
@@ -346,9 +360,7 @@ pub fn call_edges(program : @core.Program) -> Array[(String, String)] {
   }
   let out : Array[(String, String)] = []
   for call in program.calls {
-    if call.caller != "" &&
-      names.contains(call.callee) &&
-      call.callee != call.caller {
+    if call.caller != "" && names.contains(call.callee) {
       let edge = (call.caller, call.callee)
       if !out.contains(edge) {
         out.push(edge)
@@ -375,14 +387,32 @@ fn function_named(
 fn call_site_node(
   program : @core.Program,
   caller : @core.FunctionInfo,
+  callee_name : String,
   line : Int32,
   nodes : Array[Int32],
 ) -> @core.SNode? {
   for id in nodes {
-    if id > caller.entry &&
-      id < caller.exit &&
-      program.nodes[id].loc.start_line == line {
-      return Some(program.nodes[id])
+    match node_by_id(program, id) {
+      None => ()
+      Some(node) =>
+        if id > caller.entry && id < caller.exit && node.loc.start_line == line {
+          for variable in node.uses {
+            if variable.name == callee_name {
+              return Some(node)
+            }
+          }
+        }
+    }
+  }
+  // Keep a line-based fallback for unsupported/qualified expressions whose
+  // callee name is not preserved in the node uses.
+  for id in nodes {
+    match node_by_id(program, id) {
+      None => ()
+      Some(node) =>
+        if id > caller.entry && id < caller.exit && node.loc.start_line == line {
+          return Some(node)
+        }
     }
   }
   None
@@ -398,17 +428,17 @@ fn return_cone(
   callee : @core.FunctionInfo,
 ) -> Array[Int32] {
   let out : Array[Int32] = []
-  let mut i = callee.entry + 1
-  while i < callee.exit {
-    if program.nodes[i].kind == @core.SNodeKind::Return {
-      let slice = @slice.backward(pdg, i, program~)
+  for node in program.nodes {
+    if node.id > callee.entry &&
+      node.id < callee.exit &&
+      node.kind == @core.SNodeKind::Return {
+      let slice = @slice.backward(pdg, node.id, program~)
       for id in slice.nodes {
         if !out.contains(id) {
           out.push(id)
         }
       }
     }
-    i = i + 1
   }
   out
 }
@@ -442,7 +472,7 @@ pub fn expand_calls(
       let callee = function_named(program, call.callee)
       match (caller, callee) {
         (Some(cf), Some(ef)) =>
-          match call_site_node(program, cf, call.line, nodes) {
+          match call_site_node(program, cf, call.callee, call.line, nodes) {
             Some(node) =>
               if node.kind == @core.SNodeKind::Call {
                 let mut i = ef.entry + 1

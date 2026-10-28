@@ -31,5 +31,11 @@ jobs:
       - name: CLI smoke
         run: bash test/cli_smoke.sh
 
+      - name: Build browser engine
+        run: bash web/build.sh
+
+      - name: Check browser bundle is committed
+        run: git diff --exit-code -- web/moon-slice.js
+
       - name: Web playground smoke
         run: node web/smoke.mjs

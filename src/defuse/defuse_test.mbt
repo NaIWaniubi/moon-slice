@@ -159,8 +159,7 @@ test "array write defines its base, so later reads reach it" {
 }
 
 ///|
-test "a kill only affects the killed variable" {
-  //  0 entry(a, b), 1 letmut x, 2 assign x, 3 let y, 4 use x and y, 5 exit
+test "a kill only affects the killed variable" {  //  0 entry(a, b), 1 letmut x, 2 assign x, 3 let y, 4 use x and y, 5 exit
   let source = "fn f(a : Int, b : Int) -> Int {\n  let mut x = 0\n  x = a\n  let y = b\n  x + y\n}\n"
   let pairs = edges_of(source)
   // The store to `x` kills the previous `x` but must not kill `b`.
@@ -232,4 +231,46 @@ test "parameterless straight-line chain propagates definitions" {
   assert_true(has(pairs, 3, 4))
   assert_true(!has(pairs, 1, 4))
   assert_true(!has(pairs, 2, 4))
+}
+
+///|
+test "deep nested loops reach a fixed point" {
+  // 30 nested loops produce enough back edges and merges that a round-capped
+  // worklist stops before convergence; the analysis must terminate on its own.
+  let mut body = ""
+  let mut depth = 0
+  while depth < 30 {
+    body = body + "while c" + depth.to_string() + " {\n"
+    body = body + "x = x + " + depth.to_string() + "\n"
+    depth = depth + 1
+  }
+  let mut closing = 0
+  while closing < 30 {
+    body = body + "}\n"
+    closing = closing + 1
+  }
+  let source = "fn f(x : Int, c0 : Bool) -> Int {\n  let mut y = x\n" + body + "y\n}\n"
+  let (pairs, program) = reaching(source)
+  // Every `x = x + k` assignment has a use, so the chain of reaching pairs must
+  // be non-empty all the way to the deepest level (not a truncated prefix).
+  let assignments : Array[Int32] = []
+  program.nodes.each(fn(node) {
+    if node.kind == @core.SNodeKind::Assign {
+      assignments.push(node.id)
+    }
+  })
+  assert_eq(assignments.length(), 30)
+  let mut reached = 0
+  for id in assignments {
+    let mut hit = false
+    for pair in pairs {
+      if pair.0 == id || pair.1 == id {
+        hit = true
+      }
+    }
+    if hit {
+      reached = reached + 1
+    }
+  }
+  assert_eq(reached, 30)
 }
