@@ -29,7 +29,17 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
 
-## Remote verification (2026-10-28, commit `94283d4`, v0.3.0)
+## Remote verification (2026-10-29, commit `3a5a406`, v0.4.0)
+
+| Check | Result |
+| --- | --- |
+| CI `40746363985` | success: check, 238 tests, corpus, CLI smoke, JS build, bundle-drift check, web smoke |
+| Pages `40746364235` | success: rebuilt, no drift, deployed `web/` |
+| Live `index.html` SHA-256 | `90c5aeac...3cc460`, identical to the committed file |
+| Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10268679`, equal to the committed file |
+| `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 6992 bytes` (real Chrome, two runs on the deployed site) |
+
+## Earlier remote verification (commit `94283d4`, v0.3.0)
 
 | Check | Result |
 | --- | --- |
