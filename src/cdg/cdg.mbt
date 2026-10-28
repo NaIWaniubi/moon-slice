@@ -1,8 +1,16 @@
-// Structured control dependence for the moon-slice MVP.
+// Control dependence for moon-slice.
 //
-// The algorithm is syntax-directed: it reads the `parent` / `children` tree of
-// `@core.Program` and never computes post-dominators. See LIMITATIONS.md in
-// this directory for what that buys and what it costs.
+// Two builders live here:
+//
+//   * `build` is syntax-directed. It reads the `parent` / `children` tree of
+//     `@core.Program` and never computes post-dominators, so it is cheap and it
+//     cannot under-approximate: every edge is either a real structural
+//     dependence or a deliberate over-approximation.
+//   * `build_precise` computes post-dominators over `@core.Cfg` and derives
+//     control dependence exactly (Ferrante–Ottenstein–Warren). It drops the
+//     over-approximated edges and adds loop-carried ones the tree cannot express.
+//
+// See LIMITATIONS.md for what each models and what neither models.
 
 ///|
 /// Read-only index over a `@core.Program` tree.
@@ -345,6 +353,262 @@ pub fn build(program : @core.Program, cfg : @core.Cfg) -> @core.Cdg {
   let edges : Array[(Int32, Int32)] = []
   for pair in collected {
     if pair.0 != pair.1 && !seen.contains(pair) {
+      seen.add(pair)
+      edges.push(pair)
+    }
+  }
+  edges.sort_by(cmp_pair)
+  { edges, }
+}
+
+// ---------------------------------------------------------------------------
+// Post-dominator based control dependence (precise mode)
+// ---------------------------------------------------------------------------
+
+///|
+/// Post-dominator sets for one function's nodes.
+///
+/// `pdom[n]` is the set of nodes that every path from `n` to the function exit
+/// must pass through, including `n` itself. Computed as a backward dataflow
+/// problem: `pdom[exit] = {exit}` and `pdom[n] = {n} ∪ ⋂ pdom[succ(n)]`, with
+/// the intersection over the empty set taken as "all nodes" (an unreachable
+/// node post-dominates nothing meaningful, so it is given the universe and then
+/// discarded by the caller).
+priv struct PostDom {
+  pdom : Map[Int32, Set[Int32]]
+  ipdom : Map[Int32, Int32]
+}
+
+///|
+/// Compute post-dominators for the nodes of one function.
+///
+/// `members` is the function's node ids, `entry`/`exit` its boundary nodes, and
+/// `succ` the CFG successors. Edges leaving the function or naming unknown ids
+/// are ignored, so a CFG from a different program cannot corrupt the result.
+/// The fixpoint is monotone over a finite lattice (sets only shrink), so it
+/// terminates; the iteration bound is a safety net against a malformed CFG that
+/// claims a cycle through an id it also dropped.
+fn compute_post_dominators(
+  members : Array[Int32],
+  exit : Int32,
+  succ : Map[Int32, Array[Int32]],
+) -> PostDom {
+  let member_set : Set[Int32] = Set([])
+  for id in members {
+    member_set.add(id)
+  }
+  let universe = member_set
+  let pdom : Map[Int32, Set[Int32]] = Map([])
+  for id in members {
+    if id == exit {
+      pdom.set(id, Set([id]))
+    } else {
+      pdom.set(id, universe.copy())
+    }
+  }
+  let mut changed = true
+  let mut rounds = 0
+  let limit = members.length() * members.length() + members.length() + 4
+  while changed && rounds < limit {
+    changed = false
+    rounds = rounds + 1
+    for id in members {
+      if id == exit {
+        continue
+      }
+      // pdom[n] = {n} ∪ ⋂ pdom[succ(n)]. The intersection is computed first and
+      // the node itself is unioned in afterwards; doing it the other way round
+      // lets a successor's set remove the node from its own set, which breaks
+      // reflexivity and collapses the whole lattice.
+      let intersect : Set[Int32] = Set([])
+      let mut first = true
+      let mut saw_successor = false
+      match succ.get(id) {
+        None => ()
+        Some(next_ids) =>
+          for s in next_ids {
+            if member_set.contains(s) {
+              match pdom.get(s) {
+                None => ()
+                Some(other) => {
+                  saw_successor = true
+                  if first {
+                    for candidate in other.to_array() {
+                      intersect.add(candidate)
+                    }
+                    first = false
+                  } else {
+                    for candidate in intersect.to_array() {
+                      if !other.contains(candidate) {
+                        intersect.remove(candidate)
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+      let next : Set[Int32] = Set([id])
+      // With no in-function successor the node is its own exit, so it
+      // post-dominates only itself.
+      if saw_successor {
+        for candidate in intersect.to_array() {
+          next.add(candidate)
+        }
+      }
+      let previous = match pdom.get(id) {
+        None => Set([])
+        Some(set) => set
+      }
+      if previous.length() != next.length() {
+        changed = true
+      } else {
+        for candidate in next.to_array() {
+          if !previous.contains(candidate) {
+            changed = true
+          }
+        }
+      }
+      pdom.set(id, next)
+    }
+  }
+  // Immediate post-dominator: the unique m with pdom[m] == pdom[n] \ {n}.
+  let ipdom : Map[Int32, Int32] = Map([])
+  for id in members {
+    if id == exit {
+      continue
+    }
+    let own = match pdom.get(id) {
+      None => Set([])
+      Some(set) => set
+    }
+    for candidate in own.to_array() {
+      if candidate == id {
+        continue
+      }
+      let theirs = match pdom.get(candidate) {
+        None => Set([])
+        Some(set) => set
+      }
+      if theirs.length() + 1 == own.length() {
+        let mut subset = true
+        for element in theirs.to_array() {
+          if !own.contains(element) {
+            subset = false
+          }
+        }
+        if subset && !theirs.contains(id) {
+          ipdom.set(id, candidate)
+        }
+      }
+    }
+  }
+  { pdom, ipdom, }
+}
+
+///|
+/// Exact control dependence for one function, using the Ferrante–Ottenstein–
+/// Warren walk: `Y` is control dependent on `X` when `Y` post-dominates one
+/// successor of `X` but not all of them. The walk starts at each such successor
+/// and climbs the post-dominator tree until it reaches the immediate
+/// post-dominator of `X`.
+fn control_dependence_of(
+  members : Array[Int32],
+  exit : Int32,
+  succ : Map[Int32, Array[Int32]],
+  out : Array[(Int32, Int32)],
+) -> Unit {
+  let pd = compute_post_dominators(members, exit, succ)
+  for x in members {
+    let x_pdom = match pd.pdom.get(x) {
+      None => Set([])
+      Some(set) => set
+    }
+    match succ.get(x) {
+      None => ()
+      Some(next_ids) => {
+        let in_function : Array[Int32] = []
+        for s in next_ids {
+          if pd.pdom.contains(s) && !in_function.contains(s) {
+            in_function.push(s)
+          }
+        }
+        // A single successor that post-dominates x means no choice at x.
+        if in_function.length() < 2 {
+          continue
+        }
+        let stop = match pd.ipdom.get(x) {
+          None => -1
+          Some(stop) => stop
+        }
+        for s in in_function {
+          if x_pdom.contains(s) {
+            continue
+          }
+          let mut current = s
+          let mut fuel = members.length() + 1
+          while current != stop && fuel > 0 {
+            if current != x {
+              out.push((x, current))
+            }
+            match pd.ipdom.get(current) {
+              None => fuel = 0
+              Some(parent) =>
+                if parent == current {
+                  fuel = 0
+                } else {
+                  current = parent
+                  fuel = fuel - 1
+                }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+///|
+/// Build a control-dependence graph from the CFG alone, without consulting the
+/// syntax tree. This is exact control dependence for the CFG it is given:
+/// `Y` is control dependent on `X` when one successor of `X` post-dominates `Y`
+/// and another does not.
+///
+/// Compared with `build`, this drops the structural over-approximation: a
+/// statement after an `if` is no longer marked dependent on that `if` when the
+/// CFG shows both branches rejoin before it. It also adds loop-carried edges
+/// the syntax rule cannot express. The trade-off is that it needs a real CFG
+/// with per-function boundaries; on a CFG that is missing those, it falls back
+/// to whatever the edges imply.
+///
+/// Output is deterministic: sorted, deduplicated, no self-edges, and only ids
+/// present in `program` appear.
+pub fn build_precise(program : @core.Program, cfg : @core.Cfg) -> @core.Cdg {
+  let index = index_program(program)
+  let succ = cfg_successors(cfg)
+  let collected : Array[(Int32, Int32)] = []
+  for function in program.functions {
+    // The exit node must be part of the set: it is the anchor of the
+    // post-dominator lattice. Without it every node post-dominates only itself
+    // and control dependence collapses to "nothing depends on anything".
+    let members : Array[Int32] = []
+    for id in index.ids {
+      if id >= function.entry && id <= function.exit {
+        members.push(id)
+      }
+    }
+    if members.length() > 0 {
+      control_dependence_of(members, function.exit, succ, collected)
+    }
+  }
+  let seen : Set[(Int32, Int32)] = Set([])
+  let edges : Array[(Int32, Int32)] = []
+  for pair in collected {
+    if pair.0 != pair.1 &&
+      index.all.contains(pair.0) &&
+      index.all.contains(pair.1) &&
+      !seen.contains(pair) {
       seen.add(pair)
       edges.push(pair)
     }

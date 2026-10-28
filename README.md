@@ -23,9 +23,9 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (211 tests, including a
-10-example end-to-end corpus and an independent precision oracle). The data
-model is frozen; the CLI is usable.
+All layers are implemented and covered by `moon test` (233 tests, including a
+10-example end-to-end corpus, a path-based precision oracle, and a seeded
+property-based differential suite). The data model is frozen; the CLI is usable.
 
 | Layer | Package | State |
 | --- | --- | --- |
@@ -55,7 +55,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.3.0
+# moon-slice 0.4.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -83,7 +83,28 @@ entry.
 The CLI exits `0` on success and `2` on any usage error, unreadable input,
 write failure, parse diagnostic or unknown node id; it never prints a result for
 a run that failed. When one line holds several statements, it prints the
-candidate node ids and `--node ID` selects one.
+candidate node ids and `--node ID` selects one. `--precise` switches control
+dependence from the structural rule to post-dominators.
+
+Every failure under `--json` prints a machine-readable object and still exits 2:
+
+```json
+{"error":{"code":"read_failed","message":"failed to read ..."}}
+```
+
+The JSON shapes are fixed, so a consumer can rely on them:
+
+| Command | Shape |
+| --- | --- |
+| `slice` / `dead` / `path --json` | `{"nodes":[..],"lines":[..],"errors":[..]}` |
+| `path --json` with no path | `{"found":false}` |
+| `callgraph --json` | `[["caller","callee"],..]` |
+| `graph --format json` | `{"nodes":[{"id","kind","line","synthetic"}],"edges":[{"from","to","kind"}]}` |
+| any failure with `--json` | `{"error":{"code","message"}}` |
+
+The HTML report embeds the same result for consumers that cannot parse HTML:
+`<script type="application/json" id="moon-slice-result">` holds
+`{"target":{"line","node"},"nodes":[..],"lines":[..],"errors":[..]}`.
 
 The same pipeline from MoonBit code:
 
@@ -180,12 +201,13 @@ may report a larger slice than a precise analysis would:
   so a write to one field is assumed to affect reads of any field. This shows up
   as extra lines in slices like `examples/10_field_write.mbt`; it never omits a
   line.
-- **Structured control dependence.** The CDG is derived from the syntax tree —
-  an `if`/`while`/`for`/`match` controls the statements lexically inside it —
-  rather than from post-dominators on arbitrary CFGs. It is exact for the
-  structured subset above, but it does not model irreducible control flow, and
-  `return`/`break`/`continue` are handled conservatively (treated as depending
-  on every enclosing controller).
+- **Control dependence has two modes.** The default (`build`) is derived from
+  the syntax tree: an `if`/`while`/`for`/`match` controls the statements lexically
+  inside it, and `return`/`break`/`continue` are handled conservatively. It never
+  under-approximates, so a slice may include a few extra lines. `--precise`
+  (`build_precise`) solves post-dominators instead and is exact for the CFG, at
+  the cost of needing a well-formed one. Neither models interprocedural control
+  dependence or exception edges (`raise`/`try` are not CFG edges here).
 - **`dead` is definition- and reachability-based.** It reports definitions with
   no reaching use and statements unreachable from a function entry. It does not
   infer that a store is dead only because a callee never reads it, and it does
@@ -284,6 +306,18 @@ one's code:
   nested branches, while, a C-style `for` with `continue`, match, shadowing,
   `guard`, recursion, field/array writes, a nested loop, and the whole example
   corpus. A disagreement fails the test with both pair sets printed.
+
+- **Two control-dependence builders.** `cdg::build` is syntax-directed and
+  cannot under-approximate; `cdg::build_precise` solves post-dominators and
+  derives control dependence exactly (Ferrante–Ottenstein–Warren). On
+  `if c { x = 1 } else { x = 2 }` the structural builder also marks each branch
+  region as controlling the other, which is impossible; the precise builder does
+  not. On `while { if c { return }; x = x + 1 }` the structural builder emits 18
+  control edges and the precise one emits 7. Use `--precise` to switch.
+- **Seeded property testing.** A grammar-driven generator builds 40 programs per
+  run and checks structural invariants, oracle agreement, slice closure,
+  criterion membership, line projection and interprocedural superset-ness. The
+  seed is printed on failure, so every failure reproduces exactly.
 
 Ambiguous targets are never silently guessed. `statement_candidates` returns
 every statement on a line; the CLI prints the candidate node ids and accepts

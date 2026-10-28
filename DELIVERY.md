@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-28 (v0.3.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-29 (v0.4.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,11 +8,11 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 211, passed: 211, failed: 0` |
+| `./dev.sh test` | `Total tests: 238, passed: 238, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
-| `node web/smoke.mjs` | `web smoke ok: 6804 bytes` (JS engine, full HTML report) |
-| `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6758 bytes, second=rendered 6796 bytes, markerPreserved=true` |
+| `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
+| `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6960 bytes, second=rendered 6998 bytes, markerPreserved=true` |
 | `./dev.sh run cmd/main -- graph --file <missing>` | exit 2, `error: failed to read ...` |
 | `./dev.sh run cmd/main -- slice --file F --line 7 --direction sideways` | exit 2, `error: unsupported --direction ...` |
 | `./dev.sh run cmd/main -- slice --file F --line 7 --bogus` | exit 2, `error: unknown argument ...` |
@@ -27,7 +27,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt` | `twice -> inc`, `main_fn -> twice` |
 | `./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural` | `2,6,7,8,12` |
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
-| `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,2000,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.6 s, `dead` 0.84 s, `graph` 0.81 s |
+| `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
 
 ## Remote verification (2026-10-28, commit `94283d4`, v0.3.0)
 
@@ -63,7 +63,40 @@ Public repo: https://github.com/cs6210501-lab/moon-slice
    (`1 => { label = 20 }`) became `Expr` nodes with no defs/uses. Fixed by
    transparent lowering; `06_match` is covered by the end-to-end corpus test.
 
-## Precision and performance pass (0.3.0)
+## 0.4.0 precision pass (2026-10-29)
+
+Five upgrades, all landed directly after a multi-agent attempt whose workers
+could not authenticate against their provider (five workers failed with
+`invalid_api_key` before writing any code; the worktrees were clean and were
+removed).
+
+1. **`cdg::build_precise`** — post-dominators per function, Ferrante–Ottenstein–
+   Warren control dependence, exposed as `--precise`. Removes region-to-region
+   pseudo edges and the loop-head/exit over-approximations: on
+   `while { if c { return }; x = x + 1 }` 18 structural edges become 7.
+2. **Interprocedural argument mapping** — callee parameters are paired with
+   caller arguments in order; a callee statement whose only parameter
+   dependencies are unsupplied parameters is dropped. `two(a,b)` called as
+   `two(x)` no longer pulls in the `b`-only branch.
+3. **Machine-readable contract** — `--json` failures print
+   `{"error":{"code","message"}}` and exit 2; `graph --format json` emits
+   deterministic nodes/edges; the HTML report carries a generator tag and an
+   embedded `moon-slice-result` JSON block.
+4. **Path-based precision oracle** — replaces the bounded walk enumeration with
+   the path formulation (BFS with no iteration bound), fixing a real failure the
+   property suite found on nested loops.
+5. **Seeded property testing** — 40 generated programs per run checked for
+   structural invariants, oracle agreement, slice closure, criterion membership,
+   line projection, and interprocedural superset-ness; failures print the seed
+   and source.
+
+Two defects were found by these new checks and fixed in the same pass: the JSON
+escaper did not escape `<`/`>`, so an error string containing `</script>` could
+break out of the report's embedded JSON block; and the first post-dominator
+implementation dropped the node from its own set during the intersection, which
+collapsed the lattice.
+
+## Earlier precision and performance pass (0.3.0)
 
 Added after the review fixes, aimed at measurable accuracy rather than more
 features:
@@ -146,11 +179,11 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 211 tests, including 10 end-to-end corpus tests, a walk-based precision
-  oracle, and path/unreachable tests
+- [x] 238 tests, including 10 end-to-end corpus tests, a path-based precision
+  oracle, a seeded property suite, and path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
-- [x] library line coverage 89.1% (see COVERAGE.md; legacy reporter)
+- [x] library line coverage 89.7% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`

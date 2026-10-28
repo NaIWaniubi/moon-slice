@@ -231,3 +231,88 @@ test "interprocedural return cone excludes dead callee stores" {
   assert_true(expanded.lines.contains(3))
   assert_true(!expanded.lines.contains(2))
 }
+
+///|
+test "precise control dependence drops region-to-region pseudo edges" {
+  // `if c { x = 1 } else { x = 2 }` produces a structural CDG that marks each
+  // branch region as controlling the other one, which no execution can do: a
+  // region has a single successor. The post-dominator builder must not.
+  let source = "fn f(c : Bool, n : Int) -> Int {\n  let mut x = 0\n  if c {\n    x = 1\n  } else {\n    x = 2\n  }\n  let y = x + n\n  return y\n}\n"
+  let program = @parser_adapter.parse_source(source, "precise.mbt")
+  let cfg = @cfg.build(program)
+  let structural = @cdg.build(program, cfg)
+  let precise = @cdg.build_precise(program, cfg)
+  assert_true(structural.edges.length() > precise.edges.length())
+  // No edge may START at a region node. A region is the control kind with no
+  // uses of its own, nested under a control node that shares its location; a
+  // region has exactly one CFG successor, so nothing can be control dependent
+  // on it. (The head shares kind and loc with its regions, so comparing those
+  // alone would misclassify the legitimate head -> region edges.)
+  for pair in precise.edges {
+    let from = program.nodes[pair.0]
+    let control_kind = from.kind == @core.SNodeKind::If ||
+      from.kind == @core.SNodeKind::While ||
+      from.kind == @core.SNodeKind::For ||
+      from.kind == @core.SNodeKind::Match
+    let mut is_region = false
+    if control_kind && from.uses.length() == 0 {
+      match from.parent {
+        Some(owner) =>
+          if program.nodes[owner].kind == from.kind &&
+            program.nodes[owner].loc == from.loc {
+            is_region = true
+          }
+        None => ()
+      }
+    }
+    assert_true(!is_region)
+  }
+  // The branch head still controls both arms.
+  let head = match @query.target_node(program, 3) {
+    Some(id) => id
+    None => panic()
+  }
+  let mut controls_both = true
+  let arms : Array[Int32] = []
+  for child in program.nodes[head].children {
+    arms.push(child)
+  }
+  for arm in arms {
+    let mut found = false
+    for pair in precise.edges {
+      if pair.0 == head && pair.1 == arm {
+        found = true
+      }
+    }
+    if !found {
+      controls_both = false
+    }
+  }
+  assert_true(controls_both)
+}
+
+///|
+test "precise control dependence keeps a return's escape edge" {
+  // A return inside a branch makes the join depend on that branch in both
+  // builders; precise mode must not lose it.
+  let source = "fn f(c : Bool) -> Int {\n  if c {\n    return 1\n  }\n  let x = 2\n  return x\n}\n"
+  let program = @parser_adapter.parse_source(source, "escape.mbt")
+  let cfg = @cfg.build(program)
+  let precise = @cdg.build_precise(program, cfg)
+  let head = match @query.target_node(program, 2) {
+    Some(id) => id
+    None => panic()
+  }
+  // Some node on line 5 or 6 (the code skipped by the return) must be
+  // controlled by the head.
+  let mut found = false
+  for pair in precise.edges {
+    if pair.0 == head {
+      let line = program.nodes[pair.1].loc.start_line
+      if line >= 5 {
+        found = true
+      }
+    }
+  }
+  assert_true(found)
+}

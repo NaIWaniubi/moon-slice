@@ -274,3 +274,32 @@ test "deep nested loops reach a fixed point" {
   }
   assert_eq(reached, 30)
 }
+
+///|
+test "a 2000-statement chain yields exactly the expected reaching pairs" {
+  // A straight-line chain `x = x + 1` repeated n times. Each assignment reads
+  // the previous one, so the reaching set is exactly one pair per statement
+  // after the first: (node k, node k+1). The closed form is checked exactly, so
+  // a future optimisation that silently drops edges cannot pass.
+  let n = 2000
+  let mut body = ""
+  let mut i = 0
+  while i < n {
+    body = body + "x = x + 1\n"
+    i = i + 1
+  }
+  let source = "fn chain() -> Int {\n  let mut x = 0\n" + body + "x\n}\n"
+  let (pairs, program) = reaching(source)
+  // Nodes: 0 entry, 1 let mut, then n assigns, then the trailing use, then exit.
+  assert_eq(program.nodes.length(), n + 4)
+  // The function has no parameters, so the synthetic entry defines nothing and
+  // contributes no pair. `let mut x = 0` has a constant RHS, so it uses nothing
+  // either. The pairs are therefore exactly the n links of the assignment chain
+  // plus the final link into the trailing use: n + 1 pairs, asserted exactly so
+  // a future optimisation cannot drop edges silently.
+  assert_eq(pairs.length(), n + 1)
+  assert_true(has(pairs, 1, 2))
+  let last_assign = (n + 1).to_int64().to_int()
+  let trailing_use = (n + 2).to_int64().to_int()
+  assert_true(has(pairs, last_assign, trailing_use))
+}

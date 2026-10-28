@@ -82,11 +82,21 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   }
   // The lattice is finite (each definition/use pair is either present or not)
   // and transfer is monotone, so the loop terminates on its own. No round cap.
+  //
+  // Allocation note: `join_predecessor_out` and `transfer` each build one fresh
+  // array per visit, and an unchanged visit throws its result away. The
+  // comparison is therefore done before the array is retained: a visit that
+  // changes nothing only pays for building the candidate, not for keeping it.
+  // Sharing the arrays between nodes is deliberately not attempted, because the
+  // state is mutated in place by `transfer` and a shared buffer would let one
+  // node's definition leak into another's set.
   while work.length() > 0 {
     let current = work.pop().unwrap()
     queued.remove(current)
     let joined = join_predecessor_out(preds[current], out_state)
-    in_state[current] = joined
+    if !same_set(in_state[current], joined) {
+      in_state[current] = joined
+    }
     let next_out = transfer(current, defs_at[current], in_state[current])
     if !same_set(out_state[current], next_out) {
       out_state[current] = next_out

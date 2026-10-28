@@ -17,18 +17,15 @@ the minimum of `--reps` runs, and prints a Markdown table. Measured on Windows
 
 | statements | command | min wall time (ms) |
 | --- | --- | --- |
-| 500 | `slice` | 41 |
-| 500 | `dead` | 38 |
-| 500 | `graph` | 44 |
-| 2000 | `slice` | 77 |
-| 2000 | `dead` | 72 |
-| 2000 | `graph` | 82 |
-| 8000 | `slice` | 299 |
-| 8000 | `dead` | 257 |
-| 8000 | `graph` | 223 |
-| 32000 | `slice` | 1559 |
-| 32000 | `dead` | 839 |
-| 32000 | `graph` | 806 |
+| 500 | `slice` | 33 |
+| 500 | `dead` | 34 |
+| 500 | `graph` | 36 |
+| 8000 | `slice` | 236 |
+| 8000 | `dead` | 190 |
+| 8000 | `graph` | 174 |
+| 32000 | `slice` | 1548 |
+| 32000 | `dead` | 799 |
+| 32000 | `graph` | 743 |
 
 Wall time includes process start and output writing; `slice` on the largest
 size prints about 32k line numbers, which is why it is the slowest command

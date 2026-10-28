@@ -65,6 +65,9 @@ fn main {
   let program = @parser_adapter.parse_source(source, "playground.mbt")
   let cfg = @cfg.build(program)
   let defuse = @defuse.analyze(program, cfg)
+  // The playground keeps the structural CDG: it is the conservative default the
+  // CLI documents, and the browser bundle has no flag surface for the precise
+  // mode. `moon-slice graph --precise` shows the difference on the same input.
   let cdg = @cdg.build(program, cfg)
   let pdg = @pdg.build(defuse, cdg)
   let line32 : Int32 = line.to_int64().to_int()

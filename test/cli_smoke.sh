@@ -41,8 +41,30 @@ expect_fail() {
   fi
 }
 
+# Expect a nonzero exit AND a JSON error object with this code. `--json` callers
+# must never have to parse human text, and a failed run must never exit 0.
+expect_json_error() {
+  local want_code="$1"; shift
+  set +e
+  local got; got="$(run "$@" --json)"; local rc=$?
+  set -e
+  if [ "$rc" -eq 0 ]; then
+    printf 'FAIL: %s exited 0 (expected failure)
+  output: %s
+' "$*" "$got" >&2
+    exit 1
+  fi
+  if ! printf '%s' "$got" | grep -Fq -- "\"code\":\"$want_code\""; then
+    printf 'FAIL: %s
+  missing error code: %s
+  output: %s
+' "$*" "$want_code" "$got" >&2
+    exit 1
+  fi
+}
+
 # Version and help
-expect_eq "moon-slice 0.3.0" version
+expect_eq "moon-slice 0.4.0" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -70,7 +92,7 @@ expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction ba
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "$tmp_html" "$tmp_bad" "$tmp_multi"' EXIT
+trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"
@@ -96,5 +118,33 @@ expect_fail "unsupported --direction" slice --file examples/04_while.mbt --line 
 expect_fail "unknown argument" slice --file examples/04_while.mbt --line 7 --bogus
 expect_fail "requires a value" slice --file
 expect_fail "parser diagnostic" slice --file "$tmp_bad" --line 1
+
+# Machine-readable contract: --json errors and graph --format json.
+expect_json_error read_failed graph --file "$tmp_bad.missing.mbt"
+expect_json_error unknown_argument slice --file examples/04_while.mbt --line 7 --bogus
+expect_json_error no_node_at_line slice --file examples/04_while.mbt --line 9999
+
+tmp_graph="$(mktemp)"
+run graph --file examples/04_while.mbt --format json > "$tmp_graph"
+node -e '
+const fs=require("fs");
+const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
+if(!Array.isArray(j.nodes)||j.nodes.length===0) throw new Error("no nodes");
+if(!Array.isArray(j.edges)||j.edges.length===0) throw new Error("no edges");
+if(!j.nodes.every(n=>typeof n.id==="number"&&typeof n.kind==="string"&&typeof n.line==="number")) throw new Error("bad node shape");
+if(!j.edges.every(e=>typeof e.from==="number"&&typeof e.to==="number"&&(e.kind==="data"||e.kind==="control"))) throw new Error("bad edge shape");
+' "$tmp_graph"
+
+# The HTML report carries the same result as embedded JSON plus a generator tag.
+grep -Fq 'name="generator" content="moon-slice' "$tmp_html"
+node -e '
+const fs=require("fs");
+const html=fs.readFileSync(process.argv[1],"utf8");
+const m=html.match(/<script type="application\/json" id="moon-slice-result">([\s\S]*?)<\/script>/);
+if(!m) throw new Error("no embedded result block");
+const j=JSON.parse(m[1]);
+if(typeof j.target.line!=="number"||typeof j.target.node!=="number") throw new Error("bad target");
+if(!Array.isArray(j.nodes)||!Array.isArray(j.lines)) throw new Error("bad arrays");
+' "$tmp_html"
 
 printf 'cli smoke ok\n'

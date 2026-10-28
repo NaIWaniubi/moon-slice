@@ -15,7 +15,7 @@ fn join_ints(xs : Array[Int32]) -> String {
 }
 
 ///|
-fn json_string(s : String) -> String {
+pub fn json_string(s : String) -> String {
   let out = StringBuilder()
   for ch in s.iter() {
     match ch {
@@ -26,6 +26,13 @@ fn json_string(s : String) -> String {
       '\t' => out.write_string("\\t")
       '\b' => out.write_string("\\b")
       '\f' => out.write_string("\\f")
+      // `<` and `>` are escaped as `\u003c` / `\u003e` even though JSON allows
+      // them literally: the same string is embedded in an HTML `<script>` block
+      // (see to_result_json), where a literal `</script>` would end the block
+      // early and turn analyser output into markup. JSON parsers decode the
+      // escapes back, so the wire format is unchanged for consumers.
+      '<' => out.write_string("\\u003c")
+      '>' => out.write_string("\\u003e")
       _ => {
         let code = ch.to_int()
         if code < 0x20 {
@@ -42,6 +49,110 @@ fn json_string(s : String) -> String {
     }
   }
   "\"" + out.to_string() + "\""
+}
+
+///|
+/// A stable machine-readable error object, for `--json` failure paths.
+pub fn to_error_json(code : String, message : String) -> String {
+  "{\"error\":{\"code\":" + json_string(code) + ",\"message\":" + json_string(message) + "}}"
+}
+
+///|
+/// The machine-readable result embedded in the HTML report:
+/// `{"target":{"line":..,"node":..},"nodes":[..],"lines":[..],"errors":[..]}`.
+///
+/// Nothing here is copied from the source, so a `</script>` in the analysed
+/// file cannot break out of the block.
+pub fn to_result_json(
+  program : @core.Program,
+  result : @core.SliceResult,
+  target_line : Int32,
+  target_node : Int32,
+) -> String {
+  let errors = StringBuilder()
+  let mut first = true
+  for e in program.errors {
+    if !first {
+      errors.write_char(',')
+    }
+    errors.write_string(json_string(e))
+    first = false
+  }
+  "{\"target\":{\"line\":" +
+  target_line.to_string() +
+  ",\"node\":" +
+  target_node.to_string() +
+  "},\"nodes\":[" +
+  join_ints(result.nodes) +
+  "],\"lines\":[" +
+  join_ints(result.lines) +
+  "],\"errors\":[" +
+  errors.to_string() +
+  "]}"
+}
+
+///|
+/// Node/edge listing for `graph --format json`.
+///
+/// Nodes are emitted in id order and edges in `(from, to, kind)` order, both
+/// taken from the PDG, so equal inputs give byte-identical output. Synthetic
+/// entry/exit nodes are included because a consumer may want the full graph;
+/// `synthetic` says which they are.
+pub fn to_graph_json(
+  program : @core.Program,
+  pdg : @core.Pdg,
+) -> String {
+  let nodes = StringBuilder()
+  let mut first = true
+  for node in program.nodes {
+    if !first {
+      nodes.write_char(',')
+    }
+    nodes.write_string("{\"id\":")
+    nodes.write_string(node.id.to_string())
+    nodes.write_string(",\"kind\":")
+    nodes.write_string(json_string(edge_label_of_kind(node.kind)))
+    nodes.write_string(",\"line\":")
+    nodes.write_string(node.loc.start_line.to_string())
+    nodes.write_string(",\"synthetic\":")
+    nodes.write_string(if is_synth(program, node.id) { "true" } else { "false" })
+    nodes.write_char('}')
+    first = false
+  }
+  let edges = StringBuilder()
+  first = true
+  for edge in pdg.edges {
+    if !first {
+      edges.write_char(',')
+    }
+    edges.write_string("{\"from\":")
+    edges.write_string(edge.from.to_string())
+    edges.write_string(",\"to\":")
+    edges.write_string(edge.to.to_string())
+    edges.write_string(",\"kind\":")
+    edges.write_string(json_string(edge_label(edge.kind)))
+    edges.write_char('}')
+    first = false
+  }
+  "{\"nodes\":[" + nodes.to_string() + "],\"edges\":[" + edges.to_string() + "]}"
+}
+
+///|
+fn edge_label_of_kind(kind : @core.SNodeKind) -> String {
+  match kind {
+    @core.SNodeKind::Let => "let"
+    @core.SNodeKind::LetMut => "let_mut"
+    @core.SNodeKind::Assign => "assign"
+    @core.SNodeKind::If => "if"
+    @core.SNodeKind::While => "while"
+    @core.SNodeKind::For => "for"
+    @core.SNodeKind::Match => "match"
+    @core.SNodeKind::Return => "return"
+    @core.SNodeKind::Break => "break"
+    @core.SNodeKind::Continue => "continue"
+    @core.SNodeKind::Call => "call"
+    @core.SNodeKind::Expr => "expr"
+  }
 }
 
 ///|
@@ -453,7 +564,7 @@ pub fn to_html(
     target_node.to_string() +
     " on line " +
     target_line.to_string()
-  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
+  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.4.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
   metrics +
@@ -467,7 +578,9 @@ pub fn to_html(
   errs +
   "</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>" +
   escape_html(to_dot(pdg)) +
-  "</pre>\n</details>\n</body>\n</html>\n"
+  "</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">" +
+  to_result_json(program, result, target_line, target_node) +
+  "</script>\n</body>\n</html>\n"
 }
 
 ///|

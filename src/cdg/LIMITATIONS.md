@@ -62,3 +62,42 @@ The tool's job is to answer "which statements may have produced this value" and
 usable: it never hides a real dependence, it only adds extra ones. The
 limitations above are reported honestly in the README and in the CLI output,
 rather than papered over.
+
+## Precise mode: `build_precise`
+
+`cdg::build_precise(program, cfg)` computes control dependence from the CFG
+alone, using the classic Ferrante–Ottenstein–Warren definition:
+
+> `Y` is control dependent on `X` when one successor of `X` post-dominates `Y`
+> and another does not.
+
+Post-dominators are solved as a backward fixed point per function:
+`pdom[exit] = {exit}`, `pdom[n] = {n} ∪ ⋂ pdom[succ(n)]`. The walk then starts
+at each successor that does not post-dominate `X` and climbs the post-dominator
+tree until the immediate post-dominator of `X`.
+
+What it buys, measured on the shipped examples:
+
+- **No region-to-region edges.** `if c { x = 1 } else { x = 2 }` produces the
+  structural edges `head -> region` (correct) plus `region -> other region`
+  (impossible: a region has one CFG successor). Precise mode keeps only the
+  former.
+- **Fewer pseudo-controllers.** On `while { if c { return } ; x = x + 1 }` the
+  structural builder emits 18 control edges, many of them "loop head controls
+  the exit" or "inner if controls the loop head". Precise mode emits 7.
+- **Loop-carried edges the syntax cannot express.** When a branch inside a loop
+  can jump back to the loop head on one path and leave on another, the head is
+  control dependent on that branch. The tree alone cannot say this.
+
+What it still does not model:
+
+- Interprocedural control dependence (each function is analysed on its own).
+- Exception edges: `raise`/`try` are not CFG edges here, so their control
+  dependence is not modelled by either builder.
+- A CFG that omits per-function boundaries: precise mode falls back to whatever
+  the edges imply and may report nothing.
+
+`build` remains the default. It never depends on post-dominators, so it cannot
+under-approximate; every edge it adds is either a real structural dependence or
+a deliberate over-approximation. Use `build_precise` when you want the exact
+answer for a well-formed CFG, and `build` when you want the conservative one.

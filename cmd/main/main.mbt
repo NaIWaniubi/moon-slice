@@ -34,8 +34,34 @@ fn usage() -> Unit {
 }
 
 ///|
-fn fail(message : String) -> Unit {
-  println(message)
+/// Pre-scan argv for `--json` so a failure during argument parsing still knows
+/// whether the caller wants a machine-readable error.
+fn prescan_json(argv : Array[String]) -> Bool {
+  let mut found = false
+  for arg in argv {
+    if arg == "--json" {
+      found = true
+    }
+  }
+  found
+}
+
+///|
+/// Whether the invocation asked for `--json`. Failures consult this so a
+/// machine consumer always gets an error object instead of prose. It is a cell
+/// because the flag is parsed before the command runs, and the failure helpers
+/// are shared by every command.
+let json_mode : Array[Bool] = [false]
+
+///|
+/// Emit a machine-readable error object when `--json` was requested, otherwise
+/// the human line, then exit 2.
+fn fail_code(code : String, message : String) -> Unit {
+  if json_mode[0] {
+    println(@report.to_error_json(code, message))
+  } else {
+    println("error: " + message)
+  }
   @sys.exit(2)
 }
 
@@ -43,7 +69,7 @@ fn fail(message : String) -> Unit {
 fn read_source(path : String) -> String {
   @fs.read_file_to_string(path) catch {
     @fs.IOError(msg) => {
-      fail("error: failed to read \{path}: \{msg}")
+      fail_code("read_failed", "failed to read \{path}: \{msg}")
       ""
     }
   }
@@ -67,7 +93,7 @@ fn known_command(command : String) -> Bool {
 ///|
 fn require_value(argv : Array[String], i : Int, _flag : String) -> String {
   if i + 1 >= argv.length() {
-    fail("error: \{_flag} requires a value")
+    fail_code("missing_value", "\{_flag} requires a value")
     ""
   } else {
     argv[i + 1]
@@ -78,7 +104,7 @@ fn require_value(argv : Array[String], i : Int, _flag : String) -> String {
 fn parse_line(value : String) -> Int {
   @string.parse_int(value) catch {
     _ => {
-      fail("error: invalid integer for --line: \{value}")
+      fail_code("bad_integer", "invalid integer for --line: \{value}")
       0
     }
   }
@@ -87,7 +113,7 @@ fn parse_line(value : String) -> Int {
 ///|
 fn require_line(command : String, line : Int) -> Unit {
   if (command == "slice" || command == "html" || command == "dump") && line <= 0 {
-    fail("error: --line is required for \{command}")
+    fail_code("missing_line", "--line is required for \{command}")
   }
 }
 
@@ -102,7 +128,7 @@ fn select_target(
       match @query.node_exists(program, id) {
         true => id
         false => {
-          fail("error: no node with id \{id}")
+          fail_code("unknown_node", "no node with id \{id}")
           0
         }
       }
@@ -110,7 +136,7 @@ fn select_target(
     None => {
       let candidates = @query.statement_candidates(program, line)
       if candidates.length() == 0 {
-        fail("error: no node starts at line \{line}")
+        fail_code("no_node_at_line", "no node starts at line \{line}")
       }
       if candidates.length() > 1 {
         let ids = StringBuilder()
@@ -135,11 +161,16 @@ fn select_target(
 fn analyze(
   source : String,
   name : String,
+  precise : Bool,
 ) -> (@core.Program, @core.Cfg, @core.DefUse, @core.Pdg) {
   let program = @parser_adapter.parse_source(source, name)
   let cfg = @cfg.build(program)
   let defuse = @defuse.analyze(program, cfg)
-  let cdg = @cdg.build(program, cfg)
+  let cdg = if precise {
+    @cdg.build_precise(program, cfg)
+  } else {
+    @cdg.build(program, cfg)
+  }
   let pdg = @pdg.build(defuse, cdg)
   (program, cfg, defuse, pdg)
 }
@@ -201,13 +232,14 @@ fn kind_name(kind : @core.SNodeKind) -> String {
 ///|
 fn main {
   let argv = @env.args()
+  json_mode[0] = prescan_json(argv)
   if argv.length() < 2 {
     usage()
     return
   }
   let command = argv[1]
   if command == "version" || command == "--version" {
-    println("moon-slice 0.3.0")
+    println("moon-slice 0.4.0")
     return
   }
   if command == "help" || command == "--help" {
@@ -215,7 +247,7 @@ fn main {
     return
   }
   if !known_command(command) {
-    fail("error: unknown command \{command}")
+    fail_code("unknown_command", "unknown command \{command}")
   }
   let mut file = ""
   let mut line = 0
@@ -227,6 +259,7 @@ fn main {
   let mut from_var = ""
   let mut to_var = ""
   let mut node_override : Int32? = None
+  let mut precise_cdg = false
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -239,13 +272,13 @@ fn main {
     } else if arg == "--direction" {
       direction = require_value(argv, i, arg)
       if direction != "backward" && direction != "forward" {
-        fail("error: unsupported --direction \{direction} (use backward or forward)")
+        fail_code("bad_direction", "unsupported --direction \{direction} (use backward or forward)")
       }
       i = i + 2
     } else if arg == "--format" {
       format = require_value(argv, i, arg)
-      if format != "dot" {
-        fail("error: unsupported --format \{format} (use dot)")
+      if format != "dot" && format != "json" {
+        fail_code("bad_format", "unsupported --format \{format} (use dot or json)")
       }
       i = i + 2
     } else if arg == "--out" {
@@ -266,21 +299,24 @@ fn main {
     } else if arg == "--interprocedural" {
       interproc = true
       i = i + 1
+    } else if arg == "--precise" {
+      precise_cdg = true
+      i = i + 1
     } else {
-      fail("error: unknown argument \{arg}")
+      fail_code("unknown_argument", "unknown argument \{arg}")
     }
   }
   if file == "" {
-    fail("error: --file is required")
+    fail_code("missing_file", "--file is required")
   }
   require_line(command, line)
   if command == "path" && (from_var == "" || to_var == "") {
-    fail("error: --from and --to are required")
+    fail_code("missing_path_args", "--from and --to are required")
   }
   let source = read_source(file)
-  let (program, cfg, defuse, pdg) = analyze(source, file)
+  let (program, cfg, defuse, pdg) = analyze(source, file, precise_cdg)
   if command != "dump-errors" && program.errors.length() > 0 {
-    fail("error: source contains \{program.errors.length()} parser diagnostic(s); use dump-errors to inspect them")
+    fail_code("parse_error", "source contains \{program.errors.length()} parser diagnostic(s); use dump-errors to inspect them")
   }
   match command {
     "slice" => {
@@ -306,10 +342,10 @@ fn main {
       }
     }
     "graph" =>
-      if format == "dot" {
-        println(@report.to_dot(pdg))
+      if format == "json" {
+        println(@report.to_graph_json(program, pdg))
       } else {
-        fail("error: unsupported --format \{format} (use dot)")
+        println(@report.to_dot(pdg))
       }
     "callgraph" => {
       let edges = @query.call_edges(program)
@@ -359,7 +395,7 @@ fn main {
         println(html)
       } else {
         @fs.write_string_to_file(out, html) catch {
-          @fs.IOError(msg) => fail("error: failed to write \{out}: \{msg}")
+          @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out}: \{msg}")
         }
         println("wrote \{out}")
       }

@@ -65,7 +65,8 @@ test "json renders nodes, lines and errors" {
   let json = @report.to_json(sample_program(), sample_result())
   assert_true(json.contains("\"nodes\":[1,2]"))
   assert_true(json.contains("\"lines\":[2,3]"))
-  assert_true(json.contains("bad <input>"))
+  // `<` and `>` are escaped so the same string can be embedded in HTML safely.
+  assert_true(json.contains("bad \\u003cinput\\u003e"))
 }
 
 ///|
@@ -172,4 +173,59 @@ test "html marks the selected target node" {
   )
   assert_true(html.contains("class=\"target\""))
   assert_true(html.contains("target n1 on line 2"))
+}
+
+///|
+test "error json carries a stable code and message" {
+  let json = @report.to_error_json("read_failed", "no such file")
+  assert_eq(json, "{\"error\":{\"code\":\"read_failed\",\"message\":\"no such file\"}}")
+}
+
+///|
+test "error json escapes quotes and control characters" {
+  let json = @report.to_error_json("bad\"code", "line\u{1}\"quoted\"")
+  assert_true(json.contains("bad\\\"code"))
+  assert_true(json.contains("\\u0001"))
+  assert_true(!json.contains("\u{1}"))
+}
+
+///|
+test "graph json lists nodes and edges deterministically" {
+  let program = sample_program()
+  let pdg = sample_pdg()
+  let first = @report.to_graph_json(program, pdg)
+  let second = @report.to_graph_json(program, pdg)
+  assert_eq(first, second)
+  assert_true(first.contains("\"nodes\":["))
+  assert_true(first.contains("\"edges\":["))
+  assert_true(first.contains("\"id\":1"))
+  assert_true(first.contains("\"kind\":\"let\""))
+  assert_true(first.contains("\"synthetic\":true"))
+  assert_true(first.contains("\"from\":1,\"to\":2,\"kind\":\"data\""))
+  assert_true(first.contains("\"kind\":\"control\""))
+}
+
+///|
+test "result json carries the target, nodes, lines and errors" {
+  let json = @report.to_result_json(sample_program(), sample_result(), 2, 1)
+  assert_eq(
+    json,
+    "{\"target\":{\"line\":2,\"node\":1},\"nodes\":[1,2],\"lines\":[2,3],\"errors\":[\"bad \\u003cinput\\u003e\"]}",
+  )
+}
+
+///|
+test "result json cannot be broken out of by source text" {
+  // Errors come from the parser and may contain anything; the block must not
+  // contain a literal closing tag.
+  let program = sample_program()
+  let program = @core.Program::{
+    nodes: program.nodes,
+    functions: program.functions,
+    calls: program.calls,
+    errors: ["</script><script>probe()</script>"],
+  }
+  let json = @report.to_result_json(program, sample_result(), 2, 1)
+  assert_true(!json.contains("</script>"))
+  assert_true(json.contains("\u003c") || json.contains("<\/script>") || !json.contains("<"))
 }

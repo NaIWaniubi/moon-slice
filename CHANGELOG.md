@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.4.0 — 2026-10-29
+
+Precision work, driven by an attempted multi-agent run whose workers could not
+authenticate; the five planned missions were implemented directly instead.
+
+- **Post-dominator control dependence (`cdg::build_precise`).** Solves
+  post-dominators per function as a backward fixed point and derives control
+  dependence with the Ferrante–Ottenstein–Warren walk. Exposed as
+  `--precise` on every analysis command. Measured effects: no region-to-region
+  pseudo edges, and on `while { if c { return }; x = x + 1 }` the structural
+  builder's 18 control edges become 7. The structural `build` stays the default,
+  because it cannot under-approximate.
+- **Interprocedural argument mapping.** `expand_calls` now pairs a call site's
+  arguments with the callee's parameters in declaration order and drops callee
+  statements whose only parameter dependencies are parameters the caller did not
+  supply. `two(a, b)` called as `two(x)` no longer pulls in the `b`-only branch.
+  Statements that depend on a supplied argument, or on no parameter at all,
+  stay; a bare call statement still expands the whole body.
+- **Machine-readable contract.** With `--json`, every failure prints
+  `{"error":{"code":..,"message":..}}` and exits 2, so automation never parses
+  prose. `graph --format json` emits deterministic nodes and edges. The HTML
+  report carries `<meta name="generator">` and a
+  `<script type="application/json" id="moon-slice-result">` block with the
+  target, nodes, lines and errors.
+- **Path-based precision oracle.** The independent oracle is now derived from
+  the path formulation ("a definition reaches a use when some path connects
+  them with no intervening redefinition") instead of a bounded walk enumeration,
+  so it stays correct on nested loops where a visit bound stops too early. This
+  change was itself prompted by a property-test failure.
+- **Property-based differential testing.** A seeded generator produces 40
+  programs from a grammar covering let/let mut/assign/if-else/while/C-style
+  for/guard/return/nested blocks; each is checked for structural invariants,
+  agreement with the oracle, slice closure, criterion membership, line
+  projection, and interprocedural superset-ness. Failures print the seed and
+  source.
+- **Def-use allocation and exactness.** A visit that changes nothing no longer
+  retains its candidate state, and a 2000-statement chain asserts the exact
+  closed-form pair count so a future optimisation cannot drop edges silently.
+
 ## 0.3.0 — 2026-10-28
 
 Precision and robustness pass, driven by an independent audit. Every item has a

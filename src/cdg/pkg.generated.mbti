@@ -8,6 +8,8 @@ import {
 // Values
 pub fn build(@core.Program, @core.Cfg) -> @core.Cdg
 
+pub fn build_precise(@core.Program, @core.Cfg) -> @core.Cdg
+
 // Errors
 
 // Types and methods
