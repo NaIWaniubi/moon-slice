@@ -29,18 +29,17 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
 | `node bench/gen.mjs 500 big.mbt && time ./dev.sh run cmd/main -- slice --file big.mbt --line 502 --direction backward` | 1.58 s wall, 500-statement function |
 
-## Remote verification (2026-10-27)
+## Remote verification (2026-10-28, commit `5bd1e4b`)
 
 | Check | Result |
 | --- | --- |
-| CI `40374947890` | success: install, `moon update`, `check`, `test`, corpus, CLI smoke, web smoke |
-| Pages `40374947987` | success: deployed `web/` to GitHub Pages |
-| `curl -I https://cs6210501-lab.github.io/moon-slice/` | `HTTP/1.1 200 OK`, `text/html`, title `moon-slice playground` |
-| `curl -I https://cs6210501-lab.github.io/moon-slice/moon-slice.js` | `HTTP/1.1 200 OK`, 10,042,607 bytes |
+| CI `40704708986` | success: install, `moon update`, `check`, `test` (198), corpus, CLI smoke, JS build, bundle-drift check, web smoke |
+| Pages `40704709017` | success: rebuilt the bundle, verified no drift, deployed `web/` |
+| Live `index.html` SHA-256 | `c91b9033...206fe9`, identical to the committed file |
+| Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10228502`; first and last 2 KiB identical to the committed file (full download is throttled on this link) |
+| Live page markers | `frame.srcdoc`, `aria-live`, `moon-slice.js?run=` all present |
 
 Public repo: https://github.com/cs6210501-lab/moon-slice
-CI runs: https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml
-Pages runs: https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml
 
 ## Integration bugs found and fixed
 
