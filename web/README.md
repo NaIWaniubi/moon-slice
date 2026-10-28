@@ -16,6 +16,7 @@ Open `web/index.html` directly in a browser. The prebuilt engine is
 bash web/build.sh      # moon build --target js src/web + copy
 node web/smoke.mjs     # headless assertion
 node web/playground_e2e.mjs .   # real Chrome: two consecutive runs in one page
+node web/live_e2e.mjs           # real Chrome against the deployed Pages site
 ```
 
 `playground_e2e.mjs` needs Chrome at the default Windows path. It serves the
