@@ -23,8 +23,9 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (198 tests, including a
-10-example end-to-end corpus). The data model is frozen; the CLI is usable.
+All layers are implemented and covered by `moon test` (211 tests, including a
+10-example end-to-end corpus and an independent precision oracle). The data
+model is frozen; the CLI is usable.
 
 | Layer | Package | State |
 | --- | --- | --- |
@@ -54,7 +55,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.2.0
+# moon-slice 0.3.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -71,10 +72,18 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 ./dev.sh run cmd/main -- html  --file examples/04_while.mbt --line 7 --out report.html
 ```
 
+`bench/bench.mjs` measures the native release binary on generated inputs; see
+`bench/README.md` for the command and the current numbers.
+
 `path --from A --to B` is the taint-lite query: it finds the shortest directed
 PDG path from a definition of `A` to a use of `B`. `dead` reports both
 definitions with no reaching use and statements unreachable from a function
 entry.
+
+The CLI exits `0` on success and `2` on any usage error, unreadable input,
+write failure, parse diagnostic or unknown node id; it never prints a result for
+a run that failed. When one line holds several statements, it prints the
+candidate node ids and `--node ID` selects one.
 
 The same pipeline from MoonBit code:
 
@@ -179,13 +188,18 @@ may report a larger slice than a precise analysis would:
   on every enclosing controller).
 - **`dead` is definition- and reachability-based.** It reports definitions with
   no reaching use and statements unreachable from a function entry. It does not
-  infer that a store is dead only because a callee never reads it.
+  infer that a store is dead only because a callee never reads it, and it does
+  not flag an unused parameter as dead (the synthetic entry node defines it).
+- **One line can hold several statements.** The CLI never guesses silently: it
+  lists the candidate node ids and `--node ID` picks one. Without `--node` it
+  uses the first statement on the line and says which node that was.
 - **No points-to, no reflection, no macro expansion.** Dynamic dispatch and
   metaprogramming are opaque; the conservative "all identifiers are uses" rule
   applies.
 - **Line granularity.** Results are sets of line numbers. Two statements on the
   same line collapse into one entry, and multi-line expressions are attributed
-  to their first line.
+  to their first line. The `nodes` field of `--json` keeps the distinction; use
+  `--node ID` to target one of them.
 
 ## Examples
 
@@ -254,6 +268,27 @@ and a sink variable, and read the flow in one line.
 ./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total
 # n1 L4 -> n3 L6 -> n4 L7
 ```
+
+## Precision
+
+Correctness is checked two ways, and the second one does not reuse the first
+one's code:
+
+- **Hand-written expectations.** Every example carries `EXPECT-BACKWARD` /
+  `EXPECT-FORWARD` headers, `testdata/expected.json` mirrors them, and
+  `moon test` asserts the exact line sets.
+- **An independent oracle.** `src/integration_test/precision_oracle_test.mbt`
+  re-derives reaching definitions by enumerating CFG walks (each node visited at
+  most twice, so loop-carried definitions are represented) and compares the
+  result with the work-list analysis. It runs on straight-line code, if/else,
+  nested branches, while, a C-style `for` with `continue`, match, shadowing,
+  `guard`, recursion, field/array writes, a nested loop, and the whole example
+  corpus. A disagreement fails the test with both pair sets printed.
+
+Ambiguous targets are never silently guessed. `statement_candidates` returns
+every statement on a line; the CLI prints the candidate node ids and accepts
+`--node ID` to pick one, and the HTML report highlights the selected row and
+names the node in its metrics.
 
 ## Call graph
 

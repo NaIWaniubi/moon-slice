@@ -1,10 +1,11 @@
-// Headless smoke test for the browser engine: define the two globals the JS
-// build expects, load the bundle, and assert that it produced a report.
+// Headless smoke test for the browser engine: define the globals the JS build
+// expects, load the bundle, and assert that it produced a report.
 import fs from 'node:fs';
 
 const source = fs.readFileSync(new URL('../examples/04_while.mbt', import.meta.url), 'utf8') + '\n// @@MOONSLICE@@ preserved';
 let output = '';
-let input = ['backward', '7', source].join('\n');
+// direction, line, node override (empty = auto), then the source as the rest.
+let input = ['backward', '7', '', source].join('\n');
 globalThis.moonSliceReadInput = () => input;
 globalThis.moonSliceWriteOutput = (html) => { output = html; };
 await import('../web/moon-slice.js');
@@ -14,4 +15,5 @@ if (!output.includes('class="hit"')) throw new Error('no highlighted source');
 if (!output.includes('Slice nodes')) throw new Error('no slice table');
 if (!output.includes('<td>4</td>')) throw new Error('missing line 4 in table');
 if (!output.includes('<td>7</td>')) throw new Error('missing line 7 in table');
+if (!output.includes('@@MOONSLICE@@')) throw new Error('source sentinel was not preserved');
 console.log('web smoke ok:', output.length, 'bytes');

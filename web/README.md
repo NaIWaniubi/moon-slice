@@ -27,12 +27,19 @@ escaped rather than executed.
 The engine exposes two JS globals:
 
 ```js
-moonSliceReadInput()          // "direction\\nline\\nsource"
+moonSliceReadInput()          // "direction\nline\nnode\nsource"
 moonSliceWriteOutput(html)    // receives the self-contained report
 ```
 
 The host loads each run in a fresh hidden iframe. This keeps the generated
 bundle's top-level declarations isolated, so repeated edits and clicks render
-independent reports without redeclaration errors. The source is transmitted
-as the remainder after the first two newline-delimited fields; source text is
-not split on a sentinel string.
+independent reports without redeclaration errors, and a run token prevents a
+slow earlier run from overwriting a newer report.
+
+The first three newline-delimited fields are `direction`, `line` and an optional
+node id (`""` means "pick the statement on that line"). Everything after them is
+the source, joined verbatim, so the source is never split on a sentinel string.
+
+When a line holds several statements, the report names the node it used. Enter a
+node id in the Node field (the same ids `moon-slice dump --line N` prints) to
+target a specific statement.

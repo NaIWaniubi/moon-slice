@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-28. Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-28 (v0.3.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,11 +8,11 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 198, passed: 198, failed: 0` |
+| `./dev.sh test` | `Total tests: 211, passed: 211, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
-| `node web/smoke.mjs` | `web smoke ok: 6767 bytes` (JS engine, full HTML report) |
-| `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6721 bytes, second=rendered 6759 bytes, markerPreserved=true` |
+| `node web/smoke.mjs` | `web smoke ok: 6804 bytes` (JS engine, full HTML report) |
+| `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6758 bytes, second=rendered 6796 bytes, markerPreserved=true` |
 | `./dev.sh run cmd/main -- graph --file <missing>` | exit 2, `error: failed to read ...` |
 | `./dev.sh run cmd/main -- slice --file F --line 7 --direction sideways` | exit 2, `error: unsupported --direction ...` |
 | `./dev.sh run cmd/main -- slice --file F --line 7 --bogus` | exit 2, `error: unknown argument ...` |
@@ -27,7 +27,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt` | `twice -> inc`, `main_fn -> twice` |
 | `./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural` | `2,6,7,8,12` |
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
-| `node bench/gen.mjs 500 big.mbt && time ./dev.sh run cmd/main -- slice --file big.mbt --line 502 --direction backward` | 1.58 s wall, 500-statement function |
+| `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,2000,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.6 s, `dead` 0.84 s, `graph` 0.81 s |
 
 ## Remote verification (2026-10-28, commit `5bd1e4b`)
 
@@ -52,6 +52,27 @@ Public repo: https://github.com/cs6210501-lab/moon-slice
    The parser adapter did not handle `Expr::Group`, so match-arm assignments
    (`1 => { label = 20 }`) became `Expr` nodes with no defs/uses. Fixed by
    transparent lowering; `06_match` is covered by the end-to-end corpus test.
+
+## Precision and performance pass (0.3.0)
+
+Added after the review fixes, aimed at measurable accuracy rather than more
+features:
+
+- `src/integration_test/precision_oracle_test.mbt` — an independent oracle that
+  enumerates CFG walks (each node at most twice, so loop-carried definitions are
+  represented) and compares its reaching definitions with the work-list result
+  on 12 hand-picked programs plus all 10 corpus examples. 13 tests.
+- `src/query/statement_candidates` — every statement on a line, so the CLI can
+  report ambiguity instead of silently picking the first; `--node ID` selects
+  one and an unknown id exits 2.
+- Report metrics name the selected node (`target n5 on line 7`) and the slice
+  table highlights that row.
+- `bench/bench.mjs` — measures the native release binary with warm-up and takes
+  the minimum of N runs, so the documented numbers are reproducible.
+- Hot paths: CFG dedupe via a set, def-use per-node GEN/USE indexes and a
+  successor table, name resolution via a per-name stack, single-pass adjacency
+  for `path`/`unreachable`, `StringBuilder` for DOT/JSON/HTML. On 32,000
+  statements `graph` went from 58 s to 0.8 s and `dead` from 3.7 s to 0.84 s.
 
 ## Review fixes (2026-10-28)
 
@@ -115,10 +136,11 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 198 tests, including 10 end-to-end corpus tests and path/unreachable tests
+- [x] 211 tests, including 10 end-to-end corpus tests, a walk-based precision
+  oracle, and path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
-- [x] library line coverage 88.8% (see COVERAGE.md; legacy reporter)
+- [x] library line coverage 89.1% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`

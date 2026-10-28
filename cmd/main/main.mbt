@@ -17,14 +17,19 @@ fn usage() -> Unit {
     "\n" +
     "Commands:\n" +
     "  slice --file F --line N --direction backward|forward [--json] [--interprocedural]\n" +
+    "        [--node ID]   disambiguate several statements on the same line\n" +
     "  graph --file F [--format dot]\n" +
     "  callgraph --file F [--json]\n" +
     "  dead  --file F [--json]\n" +
     "  path  --file F --from VAR --to VAR [--json]\n" +
-    "  html  --file F --line N [--out report.html] [--interprocedural]\n" +
+    "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
-    "  version | help\n",
+    "  version | help\n" +
+    "\n" +
+    "Exit codes: 0 success, 2 usage error, unreadable input, parse error or\n" +
+    "write failure. When a line holds several statements, `dump --line N` lists\n" +
+    "their node ids; pass the wanted one with `--node ID`.\n",
   )
 }
 
@@ -87,16 +92,56 @@ fn require_line(command : String, line : Int) -> Unit {
 }
 
 ///|
+fn select_target(
+  program : @core.Program,
+  line : Int32,
+  override_node : Int32?,
+) -> Int32 {
+  match override_node {
+    Some(id) => {
+      match @query.node_exists(program, id) {
+        true => id
+        false => {
+          fail("error: no node with id \{id}")
+          0
+        }
+      }
+    }
+    None => {
+      let candidates = @query.statement_candidates(program, line)
+      if candidates.length() == 0 {
+        fail("error: no node starts at line \{line}")
+      }
+      if candidates.length() > 1 {
+        let ids = StringBuilder()
+        let mut first = true
+        for id in candidates {
+          if !first {
+            ids.write_char(',')
+          }
+          ids.write_string(id.to_string())
+          first = false
+        }
+        println(
+          "note: line \{line} has \{candidates.length()} statements; using node \{candidates[0]}. Pass --node ID to choose another (candidates: \{ids.to_string()})",
+        )
+      }
+      candidates[0]
+    }
+  }
+}
+
+///|
 fn analyze(
   source : String,
   name : String,
-) -> (@core.Program, @core.DefUse, @core.Pdg) {
+) -> (@core.Program, @core.Cfg, @core.DefUse, @core.Pdg) {
   let program = @parser_adapter.parse_source(source, name)
   let cfg = @cfg.build(program)
   let defuse = @defuse.analyze(program, cfg)
   let cdg = @cdg.build(program, cfg)
   let pdg = @pdg.build(defuse, cdg)
-  (program, defuse, pdg)
+  (program, cfg, defuse, pdg)
 }
 
 ///|
@@ -162,7 +207,7 @@ fn main {
   }
   let command = argv[1]
   if command == "version" || command == "--version" {
-    println("moon-slice 0.2.0")
+    println("moon-slice 0.3.0")
     return
   }
   if command == "help" || command == "--help" {
@@ -181,6 +226,7 @@ fn main {
   let mut interproc = false
   let mut from_var = ""
   let mut to_var = ""
+  let mut node_override : Int32? = None
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -211,6 +257,9 @@ fn main {
     } else if arg == "--to" {
       to_var = require_value(argv, i, arg)
       i = i + 2
+    } else if arg == "--node" {
+      node_override = Some(parse_line(require_value(argv, i, arg)).to_int64().to_int())
+      i = i + 2
     } else if arg == "--json" {
       json = true
       i = i + 1
@@ -229,19 +278,13 @@ fn main {
     fail("error: --from and --to are required")
   }
   let source = read_source(file)
-  let (program, defuse, pdg) = analyze(source, file)
+  let (program, cfg, defuse, pdg) = analyze(source, file)
   if command != "dump-errors" && program.errors.length() > 0 {
     fail("error: source contains \{program.errors.length()} parser diagnostic(s); use dump-errors to inspect them")
   }
   match command {
     "slice" => {
-      let target = match @query.target_node(program, line.to_int64().to_int()) {
-        Some(id) => id
-        None => {
-          fail("error: no node starts at line \{line}")
-          0
-        }
-      }
+      let target = select_target(program, line.to_int64().to_int(), node_override)
       let result = if direction == "forward" {
         @slice.forward(pdg, target, program~)
       } else {
@@ -280,7 +323,6 @@ fn main {
     }
     "dead" => {
       let dead = @query.dead_nodes(program, defuse)
-      let cfg = @cfg.build(program)
       let unreach = @query.unreachable_nodes(program, cfg)
       let all = @query.union_sorted(dead, unreach)
       let result = @core.SliceResult::{
@@ -294,13 +336,7 @@ fn main {
       }
     }
     "html" => {
-      let target = match @query.target_node(program, line.to_int64().to_int()) {
-        Some(id) => id
-        None => {
-          fail("error: no node starts at line \{line}")
-          0
-        }
-      }
+      let target = select_target(program, line.to_int64().to_int(), node_override)
       let result = @slice.backward(pdg, target, program~)
       let result = @core.SliceResult::{
         nodes: result.nodes,

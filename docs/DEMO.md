@@ -16,6 +16,25 @@ Line 7 is `total = total + i`. The backward slice includes the loop preheader,
 the guard, the target, and the loop-carried `i = i + 1`; the forward slice
 includes the target and `return total`.
 
+## 1b. Picking a statement when a line holds several
+
+```bash
+cat > multi.mbt <<'MBT'
+fn f(x : Int) -> Int {
+  let a = x + 1; let b = x + 2; a
+}
+MBT
+./dev.sh run cmd/main -- slice --file multi.mbt --line 2 --direction backward
+# note: line 2 has 3 statements; using node 1. Pass --node ID to choose another (candidates: 1,2,3)
+# 2
+./dev.sh run cmd/main -- slice --file multi.mbt --line 2 --direction backward --node 3
+# 2
+```
+
+The note names the candidates; `--node 3` targets the trailing `a`. An unknown
+id exits 2. The HTML report marks the chosen node in its metrics and highlights
+its table row.
+
 ## 2. A match arm is a real assignment
 
 ```bash
@@ -109,5 +128,5 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 198, passed: 198, failed: 0`, and
+Expected: 0 errors, `Total tests: 211, passed: 211, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

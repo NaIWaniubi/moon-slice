@@ -39,6 +39,10 @@ priv struct Adapter {
   functions : Array[@core.FunctionInfo]
   calls : Array[@core.CallSite]
   env : Array[(String, @core.VarId)]
+  // Positions in `env` for each name, so name resolution is O(1) instead of a
+  // backward scan. A name can be bound several times (shadowing) and scopes are
+  // popped by truncating `env`, so the stack is popped in step.
+  env_pos : Map[String, Array[Int32]]
   scope_counter : Array[Int32]
   current_function : Array[String]
 }
@@ -57,6 +61,7 @@ pub fn parse_source(source : String, name : String) -> @core.Program {
     functions: [],
     calls: [],
     env: [],
+    env_pos: Map([]),
     scope_counter: [1],
     current_function: [""],
   }
@@ -127,7 +132,7 @@ fn emit_function(
     None,
   )
   emit_expr(ctx, body, None)
-  ctx.env.truncate(outer_mark)
+  pop_env_to(ctx, outer_mark)
   let exit = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, [], [], None)
   ctx.functions.push(@core.FunctionInfo::{
     name: fun_decl.name.name,
@@ -153,17 +158,18 @@ fn record_calls_in_expr(ctx : Adapter, expr : @syntax.Expr) -> Unit {
   let collector : CallCollector = { names: [], }
   @syntax.IterVisitor::visit_Expr(collector, expr)
   collector.names.each(fn(pair) {
-    record_call(
-      ctx,
-      pair.0,
-      { start_line: pair.1, start_col: 0, end_line: pair.1, end_col: 0, },
-    )
+    // A name bound locally is a function value or a `let fn`, not a call to a
+    // top-level function of the same name. Recording it would invent an edge.
+    let resolved = resolve_name(ctx, pair.0)
+    if resolved.scope == -1 {
+      record_call(ctx, pair.0, pair.1)
+    }
   })
 }
 
 ///|
 priv struct CallCollector {
-  names : Array[(String, Int32)]
+  names : Array[(String, @core.Loc)]
 }
 
 ///|
@@ -179,7 +185,11 @@ impl @syntax.IterVisitor for CallCollector with fn visit_Expr_Apply(
   match func {
     Ident(id~, ..) =>
       match id.name {
-        Ident(name~) => self.names.push((name, loc.start.lnum))
+        Ident(name~) =>
+          self.names.push((
+            name,
+            { start_line: loc.start.lnum, start_col: loc.start.column(), end_line: loc.end.lnum, end_col: loc.end.column() },
+          ))
         Dot(..) => ()
       }
     _ => ()
@@ -503,8 +513,8 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       let mark = ctx.env.length()
       let region = begin_region(ctx, head, @core.SNodeKind::For)
       emit_into_region(ctx, region, loop_body)
-      emit_loop_updates(ctx, region, continue_block)
-      ctx.env.truncate(mark)
+      emit_loop_updates(ctx, region, head, continue_block)
+      pop_env_to(ctx, mark)
       match for_else {
         Some(branch) => emit_branch(ctx, head, @core.SNodeKind::For, branch)
         None => ()
@@ -534,7 +544,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
       let region = begin_region(ctx, head, @core.SNodeKind::For)
       emit_into_region(ctx, region, loop_body)
       continue_block.each(fn(pair) { append_uses(ctx, pair.1, region.uses) })
-      ctx.env.truncate(mark)
+      pop_env_to(ctx, mark)
       match else_block {
         Some(branch) => emit_branch(ctx, head, @core.SNodeKind::For, branch)
         None => ()
@@ -567,7 +577,7 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
           None => ()
         }
         emit_into_region(ctx, region, case_.body)
-        ctx.env.truncate(mark)
+        pop_env_to(ctx, mark)
       })
     }
     // ---- constructs with a continuation ----------------------------------
@@ -642,13 +652,31 @@ fn emit_element_write(
 }
 
 ///|
-/// Lower loop update assignments as real nodes in the body region. The CFG's
-/// back edge then executes these definitions before returning to the loop head.
+/// Lower loop update assignments as real nodes inside a dedicated step block.
+///
+/// The step block is an `Expr` node with the loop head's location, holding the
+/// update assignments as children. The CFG treats a non-empty `Expr` block as a
+/// sequence, which lets `continue` resume at the updates instead of skipping
+/// them. It carries the head's `loc`, so it never introduces a source line of
+/// its own.
 fn emit_loop_updates(
   ctx : Adapter,
   region : @core.SNode,
+  head : @core.SNode,
   updates : @list.List[(@syntax.Binder, @syntax.Expr)],
 ) -> Unit {
+  if updates.is_empty() {
+    return
+  }
+  let step = begin_node(
+    ctx,
+    @core.SNodeKind::Expr,
+    head.loc,
+    [],
+    [],
+    Some(region.id),
+  )
+  region.children.push(step.id)
   updates.each(fn(pair) {
     record_calls_in_expr(ctx, pair.1)
     let node = begin_node(
@@ -657,10 +685,10 @@ fn emit_loop_updates(
       loc_whole(pair.1),
       [],
       uses_of(ctx, pair.1),
-      Some(region.id),
+      Some(step.id),
     )
     node.defs.push(resolve_name(ctx, pair.0.name))
-    region.children.push(node.id)
+    step.children.push(node.id)
   })
 }
 
@@ -675,7 +703,7 @@ fn emit_branch(
   let mark = ctx.env.length()
   let region = begin_region(ctx, head, kind)
   emit_into_region(ctx, region, body)
-  ctx.env.truncate(mark)
+  pop_env_to(ctx, mark)
 }
 
 ///|
@@ -741,8 +769,32 @@ fn bind_fresh(ctx : Adapter, name : String) -> @core.VarId {
   let scope = ctx.scope_counter[0]
   ctx.scope_counter[0] = scope + 1
   let id : @core.VarId = { name, scope, }
+  let position = ctx.env.length()
   ctx.env.push((name, id))
+  match ctx.env_pos.get(name) {
+    None => ctx.env_pos.set(name, [position])
+    Some(stack) => stack.push(position)
+  }
   id
+}
+
+///|
+/// Drop bindings registered after `mark`. The per-name stacks are popped in
+/// step so `resolve_name` never sees a position that is no longer in `env`.
+fn pop_env_to(ctx : Adapter, mark : Int32) -> Unit {
+  let mut i = ctx.env.length() - 1
+  while i >= mark {
+    let name = ctx.env[i].0
+    match ctx.env_pos.get(name) {
+      None => ()
+      Some(stack) =>
+        if stack.length() > 0 {
+          ignore(stack.pop())
+        }
+    }
+    i = i - 1
+  }
+  ctx.env.truncate(mark)
 }
 
 ///|
@@ -751,15 +803,15 @@ fn bind_fresh(ctx : Adapter, name : String) -> @core.VarId {
 /// parameters of unlowered functions or for module-level values. Such a use has
 /// no definition node, so it simply contributes no data edge.
 fn resolve_name(ctx : Adapter, name : String) -> @core.VarId {
-  let mut i = ctx.env.length() - 1
-  while i >= 0 {
-    let entry = ctx.env[i]
-    if entry.0 == name {
-      return entry.1
-    }
-    i = i - 1
+  match ctx.env_pos.get(name) {
+    None => { name, scope: -1, }
+    Some(stack) =>
+      if stack.length() == 0 {
+        { name, scope: -1, }
+      } else {
+        ctx.env[stack[stack.length() - 1]].1
+      }
   }
-  { name, scope: -1, }
 }
 
 ///|

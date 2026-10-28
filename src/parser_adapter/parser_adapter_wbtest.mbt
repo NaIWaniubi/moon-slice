@@ -16,9 +16,12 @@ test "C-style for defines its binder and reads the bound" {
   assert_eq(defs, ["i"])
   assert_eq(head.children.length(), 1)
   let body = program.nodes[head.children[0]]
-  // The body is followed by a real update node before the back edge.
+  // The body holds one statement plus a trailing update block.
   assert_eq(body.children.length(), 2)
-  assert_eq(program.nodes[body.children[1]].kind, @core.SNodeKind::Assign)
+  let step = program.nodes[body.children[1]]
+  assert_eq(step.kind, @core.SNodeKind::Expr)
+  assert_eq(step.children.length(), 1)
+  assert_eq(program.nodes[step.children[0]].kind, @core.SNodeKind::Assign)
 }
 
 ///|

@@ -158,3 +158,18 @@ test "html escapes repeated source delimiters and quotes" {
   assert_true(html.contains("&#39;quote&#39; &quot;double&quot;"))
   assert_true(!html.contains("<script>probe()</script>"))
 }
+
+///|
+test "html marks the selected target node" {
+  let source = "line one\nline two\n"
+  let html = @report.to_html(
+    source,
+    sample_program(),
+    sample_pdg(),
+    sample_result(),
+    2,
+    1,
+  )
+  assert_true(html.contains("class=\"target\""))
+  assert_true(html.contains("target n1 on line 2"))
+}

@@ -2,16 +2,16 @@
 
 ///|
 fn join_ints(xs : Array[Int32]) -> String {
-  let mut out = ""
+  let out = StringBuilder()
   let mut first = true
   for x in xs {
     if !first {
-      out = out + ","
+      out.write_char(',')
     }
-    out = out + x.to_string()
+    out.write_string(x.to_string())
     first = false
   }
-  out
+  out.to_string()
 }
 
 ///|
@@ -74,19 +74,19 @@ fn edge_label(kind : @core.EdgeKind) -> String {
 
 ///|
 pub fn to_dot(pdg : @core.Pdg) -> String {
-  let mut out = "digraph pdg {\n  rankdir=LR;\n"
+  let out = StringBuilder()
+  out.write_string("digraph pdg {\n  rankdir=LR;\n")
   for edge in pdg.edges {
-    out = out +
-      "  n" +
-      edge.from.to_string() +
-      " -> n" +
-      edge.to.to_string() +
-      " [label=\"" +
-      edge_label(edge.kind) +
-      "\"];\n"
+    out.write_string("  n")
+    out.write_string(edge.from.to_string())
+    out.write_string(" -> n")
+    out.write_string(edge.to.to_string())
+    out.write_string(" [label=\"")
+    out.write_string(edge_label(edge.kind))
+    out.write_string("\"];\n")
   }
-  out = out + "}\n"
-  out
+  out.write_string("}\n")
+  out.to_string()
 }
 
 ///|
@@ -421,22 +421,24 @@ pub fn to_html(
     errs = "<li>none</li>"
   }
   let svg = to_svg(program, pdg, result, target_node)
-  let mut rows = ""
+  let rows = StringBuilder()
   for id in result.nodes {
     if !is_synth(program, id) {
       let node = program.nodes[id]
-      rows = rows +
-        "<tr><td>n" +
-        id.to_string() +
-        "</td><td>" +
-        svg_kind_name(node.kind) +
-        "</td><td>" +
-        node.loc.start_line.to_string() +
-        "</td><td>" +
-        vars_text(node.defs) +
-        "</td><td>" +
-        vars_text(node.uses) +
-        "</td></tr>"
+          let target = if id == target_node { " class=\"target\"" } else { "" }
+          rows.write_string("<tr")
+          rows.write_string(target)
+          rows.write_string("><td>n")
+          rows.write_string(id.to_string())
+          rows.write_string("</td><td>")
+          rows.write_string(svg_kind_name(node.kind))
+          rows.write_string("</td><td>")
+          rows.write_string(node.loc.start_line.to_string())
+          rows.write_string("</td><td>")
+          rows.write_string(vars_text(node.defs))
+          rows.write_string("</td><td>")
+          rows.write_string(vars_text(node.uses))
+          rows.write_string("</td></tr>")
     }
   }
   let metrics = "nodes " +
@@ -446,7 +448,11 @@ pub fn to_html(
     " · slice nodes " +
     result.nodes.length().to_string() +
     " · slice lines " +
-    result.lines.length().to_string()
+    result.lines.length().to_string() +
+    " · target n" +
+    target_node.to_string() +
+    " on line " +
+    target_line.to_string()
   "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
@@ -456,7 +462,7 @@ pub fn to_html(
   "</div>\n<h2>Source</h2>\n<pre>" +
   body +
   "</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>" +
-  rows +
+  rows.to_string() +
   "</tbody></table>\n<h2>Errors</h2>\n<ul>" +
   errs +
   "</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>" +
@@ -467,25 +473,36 @@ pub fn to_html(
 ///|
 /// DOT for a function-level call graph.
 pub fn to_call_dot(edges : Array[(String, String)]) -> String {
-  let mut out = "digraph callgraph {\n  rankdir=LR;\n"
+  let out = StringBuilder()
+  out.write_string("digraph callgraph {\n  rankdir=LR;\n")
   for e in edges {
-    out = out + "  " + json_string(e.0) + " -> " + json_string(e.1) + ";\n"
+    out.write_string("  ")
+    out.write_string(json_string(e.0))
+    out.write_string(" -> ")
+    out.write_string(json_string(e.1))
+    out.write_string(";\n")
   }
-  out = out + "}\n"
-  out
+  out.write_string("}\n")
+  out.to_string()
 }
 
 ///|
 /// JSON array of `[caller, callee]` pairs, for tooling.
 pub fn to_call_json(edges : Array[(String, String)]) -> String {
-  let mut out = "["
+  let out = StringBuilder()
+  out.write_char('[')
   let mut first = true
   for e in edges {
     if !first {
-      out = out + ","
+      out.write_char(',')
     }
-    out = out + "[" + json_string(e.0) + "," + json_string(e.1) + "]"
+    out.write_char('[')
+    out.write_string(json_string(e.0))
+    out.write_char(',')
+    out.write_string(json_string(e.1))
+    out.write_char(']')
     first = false
   }
-  out + "]"
+  out.write_char(']')
+  out.to_string()
 }

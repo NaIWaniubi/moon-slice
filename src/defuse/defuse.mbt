@@ -44,19 +44,31 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
     let none : Array[(Int32, Int32)] = []
     return @core.DefUse::{ reaching: none, }
   }
-  // Reaching definitions arrive at each node as a set of (var, def-node) pairs.
-  // Stored per node as a flat pair array; the CFG is small enough that the
-  // quadratic set union is not worth an index structure.
+  // Per-node GEN/USE indexes keep the fixed point local: a transfer step only
+  // touches the definitions of the node it visits, not every definition in the
+  // program.
+  let defs_at : Array[Array[@core.VarId]] = []
+  let uses_at : Array[Array[@core.VarId]] = []
+  let mut i = 0
+  while i < node_count {
+    defs_at.push([])
+    uses_at.push([])
+    i = i + 1
+  }
+  facts.defs.each(fn(pair) { defs_at[pair.0].push(pair.1) })
+  facts.uses.each(fn(pair) { uses_at[pair.0].push(pair.1) })
   let in_state : Array[Array[(Int32, @core.VarId)]] = []
   let out_state : Array[Array[(Int32, @core.VarId)]] = []
-  let mut i = 0
+  i = 0
   while i < node_count {
     in_state.push([])
     out_state.push([])
     i = i + 1
   }
   let preds = predecessors(cfg, node_count)
+  let succs = successors(cfg, node_count)
   let work : Array[Int32] = []
+  let queued : Set[Int32] = Set([])
   // Seed every node, not only the roots. A root with an empty out-state (for
   // example a parameterless entry) never changes, so a work-list that only
   // enqueues successors on change would never visit the rest of a straight-line
@@ -65,38 +77,42 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   let mut n = 0
   while n < node_count {
     work.push(n)
+    queued.add(n)
     n = n + 1
   }
+  // The lattice is finite (each definition/use pair is either present or not)
+  // and transfer is monotone, so the loop terminates on its own. No round cap.
   while work.length() > 0 {
     let current = work.pop().unwrap()
+    queued.remove(current)
     let joined = join_predecessor_out(preds[current], out_state)
     in_state[current] = joined
-    let next_out = transfer(facts, current, in_state[current])
+    let next_out = transfer(current, defs_at[current], in_state[current])
     if !same_set(out_state[current], next_out) {
       out_state[current] = next_out
-      successors(cfg, current, node_count).each(fn(succ) {
-        if !contains_int(work, succ) {
+      for succ in succs[current] {
+        if !queued.contains(succ) {
+          queued.add(succ)
           work.push(succ)
         }
-      })
+      }
     }
   }
   // A use is reached by every definition in its in-state for the same variable.
-  let reaching : Array[(Int32, Int32)] = []
+  let pairs : Set[(Int32, Int32)] = Set([])
   let mut node_id = 0
   while node_id < node_count {
     let state = in_state[node_id]
-    facts.uses.each(fn(use_pair) {
-      if use_pair.0 == node_id {
-        state.each(fn(def_pair) {
-          if def_pair.1 == use_pair.1 {
-            add_pair_unique(reaching, def_pair.0, node_id)
-          }
-        })
-      }
+    uses_at[node_id].each(fn(use_var) {
+      state.each(fn(def_pair) {
+        if def_pair.1 == use_var {
+          pairs.add((def_pair.0, node_id))
+        }
+      })
     })
     node_id = node_id + 1
   }
+  let reaching = pairs.to_array()
   reaching.sort_by(fn(a, b) {
     if a.0 != b.0 {
       a.0.compare(b.0)
@@ -122,19 +138,17 @@ fn collect_facts(program : @core.Program) -> Facts {
 /// GEN/KILL as a set operation: drop pairs whose var is redefined by `node`,
 /// then add this node's own definitions.
 fn transfer(
-  facts : Facts,
   node : Int32,
+  defined : Array[@core.VarId],
   incoming : Array[(Int32, @core.VarId)],
 ) -> Array[(Int32, @core.VarId)] {
   let out : Array[(Int32, @core.VarId)] = []
-  let defined : Array[@core.VarId] = []
-  facts.defs.each(fn(pair) { if pair.0 == node { defined.push(pair.1) } })
   incoming.each(fn(pair) {
     if !array_has_var(defined, pair.1) {
       push_unique_pair(out, pair)
     }
   })
-  facts.defs.each(fn(pair) { if pair.0 == node { push_unique_pair(out, pair) } })
+  defined.each(fn(var_) { push_unique_pair(out, (node, var_)) })
   out
 }
 
@@ -169,20 +183,28 @@ fn predecessors(cfg : @core.Cfg, node_count : Int32) -> Array[Array[Int32]] {
 }
 
 ///|
-/// Successors of `node`, restricted to ids that exist in the program. A CFG
+/// Successors of every node, restricted to ids that exist in the program. A CFG
 /// carrying an endpoint outside `0 ..< node_count` is ignored rather than
 /// allowed to index out of bounds later.
 fn successors(
   cfg : @core.Cfg,
-  node : Int32,
   node_count : Int32,
-) -> Array[Int32] {
-  let out : Array[Int32] = []
+) -> Array[Array[Int32]] {
+  let out : Array[Array[Int32]] = []
+  let mut i = 0
+  while i < node_count {
+    out.push([])
+    i = i + 1
+  }
+  let seen : Set[(Int32, Int32)] = Set([])
   cfg.edges.each(fn(edge) {
-    if edge.0 == node && edge.1 >= 0 && edge.1 < node_count {
-      if !contains_int(out, edge.1) {
-        out.push(edge.1)
-      }
+    if edge.0 >= 0 &&
+      edge.0 < node_count &&
+      edge.1 >= 0 &&
+      edge.1 < node_count &&
+      !seen.contains(edge) {
+      seen.add(edge)
+      out[edge.0].push(edge.1)
     }
   })
   out
@@ -230,26 +252,6 @@ fn push_unique_pair(
   }
   if !found {
     items.push(pair)
-  }
-}
-
-///|
-fn add_pair_unique(
-  items : Array[(Int32, Int32)],
-  from : Int32,
-  to : Int32,
-) -> Unit {
-  let mut i = 0
-  let mut found = false
-  while i < items.length() {
-    let existing = items[i]
-    if existing.0 == from && existing.1 == to {
-      found = true
-    }
-    i = i + 1
-  }
-  if !found {
-    items.push((from, to))
   }
 }
 

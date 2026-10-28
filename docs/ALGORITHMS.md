@@ -117,13 +117,26 @@ Argument-to-parameter mapping and mutation summaries remain future work.
 `slice --interprocedural` and `html --interprocedural` use it; the default is
 intra-procedural.
 
+## Verifying precision
+
+`src/integration_test/precision_oracle_test.mbt` is a second implementation of
+reaching definitions, written from the definition rather than from the work-list
+algorithm: it enumerates walks from each function entry, allowing each node at
+most twice (so a loop-carried definition such as `i = i + 1` is represented),
+and records the most recent definition of each variable at each use. The two
+results are compared pair by pair. Any disagreement fails with both sets
+printed, which is how a change to the transfer function or the CFG cannot pass
+silently.
+
 ## Complexity and bounds
 
-- CFG: O(N) edges for N statements.
+- CFG: O(N) edges for N statements; edge dedupe is a hash set, not a scan.
+- Name resolution: O(1) per identifier via a per-name binding stack.
 - Def-use: work-list to a fixed point. The lattice is finite and transfer is
   monotone, so it terminates without a round cap; worst case O(N·E) with the
   flat set representation.
 - Slicing: O(V+E) per query.
+- `path` and `unreachable`: one adjacency pass, then O(V+E).
 - HTML SVG: truncated at 200 nodes so a huge file cannot produce a
   multi-megabyte report; the graph states that it is truncated and the metrics
   and node table still cover the full result. The DOT output has no truncation.

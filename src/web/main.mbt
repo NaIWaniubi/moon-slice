@@ -36,9 +36,9 @@ fn error_html(message : String) -> String {
 ///|
 fn join_source(parts : Array[String]) -> String {
   let mut source = ""
-  let mut i = 2
+  let mut i = 3
   while i < parts.length() {
-    if i > 2 {
+    if i > 3 {
       source = source + "\n"
     }
     source = source + parts[i]
@@ -50,15 +50,17 @@ fn join_source(parts : Array[String]) -> String {
 ///|
 fn main {
   let input = read_input()
-  // The first two newline-delimited fields are controlled by the host;
-  // everything after them is source text and is joined without interpretation.
+  // The first three newline-delimited fields are controlled by the host
+  // (direction, line, optional node id); everything after them is source text
+  // and is joined without interpretation.
   let parts = input.split("\n").map(p => p.to_owned()).to_array()
-  if parts.length() < 3 {
+  if parts.length() < 4 {
     write_output(error_html("bad input"))
     return
   }
   let direction = parts[0]
   let line = @string.parse_int(parts[1]) catch { _ => 0 }
+  let node_field = parts[2]
   let source = join_source(parts)
   let program = @parser_adapter.parse_source(source, "playground.mbt")
   let cfg = @cfg.build(program)
@@ -66,8 +68,26 @@ fn main {
   let cdg = @cdg.build(program, cfg)
   let pdg = @pdg.build(defuse, cdg)
   let line32 : Int32 = line.to_int64().to_int()
-  match @query.target_node(program, line32) {
-    None => write_output(error_html("no statement starts at line \{line}"))
+  let requested : Int32? = if node_field == "" {
+    None
+  } else {
+    let parsed = @string.parse_int(node_field) catch { _ => -1 }
+    Some(parsed.to_int64().to_int())
+  }
+  let target = match requested {
+    Some(id) =>
+      match @query.node_exists(program, id) {
+        true => Some(id)
+        false => None
+      }
+    None => @query.target_node(program, line32)
+  }
+  match target {
+    None =>
+      match requested {
+        Some(id) => write_output(error_html("no node with id \{id}"))
+        None => write_output(error_html("no statement starts at line \{line}"))
+      }
     Some(node) => {
       let result = if direction == "forward" {
         @slice.forward(pdg, node, program~)

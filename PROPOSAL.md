@@ -44,9 +44,13 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
 - CLI：`slice --interprocedural`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
 - 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用与条件位置，保留递归自环。
-- 测试：198 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- 测试：211 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
-- 工程化：GitHub Actions CI、500 语句输入的性能冒烟、零网络依赖报告。
+- 精准度：独立预言器用枚举 CFG 走查的方式重新推导 reaching definitions，
+  与工作列表算法在 12 个程序与全部 10 个示例上逐对比较，结果必须完全一致。
+- 性能：32000 条语句的直线函数，`dead` 0.84 s、`graph` 0.81 s、`slice` 1.6 s
+  （native release，`bench/bench.mjs` 可复现）。
+- 工程化：GitHub Actions CI、可复现的 32000 语句性能基准、零网络依赖报告。
 - 浏览器 playground：同一 MoonBit 管线编译到 JavaScript，单页编辑/选行/切片，开箱即用。
 
 ## 6. 原创 / 移植说明
@@ -63,7 +67,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 198/198 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 211/211 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`

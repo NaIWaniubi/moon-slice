@@ -42,7 +42,7 @@ expect_fail() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.2.0" version
+expect_eq "moon-slice 0.3.0" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -70,7 +70,7 @@ expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction ba
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "$tmp_html" "$tmp_bad"' EXIT
+trap 'rm -f "$tmp_html" "$tmp_bad" "$tmp_multi"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"
@@ -79,6 +79,16 @@ grep -Fq 'Slice nodes' "$tmp_html"
 tmp_bad="$(mktemp)"
 printf 'fn broken( {\n  let x =\n}\n' > "$tmp_bad"
 expect_contains "errors" dump-errors --file "$tmp_bad"
+
+# Ambiguous lines: the CLI reports the candidates and honours --node.
+tmp_multi="$(mktemp)"
+printf 'fn f(x : Int) -> Int {
+  let a = x + 1; let b = x + 2; a
+}
+' > "$tmp_multi"
+expect_contains "has 3 statements" slice --file "$tmp_multi" --line 2 --direction backward
+expect_eq "2" slice --file "$tmp_multi" --line 2 --direction backward --node 3
+expect_fail "no node with id" slice --file "$tmp_multi" --line 2 --node 999
 
 # Error paths: these must exit nonzero and must not emit a plausible result.
 expect_fail "failed to read" graph --file "$tmp_bad.missing.mbt"

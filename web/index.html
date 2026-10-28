@@ -50,6 +50,7 @@ fn loop_sum(n : Int) -> Int {
 </textarea>
     <div class="controls">
       <label>Line <input id="line" type="number" value="7" min="1"></label>
+      <label>Node <input id="node" type="number" min="0" placeholder="auto" title="Optional: pick a specific node id when several statements share a line"></label>
       <label>Direction
         <select id="direction">
           <option value="backward">backward</option>
@@ -59,7 +60,7 @@ fn loop_sum(n : Int) -> Int {
       </label>
       <button id="run">Slice</button>
     </div>
-    <p class="hint">Target a statement line. Backward answers “where did this value come from?”, forward answers “what does this value affect?”, interprocedural expands callee return-value cones.</p>
+    <p class="hint">Target a statement line. Backward answers “where did this value come from?”, forward answers “what does this value affect?”, interprocedural expands callee return-value cones. If a line holds several statements, fill Node to choose one; otherwise the report says which node it used.</p>
   </section>
   <section class="right">
     <div class="status" id="status" role="status" aria-live="polite">loading engine…</div>
@@ -74,6 +75,7 @@ fn loop_sum(n : Int) -> Int {
     return {
       direction: document.getElementById('direction').value,
       line: document.getElementById('line').value,
+      node: document.getElementById('node').value,
       source: document.getElementById('source').value,
     };
   }
@@ -102,9 +104,9 @@ fn loop_sum(n : Int) -> Int {
   }
 
   globalThis.moonSliceReadInput = (token) => {
-    if (token !== String(runSerial)) return 'backward\n0\n';
+    if (token !== String(runSerial)) return 'backward\n0\n\n';
     const input = currentInput();
-    return input.direction + '\n' + input.line + '\n' + input.source;
+    return input.direction + '\n' + input.line + '\n' + input.node + '\n' + input.source;
   };
 
   globalThis.moonSliceWriteOutput = (token, html) => {

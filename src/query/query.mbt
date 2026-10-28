@@ -1,6 +1,9 @@
 // Query helpers over a lowered `@core.Program`.
 
 ///|
+/// Resolve a node id without assuming ids are array indexes. The adapter emits
+/// dense ids, but a hand-built `Program` need not, and indexing by id would then
+/// read the wrong node or run off the end.
 fn node_by_id(program : @core.Program, id : Int32) -> @core.SNode? {
   for node in program.nodes {
     if node.id == id {
@@ -8,6 +11,19 @@ fn node_by_id(program : @core.Program, id : Int32) -> @core.SNode? {
     }
   }
   None
+}
+
+///|
+/// `id -> node` table. Used by the helpers that are called once per slice node,
+/// where a linear scan per lookup would make a large result quadratic.
+fn node_table(program : @core.Program) -> Map[Int32, @core.SNode] {
+  let table : Map[Int32, @core.SNode] = Map([])
+  for node in program.nodes {
+    if !table.contains(node.id) {
+      table.set(node.id, node)
+    }
+  }
+  table
 }
 
 ///|
@@ -54,6 +70,15 @@ fn is_statement_kind(kind : @core.SNodeKind) -> Bool {
 }
 
 ///|
+/// Whether a node with this id exists in `program`.
+pub fn node_exists(program : @core.Program, id : Int32) -> Bool {
+  match node_by_id(program, id) {
+    Some(_) => true
+    None => false
+  }
+}
+
+///|
 /// All node ids whose `loc.start_line` equals `line`, ascending.
 pub fn nodes_at_line(program : @core.Program, line : Int32) -> Array[Int32] {
   let out : Array[Int32] = []
@@ -67,22 +92,21 @@ pub fn nodes_at_line(program : @core.Program, line : Int32) -> Array[Int32] {
 }
 
 ///|
-/// Pick the best node for a source line.
+/// All statement-level candidates on `line`, ascending: real statements first,
+/// then control heads, then other non-region nodes. Regions and synthetic
+/// entry/exit nodes are excluded.
 ///
-/// Preference: a real statement node, then a control head, then any non-region
-/// node, then anything at all (synthetic entry for a function header). Regions
-/// and synthetic entry/exit nodes are excluded unless nothing else matches.
-pub fn target_node(program : @core.Program, line : Int32) -> Int32? {
+/// The CLI uses this to report ambiguity when several statements share a line
+/// (`let a = h(x); let b = k(x)`), instead of silently picking the first one.
+pub fn statement_candidates(
+  program : @core.Program,
+  line : Int32,
+) -> Array[Int32] {
   let statement : Array[Int32] = []
   let control : Array[Int32] = []
   let other : Array[Int32] = []
-  let fallback : Array[Int32] = []
   for node in program.nodes {
-    if node.loc.start_line != line {
-      continue
-    }
-    if is_synthetic(program, node) || is_region(program, node) {
-      fallback.push(node.id)
+    if node.loc.start_line != line || is_synthetic(program, node) || is_region(program, node) {
       continue
     }
     if is_statement_kind(node.kind) {
@@ -96,18 +120,47 @@ pub fn target_node(program : @core.Program, line : Int32) -> Int32? {
       other.push(node.id)
     }
   }
-  let pick = if statement.length() > 0 {
-    statement[0]
-  } else if control.length() > 0 {
-    control[0]
-  } else if other.length() > 0 {
-    other[0]
-  } else if fallback.length() > 0 {
-    fallback[0]
-  } else {
-    return None
+  statement.sort()
+  control.sort()
+  other.sort()
+  let out : Array[Int32] = []
+  for id in statement {
+    out.push(id)
   }
-  Some(pick)
+  for id in control {
+    out.push(id)
+  }
+  for id in other {
+    out.push(id)
+  }
+  out
+}
+
+///|
+/// Pick the best node for a source line.
+///
+/// Preference: a real statement node, then a control head, then any non-region
+/// node, then anything at all (synthetic entry for a function header). Regions
+/// and synthetic entry/exit nodes are excluded unless nothing else matches.
+pub fn target_node(program : @core.Program, line : Int32) -> Int32? {
+  let candidates = statement_candidates(program, line)
+  if candidates.length() > 0 {
+    return Some(candidates[0])
+  }
+  let fallback : Array[Int32] = []
+  for node in program.nodes {
+    if node.loc.start_line != line {
+      continue
+    }
+    if is_synthetic(program, node) || is_region(program, node) {
+      fallback.push(node.id)
+    }
+  }
+  if fallback.length() > 0 {
+    Some(fallback[0])
+  } else {
+    None
+  }
 }
 
 ///|
@@ -135,9 +188,10 @@ pub fn dead_nodes(
 ///|
 /// Unique sorted start lines for the given node ids.
 pub fn lines_of(program : @core.Program, nodes : Array[Int32]) -> Array[Int32] {
+  let table = node_table(program)
   let out : Array[Int32] = []
   for id in nodes {
-    match node_by_id(program, id) {
+    match table.get(id) {
       None => ()
       Some(node) => {
         let line = node.loc.start_line
@@ -158,9 +212,10 @@ pub fn visible_lines(
   program : @core.Program,
   nodes : Array[Int32],
 ) -> Array[Int32] {
+  let table = node_table(program)
   let out : Array[Int32] = []
   for id in nodes {
-    match node_by_id(program, id) {
+    match table.get(id) {
       None => ()
       Some(node) =>
         if !is_synthetic(program, node) {
@@ -191,18 +246,29 @@ pub fn unreachable_nodes(
       queue.push(f.entry)
     }
   }
+  // One adjacency pass instead of scanning every edge per dequeued node.
+  let succ : Map[Int32, Array[Int32]] = Map([])
+  for edge in cfg.edges {
+    if edge.0 >= 0 && edge.0 < n && edge.1 >= 0 && edge.1 < n {
+      match succ.get(edge.0) {
+        None => succ.set(edge.0, [edge.1])
+        Some(next) => next.push(edge.1)
+      }
+    }
+  }
   let mut head = 0
   while head < queue.length() {
     let current = queue[head]
     head = head + 1
-    for edge in cfg.edges {
-      if edge.0 == current &&
-        edge.1 >= 0 &&
-        edge.1 < n &&
-        !seen.contains(edge.1) {
-        seen.add(edge.1)
-        queue.push(edge.1)
-      }
+    match succ.get(current) {
+      None => ()
+      Some(next) =>
+        for candidate in next {
+          if !seen.contains(candidate) {
+            seen.add(candidate)
+            queue.push(candidate)
+          }
+        }
     }
   }
   let out : Array[Int32] = []
@@ -269,6 +335,15 @@ pub fn path_between(
   for g in goals {
     goal_set.add(g)
   }
+  // Build the forward adjacency once. Scanning `pdg.edges` per dequeued node
+  // makes the search O(V*E); this makes it O(V+E).
+  let succ : Map[Int32, Array[Int32]] = Map([])
+  for e in pdg.edges {
+    match succ.get(e.from) {
+      None => succ.set(e.from, [e.to])
+      Some(next) => next.push(e.to)
+    }
+  }
   let visited : Set[Int32] = Set([])
   let parent : Map[Int32, Int32] = Map([])
   let queue : Array[Int32] = []
@@ -286,12 +361,16 @@ pub fn path_between(
     if goal_set.contains(current) {
       found = Some(current)
     } else {
-      for e in pdg.edges {
-        if e.from == current && !visited.contains(e.to) {
-          visited.add(e.to)
-          parent.set(e.to, current)
-          queue.push(e.to)
-        }
+      match succ.get(current) {
+        None => ()
+        Some(next) =>
+          for candidate in next {
+            if !visited.contains(candidate) {
+              visited.add(candidate)
+              parent.set(candidate, current)
+              queue.push(candidate)
+            }
+          }
       }
     }
   }
@@ -391,8 +470,9 @@ fn call_site_node(
   line : Int32,
   nodes : Array[Int32],
 ) -> @core.SNode? {
+  let table = node_table(program)
   for id in nodes {
-    match node_by_id(program, id) {
+    match table.get(id) {
       None => ()
       Some(node) =>
         if id > caller.entry && id < caller.exit && node.loc.start_line == line {
@@ -407,7 +487,7 @@ fn call_site_node(
   // Keep a line-based fallback for unsupported/qualified expressions whose
   // callee name is not preserved in the node uses.
   for id in nodes {
-    match node_by_id(program, id) {
+    match table.get(id) {
       None => ()
       Some(node) =>
         if id > caller.entry && id < caller.exit && node.loc.start_line == line {

@@ -47,6 +47,7 @@ priv struct LoopCtx {
 priv struct Builder {
   nodes : Array[@core.SNode]
   edges : Array[(Int32, Int32)]
+  seen : Set[(Int32, Int32)]
   exit_slot : Array[Int32]
 }
 
@@ -58,7 +59,12 @@ priv struct Builder {
 /// yield one connected component per function; use `Program.functions` for the
 /// per-function boundaries.
 pub fn build(program : @core.Program) -> @core.Cfg {
-  let builder : Builder = { nodes: program.nodes, edges: [], exit_slot: [0], }
+  let builder : Builder = {
+    nodes: program.nodes,
+    edges: [],
+    seen: Set([]),
+    exit_slot: [0],
+  }
   program.functions.each(fn(function) {
     builder.exit_slot[0] = function.exit
     let top : Array[Int32] = []
@@ -146,9 +152,7 @@ fn dispatch(
       if regions.length() == 0 {
         add_edge(builder, node.id, next)
       } else {
-        let inner = copy_loops(loops)
-        inner.push({ continue_to: node.id, break_to: next, })
-        walk_loop_body(builder, node.id, regions[0], inner)
+        walk_loop_body(builder, node, regions[0], next, loops)
         if regions.length() > 1 {
           walk_branch(builder, node.id, regions[1], next, loops)
         } else {
@@ -200,19 +204,68 @@ fn walk_branch(
 /// Enter a loop body region. Same shape as `walk_branch`, but the body falls
 /// back to the loop head instead of forward to the join point, which is the
 /// back edge.
+///
+/// A C-style `for` carries its update expressions in a trailing step block (an
+/// `Expr` child of the body region emitted by the adapter). `continue` must
+/// resume at that block, not at the head, or the increment would be skipped.
 fn walk_loop_body(
   builder : Builder,
-  head : Int32,
+  head : @core.SNode,
   region : Int32,
+  next : Int32,
   loops : Array[LoopCtx],
 ) -> Unit {
-  add_edge(builder, head, region)
+  add_edge(builder, head.id, region)
   let statements = builder.nodes[region].children
   if statements.length() == 0 {
-    add_edge(builder, region, head)
+    add_edge(builder, region, head.id)
+    return
+  }
+  add_edge(builder, region, statements[0])
+  let inner = copy_loops(loops)
+  inner.push({ continue_to: loop_continue_target(builder, head, statements), break_to: next, })
+  walk_list(builder, statements, head.id, inner)
+}
+
+///|
+/// Where a `continue` inside `head` resumes. The adapter appends the C-style
+/// `for` update block as the last child of the body region; its first statement
+/// is the resume point. Everything else resumes at the loop head.
+fn loop_continue_target(
+  builder : Builder,
+  head : @core.SNode,
+  statements : Array[Int32],
+) -> Int32 {
+  match head.kind {
+    @core.SNodeKind::For =>
+      match step_block(builder, head, statements) {
+        Some(step) => step
+        None => head.id
+      }
+    _ => head.id
+  }
+}
+
+///|
+/// The adapter's update block: a trailing `Expr` region on the loop's own line
+/// whose children are the update assignments. The adapter never emits a bare
+/// `Expr` statement block with children for anything else inside a loop body,
+/// so this is unambiguous.
+fn step_block(
+  builder : Builder,
+  head : @core.SNode,
+  statements : Array[Int32],
+) -> Int32? {
+  if statements.length() == 0 {
+    return None
+  }
+  let last = builder.nodes[statements[statements.length() - 1]]
+  if last.kind == @core.SNodeKind::Expr &&
+    last.loc == head.loc &&
+    last.children.length() > 0 {
+    Some(last.children[0])
   } else {
-    add_edge(builder, region, statements[0])
-    walk_list(builder, statements, head, loops)
+    None
   }
 }
 
@@ -228,13 +281,9 @@ fn add_edge(builder : Builder, from : Int32, to : Int32) -> Unit {
   if from < 0 || to < 0 {
     return
   }
-  let mut i = 0
-  while i < builder.edges.length() {
-    let edge = builder.edges[i]
-    if edge.0 == from && edge.1 == to {
-      return
-    }
-    i = i + 1
+  let key = (from, to)
+  if !builder.seen.contains(key) {
+    builder.seen.add(key)
+    builder.edges.push(key)
   }
-  builder.edges.push((from, to))
 }
