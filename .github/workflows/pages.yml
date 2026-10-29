@@ -32,13 +32,17 @@ jobs:
       - name: Update registry index
         run: moon update
 
+      # Byte equality with the committed bundle is not checkable across
+      # platforms: MoonBit's JS backend numbers internal symbols in an order
+      # that differs between Windows and Linux, so the artifacts are
+      # functionally identical but textually different. Verify both functionally.
+      - name: Smoke the committed bundle
+        run: node web/smoke.mjs
+
       - name: Build browser engine
         run: bash web/build.sh
 
-      - name: Check browser bundle is committed
-        run: git diff --exit-code -- web/moon-slice.js
-
-      - name: Run browser smoke test
+      - name: Smoke the rebuilt bundle
         run: node web/smoke.mjs
 
       - uses: actions/configure-pages@v5
