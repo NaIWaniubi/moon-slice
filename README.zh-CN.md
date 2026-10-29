@@ -34,9 +34,10 @@ PDG ──▶ 向后/向前切片、死代码、数据流路径、调用图、HT
 因此它能区分「同名但不同作用域的变量」、能沿着 `return` 找到被跳过的代码、
 能在报告里画出数据边（实线）和控制边（虚线）。
 
-## 快速开始
+## 安装与快速开始
 
-需要 MoonBit 工具链。所有命令都走仓库自带的包装脚本：
+需要 `moonc` **0.10.16 或更新**（实测 `v0.10.17`）。分析包是纯 MoonBit；Node
+只用于可选的网页工具与冒烟脚本。
 
 ```bash
 git clone https://github.com/cs6210501-lab/moon-slice
@@ -65,7 +66,7 @@ cd moon-slice
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
 ```
 
-Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。
+Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库计划随 0.5.0 发布到 mooncakes.io，`moon add chen/moon-slice@0.5.0` 与当前发布状态见 `PUBLISHING.md`。
 
 ## 改动影响分析（review）
 

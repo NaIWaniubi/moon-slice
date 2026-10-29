@@ -3,7 +3,7 @@
 [![CI](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml)
 
-[中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
+[中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
 A program-slicing workbench for MoonBit. Point it at a `.mbt` source file and a
 target line; get back the **backward slice** (which statements may have produced
@@ -43,6 +43,22 @@ property-based differential suite). The data model is frozen; the CLI is usable.
 | CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead` (file or tree, SARIF, baseline), `review`, `path`, `html`, debug dumps |
 | Browser playground | `src/web`, `web/` | implemented — JS build + single page |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
+
+## Install
+
+Requires `moonc` **0.10.16 or newer** (verified with `v0.10.17`). The analysis
+packages are pure MoonBit; Node is only needed for the optional web tools.
+
+```bash
+git clone https://github.com/cs6210501-lab/moon-slice
+cd moon-slice
+./dev.sh check      # type-check the whole module
+./dev.sh test       # run the test suite
+```
+
+The library targets the 0.5.0 release line on mooncakes.io; see
+[PUBLISHING.md](PUBLISHING.md) for the exact `moon add chen/moon-slice@0.5.0`
+step and its current publication status.
 
 ## Quickstart
 

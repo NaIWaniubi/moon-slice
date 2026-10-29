@@ -22,6 +22,9 @@ jobs:
       - name: Check
         run: moon check
 
+      - name: Build CLI (native release)
+        run: moon build --target native --release cmd/main
+
       - name: Test
         run: moon test
 

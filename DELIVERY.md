@@ -324,6 +324,11 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] GitHub Actions CI and Pages workflows added; Pages enabled for `web/`
 - [x] `action.yml` exercised by CI through `uses: ./`
 - [x] contribution guide, roadmap, and issue forms
+- [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
+- [x] third-party license inventory (`THIRD_PARTY.md`)
+- [x] `moon package` produces `chen-moon-slice-0.5.0.zip` (976 KB, 122 files)
+- [ ] `moon publish` to mooncakes.io — requires the maintainer's interactive
+  `moon login`; see `PUBLISHING.md`
 - [x] live playground verified at https://cs6210501-lab.github.io/moon-slice/
 - [ ] fill author / team / contact in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59
