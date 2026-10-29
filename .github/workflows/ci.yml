@@ -51,3 +51,16 @@ jobs:
 
       - name: Smoke the rebuilt bundle
         run: node web/smoke.mjs
+
+  # Exercise action.yml the way a consumer does: GitHub resolves the composite
+  # action, the action installs MoonBit, builds the pinned source, and scans a
+  # tree. `src/` has no findings, so the --fail-on-findings gate stays green.
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./
+        with:
+          command: dead
+          args: --dir src --fail-on-findings
