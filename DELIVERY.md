@@ -52,6 +52,16 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 5. **Test suite** grew to 248 with `real_world_test.mbt`, the review smoke test,
    and the closure/`impl` regressions.
 
+## Remote verification (2026-10-29, commit `8c33bfd`, v0.4.2)
+
+| Check | Result |
+| --- | --- |
+| CI `40860284920` | success: check, 248 tests, corpus, CLI smoke, committed-bundle smoke, rebuild, rebuilt-bundle smoke |
+| Pages `40860284910` | success: deployed the rebuilt `web/` |
+| Live `index.html` SHA-256 | `dce7b383...24b1980`, identical to the committed file |
+| Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10276204` (Linux rebuild; functionally identical to the committed Windows build) |
+| `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 6992 bytes` (real Chrome, two runs on the deployed site) |
+
 ## Remote verification (2026-10-29, commit `3a5a406`, v0.4.0)
 
 | Check | Result |
