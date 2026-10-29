@@ -25,7 +25,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (256 tests, including a
+All layers are implemented and covered by `moon test` (263 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, and a seeded
 property-based differential suite). The data model is frozen; the CLI is usable.
 

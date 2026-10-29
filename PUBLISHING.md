@@ -84,10 +84,38 @@ let program = @parser_adapter.parse_source("fn f() -> Int { 1 }\n", "a.mbt")
 println(program.errors.length()) // 0
 ```
 
-## Why this is not in CI
+## Credentials format (verified)
 
-`moon login` requires a TTY and an interactive account authorization, and the
-credential file is account-scoped. Publishing is therefore a maintainer-local
-step, not a GitHub Actions step; no credential is stored in the repository.
-If mooncakes adds token-based CI authentication, this file should be updated with
-the exact variable name rather than guessing one.
+`~/.moon/credentials.json` is read as:
+
+```json
+{"token": "<mooncakes token>", "username": "<account name>"}
+```
+
+`username` is optional. The format was verified against the CLI's
+`Credentials` struct and by a `moon publish --dry-run` probe: with a probe file
+present the command proceeded past login and posted to
+`https://mooncakes.io/api/v0/publish` (the probe token was rejected; nothing was
+published, and the probe file was deleted).
+
+## CI option
+
+Publishing is not wired into this repository's CI by default because the token
+is account-scoped. If you keep it as a repository secret
+(`MOONCAKES_CREDENTIALS`, the JSON above), a release job can write the file and
+publish:
+
+```yaml
+- name: Write mooncakes credentials
+  run: |
+    mkdir -p "$HOME/.moon"
+    printf '%s' "$MOONCAKES_CREDENTIALS" > "$HOME/.moon/credentials.json"
+  env:
+    MOONCAKES_CREDENTIALS: ${{ secrets.MOONCAKES_CREDENTIALS }}
+
+- name: Publish
+  run: moon publish
+```
+
+Do not commit the credentials file. `moon login` remains the simplest local
+path and needs a TTY plus a browser session.

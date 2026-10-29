@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 256, passed: 256, failed: 0` |
+| `./dev.sh test` | `Total tests: 263, passed: 263, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -61,8 +61,9 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 6. **Real-commit review evidence.** On `moonbitlang/x@4705764`, 15 changed lines
    reach 40 lines: `duration.mbt` affects 6 functions / 36 lines and
    `period.mbt` affects 3 functions / 4 lines; both test files correctly reach 0.
-7. **Tests: 256.** New coverage: scan path normalisation, SARIF shape, scan JSON,
-   and the directory CLI end to end (including both gate exit codes).
+7. **Tests: 263.** New coverage: scan path normalisation, SARIF shape, scan JSON,
+   the directory CLI end to end (including both gate exit codes), and whitebox
+   tests for the diff parser and review helper (7 cases, added after the tag).
 
 ## 0.4.2 precision hardening (2026-10-29)
 
@@ -90,7 +91,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | CI `40884027453` | success: check, 256 tests, corpus, CLI smoke, committed-bundle smoke, rebuild, rebuilt-bundle smoke |
 | Tag CI `40884027671` | success on `v0.5.0` |
 | Pages `40884027574` | success: deployed the rebuilt `web/` |
-| CI log evidence | `Total tests: 256, passed: 256, failed: 0`, `cli smoke ok`, both bundle smokes `web smoke ok: 7006 bytes` |
+| CI log evidence | `Total tests: 263, passed: 263, failed: 0`, `cli smoke ok`, both bundle smokes `web smoke ok: 7006 bytes` |
 | CI `40884391008` `action` job | success: `uses: ./` resolved `action.yml`, installed MoonBit, built `cmd/main`, and ran `dead --dir src --fail-on-findings` (58 s, exit 0) |
 | Live `index.html` SHA-256 | `dce7b383...24b1980`, identical to the committed file |
 | Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10276204` (Linux rebuild; functionally identical to the committed Windows build) |
@@ -303,7 +304,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 256 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 263 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings

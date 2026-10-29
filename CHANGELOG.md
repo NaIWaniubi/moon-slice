@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Added whitebox tests for the diff parser and the file-level review helper
+  (hunk coordinates, deleted files, context lines, unparsable input, function
+  attribution). Suite is now 263 tests.
+- Added `ACCEPTANCE.md` (the nine review items with evidence), `PUBLISHING.md`
+  (verified packaging, credentials format, namespace rename), `THIRD_PARTY.md`,
+  and `tools/publish.sh`.
+- CI now runs an explicit native release build between check and test.
+
 ## 0.5.0 — 2026-10-29
 
 CI-facing output and tree-scale scanning. The tool now answers a reviewing

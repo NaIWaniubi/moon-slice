@@ -21,8 +21,8 @@ the numbers below use.
 | `src/query/query.mbt` | 289/308 |
 | `src/report/report.mbt` | 450/502 |
 | `cmd/main/main.mbt` | 22/518 |
-| `cmd/main/review.mbt` | 0/155 |
-| **Total** | **1788/2646** |
+| `cmd/main/review.mbt` | 71/155 |
+| **Total** | **1859/2646** |
 
 Library packages only (excluding `cmd/`): **1712/1919 = 89.2%**.
 

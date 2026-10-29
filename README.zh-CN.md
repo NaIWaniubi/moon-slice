@@ -2,6 +2,8 @@
 
 面向 MoonBit 的程序切片与依赖图工作台。
 
+[验收对照表](ACCEPTANCE.md) · [真实仓库验证](docs/CASE_STUDY.md) · [贡献指南](CONTRIBUTING.md) · [路线图](ROADMAP.md)
+
 选中一行，它能回答三个日常问题：
 
 - **这个值从哪来？** 向后切片，列出所有可能影响它的赋值、分支和调用。
@@ -44,7 +46,7 @@ git clone https://github.com/cs6210501-lab/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 256 个测试
+./dev.sh test                  # 263 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -185,7 +187,7 @@ action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就
 
 ## 工程
 
-- 256 个测试；库代码行覆盖率约 89%
+- 263 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）
