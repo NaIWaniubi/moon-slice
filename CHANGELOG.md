@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.4.1 — 2026-10-29
+
+Fixes from an adversarial review that simulated a competition judge. Three
+findings were real defects, not polish.
+
+- **`impl` method bodies are now analysed.** Previously only free functions were
+  lowered, so a file whose logic lived in `impl T with fn ...` produced an empty
+  program and `dead` answered "no dead code" for code it never looked at. That
+  is a wrong answer, not a conservative one. `TopImpl` and `TopView` are lowered
+  as functions, with `self` as an ordinary parameter.
+- **The interprocedural argument filter is removed.** The previous version
+  inferred argument count from identifier uses, so `add(1, 2)` looked like a
+  zero-argument call and the whole callee was dropped — an under-approximation.
+  The deeper problem is that any positional filter is unsound for MoonBit:
+  omitted parameters may have defaults, and labelled arguments need not be in
+  declaration order. `expand_calls` is back to the whole return cone, which
+  cannot under-approximate. `docs/ALGORITHMS.md` explains why.
+- **`path` follows data edges only.** It used to traverse control edges too, so
+  `path --from o --to v` could report "o flows into v" through an `if`
+  condition, a false positive for a taint-style user. `--with-control` restores
+  the old search.
+- **The property suite's closure check is real.** It previously asserted only
+  that the slice was non-empty; it now verifies that every node in a backward
+  slice can reach the criterion using only nodes in the slice.
+- **Report generation is linear.** The HTML source block used per-line string
+  concatenation and a linear membership scan, so an 8,000-line file took about
+  15 s. `StringBuilder` plus a set brings it to about 0.5 s.
+- **Sparse node ids no longer mis-index.** `cfg`, `defuse` and the report rows
+  looked nodes up by array position; a hand-built `Program` with id gaps would
+  read the wrong node or panic. They index by declared id now, and the SVG
+  refuses to draw (instead of drawing the wrong graph) when ids are not dense.
+- **The playground caches the engine.** Each click used to request
+  `moon-slice.js?run=N`, so the 10 MB bundle was re-downloaded every time. A
+  stable URL keeps the fresh-iframe isolation and lets the browser cache it.
+- **`--precise` and `compare` are discoverable.** Both were reachable but
+  missing from `help`. `compare` shows the structural vs precise control-edge
+  difference directly (18 vs 7 on `bench/precise_cdg.mbt`).
+- **Docs re-synced.** Test counts, the stale `docs/report.html`, the demo's
+  nonexistent `/tmp` input, and the "exact for the structured subset" claim
+  (contradicted by its own LIMITATIONS) are corrected.
+
 ## 0.4.0 — 2026-10-29
 
 Precision work, driven by an attempted multi-agent run whose workers could not

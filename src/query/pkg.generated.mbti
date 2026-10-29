@@ -24,7 +24,7 @@ pub fn nodes_using_name(@core.Program, String) -> Array[Int32]
 
 pub fn nodes_with_name(@core.Program, String) -> Array[Int32]
 
-pub fn path_between(@core.Pdg, Array[Int32], Array[Int32]) -> Array[Int32]?
+pub fn path_between(@core.Pdg, Array[Int32], Array[Int32], with_control? : Bool) -> Array[Int32]?
 
 pub fn statement_candidates(@core.Program, Int32) -> Array[Int32]
 

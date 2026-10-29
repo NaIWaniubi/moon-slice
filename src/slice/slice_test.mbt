@@ -152,3 +152,22 @@ test "lines_of ignores duplicates in the node list" {
   assert_eq(@slice.lines_of(prog, [2, 1, 2, 1]), [10, 20])
   assert_eq(@slice.lines_of(prog, []), [])
 }
+
+///|
+test "sparse node ids are addressed by id, not by array position" {
+  let program : @core.Program = {
+    nodes: [
+      @core.SNode::{ id: 10, kind: @core.SNodeKind::Let, loc: { start_line: 20, start_col: 0, end_line: 20, end_col: 1 }, defs: [], uses: [], children: [], parent: None },
+      @core.SNode::{ id: 30, kind: @core.SNodeKind::Expr, loc: { start_line: 40, start_col: 0, end_line: 40, end_col: 1 }, defs: [], uses: [], children: [], parent: None },
+    ],
+    functions: [],
+    calls: [],
+    errors: [],
+  }
+  let pdg : @core.Pdg = {
+    edges: [@core.PdgEdge::{ from: 10, to: 30, kind: @core.EdgeKind::Data }],
+  }
+  let result = @slice.backward(pdg, 30, program~)
+  assert_eq(result.nodes, [10, 30])
+  assert_eq(result.lines, [20, 40])
+}

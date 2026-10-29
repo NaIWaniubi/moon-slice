@@ -132,23 +132,54 @@ fn check_invariants(program : @core.Program, cfg : @core.Cfg) -> Unit raise {
 }
 
 ///|
-/// Slice closure: every node in a backward slice whose *outgoing* data/control
-/// edge points back into the slice must itself be in the slice. This is the
-/// property that makes "the slice is the set of things this value depends on"
-/// meaningful rather than just "a BFS visited some nodes".
+/// Real slice closure: a backward slice is closed when every node in it can
+/// reach the criterion using only nodes that are also in the slice. That is the
+/// property that makes the answer "everything this value depends on" rather
+/// than "some nodes a BFS happened to visit".
 fn check_backward_closure(
   pdg : @core.Pdg,
   slice : Array[Int32],
+  criterion : Int32,
 ) -> Unit raise {
+  let in_slice : Set[Int32] = Set([])
+  for id in slice {
+    in_slice.add(id)
+  }
+  // Reverse adjacency restricted to the slice, then walk from every member
+  // towards the criterion.
+  let pred : Map[Int32, Array[Int32]] = Map([])
   for edge in pdg.edges {
-    if slice.contains(edge.to) {
-      // A predecessor of a sliced node only has to be included when it can
-      // reach the criterion; that is exactly what the BFS computes, so the
-      // check here is the weaker, always-true form: the criterion is included.
-      ignore(edge)
+    if in_slice.contains(edge.from) && in_slice.contains(edge.to) {
+      match pred.get(edge.to) {
+        None => pred.set(edge.to, [edge.from])
+        Some(next) => next.push(edge.from)
+      }
     }
   }
-  assert_true(slice.length() > 0)
+  let seen : Set[Int32] = Set([])
+  let queue : Array[Int32] = [criterion]
+  seen.add(criterion)
+  let mut head = 0
+  while head < queue.length() {
+    let current = queue[head]
+    head = head + 1
+    match pred.get(current) {
+      None => ()
+      Some(next) =>
+        for candidate in next {
+          if !seen.contains(candidate) {
+            seen.add(candidate)
+            queue.push(candidate)
+          }
+        }
+    }
+  }
+  for id in slice {
+    if !seen.contains(id) {
+      println("node " + id.to_string() + " is in the backward slice but cannot reach the criterion")
+      fail("backward slice is not closed")
+    }
+  }
 }
 
 ///|
@@ -181,7 +212,7 @@ test "property: generated programs agree with the walk oracle and invariants" {
     for node in program.nodes {
       if node.loc.start_line > 0 && node.kind == @core.SNodeKind::Assign {
         let back = @slice.backward(pdg, node.id, program~)
-        check_backward_closure(pdg, back.nodes)
+        check_backward_closure(pdg, back.nodes, node.id)
         assert_true(back.nodes.contains(node.id))
         let forward = @slice.forward(pdg, node.id, program~)
         assert_true(forward.nodes.contains(node.id))

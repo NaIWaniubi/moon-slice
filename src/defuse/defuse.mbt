@@ -47,10 +47,20 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   // Per-node GEN/USE indexes keep the fixed point local: a transfer step only
   // touches the definitions of the node it visits, not every definition in the
   // program.
+  // Slot arrays are indexed by node id. A hand-built Program may use sparse
+  // ids, so the table is sized by the largest id rather than by node count;
+  // `node_count` would silently mis-index (`nodes[id]` out of range) the first
+  // time an id gap appears.
+  let mut slot_count = node_count
+  for node in program.nodes {
+    if node.id + 1 > slot_count {
+      slot_count = node.id + 1
+    }
+  }
   let defs_at : Array[Array[@core.VarId]] = []
   let uses_at : Array[Array[@core.VarId]] = []
   let mut i = 0
-  while i < node_count {
+  while i < slot_count {
     defs_at.push([])
     uses_at.push([])
     i = i + 1
@@ -60,13 +70,13 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   let in_state : Array[Array[(Int32, @core.VarId)]] = []
   let out_state : Array[Array[(Int32, @core.VarId)]] = []
   i = 0
-  while i < node_count {
+  while i < slot_count {
     in_state.push([])
     out_state.push([])
     i = i + 1
   }
-  let preds = predecessors(cfg, node_count)
-  let succs = successors(cfg, node_count)
+  let preds = predecessors(cfg, slot_count)
+  let succs = successors(cfg, slot_count)
   let work : Array[Int32] = []
   let queued : Set[Int32] = Set([])
   // Seed every node, not only the roots. A root with an empty out-state (for
@@ -74,11 +84,11 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   // enqueues successors on change would never visit the rest of a straight-line
   // CFG. Processing every node once is cheap and makes convergence independent
   // of which node happens to carry the first definition.
-  let mut n = 0
-  while n < node_count {
-    work.push(n)
-    queued.add(n)
-    n = n + 1
+  for node in program.nodes {
+    if !queued.contains(node.id) {
+      queued.add(node.id)
+      work.push(node.id)
+    }
   }
   // The lattice is finite (each definition/use pair is either present or not)
   // and transfer is monotone, so the loop terminates on its own. No round cap.
@@ -110,17 +120,15 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse {
   }
   // A use is reached by every definition in its in-state for the same variable.
   let pairs : Set[(Int32, Int32)] = Set([])
-  let mut node_id = 0
-  while node_id < node_count {
-    let state = in_state[node_id]
-    uses_at[node_id].each(fn(use_var) {
+  for node in program.nodes {
+    let state = in_state[node.id]
+    uses_at[node.id].each(fn(use_var) {
       state.each(fn(def_pair) {
         if def_pair.1 == use_var {
-          pairs.add((def_pair.0, node_id))
+          pairs.add((def_pair.0, node.id))
         }
       })
     })
-    node_id = node_id + 1
   }
   let reaching = pairs.to_array()
   reaching.sort_by(fn(a, b) {

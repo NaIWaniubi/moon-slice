@@ -40,15 +40,29 @@ fn slice_at(
 }
 
 ///|
-test "interproc: a callee branch that only uses an unsupplied parameter is dropped" {
-  // `two(a, b)` is called as `two(x)`, so only `a` is supplied. The line that
-  // computes from `b` must not appear in the expanded slice.
+test "interproc: literal arguments never drop the callee" {
+  // `add(1, 2)` has no identifier uses, so a mapping based on variable uses
+  // would conclude that zero parameters were supplied and drop the whole
+  // callee. That is an under-approximation; the call must keep the return cone.
+  let source = "fn add(a : Int, b : Int) -> Int {\n  let s = a + b\n  return s\n}\nfn main_fn() -> Int {\n  let r = add(1, 2)\n  r\n}\n"
+  let (program, pdg) = pipeline(source)
+  let lines = slice_at(program, pdg, 7, true)
+  assert_true(lines.contains(2))
+  assert_true(lines.contains(3))
+  assert_true(lines.contains(7))
+}
+
+///|
+test "interproc: a partial call keeps the whole return cone" {
+  // `two(a, b)` called as `two(x)` is not valid MoonBit, and more importantly
+  // an omitted parameter may carry a default that still affects the return.
+  // The whole cone is the sound answer.
   let source = "fn two(a : Int, b : Int) -> Int {\n  let fromA = a * 2\n  let fromB = b * 3\n  return fromA + fromB\n}\nfn caller(x : Int) -> Int {\n  let y = two(x)\n  return y\n}\n"
   let (program, pdg) = pipeline(source)
   let lines = slice_at(program, pdg, 7, true)
   assert_true(lines.contains(2))
+  assert_true(lines.contains(3))
   assert_true(lines.contains(4))
-  assert_true(!lines.contains(3))
 }
 
 ///|

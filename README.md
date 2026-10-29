@@ -23,7 +23,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (233 tests, including a
+All layers are implemented and covered by `moon test` (240 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, and a seeded
 property-based differential suite). The data model is frozen; the CLI is usable.
 
@@ -55,7 +55,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.4.0
+# moon-slice 0.4.1
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -76,9 +76,10 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 `bench/README.md` for the command and the current numbers.
 
 `path --from A --to B` is the taint-lite query: it finds the shortest directed
-PDG path from a definition of `A` to a use of `B`. `dead` reports both
-definitions with no reaching use and statements unreachable from a function
-entry.
+**data-flow** path from a definition of `A` to a use of `B` (control edges are
+not value flow, so they are excluded by default; pass `--with-control` to search
+the whole PDG). `dead` reports both definitions with no reaching use and
+statements unreachable from a function entry.
 
 The CLI exits `0` on success and `2` on any usage error, unreadable input,
 write failure, parse diagnostic or unknown node id; it never prints a result for
@@ -167,6 +168,8 @@ Design points worth knowing:
 
 Modeled with precise data and control edges:
 
+- free functions and `impl T with fn ...` methods / `impl T with view ...`
+  views (each method body is analysed as its own function)
 - `let` and `let mut` bindings; assignment to a mutable binding
 - `if` / `else` (including `else if` chains) and merges after the join
 - `while` and `for` / `for .. in` loops, with loop-carried definitions
@@ -280,9 +283,11 @@ direction, and the report renders in the iframe. The prebuilt engine is
 
 ## Data-flow paths
 
-`path --from A --to B` finds the shortest directed PDG path from a definition
-of `A` to a use of `B`. It is the taint-lite use case: mark a source variable
-and a sink variable, and read the flow in one line.
+`path --from A --to B` finds the shortest directed **data** path from a
+definition of `A` to a use of `B`. Control edges are not value flow, so they are
+excluded by default; `--with-control` searches the full PDG. It is the
+taint-lite use case: mark a source variable and a sink variable, and read the
+flow in one line.
 
 ```bash
 ./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total
@@ -323,6 +328,28 @@ Ambiguous targets are never silently guessed. `statement_candidates` returns
 every statement on a line; the CLI prints the candidate node ids and accepts
 `--node ID` to pick one, and the HTML report highlights the selected row and
 names the node in its metrics.
+
+## Comparing the two control-dependence builders
+
+`compare` prints how many control edges the structural builder reports, how many
+the post-dominator builder reports, and which edges each drops or adds. With
+`--line N` it also prints both slices for that line, so the precision difference
+is visible on one screen:
+
+```bash
+./dev.sh run cmd/main -- compare --file bench/precise_cdg.mbt --line 7
+# structural control edges: 18
+# precise control edges:    7
+# removed by precise:       12
+# added by precise:         1
+# slice line 7 (structural): 2,3,4,7
+# slice line 7 (precise):    2,3,4,7
+```
+
+The removed edges are the structural rule's over-approximations (a branch region
+"controlling" a sibling, the loop head "controlled" by its own body). The added
+edge is the loop-carried dependence `if -> loop head`, which the syntax tree
+cannot express.
 
 ## Call graph
 

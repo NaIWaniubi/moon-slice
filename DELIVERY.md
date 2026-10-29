@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-29 (v0.4.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-29 (v0.4.1). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 238, passed: 238, failed: 0` |
+| `./dev.sh test` | `Total tests: 241, passed: 241, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -189,11 +189,11 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 238 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 241 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, and path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
-- [x] library line coverage 89.7% (see COVERAGE.md; legacy reporter)
+- [x] library line coverage 89.2% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`

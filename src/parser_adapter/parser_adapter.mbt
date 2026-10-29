@@ -50,10 +50,12 @@ priv struct Adapter {
 ///|
 /// Parse `source` and lower every top-level `fn` body into `@core.Program`.
 ///
-/// Only `Impl::TopFuncDef` with a `DeclBody` expression is lowered. Other
-/// top-level items (`impl` blocks, `let` declarations, type definitions, tests)
-/// are skipped. Direct call sites are recorded alongside the node IR so later
-/// passes can build a call graph and do conservative inter-procedural expansion.
+/// Lowered top-level items: free functions (`TopFuncDef`), methods declared as
+/// `impl T with fn ...` (`TopImpl`), and views (`TopView`), each with a
+/// `DeclBody` expression. Everything else (type definitions, `let` declarations,
+/// tests, trait declarations) is skipped. Direct call sites are recorded
+/// alongside the node IR so later passes can build a call graph and do
+/// conservative inter-procedural expansion.
 pub fn parse_source(source : String, name : String) -> @core.Program {
   let (impls, reports) = @parser.parse_string(source, name~)
   let ctx : Adapter = {
@@ -77,6 +79,20 @@ pub fn parse_source(source : String, name : String) -> @core.Program {
           DeclBody(expr=body_expr) => emit_function(ctx, decl, body_expr)
           DeclStubs(_) | DeclNone => ()
         }
+      // `impl T with fn m(...) { ... }`: the method body is a real function.
+      // Without this arm a file that defines all its logic in methods lowers to
+      // an empty program, and `dead` reports "no dead code" for code it never
+      // looked at — a wrong answer, not a conservative one.
+      TopImpl(method_name=name, params=params, body=body, loc=loc, ..) =>
+        match body {
+          DeclBody(expr=body_expr) =>
+            emit_method(ctx, name.name, params, body_expr, loc.start.lnum, loc.start.column())
+          DeclStubs(_) | DeclNone => ()
+        }
+      // `impl T with view v(...) { ... }` has an expression body, not a
+      // DeclBody, and no declared result type.
+      TopView(view_func_name=name, parameters=params, body=body, loc=loc, ..) =>
+        emit_method(ctx, name.name, params, body, loc.start.lnum, loc.start.column())
       _ => ()
     }
   })
@@ -105,10 +121,45 @@ fn emit_function(
     end_line: body_loc.end.lnum,
     end_col: body_loc.end.column(),
   }
-  ctx.current_function[0] = fun_decl.name.name
+  emit_function_body(ctx, fun_decl.name.name, fun_decl.decl_params, body, fn_loc)
+}
+
+///|
+/// Lower a method or view body. `loc` is the declaration's own span; the end of
+/// the body is taken from the expression, so the boundary node covers the whole
+/// method.
+fn emit_method(
+  ctx : Adapter,
+  name : String,
+  params : @syntax.Parameters,
+  body : @syntax.Expr,
+  start_line : Int32,
+  start_col : Int32,
+) -> Unit {
+  let body_loc = body.loc()
+  let fn_loc : @core.Loc = {
+    start_line,
+    start_col,
+    end_line: body_loc.end.lnum,
+    end_col: body_loc.end.column(),
+  }
+  emit_function_body(ctx, name, Some(params), body, fn_loc)
+}
+
+///|
+/// Shared body lowering for free functions, methods and views. `params` binds
+/// the names the body can see; `self` is just another parameter.
+fn emit_function_body(
+  ctx : Adapter,
+  name : String,
+  params : @syntax.Parameters?,
+  body : @syntax.Expr,
+  fn_loc : @core.Loc,
+) -> Unit {
+  ctx.current_function[0] = name
   let outer_mark = ctx.env.length()
   let param_ids : Array[@core.VarId] = []
-  match fun_decl.decl_params {
+  match params {
     Some(params) =>
       params.each(fn(param) {
         match param {
@@ -135,7 +186,7 @@ fn emit_function(
   pop_env_to(ctx, outer_mark)
   let exit = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, [], [], None)
   ctx.functions.push(@core.FunctionInfo::{
-    name: fun_decl.name.name,
+    name,
     entry: entry.id,
     exit: exit.id,
   })

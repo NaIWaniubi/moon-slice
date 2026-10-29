@@ -162,12 +162,20 @@ test "top-level let is not lowered into a function body" {
 }
 
 ///|
-test "impl block bodies are not lowered" {
+test "impl method bodies are lowered like free functions" {
+  // A file whose logic lives in `impl T with fn ...` must not lower to an empty
+  // program: `dead` would otherwise report "no dead code" for code it never
+  // looked at, which is a wrong answer rather than a conservative one.
   let source = "struct T { v : Int }\n\nimpl T with fn get(self) -> Int {\n  self.v\n}\n"
   let program = parse_source(source, "impl.mbt")
   assert_eq(program.errors.length(), 0)
-  assert_eq(program.functions.length(), 0)
-  assert_eq(program.nodes.length(), 0)
+  assert_eq(program.functions.length(), 1)
+  assert_eq(program.functions[0].name, "get")
+  // The body plus the synthetic entry/exit, and `self` is a parameter binding.
+  assert_true(program.nodes.length() >= 3)
+  let entry = program.nodes[program.functions[0].entry]
+  assert_eq(entry.defs.length(), 1)
+  assert_eq(entry.defs[0].name, "self")
 }
 
 ///|

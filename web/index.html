@@ -90,13 +90,16 @@ fn loop_sum(n : Int) -> Int {
     frame.id = 'engine';
     frame.title = 'analysis engine';
     frame.hidden = true;
+    // The engine URL is stable on purpose: a fresh iframe gives each run a
+    // fresh global scope, while the stable URL lets the browser reuse its
+    // cached copy of the 10 MB bundle instead of re-downloading it per click.
     const input = currentInput();
     const token = String(serial);
     const closeTag = '<' + '/script>';
     frame.srcdoc = `<!doctype html><script>
       globalThis.moonSliceReadInput = () => parent.moonSliceReadInput(${JSON.stringify(token)});
       globalThis.moonSliceWriteOutput = (html) => parent.moonSliceWriteOutput(${JSON.stringify(token)}, html);
-    ${closeTag}<script src="moon-slice.js?run=${serial}">${closeTag}`;
+    ${closeTag}<script src="moon-slice.js?v=4">${closeTag}`;
     frame.onerror = () => {
       if (serial === runSerial) status.textContent = 'failed to load moon-slice.js — run bash web/build.sh';
     };

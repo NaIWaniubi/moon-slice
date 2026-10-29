@@ -14,16 +14,16 @@ the numbers below use.
 | File | Lines |
 | --- | --- |
 | `src/cdg/cdg.mbt` | 295/314 |
-| `src/cfg/cfg.mbt` | 96/98 |
-| `src/defuse/defuse.mbt` | 114/116 |
-| `src/parser_adapter/parser_adapter.mbt` | 367/464 |
+| `src/cfg/cfg.mbt` | 112/118 |
+| `src/defuse/defuse.mbt` | 117/120 |
+| `src/parser_adapter/parser_adapter.mbt` | 377/477 |
 | `src/pdg/pdg.mbt` | 31/32 |
-| `src/query/query.mbt` | 321/345 |
-| `src/report/report.mbt` | 310/348 |
-| `cmd/main/main.mbt` | 0/223 |
-| **Total** | **1588/1994** |
+| `src/query/query.mbt` | 272/292 |
+| `src/report/report.mbt` | 343/388 |
+| `cmd/main/main.mbt` | 0/306 |
+| **Total** | **1601/2101** |
 
-Library packages only (excluding `cmd/main`): **1588/1771 = 89.7%**.
+Library packages only (excluding `cmd/main`): **1601/1795 = 89.2%**.
 
 `cmd/main` is not executed by `moon test`; the CLI is covered by
 [test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON modes, malformed

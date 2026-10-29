@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.4.0" version
+expect_eq "moon-slice 0.4.1" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -92,7 +92,7 @@ expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction ba
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}"' EXIT
+trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"
@@ -146,5 +146,44 @@ const j=JSON.parse(m[1]);
 if(typeof j.target.line!=="number"||typeof j.target.node!=="number") throw new Error("bad target");
 if(!Array.isArray(j.nodes)||!Array.isArray(j.lines)) throw new Error("bad arrays");
 ' "$tmp_html"
+
+# Precision comparison: the two control-dependence builders must differ on the
+# shipped demo input, and the difference must be the documented one.
+tmp_cmp="$(mktemp)"
+run compare --file bench/precise_cdg.mbt --line 7 > "$tmp_cmp"
+grep -Fq 'structural control edges: 18' "$tmp_cmp"
+grep -Fq 'precise control edges:    7' "$tmp_cmp"
+grep -Fq 'removed by precise:       12' "$tmp_cmp"
+grep -Fq 'added by precise:         1' "$tmp_cmp"
+
+# `path` is data flow: a route through an `if` condition must not be reported
+# unless --with-control is passed.
+tmp_ispat="$(mktemp)"
+cat > "$tmp_ispat" <<'MBT'
+fn f(o : Int?, d : Int) -> Int {
+  if o is Some(v) {
+    return v + 1
+  }
+  return d
+}
+MBT
+expect_contains 'no path from o to v' path --file "$tmp_ispat" --from o --to v
+expect_contains 'n0 L1' path --file "$tmp_ispat" --from o --to v --with-control
+
+# An impl method body is analysed, not silently skipped.
+tmp_impl="$(mktemp)"
+cat > "$tmp_impl" <<'MBT'
+struct T {
+  mut v : Int
+}
+
+impl T with bump(self : T) -> Int {
+  let unused = 1
+  self.v = self.v + 1
+  self.v
+}
+MBT
+expect_eq "6" dead --file "$tmp_impl"
+expect_eq "7" slice --file "$tmp_impl" --line 7 --direction backward
 
 printf 'cli smoke ok\n'

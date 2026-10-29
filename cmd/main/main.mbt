@@ -18,7 +18,7 @@ fn usage() -> Unit {
     "Commands:\n" +
     "  slice --file F --line N --direction backward|forward [--json] [--interprocedural]\n" +
     "        [--node ID]   disambiguate several statements on the same line\n" +
-    "  graph --file F [--format dot]\n" +
+    "  graph --file F [--format dot|json]\n" +
     "  callgraph --file F [--json]\n" +
     "  dead  --file F [--json]\n" +
     "  path  --file F --from VAR --to VAR [--json]\n" +
@@ -26,6 +26,13 @@ fn usage() -> Unit {
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
     "  version | help\n" +
+    "\n" +
+    "Options:\n" +
+    "  --precise   derive control dependence from post-dominators instead of the\n" +
+    "              syntax tree. Exact for the CFG; drops the structural rule's\n" +
+    "              over-approximations. Works with slice/graph/dead/html.\n" +
+    "  --json      machine-readable output; failures become\n" +
+    "              {\"error\":{\"code\":..,\"message\":..}} and still exit 2.\n" +
     "\n" +
     "Exit codes: 0 success, 2 usage error, unreadable input, parse error or\n" +
     "write failure. When a line holds several statements, `dump --line N` lists\n" +
@@ -79,6 +86,7 @@ fn read_source(path : String) -> String {
 fn known_command(command : String) -> Bool {
   command == "slice" ||
   command == "graph" ||
+  command == "compare" ||
   command == "callgraph" ||
   command == "dead" ||
   command == "path" ||
@@ -155,6 +163,52 @@ fn select_target(
       candidates[0]
     }
   }
+}
+
+///|
+/// Control edges of a PDG as a set, for the `compare` command.
+fn control_edge_set(pdg : @core.Pdg) -> Set[(Int32, Int32)] {
+  let out : Set[(Int32, Int32)] = Set([])
+  for edge in pdg.edges {
+    if edge.kind == @core.EdgeKind::Control {
+      out.add((edge.from, edge.to))
+    }
+  }
+  out
+}
+
+///|
+fn pair_array_json(pairs : Array[(Int32, Int32)]) -> String {
+  let out = StringBuilder()
+  out.write_char('[')
+  let mut first = true
+  for (from, to) in pairs {
+    if !first {
+      out.write_char(',')
+    }
+    out.write_string("[")
+    out.write_string(from.to_string())
+    out.write_char(',')
+    out.write_string(to.to_string())
+    out.write_char(']')
+    first = false
+  }
+  out.write_char(']')
+  out.to_string()
+}
+
+///|
+fn lines_text(lines : Array[Int32]) -> String {
+  let out = StringBuilder()
+  let mut first = true
+  for line in lines {
+    if !first {
+      out.write_char(',')
+    }
+    out.write_string(line.to_string())
+    first = false
+  }
+  out.to_string()
 }
 
 ///|
@@ -239,7 +293,7 @@ fn main {
   }
   let command = argv[1]
   if command == "version" || command == "--version" {
-    println("moon-slice 0.4.0")
+    println("moon-slice 0.4.1")
     return
   }
   if command == "help" || command == "--help" {
@@ -260,6 +314,7 @@ fn main {
   let mut to_var = ""
   let mut node_override : Int32? = None
   let mut precise_cdg = false
+  let mut with_control = false
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -301,6 +356,9 @@ fn main {
       i = i + 1
     } else if arg == "--precise" {
       precise_cdg = true
+      i = i + 1
+    } else if arg == "--with-control" {
+      with_control = true
       i = i + 1
     } else {
       fail_code("unknown_argument", "unknown argument \{arg}")
@@ -347,6 +405,79 @@ fn main {
       } else {
         println(@report.to_dot(pdg))
       }
+    "compare" => {
+      // Show what the post-dominator builder buys: the control edges the
+      // structural rule invents, and (with --line) how the slice changes.
+      let precise_cdg = @cdg.build_precise(program, cfg)
+      let precise_pdg = @pdg.build(defuse, precise_cdg)
+      let structural = control_edge_set(pdg)
+      let precise = control_edge_set(precise_pdg)
+      let removed : Array[(Int32, Int32)] = []
+      for edge in structural {
+        if !precise.contains(edge) {
+          removed.push(edge)
+        }
+      }
+      let added : Array[(Int32, Int32)] = []
+      for edge in precise {
+        if !structural.contains(edge) {
+          added.push(edge)
+        }
+      }
+      if json {
+        println(
+          "{\"structural_control_edges\":" +
+          structural.length().to_string() +
+          ",\"precise_control_edges\":" +
+          precise.length().to_string() +
+          ",\"removed\":" +
+          pair_array_json(removed) +
+          ",\"added\":" +
+          pair_array_json(added) +
+          "}",
+        )
+      } else {
+        println("structural control edges: " + structural.length().to_string())
+        println("precise control edges:    " + precise.length().to_string())
+        println("removed by precise:       " + removed.length().to_string())
+        for (from, to) in removed {
+          println(
+            "  n" +
+            from.to_string() +
+            " -> n" +
+            to.to_string() +
+            "  (lines " +
+            program.nodes[from].loc.start_line.to_string() +
+            " -> " +
+            program.nodes[to].loc.start_line.to_string() +
+            ")",
+          )
+        }
+        println("added by precise:         " + added.length().to_string())
+        for (from, to) in added {
+          println(
+            "  n" +
+            from.to_string() +
+            " -> n" +
+            to.to_string() +
+            "  (lines " +
+            program.nodes[from].loc.start_line.to_string() +
+            " -> " +
+            program.nodes[to].loc.start_line.to_string() +
+            ")",
+          )
+        }
+        if line > 0 {
+          let target = select_target(program, line.to_int64().to_int(), node_override)
+          let before = @slice.backward(pdg, target, program~)
+          let after = @slice.backward(precise_pdg, target, program~)
+          let before_lines = @query.visible_lines(program, before.nodes)
+          let after_lines = @query.visible_lines(program, after.nodes)
+          println("slice line " + line.to_string() + " (structural): " + lines_text(before_lines))
+          println("slice line " + line.to_string() + " (precise):    " + lines_text(after_lines))
+        }
+      }
+    }
     "callgraph" => {
       let edges = @query.call_edges(program)
       if json {
@@ -413,7 +544,7 @@ fn main {
       if goals.length() == 0 {
         goals = @query.nodes_with_name(program, to_var)
       }
-      match @query.path_between(pdg, starts, goals) {
+      match @query.path_between(pdg, starts, goals, with_control=with_control) {
         Some(path) => {
           let result = @core.SliceResult::{
             nodes: path,

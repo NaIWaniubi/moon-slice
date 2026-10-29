@@ -217,16 +217,6 @@ fn escape_html(s : String) -> String {
 }
 
 ///|
-fn has_line(lines : Array[Int32], line : Int32) -> Bool {
-  for l in lines {
-    if l == line {
-      return true
-    }
-  }
-  false
-}
-
-///|
 fn svg_kind_name(kind : @core.SNodeKind) -> String {
   match kind {
     @core.SNodeKind::Let => "let"
@@ -257,6 +247,21 @@ pub fn to_svg(
   let n = program.nodes.length()
   if n == 0 {
     return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"360\" height=\"80\"><rect width=\"100%\" height=\"100%\" fill=\"#0f1115\"/><text x=\"16\" y=\"42\" fill=\"#d7dae0\" font-family=\"monospace\">empty program</text></svg>"
+  }
+  // The layout arrays below are indexed by node id. That is only valid when ids
+  // are dense and equal to their position, which the adapter guarantees. A
+  // hand-built Program with gaps would silently draw the wrong node, so refuse
+  // instead of lying.
+  let mut dense = true
+  let mut probe = 0
+  while probe < n {
+    if program.nodes[probe].id != probe {
+      dense = false
+    }
+    probe = probe + 1
+  }
+  if !dense {
+    return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"420\" height=\"80\"><rect width=\"100%\" height=\"100%\" fill=\"#0f1115\"/><text x=\"16\" y=\"42\" fill=\"#ffb4a2\" font-family=\"monospace\">graph omitted: node ids are not dense</text></svg>"
   }
   let max_nodes_int = if n > 200 { 200 } else { n }
   let max_nodes : Int32 = max_nodes_int.to_int64().to_int()
@@ -506,50 +511,88 @@ pub fn to_html(
   target_node : Int32,
 ) -> String {
   let lines = source.split("\n").map(line => line.to_owned()).to_array()
-  let mut body = ""
+  // A set, not a linear scan per source line: the report may cover tens of
+  // thousands of lines, and `has_line` per line would make it quadratic.
+  let hit_lines : Set[Int32] = Set([])
+  for line in result.lines {
+    hit_lines.add(line)
+  }
+  let body = StringBuilder()
   let mut n : Int32 = 1
   for line in lines {
-    let hit = has_line(result.lines, n)
-    let cls = if hit { " class=\"hit\"" } else { "" }
-    let marker = if hit { "•" } else { " " }
-    body = body +
-      "<span" +
-      cls +
-      ">" +
-      marker +
-      " " +
-      n.to_string() +
-      "  " +
-      escape_html(line) +
-      "</span>\n"
+    let hit = hit_lines.contains(n)
+    body.write_string("<span")
+    if hit {
+      body.write_string(" class=\"hit\"")
+    }
+    body.write_char('>')
+    body.write_string(if hit { "•" } else { " " })
+    body.write_char(' ')
+    body.write_string(n.to_string())
+    body.write_string("  ")
+    body.write_string(escape_html(line))
+    body.write_string("</span>\n")
     n = n + 1
   }
-  let mut errs = ""
+  let errs = StringBuilder()
   for e in program.errors {
-    errs = errs + "<li>" + escape_html(e) + "</li>"
+    errs.write_string("<li>")
+    errs.write_string(escape_html(e))
+    errs.write_string("</li>")
   }
-  if errs == "" {
-    errs = "<li>none</li>"
+  if errs.is_empty() {
+    errs.write_string("<li>none</li>")
   }
   let svg = to_svg(program, pdg, result, target_node)
   let rows = StringBuilder()
+  // Index by declared id: a hand-built Program may have gaps, and `nodes[id]`
+  // would then render the wrong statement.
+  let text_by_id : Map[Int32, String] = Map([])
+  for node in program.nodes {
+    text_by_id.set(node.id, svg_kind_name(node.kind))
+  }
+  let line_by_id : Map[Int32, Int32] = Map([])
+  for node in program.nodes {
+    line_by_id.set(node.id, node.loc.start_line)
+  }
+  let defs_by_id : Map[Int32, String] = Map([])
+  let uses_by_id : Map[Int32, String] = Map([])
+  for node in program.nodes {
+    defs_by_id.set(node.id, vars_text(node.defs))
+    uses_by_id.set(node.id, vars_text(node.uses))
+  }
   for id in result.nodes {
-    if !is_synth(program, id) {
-      let node = program.nodes[id]
+    match text_by_id.get(id) {
+      None => ()
+      Some(kind_text) =>
+        if !is_synth(program, id) {
           let target = if id == target_node { " class=\"target\"" } else { "" }
           rows.write_string("<tr")
           rows.write_string(target)
           rows.write_string("><td>n")
           rows.write_string(id.to_string())
           rows.write_string("</td><td>")
-          rows.write_string(svg_kind_name(node.kind))
+          rows.write_string(kind_text)
           rows.write_string("</td><td>")
-          rows.write_string(node.loc.start_line.to_string())
+          let line_text = match line_by_id.get(id) {
+            None => "?"
+            Some(line) => line.to_string()
+          }
+          rows.write_string(line_text)
           rows.write_string("</td><td>")
-          rows.write_string(vars_text(node.defs))
+          let defs_text = match defs_by_id.get(id) {
+            None => ""
+            Some(text) => text
+          }
+          rows.write_string(defs_text)
           rows.write_string("</td><td>")
-          rows.write_string(vars_text(node.uses))
+          let uses_text = match uses_by_id.get(id) {
+            None => ""
+            Some(text) => text
+          }
+          rows.write_string(uses_text)
           rows.write_string("</td></tr>")
+        }
     }
   }
   let metrics = "nodes " +
@@ -564,18 +607,18 @@ pub fn to_html(
     target_node.to_string() +
     " on line " +
     target_line.to_string()
-  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.4.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
+  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.4.1\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
   metrics +
   "</p>\n<div class=\"graph\">" +
   svg +
   "</div>\n<h2>Source</h2>\n<pre>" +
-  body +
+  body.to_string() +
   "</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>" +
   rows.to_string() +
   "</tbody></table>\n<h2>Errors</h2>\n<ul>" +
-  errs +
+  errs.to_string() +
   "</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>" +
   escape_html(to_dot(pdg)) +
   "</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">" +

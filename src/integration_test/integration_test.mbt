@@ -316,3 +316,20 @@ test "precise control dependence keeps a return's escape edge" {
   }
   assert_true(found)
 }
+
+///|
+test "dead code inside an impl method is reported" {
+  // A file whose logic lives in `impl T with fn ...` used to lower to an empty
+  // program, so `dead` answered "no dead code" for code it never analysed.
+  let source = "struct T {\n  mut v : Int\n}\n\nimpl T with bump(self : T) -> Int {\n  let unused = 1\n  self.v = self.v + 1\n  self.v\n}\n"
+  let program = @parser_adapter.parse_source(source, "impl_dead.mbt")
+  assert_eq(program.errors.length(), 0)
+  assert_eq(program.functions.length(), 1)
+  assert_eq(program.functions[0].name, "bump")
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let dead = @query.dead_nodes(program, defuse)
+  assert_true(dead.length() > 0)
+  let lines = @query.lines_of(program, dead)
+  assert_true(lines.contains(6))
+}

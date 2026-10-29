@@ -51,12 +51,23 @@ opaque `Expr`.
 ```bash
 ./dev.sh run cmd/main -- dead --file examples/08_dead_assignment.mbt
 # 4,5
-./dev.sh run cmd/main -- dead --file /tmp/unreachable.mbt
-# 3,4
 ```
 
 `dead` unions two sets: definitions with no reaching use, and statements not
-reachable from any function entry.
+reachable from any function entry. For the unreachable half, write the file
+first (the command reads a real path, not a magic `/tmp` location):
+
+```bash
+cat > unreachable.mbt <<'MBT'
+fn f() -> Int {
+  return 1
+  let x = 2
+  x
+}
+MBT
+./dev.sh run cmd/main -- dead --file unreachable.mbt
+# 3,4
+```
 
 ## 4. Data-flow path (taint-lite)
 
@@ -128,5 +139,5 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 bash testdata/verify_corpus.sh
 ```
 
-Expected: 0 errors, `Total tests: 211, passed: 211, failed: 0`, and
+Expected: 0 errors, `Total tests: 240, passed: 240, failed: 0`, and
 `corpus ok: 10 examples, headers and expected.json agree`.

@@ -326,11 +326,23 @@ pub fn nodes_with_name(program : @core.Program, name : String) -> Array[Int32] {
 ///|
 /// Shortest directed PDG path from any start node to any goal node.
 /// Returns the nodes in flow order, or `None` when no path exists.
+///
+/// By default only `Data` edges are followed: the query answers "can this value
+/// reach that use", and a control edge does not carry a value. Following
+/// control edges would let `path --from o --to v` report a route through an
+/// `if` condition as if it were a data flow, which is the false positive a
+/// taint-style user would act on. Pass `with_control=true` to search the whole
+/// PDG instead.
 pub fn path_between(
   pdg : @core.Pdg,
   starts : Array[Int32],
   goals : Array[Int32],
+  with_control? : Bool,
 ) -> Array[Int32]? {
+  let include_control = match with_control {
+    Some(value) => value
+    None => false
+  }
   let goal_set : Set[Int32] = Set([])
   for g in goals {
     goal_set.add(g)
@@ -339,9 +351,15 @@ pub fn path_between(
   // makes the search O(V*E); this makes it O(V+E).
   let succ : Map[Int32, Array[Int32]] = Map([])
   for e in pdg.edges {
-    match succ.get(e.from) {
-      None => succ.set(e.from, [e.to])
-      Some(next) => next.push(e.to)
+    let usable = match e.kind {
+      @core.EdgeKind::Data => true
+      @core.EdgeKind::Control => include_control
+    }
+    if usable {
+      match succ.get(e.from) {
+        None => succ.set(e.from, [e.to])
+        Some(next) => next.push(e.to)
+      }
     }
   }
   let visited : Set[Int32] = Set([])
@@ -524,136 +542,21 @@ fn return_cone(
 }
 
 ///|
-/// The parameters of `callee`, in declaration order, taken from its synthetic
-/// entry node. That node's `defs` are exactly the parameter bindings the adapter
-/// created, so their order is the source order of the declaration.
-fn callee_parameters(
-  program : @core.Program,
-  callee : @core.FunctionInfo,
-) -> Array[@core.VarId] {
-  match node_by_id(program, callee.entry) {
-    None => []
-    Some(entry) => entry.defs
-  }
-}
-
-///|
-/// Number of arguments at a call site.
-///
-/// The adapter records the callee name as a use with the reserved scope `-1`
-/// (it has no binding in the program), so every use with a real scope is an
-/// argument.
-fn call_argument_count(call_node : @core.SNode) -> Int32 {
-  let mut count = 0
-  for variable in call_node.uses {
-    if variable.scope != -1 {
-      count = count + 1
-    }
-  }
-  count
-}
-
-///|
-/// Which parameters can reach each callee node through data edges.
-///
-/// `roots[id]` holds the parameter indexes (positions in `parameters`) whose
-/// value can flow into node `id`: directly, when the node reads that parameter,
-/// and transitively along `Data` edges. The fixed point is over a finite lattice
-/// (index sets only grow), so it terminates.
-fn parameter_reach(
-  program : @core.Program,
-  pdg : @core.Pdg,
-  callee : @core.FunctionInfo,
-  parameters : Array[@core.VarId],
-) -> Map[Int32, Array[Int32]] {
-  let index_of : Map[@core.VarId, Int32] = Map([])
-  let mut i = 0
-  while i < parameters.length() {
-    index_of.set(parameters[i], i)
-    i = i + 1
-  }
-  let roots : Map[Int32, Array[Int32]] = Map([])
-  for node in program.nodes {
-    if node.id >= callee.entry && node.id < callee.exit {
-      let found : Array[Int32] = []
-      for variable in node.uses {
-        match index_of.get(variable) {
-          None => ()
-          Some(index) => if !found.contains(index) { found.push(index) }
-        }
-      }
-      roots.set(node.id, found)
-    }
-  }
-  let body_size = callee.exit - callee.entry + 1
-  let limit = body_size * (parameters.length() + 2) + 8
-  let mut changed = true
-  let mut rounds = 0
-  while changed && rounds < limit {
-    changed = false
-    rounds = rounds + 1
-    for edge in pdg.edges {
-      if edge.kind == @core.Data &&
-        edge.from >= callee.entry &&
-        edge.from < callee.exit &&
-        edge.to >= callee.entry &&
-        edge.to < callee.exit {
-        let source = match roots.get(edge.from) {
-          None => []
-          Some(set) => set
-        }
-        let target = match roots.get(edge.to) {
-          None => []
-          Some(set) => set
-        }
-        for index in source {
-          if !target.contains(index) {
-            target.push(index)
-            changed = true
-          }
-        }
-      }
-    }
-  }
-  roots
-}
-
-///|
-/// Whether every parameter a node depends on is beyond the mapped count.
-///
-/// A node with no parameter dependency at all returns `false`: it is a
-/// constant-only computation that still contributes to the return value, so it
-/// must stay.
-fn only_unmapped_parameters(
-  roots : Array[Int32],
-  mapped : Int32,
-) -> Bool {
-  if roots.length() == 0 {
-    return false
-  }
-  for index in roots {
-    if index < mapped {
-      return false
-    }
-  }
-  true
-}
-
-///|
 /// Inter-procedural expansion.
 ///
 /// A value-returning call (`let`/assignment/return position) adds the callee's
-/// return-value cone, so dead stores in the callee are excluded. Within that
-/// cone, the caller's arguments are mapped onto the callee's parameters in
-/// declaration order, and a callee statement is dropped when every parameter it
-/// depends on is one the caller did not supply (`two(a, b)` called as `two(x)`
-/// contributes nothing that depends only on `b`). Statements that depend on a
-/// supplied argument, or on no parameter at all, stay.
+/// return-value cone, so dead stores in the callee are excluded. A bare call
+/// statement adds the whole callee body, because its side effects cannot be
+/// summarized yet. Repeats to a fixed point so chains expand transitively.
 ///
-/// A bare call statement adds the whole callee body, because its side effects
-/// cannot be summarized yet. Repeats to a fixed point so chains expand
-/// transitively. Side effects of value-returning calls are not modeled; that is
-/// the documented conservative boundary.
+/// Arguments are *not* mapped onto parameters, and the reason is soundness:
+/// a literal argument (`add(1, 2)`) produces no identifier use, an omitted
+/// parameter may carry a default, and a labelled argument need not be written
+/// in declaration order. Any positional filter therefore risks dropping a
+/// callee statement that really does affect the return value — an
+/// under-approximation, which is worse than an extra line. The whole return
+/// cone is the conservative, sound choice. Side effects of value-returning
+/// calls are not modeled either; that is the documented boundary.
 pub fn expand_calls(
   program : @core.Program,
   pdg : @core.Pdg,
@@ -699,37 +602,10 @@ pub fn expand_calls(
                     i = i + 1
                   }
                 } else {
-                  // Map the caller's arguments onto the callee's parameters, in
-                  // declaration order. Only statements that depend solely on
-                  // parameters the caller did not supply are dropped; everything
-                  // that can reach the return value through a supplied argument,
-                  // or through no parameter at all, stays.
-                  let parameters = callee_parameters(program, ef)
-                  let supplied = call_argument_count(node)
-                  let mapped = if supplied < parameters.length() {
-                    supplied
-                  } else {
-                    parameters.length()
-                  }
-                  let roots = parameter_reach(program, pdg, ef, parameters)
                   for id in cone {
-                    if id == ef.entry {
-                      // The entry node defines every parameter. Keep it only
-                      // when at least one parameter was actually supplied.
-                      if mapped > 0 && !nodes.contains(id) {
-                        nodes.push(id)
-                        changed = true
-                      }
-                    } else {
-                      let own = match roots.get(id) {
-                        None => []
-                        Some(set) => set
-                      }
-                      if !only_unmapped_parameters(own, mapped) &&
-                        !nodes.contains(id) {
-                        nodes.push(id)
-                        changed = true
-                      }
+                    if !nodes.contains(id) {
+                      nodes.push(id)
+                      changed = true
                     }
                   }
                 }

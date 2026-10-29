@@ -45,7 +45,7 @@ priv struct LoopCtx {
 
 ///|
 priv struct Builder {
-  nodes : Array[@core.SNode]
+  by_id : Map[Int32, @core.SNode]
   edges : Array[(Int32, Int32)]
   seen : Set[(Int32, Int32)]
   exit_slot : Array[Int32]
@@ -59,8 +59,17 @@ priv struct Builder {
 /// yield one connected component per function; use `Program.functions` for the
 /// per-function boundaries.
 pub fn build(program : @core.Program) -> @core.Cfg {
+  // Index by declared id rather than by array position: the adapter emits
+  // dense ids, but `Program` is a public type and a hand-built one may not.
+  // Indexing `nodes[id]` would then read the wrong node or run off the end.
+  let by_id : Map[Int32, @core.SNode] = Map([])
+  for node in program.nodes {
+    if !by_id.contains(node.id) {
+      by_id.set(node.id, node)
+    }
+  }
   let builder : Builder = {
-    nodes: program.nodes,
+    by_id,
     edges: [],
     seen: Set([]),
     exit_slot: [0],
@@ -104,7 +113,10 @@ fn walk_list(
 ) -> Unit {
   let mut i = 0
   while i < statements.length() {
-    let node = builder.nodes[statements[i]]
+    let node = match builder.by_id.get(statements[i]) {
+      Some(node) => node
+      None => continue
+    }
     let next = if i + 1 < statements.length() {
       statements[i + 1]
     } else {
@@ -191,7 +203,10 @@ fn walk_branch(
   loops : Array[LoopCtx],
 ) -> Unit {
   add_edge(builder, head, region)
-  let statements = builder.nodes[region].children
+  let statements = match builder.by_id.get(region) {
+    Some(node) => node.children
+    None => []
+  }
   if statements.length() == 0 {
     add_edge(builder, region, next)
   } else {
@@ -216,7 +231,10 @@ fn walk_loop_body(
   loops : Array[LoopCtx],
 ) -> Unit {
   add_edge(builder, head.id, region)
-  let statements = builder.nodes[region].children
+  let statements = match builder.by_id.get(region) {
+    Some(node) => node.children
+    None => []
+  }
   if statements.length() == 0 {
     add_edge(builder, region, head.id)
     return
@@ -259,7 +277,10 @@ fn step_block(
   if statements.length() == 0 {
     return None
   }
-  let last = builder.nodes[statements[statements.length() - 1]]
+  let last = match builder.by_id.get(statements[statements.length() - 1]) {
+    Some(node) => node
+    None => return None
+  }
   if last.kind == @core.SNodeKind::Expr &&
     last.loc == head.loc &&
     last.children.length() > 0 {

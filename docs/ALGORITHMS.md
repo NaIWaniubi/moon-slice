@@ -76,8 +76,11 @@ Output: sorted, deduplicated `(definition, use)` pairs.
 `src/cdg` uses structured control dependence: an `if`/`while`/`for`/`match`
 condition controls every node lexically inside its branches or body, at any
 depth. `return`/`break`/`continue` are handled with a CFG frontier walk that
-marks the skipped region as controlled. This is exact for the structured subset
-and does not require post-dominators on arbitrary irreducible CFGs.
+marks the skipped region as controlled. This handles the structured subset
+without post-dominators, at the cost of deliberate over-approximation: a branch
+region can be reported as controlling a sibling region, which no execution can
+do. `build_precise` (below) removes those edges; the structural builder is kept
+as the default because it cannot under-approximate.
 
 ## PDG and slicing
 
@@ -113,7 +116,12 @@ call (its caller node is a `let`/assignment/return), it adds the callee's
 return-value cone computed by backward-slicing every return node, so dead stores
 are excluded. For a bare call statement it adds the whole body, because side
 effects are not summarized yet. The loop repeats so chains expand transitively.
-Argument-to-parameter mapping and mutation summaries remain future work.
+Arguments are deliberately *not* mapped onto parameters: a literal argument
+produces no identifier use, an omitted parameter may carry a default, and a
+labelled argument need not be written in declaration order, so any positional
+filter can drop a callee statement that really does affect the return value.
+That would be an under-approximation, which is worse than an extra line. The
+whole return cone is the sound choice. Mutation summaries remain future work.
 `slice --interprocedural` and `html --interprocedural` use it; the default is
 intra-procedural.
 
@@ -137,9 +145,10 @@ silently.
   flat set representation.
 - Slicing: O(V+E) per query.
 - `path` and `unreachable`: one adjacency pass, then O(V+E).
-- HTML SVG: truncated at 200 nodes so a huge file cannot produce a
-  multi-megabyte report; the graph states that it is truncated and the metrics
-  and node table still cover the full result. The DOT output has no truncation.
+- HTML report: the source block is built with `StringBuilder` and slice-line
+  membership uses a set, so an 8,000-line file renders in about half a second.
+  The SVG is truncated at 200 nodes and says so; the metrics and node table
+  still cover the full result. DOT has no truncation.
 
 ## Known limits
 
