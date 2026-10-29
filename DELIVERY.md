@@ -73,6 +73,25 @@ Public repo: https://github.com/cs6210501-lab/moon-slice
    (`1 => { label = 20 }`) became `Expr` nodes with no defs/uses. Fixed by
    transparent lowering; `06_match` is covered by the end-to-end corpus test.
 
+## 0.4.1 adversarial-review fixes (2026-10-29, commit `8716527`)
+
+Local verification only: GitHub is unreachable from this network (TLS and SSH
+handshakes to every GitHub endpoint are reset, and both proxy nodes fail their
+delay tests), so this commit is not yet on the remote.
+
+| Command | Result |
+| --- | --- |
+| `./dev.sh check` | 0 errors, 0 warnings |
+| `./dev.sh test` | `Total tests: 241, passed: 241, failed: 0` |
+| `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples` |
+| `bash test/cli_smoke.sh` | `cli smoke ok` (now covers `compare`, data-only `path`, `impl` lowering) |
+| `node web/smoke.mjs` | `web smoke ok: 7006 bytes` |
+| `node web/playground_e2e.mjs .` | `playground e2e ok: 6960 -> 6998 bytes` |
+| `./dev.sh run cmd/main -- compare --file bench/precise_cdg.mbt --line 7` | `structural 18 / precise 7`, 12 removed, 1 added |
+| `./dev.sh run cmd/main -- dead --file <impl method with a dead store>` | reports line 6 (previously: empty output) |
+| `./dev.sh run cmd/main -- path --from o --to v` | `no path from o to v` (data edges only) |
+| `time main.exe html --file <8000 lines> --out x.html` | 496 ms (previously ~15 s) |
+
 ## 0.4.0 precision pass (2026-10-29)
 
 Five upgrades, all landed directly after a multi-agent attempt whose workers
