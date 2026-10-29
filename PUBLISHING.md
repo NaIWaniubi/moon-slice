@@ -94,9 +94,9 @@ println(program.errors.length()) // 0
 
 `username` is optional. The format was verified against the CLI's
 `Credentials` struct and by a `moon publish --dry-run` probe: with a probe file
-present the command proceeded past login and posted to
-`https://mooncakes.io/api/v0/publish` (the probe token was rejected; nothing was
-published, and the probe file was deleted).
+present the command passed its local checks and attempted
+`POST https://mooncakes.io/api/v0/publish`. The request failed with the probe
+token, nothing was published, and the probe file was deleted.
 
 ## CI option
 
