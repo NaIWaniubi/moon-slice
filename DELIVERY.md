@@ -75,9 +75,7 @@ Public repo: https://github.com/cs6210501-lab/moon-slice
 
 ## 0.4.1 adversarial-review fixes (2026-10-29, commit `8716527`)
 
-Local verification only: GitHub is unreachable from this network (TLS and SSH
-handshakes to every GitHub endpoint are reset, and both proxy nodes fail their
-delay tests), so this commit is not yet on the remote.
+Pushed and verified on the remote at `ace07c4`.
 
 | Command | Result |
 | --- | --- |
@@ -91,6 +89,26 @@ delay tests), so this commit is not yet on the remote.
 | `./dev.sh run cmd/main -- dead --file <impl method with a dead store>` | reports line 6 (previously: empty output) |
 | `./dev.sh run cmd/main -- path --from o --to v` | `no path from o to v` (data edges only) |
 | `time main.exe html --file <8000 lines> --out x.html` | 496 ms (previously ~15 s) |
+
+## Remote verification (2026-10-29, commit `ace07c4`, v0.4.1)
+
+| Check | Result |
+| --- | --- |
+| CI `40836926750` | success: check, 241 tests, corpus, CLI smoke, committed-bundle smoke, rebuild, rebuilt-bundle smoke |
+| Pages `40836926751` | success: deployed the rebuilt `web/` |
+| Live `index.html` SHA-256 | `dce7b383...24b1980`, identical to the committed file |
+| Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10273212` (Linux rebuild; functionally identical to the committed Windows build, see the CI note below) |
+| `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 6992 bytes` (real Chrome, two runs on the deployed site) |
+
+### Why the bundle is no longer compared byte-for-byte
+
+The first 0.4.1 CI run failed on `git diff --exit-code -- web/moon-slice.js`:
+the Linux rebuild numbered MoonBit's internal JS symbols differently from the
+Windows build in the repository (`S9822` vs `S4692`), so the two artifacts were
+textually different but functionally identical. Both workflows now smoke-test
+the committed bundle, rebuild, then smoke-test the rebuild — which catches a
+stale committed artifact (step 1 fails on behaviour) and a broken rebuild
+(step 2 fails) without promising cross-platform byte equality.
 
 ## 0.4.0 precision pass (2026-10-29)
 
