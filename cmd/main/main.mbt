@@ -87,6 +87,7 @@ fn known_command(command : String) -> Bool {
   command == "slice" ||
   command == "graph" ||
   command == "compare" ||
+  command == "review" ||
   command == "callgraph" ||
   command == "dead" ||
   command == "path" ||
@@ -293,7 +294,7 @@ fn main {
   }
   let command = argv[1]
   if command == "version" || command == "--version" {
-    println("moon-slice 0.4.1")
+    println("moon-slice 0.4.2")
     return
   }
   if command == "help" || command == "--help" {
@@ -314,6 +315,7 @@ fn main {
   let mut to_var = ""
   let mut node_override : Int32? = None
   let mut precise_cdg = false
+  let mut diff_path = ""
   let mut with_control = false
   let mut i = 2
   while i < argv.length() {
@@ -360,9 +362,19 @@ fn main {
     } else if arg == "--with-control" {
       with_control = true
       i = i + 1
+    } else if arg == "--diff" {
+      diff_path = require_value(argv, i, arg)
+      i = i + 2
     } else {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
+  }
+  if command == "review" {
+    if diff_path == "" {
+      fail_code("missing_diff", "--diff is required for review")
+    }
+    run_review(diff_path, json)
+    return
   }
   if file == "" {
     fail_code("missing_file", "--file is required")

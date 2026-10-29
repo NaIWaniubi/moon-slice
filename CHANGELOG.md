@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.4.2 — 2026-10-29
+
+Real-world validation and the `review` command. Numbers and commands are in
+`docs/CASE_STUDY.md`; Chinese entry point in `README.zh-CN.md`.
+
+- **`review --diff FILE` / `tools/review.sh`.** Forward-slices every line a diff
+  adds and reports the affected lines and functions. `tools/review.sh` produces
+  the diff with `git diff -U0`, so the analysis itself stays process-free and
+  testable; `cli_smoke.sh` covers a synthetic diff end to end.
+- **Validation against real code.** `tools/scan.mjs` runs `dead` over a source
+  tree and reports parse failures and hits. On moonbitlang/async (368 files,
+  50,233 lines) and moonbitlang/x (166 files, 37,595 lines): 100% parse success,
+  0 dead-code hits. On moon-slice itself: 50 files, 9,712 lines, 7 hits, all
+  verified true positives in the example corpus.
+- **Six false-positive classes found by that scan and fixed**, each with a
+  regression in `src/integration_test/real_world_test.mbt`:
+  writes through parameters; field / read-modify-write stores; identifiers read
+  only by a string interpolation; the C-style `for` update being orphaned in the
+  CFG; the C-style `for` initialiser re-running on every iteration; structural
+  containers reported as unreachable code. A seventh fix covers variables
+  captured by a local closure (recorded as uses of the function exit).
+- **`README.zh-CN.md`** is the Chinese entry point: quickstart, the three
+  questions the tool answers, precision evidence, and the honest limits.
+
 ## 0.4.1 — 2026-10-29
 
 Fixes from an adversarial review that simulated a competition judge. Three

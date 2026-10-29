@@ -165,6 +165,17 @@ pub fn target_node(program : @core.Program, line : Int32) -> Int32? {
 
 ///|
 /// Definition nodes whose definitions never reach a use.
+///
+/// Parameters are excluded, and this is a soundness rule rather than a
+/// convenience: a write through a parameter (`self.index = value` in a method
+/// setter, `decoder.bit_buffer = ...`) mutates state the caller can observe, so
+/// it is never a dead store even though no *later* statement in this function
+/// reads the variable. Treating those as dead produced false positives on real
+/// code: every trait setter in `moonbitlang/async`'s queue implementation was
+/// reported.
+///
+/// A local `let mut` that is written and never read is still reported, which is
+/// the case the command is for.
 pub fn dead_nodes(
   program : @core.Program,
   defuse : @core.DefUse,
@@ -173,12 +184,45 @@ pub fn dead_nodes(
   for pair in defuse.reaching {
     used.add(pair.0)
   }
+  let parameters : Set[@core.VarId] = Set([])
+  for function in program.functions {
+    match node_by_id(program, function.entry) {
+      None => ()
+      Some(entry) =>
+        for variable in entry.defs {
+          parameters.add(variable)
+        }
+    }
+  }
   let out : Array[Int32] = []
   for node in program.nodes {
     if node.defs.length() > 0 &&
       !is_synthetic(program, node) &&
       !used.contains(node.id) {
-      out.push(node.id)
+      // Keep the node only if it writes something that is neither a parameter
+      // nor a variable it also reads.
+      //
+      // The second condition identifies field and element writes: the adapter
+      // models `x.field = v` and `x[i] = v` as an assignment that both uses and
+      // defines `x` (conservatively, because the field is not tracked). Such a
+      // write mutates state other code can observe through the same reference,
+      // so it is not a dead store. A plain `x = 1` reads nothing and is still
+      // reported, which is the case this command exists for.
+      let mut writes_parameter = false
+      let mut reads_what_it_writes = false
+      for variable in node.defs {
+        if parameters.contains(variable) {
+          writes_parameter = true
+        }
+        for read in node.uses {
+          if read == variable {
+            reads_what_it_writes = true
+          }
+        }
+      }
+      if !writes_parameter && !reads_what_it_writes {
+        out.push(node.id)
+      }
     }
   }
   out.sort()
@@ -274,7 +318,16 @@ pub fn unreachable_nodes(
   let out : Array[Int32] = []
   for node in program.nodes {
     if !seen.contains(node.id) && !is_synthetic(program, node) {
-      out.push(node.id)
+      // A container (a region, or the step block of a C-style `for`) is a
+      // structural node with no source statement of its own. It can be
+      // unreachable while its children are reached through a `continue`, and
+      // reporting it would name a line that has no statement to blame.
+      let container = node.children.length() > 0 &&
+        node.defs.length() == 0 &&
+        node.uses.length() == 0
+      if !container {
+        out.push(node.id)
+      }
     }
   }
   out.sort()

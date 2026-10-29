@@ -44,7 +44,9 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
 - CLI：`slice --interprocedural`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
 - 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用与条件位置，保留递归自环。
-- 测试：241 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- 改动影响分析：`review --diff`（配 `tools/review.sh`）对 git diff 的每个改动行做向前切片，汇总受影响行与函数。
+- 真实仓库验证：`tools/scan.mjs` 在 moonbitlang/async（368 文件）与 moonbitlang/x（166 文件）上 100% 解析、0 死代码命中；自身仓库 7 处命中全部人工确认为真。
+- 测试：248 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 精准度：独立预言器按"定义到使用存在一条不被重定义阻断的路径"重新推导
   reaching definitions，与工作列表算法逐对比较；另有种子化属性测试，每轮生成
@@ -70,7 +72,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 241/241 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 248/248 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`

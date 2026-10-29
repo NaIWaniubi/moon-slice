@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-29 (v0.4.1). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-29 (v0.4.2). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 241, passed: 241, failed: 0` |
+| `./dev.sh test` | `Total tests: 248, passed: 248, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -27,7 +27,30 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- callgraph --file bench/callgraph.mbt` | `twice -> inc`, `main_fn -> twice` |
 | `./dev.sh run cmd/main -- slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural` | `2,6,7,8,12` |
 | `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html` | self-contained HTML with inline SVG; screenshot at `docs/report.png` |
+| `./dev.sh run cmd/main -- review --diff <synthetic diff>` | `review_probe.mbt: changed 1 line(s) -> affected 2 line(s)`, `affected lines: 3,4` (also in JSON) |
+| `node tools/scan.mjs <release-binary> /tmp/async` | 368 files, 50,388 lines, 0 parse failures, 0 hits |
+| `node tools/scan.mjs <release-binary> /tmp/x` | 166 files, 37,595 lines, 0 parse failures, 0 hits |
+| `node tools/scan.mjs <release-binary> .` | 50 files, 9,712 lines, 0 parse failures, 6 files / 7 lines — all intentional dead stores in `examples/` |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
+
+## 0.4.2 precision hardening (2026-10-29)
+
+1. **`review --diff`** — forward-slices every added line in a unified diff and
+   reports the affected lines and functions per file; `tools/review.sh` wraps it
+   for local use. JSON mode returns `files/changed/affected/records`.
+2. **`tools/scan.mjs`** — runs `dead --json` over a source tree and aggregates
+   parse failures and hits, so the precision claims are reproducible.
+3. **Real-code validation** — 584 files / 97,695 lines across
+   `moonbitlang/async` (`2632315`) and `moonbitlang/x` (`4705764`): 0 parse
+   failures, 0 false positives. Scanning moon-slice itself returns 7 hits, all
+   of them the dead stores planted in `examples/`.
+4. **Seven false-positive classes found by that scan and fixed**, each with a
+   regression test: parameter writes, field and index writes, identifiers inside
+   interpolation source, the C-style `for` step block, C-style `for` initialiser
+   re-execution, container nodes without a statement, and closure captures.
+   Net effect on the upstream corpora: 176 hit lines → 0.
+5. **Test suite** grew to 248 with `real_world_test.mbt`, the review smoke test,
+   and the closure/`impl` regressions.
 
 ## Remote verification (2026-10-29, commit `3a5a406`, v0.4.0)
 
@@ -226,8 +249,9 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 241 tests, including 10 end-to-end corpus tests, a path-based precision
-  oracle, a seeded property suite, and path/unreachable tests
+- [x] 248 tests, including 10 end-to-end corpus tests, a path-based precision
+  oracle, a seeded property suite, real-repository regressions, review, and
+  path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
 - [x] library line coverage 89.2% (see COVERAGE.md; legacy reporter)
@@ -237,6 +261,9 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] data-flow path query (`path --from A --to B`)
 - [x] inter-procedural return-value cone (whole body for bare calls)
 - [x] deterministic fuzz-style invariant tests
+- [x] diff-aware impact analysis (`review`, `tools/review.sh`)
+- [x] real-world validation over 584 files / 97,695 lines with 0 false positives
+  (`docs/CASE_STUDY.md`, `tools/scan.mjs`)
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
 - [x] push to GitHub: public repo `cs6210501-lab/moon-slice`, branch `master`

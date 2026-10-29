@@ -182,6 +182,18 @@ fn dispatch(
         })
       }
     }
+    // A loop's update block is an `Expr` node whose children are the update
+    // assignments. Walking its children is what makes `i = i + 1` execute on
+    // the back edge: without it the update node is orphaned, the CFG never
+    // reaches it, and `dead` reports the increment as unreachable code.
+    Expr => {
+      if node.children.length() == 0 {
+        add_edge(builder, node.id, next)
+      } else {
+        add_edge(builder, node.id, node.children[0])
+        walk_list(builder, node.children, next, loops)
+      }
+    }
     _ => add_edge(builder, node.id, next)
   }
 }

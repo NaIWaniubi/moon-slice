@@ -3,6 +3,8 @@
 [![CI](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml)
 
+[中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md)
+
 A program-slicing workbench for MoonBit. Point it at a `.mbt` source file and a
 target line; get back the **backward slice** (which statements may have produced
 the value at that line) and the **forward slice** (which statements that value
@@ -23,7 +25,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (240 tests, including a
+All layers are implemented and covered by `moon test` (248 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, and a seeded
 property-based differential suite). The data model is frozen; the CLI is usable.
 
@@ -328,6 +330,27 @@ Ambiguous targets are never silently guessed. `statement_candidates` returns
 every statement on a line; the CLI prints the candidate node ids and accepts
 `--node ID` to pick one, and the HTML report highlights the selected row and
 names the node in its metrics.
+
+## What a diff affects
+
+`review` reads a unified diff and forward-slices every changed line, so a
+reviewer can see what a change touches beyond what it appears to touch:
+
+```bash
+bash tools/review.sh              # changes since HEAD~1
+bash tools/review.sh origin/main
+bash tools/review.sh HEAD~3 --json
+```
+
+```text
+src/query/query.mbt: changed 55 line(s) -> affected 18 line(s) in visible_lines, unreachable_nodes, path_between
+  affected lines: 187,188,189,...
+review: 5 file(s), 163 changed line(s), 212 affected line(s)
+```
+
+`tools/review.sh` produces the diff with `git diff -U0`; the CLI side is
+`review --diff FILE`, so the analysis is testable without a git process and the
+wrapper is three lines of shell.
 
 ## Comparing the two control-dependence builders
 

@@ -3,17 +3,23 @@
 // loc helpers.
 
 ///|
-test "C-style for defines its binder and reads the bound" {
+test "C-style for emits its initialiser once, before the head" {
   let source = "fn f() -> Int {\n  let mut t = 0\n  for i = 0; i < 3; i = i + 1 {\n    t = t + i\n  }\n  t\n}\n"
   let program = parse_source(source, "for.mbt")
   assert_eq(program.errors.length(), 0)
-  let head = program.nodes[2]
+  // Nodes: 0 entry, 1 `let mut t`, 2 the initialiser `i = 0`, 3 the For head.
+  let init = program.nodes[2]
+  assert_eq(init.kind, @core.SNodeKind::Assign)
+  assert_eq(init.loc.start_line, 3)
+  let init_defs : Array[String] = []
+  init.defs.each(fn(d) { init_defs.push(d.name) })
+  assert_eq(init_defs, ["i"])
+  let head = program.nodes[3]
   assert_eq(head.kind, @core.SNodeKind::For)
   assert_eq(head.loc.start_line, 3)
-  // The loop variable is defined by the head itself.
-  let defs : Array[String] = []
-  head.defs.each(fn(d) { defs.push(d.name) })
-  assert_eq(defs, ["i"])
+  // The head no longer re-defines the loop variable: that was the initialiser's
+  // job, and doing it here hid `i = i + 1` behind it on every iteration.
+  assert_eq(head.defs.length(), 0)
   assert_eq(head.children.length(), 1)
   let body = program.nodes[head.children[0]]
   // The body holds one statement plus a trailing update block.

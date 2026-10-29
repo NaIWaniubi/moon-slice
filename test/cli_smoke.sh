@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.4.1" version
+expect_eq "moon-slice 0.4.2" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -92,7 +92,7 @@ expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction ba
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}"' EXIT
+trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"
@@ -185,5 +185,37 @@ impl T with bump(self : T) -> Int {
 MBT
 expect_eq "6" dead --file "$tmp_impl"
 expect_eq "7" slice --file "$tmp_impl" --line 7 --direction backward
+
+# Diff-aware review: a synthetic diff that adds one line must report the lines
+# that line can affect.
+tmp_review_src="review_probe.mbt"
+tmp_review_diff="$(mktemp)"
+cat > "$tmp_review_src" <<'MBT'
+fn probe(x : Int) -> Int {
+  let a = x + 1
+  let b = a + 1
+  return b
+}
+MBT
+cat > "$tmp_review_diff" <<'DIFF'
+--- a/review_probe.mbt
++++ b/review_probe.mbt
+@@ -2,0 +3,1 @@
++  let b = a + 1
+DIFF
+review_out="$(run review --diff "$tmp_review_diff")"
+printf '%s' "$review_out" | grep -Fq 'review_probe.mbt: changed 1 line(s) -> affected 2 line(s)'
+printf '%s' "$review_out" | grep -Fq 'affected lines: 3,4'
+review_json="$(run review --diff "$tmp_review_diff" --json)"
+printf '%s' "$review_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.changed!==1) throw new Error("changed != 1: "+j.changed);
+  if(j.affected!==2) throw new Error("affected != 2: "+j.affected);
+  const r=j.records[0];
+  if(r.file!=="review_probe.mbt") throw new Error("bad file");
+  if(JSON.stringify(r.affected)!==JSON.stringify([3,4])) throw new Error("bad affected lines");
+});'
+rm -f "$tmp_review_src"
 
 printf 'cli smoke ok\n'

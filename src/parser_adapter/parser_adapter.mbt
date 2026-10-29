@@ -45,6 +45,12 @@ priv struct Adapter {
   env_pos : Map[String, Array[Int32]]
   scope_counter : Array[Int32]
   current_function : Array[String]
+  // Variables read inside a local `fn` body. A closure can be called after the
+  // definition that feeds it, which is outside the straight-line def-use model,
+  // so these are recorded and attached to the enclosing function's exit node as
+  // uses. That keeps an assignment captured only by a closure from looking dead
+  // without inventing data edges between the closure body and its call sites.
+  closure_captures : Array[@core.VarId]
 }
 
 ///|
@@ -66,6 +72,7 @@ pub fn parse_source(source : String, name : String) -> @core.Program {
     env_pos: Map([]),
     scope_counter: [1],
     current_function: [""],
+    closure_captures: [],
   }
   let errors : Array[String] = []
   reports.each(fn(report) {
@@ -182,9 +189,20 @@ fn emit_function_body(
     [],
     None,
   )
+  let capture_mark = ctx.closure_captures.length()
   emit_expr(ctx, body, None)
   pop_env_to(ctx, outer_mark)
-  let exit = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, [], [], None)
+  let exit_uses : Array[@core.VarId] = []
+  let mut capture = capture_mark
+  while capture < ctx.closure_captures.length() {
+    let variable = ctx.closure_captures[capture]
+    if !exit_uses.contains(variable) {
+      exit_uses.push(variable)
+    }
+    capture = capture + 1
+  }
+  ctx.closure_captures.truncate(capture_mark)
+  let exit = begin_node(ctx, @core.SNodeKind::Expr, fn_loc, [], exit_uses, None)
   ctx.functions.push(@core.FunctionInfo::{
     name,
     entry: entry.id,
@@ -307,6 +325,9 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     }
     LetFn(name~, func=local_fn, body=rest, ..) => {
       let uses = uses_of(ctx, local_fn.body)
+      // The closure body may run later, so everything it reads is a use of the
+      // enclosing function at its exit.
+      push_unique_vars(ctx.closure_captures, uses)
       let node = begin_node(
         ctx,
         @core.SNodeKind::Let,
@@ -549,11 +570,27 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     }
     For(binders~, condition~, continue_block~, body=loop_body, for_else~, ..) => {
       let loc = loc_whole(whole)
-      let uses : Array[@core.VarId] = []
-      // Initializers run before the loop binders become visible.
-      binders.each(fn(pair) { append_uses(ctx, pair.1, uses) })
-      let head = begin_node(ctx, @core.SNodeKind::For, loc, [], uses, parent)
-      binders.each(fn(pair) { head.defs.push(bind_fresh(ctx, pair.0.name)) })
+      // A C-style `for i = 0; cond; i = i + 1` initialiser runs **once**, before
+      // the loop. Modelling it as a definition on the loop head made the head
+      // re-run the initialiser on every iteration, which (a) hid the update's
+      // definition behind it — the body's `i` then reached the initialiser
+      // instead of `i = i + 1` — and (b) left the update node unreachable, so
+      // `dead` reported the increment. The initialiser is therefore a real
+      // assignment emitted before the head, and the head defines nothing.
+      binders.each(fn(pair) {
+        let initial = uses_of(ctx, pair.1)
+        record_calls_in_expr(ctx, pair.1)
+        let node = begin_node(
+          ctx,
+          @core.SNodeKind::Assign,
+          loc_whole(pair.1),
+          [],
+          initial,
+          parent,
+        )
+        node.defs.push(bind_fresh(ctx, pair.0.name))
+      })
+      let head = begin_node(ctx, @core.SNodeKind::For, loc, [], [], parent)
       match condition {
         Some(cond) => {
           record_calls_in_expr(ctx, cond)
@@ -937,6 +974,57 @@ impl @syntax.IterVisitor for IdCollector with fn visit_Expr_Ident(
     Ident(name~) => self.names.push(name)
     Dot(id~, ..) => self.names.push(id)
   }
+}
+
+///|
+/// String interpolations carry real expressions: in `"port=\{port}"` and
+/// `"%\{interface}"` the variable is read at runtime.
+///
+/// In this parser version the elements are `Literal` and `Source`, where
+/// `Source` holds the interpolation body as source *text*; the expression is
+/// not lowered into an `Expr`. Scanning identifiers out of that text is the
+/// only available option, and it is conservative in the safe direction: it can
+/// add a use that the expression does not really have, never drop one. Without
+/// it, a binding read only by an interpolation looked unused and `dead`
+/// reported it (every `"%\{x}"` in real code).
+fn collect_source_identifiers(text : String, out : Array[String]) -> Unit {
+  let current = StringBuilder()
+  let flush = fn() {
+    if !current.is_empty() {
+      out.push(current.to_string())
+      ignore(current.reset())
+    }
+  }
+  for ch in text.iter() {
+    let code = ch.to_int()
+    let is_start = (code >= 'a'.to_int() && code <= 'z'.to_int()) ||
+      (code >= 'A'.to_int() && code <= 'Z'.to_int()) || ch == '_'
+    let is_part = is_start || (code >= '0'.to_int() && code <= '9'.to_int())
+    if is_start && current.is_empty() {
+      current.write_char(ch)
+    } else if is_part && !current.is_empty() {
+      current.write_char(ch)
+    } else {
+      flush()
+    }
+  }
+  flush()
+}
+
+///|
+impl @syntax.IterVisitor for IdCollector with fn visit_Expr_Interp(
+  self,
+  elems~,
+  loc~,
+) {
+  ignore(loc)
+  elems.each(fn(elem) {
+    match elem {
+      Literal(..) => ()
+      Expr(expr~, ..) => @syntax.IterVisitor::visit_Expr(self, expr)
+      Source(source) => collect_source_identifiers(source.source, self.names)
+    }
+  })
 }
 
 ///|
