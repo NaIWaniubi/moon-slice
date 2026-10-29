@@ -3,7 +3,7 @@
 [![CI](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml)
 
-[中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md)
+[中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
 A program-slicing workbench for MoonBit. Point it at a `.mbt` source file and a
 target line; get back the **backward slice** (which statements may have produced

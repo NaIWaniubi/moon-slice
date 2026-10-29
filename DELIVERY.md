@@ -91,6 +91,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Tag CI `40884027671` | success on `v0.5.0` |
 | Pages `40884027574` | success: deployed the rebuilt `web/` |
 | CI log evidence | `Total tests: 256, passed: 256, failed: 0`, `cli smoke ok`, both bundle smokes `web smoke ok: 7006 bytes` |
+| CI `40884391008` `action` job | success: `uses: ./` resolved `action.yml`, installed MoonBit, built `cmd/main`, and ran `dead --dir src --fail-on-findings` (58 s, exit 0) |
 | Live `index.html` SHA-256 | `dce7b383...24b1980`, identical to the committed file |
 | Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10276204` (Linux rebuild; functionally identical to the committed Windows build) |
 | `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 6992 bytes` (real Chrome, two runs on the deployed site) |
@@ -321,6 +322,8 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] 20+ meaningful commits
 - [x] push to GitHub: public repo `cs6210501-lab/moon-slice`, branch `master`
 - [x] GitHub Actions CI and Pages workflows added; Pages enabled for `web/`
+- [x] `action.yml` exercised by CI through `uses: ./`
+- [x] contribution guide, roadmap, and issue forms
 - [x] live playground verified at https://cs6210501-lab.github.io/moon-slice/
 - [ ] fill author / team / contact in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59

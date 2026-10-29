@@ -1,0 +1,46 @@
+name: Feature request
+description: A new query, output format, or integration
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: What question should the tool answer?
+      description: Describe the developer question, not the implementation.
+      placeholder: "Which lines does a change to this variable affect across a package?"
+    validations:
+      required: true
+  - type: textarea
+    id: today
+    attributes:
+      label: What do you do today?
+      description: The workaround, if any, and why it is insufficient.
+    validations:
+      required: true
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where should it live?
+      options:
+        - CLI command or flag
+        - JSON / SARIF field
+        - Library API
+        - Editor integration
+        - CI / GitHub Action
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example input and expected output
+      description: A small `.mbt` snippet plus the result you expect.
+      render: moonbit
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I looked at ROADMAP.md and this is not already planned.
+          required: true

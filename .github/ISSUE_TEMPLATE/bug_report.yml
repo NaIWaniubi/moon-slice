@@ -1,0 +1,67 @@
+name: Bug report
+description: A wrong result, a crash, or a CLI/JSON contract violation
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A wrong slice is more useful to fix than a crash, so please include the
+        smallest `.mbt` input that reproduces it. Remove anything private first.
+  - type: input
+    id: version
+    attributes:
+      label: moon-slice version
+      description: Output of `moon-slice version`
+      placeholder: moon-slice 0.5.0
+    validations:
+      required: true
+  - type: input
+    id: toolchain
+    attributes:
+      label: MoonBit toolchain
+      description: Output of `moon version`
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Linux
+        - macOS
+        - Windows
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: The exact invocation, including flags
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Paste stdout/stderr; for JSON mode, paste the whole object
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Minimal input
+      description: The smallest `.mbt` file that shows the problem
+      render: moonbit
+  - type: input
+    id: line
+    attributes:
+      label: Target line / node
+      description: For slice and path results, the `--line` or `--node` used
