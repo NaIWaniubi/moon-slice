@@ -14,6 +14,8 @@ pub fn expand_calls(@core.Program, @core.Pdg, @core.SliceResult) -> @core.SliceR
 
 pub fn lines_of(@core.Program, Array[Int32]) -> Array[Int32]
 
+pub fn node_by_id(@core.Program, Int32) -> @core.SNode?
+
 pub fn node_exists(@core.Program, Int32) -> Bool
 
 pub fn nodes_at_line(@core.Program, Int32) -> Array[Int32]

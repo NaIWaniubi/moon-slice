@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-10-29 (v0.4.2) with the legacy MoonBit reporter:
+Measured on 2026-10-29 (v0.5.0) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze
@@ -19,12 +19,12 @@ the numbers below use.
 | `src/parser_adapter/parser_adapter.mbt` | 414/520 |
 | `src/pdg/pdg.mbt` | 31/32 |
 | `src/query/query.mbt` | 289/308 |
-| `src/report/report.mbt` | 343/388 |
-| `cmd/main/main.mbt` | 0/312 |
+| `src/report/report.mbt` | 450/502 |
+| `cmd/main/main.mbt` | 22/518 |
 | `cmd/main/review.mbt` | 0/155 |
-| **Total** | **1659/2326** |
+| **Total** | **1788/2646** |
 
-Library packages only (excluding `cmd/`): **1659/1859 = 89.2%**.
+Library packages only (excluding `cmd/`): **1712/1919 = 89.2%**.
 
 `cmd/` is not executed by `moon test`; the CLI is covered by
 [test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON modes, malformed

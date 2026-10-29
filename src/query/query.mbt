@@ -4,7 +4,7 @@
 /// Resolve a node id without assuming ids are array indexes. The adapter emits
 /// dense ids, but a hand-built `Program` need not, and indexing by id would then
 /// read the wrong node or run off the end.
-fn node_by_id(program : @core.Program, id : Int32) -> @core.SNode? {
+pub fn node_by_id(program : @core.Program, id : Int32) -> @core.SNode? {
   for node in program.nodes {
     if node.id == id {
       return Some(node)

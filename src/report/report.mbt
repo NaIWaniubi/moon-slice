@@ -607,7 +607,7 @@ pub fn to_html(
     target_node.to_string() +
     " on line " +
     target_line.to_string()
-  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.4.2\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
+  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.5.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
   metrics +
@@ -660,5 +660,214 @@ pub fn to_call_json(edges : Array[(String, String)]) -> String {
     first = false
   }
   out.write_char(']')
+  out.to_string()
+}
+
+///|
+/// `dead`'s JSON form. `suppressed` is the number of findings hidden by a
+/// baseline; consumers that key on `nodes` keep working unchanged.
+pub fn to_dead_json(
+  program : @core.Program,
+  result : @core.SliceResult,
+  suppressed : Int,
+) -> String {
+  let mut errors = ""
+  let mut first = true
+  for e in program.errors {
+    if !first {
+      errors = errors + ","
+    }
+    errors = errors + json_string(e)
+    first = false
+  }
+  "{\"nodes\":[" +
+  join_ints(result.nodes) +
+  "],\"lines\":[" +
+  join_ints(result.lines) +
+  "],\"errors\":[" +
+  errors +
+  "],\"suppressed\":" +
+  suppressed.to_string() +
+  "}"
+}
+
+///|
+/// Normalise a filesystem path into the forward-slash form SARIF expects.
+/// Windows accepts both separators, but consumers compare URIs textually.
+fn sarif_uri(path : String) -> String {
+  let out = StringBuilder()
+  for ch in path.iter() {
+    match ch {
+      '\\' => out.write_char('/')
+      _ => out.write_char(ch)
+    }
+  }
+  out.to_string()
+}
+
+///|
+fn sarif_node(program : @core.Program, id : Int32) -> @core.SNode? {
+  for node in program.nodes {
+    if node.id == id {
+      return Some(node)
+    }
+  }
+  None
+}
+
+///|
+pub fn sarif_dead_message(node : @core.SNode) -> String {
+  let names = StringBuilder()
+  let mut first = true
+  for variable in node.defs {
+    if !first {
+      names.write_string(", ")
+    }
+    names.write_string("`" + variable.name + "`")
+    first = false
+  }
+  let target = names.to_string()
+  if target == "" {
+    "dead store: the assigned value is never read"
+  } else {
+    "dead store: the value assigned to " + target + " is never read"
+  }
+}
+
+///|
+pub fn to_sarif(
+  file : String,
+  program : @core.Program,
+  ids : Array[Int32],
+  dead : Array[Int32],
+  suppressed : Int,
+  version : String,
+) -> String {
+  let findings : Array[SarifFinding] = []
+  for id in ids {
+    match sarif_node(program, id) {
+      None => ()
+      Some(node) => {
+        let is_dead = dead.contains(id)
+        findings.push(SarifFinding::{
+          file: sarif_uri(file),
+          line: node.loc.start_line,
+          rule: if is_dead { "dead-store" } else { "unreachable-code" },
+          message: if is_dead {
+            sarif_dead_message(node)
+          } else {
+            "unreachable code: no execution path reaches this statement"
+          },
+        })
+      }
+    }
+  }
+  to_sarif_findings(findings, suppressed, version, 1, 0)
+}
+
+///|
+/// A finding already reduced to the fields SARIF needs. `file` is a URI path
+/// (forward slashes); `rule` is `dead-store` or `unreachable-code`.
+pub(all) struct SarifFinding {
+  file : String
+  line : Int32
+  rule : String
+  message : String
+}
+
+///|
+/// Merge any number of files into one SARIF run. `files` is how many files were
+/// analysed and `parse_failures` how many could not be parsed; both are exposed
+/// as run properties so a CI job can tell "clean" from "did not look".
+pub fn to_sarif_findings(
+  findings : Array[SarifFinding],
+  suppressed : Int,
+  version : String,
+  files : Int,
+  parse_failures : Int,
+) -> String {
+  let out = StringBuilder()
+  out.write_string(
+    "{\"$schema\":\"https://json.schemastore.org/sarif-2.1.0.json\",\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"moon-slice\",\"informationUri\":\"https://github.com/cs6210501-lab/moon-slice\",\"version\":",
+  )
+  out.write_string(json_string(version))
+  out.write_string(
+    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"}]}},",
+  )
+  out.write_string("\"invocations\":[{\"executionSuccessful\":")
+  out.write_string(if parse_failures == 0 { "true" } else { "false" })
+  out.write_string("}],\"results\":[")
+  let mut first = true
+  for finding in findings {
+    let is_dead = finding.rule == "dead-store"
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string("{\"ruleId\":")
+    out.write_string(json_string(finding.rule))
+    out.write_string(",\"ruleIndex\":")
+    out.write_string(if is_dead { "0" } else { "1" })
+    out.write_string(",\"level\":\"warning\",\"message\":{\"text\":")
+    out.write_string(json_string(finding.message))
+    out.write_string("},\"locations\":[{\"physicalLocation\":{\"artifactLocation\":{\"uri\":")
+    out.write_string(json_string(finding.file))
+    out.write_string("},\"region\":{\"startLine\":")
+    out.write_string(finding.line.to_string())
+    out.write_string("}}}],\"partialFingerprints\":{\"moonSlice/v1\":")
+    out.write_string(
+      json_string(finding.file + ":" + finding.line.to_string() + ":" + finding.rule),
+    )
+    out.write_string("}}")
+  }
+  out.write_string("],\"properties\":{\"suppressed\":")
+  out.write_string(suppressed.to_string())
+  out.write_string(",\"files\":")
+  out.write_string(files.to_string())
+  out.write_string(",\"parseFailures\":")
+  out.write_string(parse_failures.to_string())
+  out.write_string("}}]}")
+  out.to_string()
+}
+
+///|
+/// JSON for a directory scan. Unlike `to_dead_json` this is keyed by file, so a
+/// consumer does not have to assume node ids are meaningful across files.
+pub fn to_scan_json(
+  findings : Array[SarifFinding],
+  files : Int,
+  suppressed : Int,
+  errors : Array[String],
+) -> String {
+  let out = StringBuilder()
+  out.write_string("{\"findings\":[")
+  let mut first = true
+  for finding in findings {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string("{\"file\":")
+    out.write_string(json_string(finding.file))
+    out.write_string(",\"line\":")
+    out.write_string(finding.line.to_string())
+    out.write_string(",\"kind\":")
+    out.write_string(json_string(finding.rule))
+    out.write_string("}")
+  }
+  out.write_string("],\"files\":")
+  out.write_string(files.to_string())
+  out.write_string(",\"suppressed\":")
+  out.write_string(suppressed.to_string())
+  out.write_string(",\"errors\":[")
+  first = true
+  for message in errors {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string(json_string(message))
+  }
+  out.write_string("]}")
   out.to_string()
 }

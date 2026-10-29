@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.4.2" version
+expect_eq "moon-slice 0.5.0" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -87,12 +87,103 @@ expect_eq "n1 L4 -> n3 L6 -> n4 L7" path --file examples/07_return.mbt --from ba
 expect_contains '"twice" -> "inc"' callgraph --file bench/callgraph.mbt
 expect_contains "digraph pdg" graph --file examples/04_while.mbt
 
+# SARIF and baselines: the CI-facing output must be valid SARIF 2.1.0, and a
+# baseline must hide exactly the findings it recorded.
+tmp_sarif="$(mktemp)"
+run dead --file examples/08_dead_assignment.mbt --format sarif --out "$tmp_sarif" >/dev/null
+node -e '
+const fs=require("fs");
+const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
+if(j.version!=="2.1.0") throw new Error("not SARIF 2.1.0");
+const run=j.runs[0];
+if(!run||run.tool.driver.name!=="moon-slice") throw new Error("bad tool");
+if(run.results.length!==2) throw new Error("expected 2 results, got "+run.results.length);
+const r=run.results[0];
+if(r.ruleId!=="dead-store"||r.level!=="warning") throw new Error("bad rule/level");
+const loc=r.locations[0].physicalLocation;
+if(loc.region.startLine!==4) throw new Error("bad line: "+loc.region.startLine);
+if(!loc.artifactLocation.uri.endsWith("examples/08_dead_assignment.mbt")) throw new Error("bad uri: "+loc.artifactLocation.uri);
+if(!r.partialFingerprints) throw new Error("no fingerprint");
+' "$tmp_sarif"
+
+tmp_base="$(mktemp)"
+expect_contains "2 finding(s)" dead --file examples/08_dead_assignment.mbt --write-baseline "$tmp_base"
+expect_eq "" dead --file examples/08_dead_assignment.mbt --baseline "$tmp_base"
+expect_contains '"suppressed":2' dead --file examples/08_dead_assignment.mbt --baseline "$tmp_base" --json
+
+# --fail-on-findings is the CI gate: findings exit 1, a suppressed baseline 0.
+set +e
+gate_out="$(run dead --file examples/08_dead_assignment.mbt --fail-on-findings)"
+gate_rc=$?
+set -e
+if [ "$gate_rc" -ne 1 ]; then
+  printf 'FAIL: --fail-on-findings exit %s (expected 1)\n' "$gate_rc" >&2
+  exit 1
+fi
+printf '%s' "$gate_out" | grep -Fq '4,5'
+set +e
+run dead --file examples/08_dead_assignment.mbt --baseline "$tmp_base" --fail-on-findings >/dev/null
+gate_rc=$?
+set -e
+if [ "$gate_rc" -ne 0 ]; then
+  printf 'FAIL: baseline + --fail-on-findings exit %s (expected 0)\n' "$gate_rc" >&2
+  exit 1
+fi
+
+expect_fail "only supported by dead" slice --file examples/04_while.mbt --line 7 --baseline "$tmp_base"
+expect_json_error bad_format slice --file examples/04_while.mbt --line 7 --format sarif
+expect_json_error read_failed dead --file examples/08_dead_assignment.mbt --baseline "$tmp_base.missing"
+
+# Directory scan: one command over a tree, deterministic order, JSON/SARIF
+# shapes, and the same baseline/gate semantics as the single-file mode.
+dir_count="$(run dead --dir examples | wc -l | tr -d ' ')"
+if [ "$dir_count" != "7" ]; then
+  printf 'FAIL: dead --dir examples returned %s lines (expected 7)\n' "$dir_count" >&2
+  exit 1
+fi
+expect_eq "" dead --dir src
+expect_contains "examples/01_let.mbt:7" dead --dir examples
+dir_json="$(run dead --dir examples --json)"
+printf '%s' "$dir_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.files!==10) throw new Error("files != 10: "+j.files);
+  if(j.findings.length!==7) throw new Error("findings != 7: "+j.findings.length);
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+  if(j.findings[0].file!=="examples/01_let.mbt") throw new Error("not sorted");
+  if(j.findings[0].kind!=="dead-store") throw new Error("bad kind");
+});'
+dir_sarif="$(mktemp)"
+run dead --dir examples --format sarif --out "$dir_sarif" >/dev/null
+node -e '
+const fs=require("fs");
+const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
+const run=j.runs[0];
+if(run.results.length!==7) throw new Error("results != 7");
+if(run.properties.files!==10) throw new Error("files != 10");
+if(run.properties.parseFailures!==0) throw new Error("parse failures");
+if(run.invocations[0].executionSuccessful!==true) throw new Error("not successful");
+' "$dir_sarif"
+tmp_dir_base="$(mktemp)"
+expect_contains "7 finding(s)" dead --dir examples --write-baseline "$tmp_dir_base"
+expect_eq "" dead --dir examples --baseline "$tmp_dir_base"
+set +e
+run dead --dir examples --baseline "$tmp_dir_base" --fail-on-findings >/dev/null
+gate_rc=$?
+set -e
+if [ "$gate_rc" -ne 0 ]; then
+  printf 'FAIL: dir baseline gate exit %s (expected 0)\n' "$gate_rc" >&2
+  exit 1
+fi
+expect_fail "use either --file or --dir" dead --dir examples --file examples/01_let.mbt
+expect_fail "not a directory" dead --dir examples/does_not_exist.mbt
+
 # Interprocedural return cone
 expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}"' EXIT
+trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"

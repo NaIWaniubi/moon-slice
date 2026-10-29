@@ -25,7 +25,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (248 tests, including a
+All layers are implemented and covered by `moon test` (256 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, and a seeded
 property-based differential suite). The data model is frozen; the CLI is usable.
 
@@ -40,7 +40,7 @@ property-based differential suite). The data model is frozen; the CLI is usable.
 | Slicing | `src/slice` | implemented — backward/forward BFS |
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
 | Report | `src/report` | implemented — JSON, DOT, inline SVG, HTML |
-| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead`, `path`, `html`, debug dumps |
+| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead` (file or tree, SARIF, baseline), `review`, `path`, `html`, debug dumps |
 | Browser playground | `src/web`, `web/` | implemented — JS build + single page |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
@@ -57,7 +57,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.4.1
+# moon-slice 0.5.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -83,9 +83,9 @@ not value flow, so they are excluded by default; pass `--with-control` to search
 the whole PDG). `dead` reports both definitions with no reaching use and
 statements unreachable from a function entry.
 
-The CLI exits `0` on success and `2` on any usage error, unreadable input,
-write failure, parse diagnostic or unknown node id; it never prints a result for
-a run that failed. When one line holds several statements, it prints the
+The CLI exits `0` on success, `1` when `dead --fail-on-findings` finds something,
+and `2` on any usage error, unreadable input, write failure, parse diagnostic or
+unknown node id; it never prints a result for a run that failed. When one line holds several statements, it prints the
 candidate node ids and `--node ID` selects one. `--precise` switches control
 dependence from the structural rule to post-dominators.
 
@@ -99,7 +99,10 @@ The JSON shapes are fixed, so a consumer can rely on them:
 
 | Command | Shape |
 | --- | --- |
-| `slice` / `dead` / `path --json` | `{"nodes":[..],"lines":[..],"errors":[..]}` |
+| `slice` / `path --json` | `{"nodes":[..],"lines":[..],"errors":[..]}` |
+| `dead --json` | `{"nodes":[..],"lines":[..],"errors":[..],"suppressed":N}` |
+| `dead --dir D --json` | `{"findings":[{"file","line","kind"}],"files","suppressed","errors"}` |
+| `dead --format sarif` | SARIF 2.1.0 (`runs[0].results[]`, `properties.files`) |
 | `path --json` with no path | `{"found":false}` |
 | `callgraph --json` | `[["caller","callee"],..]` |
 | `graph --format json` | `{"nodes":[{"id","kind","line","synthetic"}],"edges":[{"from","to","kind"}]}` |
@@ -351,6 +354,44 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `tools/review.sh` produces the diff with `git diff -U0`; the CLI side is
 `review --diff FILE`, so the analysis is testable without a git process and the
 wrapper is three lines of shell.
+
+## CI integration
+
+`dead --dir D` scans a tree in one command, skips `.git`, `_build`, `target`,
+`.mooncakes` and `node_modules`, and returns a stable order. It composes with
+SARIF, a baseline and a gate:
+
+```bash
+# Upload findings to GitHub code scanning.
+./dev.sh run cmd/main -- dead --dir . --format sarif --out moon-slice.sarif
+
+# Record today's findings, then fail only on new ones.
+./dev.sh run cmd/main -- dead --dir . --write-baseline .moon-slice-baseline
+./dev.sh run cmd/main -- dead --dir . --baseline .moon-slice-baseline --fail-on-findings
+```
+
+The baseline is a text file of `path:line` entries; `--write-baseline` generates
+it, and `--fail-on-findings` exits `1` only for findings that survive filtering.
+A file that cannot be parsed is reported in `--json`/SARIF (and as a `# error:`
+line in text mode) but does not hide the other files.
+
+`action.yml` wraps the build and the commands for GitHub Actions, and
+`templates/review-workflow.yml` is a ready-to-copy workflow:
+
+```yaml
+- uses: cs6210501-lab/moon-slice@v0.5.0
+  with:
+    command: review
+    since: ${{ github.event.pull_request.base.sha }}
+
+- uses: cs6210501-lab/moon-slice@v0.5.0
+  with:
+    command: dead
+    args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
+```
+
+The action builds the native binary from the tag it is pinned to, so the version
+in the workflow is the version that runs.
 
 ## Comparing the two control-dependence builders
 

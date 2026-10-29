@@ -14,14 +14,21 @@
 git clone --depth 1 https://github.com/moonbitlang/async /tmp/async
 git clone --depth 1 https://github.com/moonbitlang/x     /tmp/x
 
-# 3. 逐文件跑 dead，汇总
+# 3. 一条命令扫描整棵树
+(cd /tmp/async && <repo>/_build/native/release/build/cmd/main/main.exe dead --dir . --json)
+(cd /tmp/x     && <repo>/_build/native/release/build/cmd/main/main.exe dead --dir . --json)
+./dev.sh run cmd/main -- dead --dir .
+
+# 4. 再用独立脚本交叉核对（逐文件进程，结果应一致）
 node tools/scan.mjs _build/native/release/build/cmd/main/main.exe /tmp/async
 node tools/scan.mjs _build/native/release/build/cmd/main/main.exe /tmp/x
 node tools/scan.mjs _build/native/release/build/cmd/main/main.exe .
 ```
 
-`tools/scan.mjs` 只做三件事：枚举 `.mbt`、对每个文件执行 `dead --json`、把
-解析失败数与命中行数汇总成 JSON。它不会“猜”哪些命中是真的，triage 由人做。
+`dead --dir` 自己完成枚举、解析、分析、汇总，并跳过 `.git`、`_build`、
+`target`、`.mooncakes`、`node_modules`。`tools/scan.mjs` 是独立的第二实现：
+它逐文件起进程、自己汇总，用来确认批量模式的数字不是自说自话。两者不会
+“猜”哪些命中是真的，triage 由人做。
 
 ## 结果（2026-10-29）
 
@@ -29,10 +36,10 @@ node tools/scan.mjs _build/native/release/build/cmd/main/main.exe .
 | --- | --- | --- | --- | --- | --- | --- |
 | `moonbitlang/async` | `2632315` | 368 | 50,388 | 0 | 0 | 0 |
 | `moonbitlang/x` | `4705764` | 166 | 37,595 | 0 | 0 | 0 |
-| `moon-slice` 自身（含 examples） | working tree | 50 | 9,712 | 0 | 6 | 7 |
-| **合计** | | **584** | **97,695** | **0** | **6** | **7** |
+| `moon-slice` 自身（含 examples） | working tree | 51 | 10,401 | 0 | 6 | 7 |
+| **合计** | | **585** | **98,384** | **0** | **6** | **7** |
 
-- **解析**：584 个文件、全部 `errors 0`。没有任何 panic、没有崩溃、没有
+- **解析**：585 个文件、全部 `errors 0`。没有任何 panic、没有崩溃、没有
   “分析到一半失败”。
 - **前两个仓库 0 命中**：它们是持续维护、CI 开着 warning 的库，本来就不该有
   死存储。工具没有为了“显得有用”而编造命中。
@@ -49,7 +56,11 @@ node tools/scan.mjs _build/native/release/build/cmd/main/main.exe .
 
 7/7 真阳性，0 误报。
 
-## 扫描过程中在工具里发现的 6 个真 bug
+批量模式也把扫描时间从“每文件一次进程启动”降到一次进程：166 个文件的
+`moonbitlang/x` 约 **1.0 s**，368 个文件的 `moonbitlang/async` 约 **1.2 s**
+（Windows release 构建，含解析与全部查询）。
+
+## 扫描过程中在工具里发现的 7 个真 bug
 
 第一轮扫描报告的命中是 **176 行**，全部是误报。逐类 triage 后修掉 6 个缺陷，
 命中数变成 0。这部分比“扫出多少问题”更有价值：它说明这些结论是**核对过的**，
@@ -88,15 +99,39 @@ $ ./dev.sh run cmd/main -- slice --file /tmp/cfor.mbt --line 4 --direction backw
 
 修复前这里会报第 3 行为死代码，并且从第 4 行回溯时看不到循环更新。
 
+## Review 一个真实提交
+
+`review` 在 `moonbitlang/x` 的真实提交 `4705764`
+（`fix(time): reject incomplete duration and period strings`）上的输出：
+
+```bash
+$ cd /tmp/x
+$ git diff -U0 HEAD~1 HEAD -- '*.mbt' > /tmp/x_head.diff
+$ <repo>/_build/native/release/build/cmd/main/main.exe review --diff /tmp/x_head.diff
+time/duration.mbt: changed 7 line(s) -> affected 36 line(s) in parse_str, from_str, to_string, seconds, nanoseconds, is_zero
+  affected lines: 69,70,71,73,74,75,76,77,78,79,81,83,84,87,88,91,92,93,94,96,97,101,102,103,106,107,109,111,112,113,115,119,121,124,125,127
+time/duration_test.mbt: changed 2 line(s) -> affected 0 line(s)
+time/period.mbt: changed 4 line(s) -> affected 4 line(s) in to_string, days, add_years
+  affected lines: 43,44,70,71
+time/period_test.mbt: changed 2 line(s) -> affected 0 line(s)
+review: 4 file(s), 15 changed line(s), 40 affected line(s)
+```
+
+这个提交只改了 15 行，但 `parse_str` 的改动会通过返回值影响 6 个函数、36 行；
+`period.mbt` 的 4 行影响 `to_string` / `days` / `add_years`。测试文件的影响面
+是 0，符合预期（测试只调用 API，没有内部数据依赖）。这就是 review 想回答的
+问题：**一个 diff 在表面之外还动了什么**。
+
 ## 这份验证不能证明什么
 
 - **不是“发现了上游 bug”**。两个上游仓库零命中，这是它们代码干净的证据，不是
   工具能力的上限。要证明“能找真 bug”，需要构造有缺陷的代码或扫描历史版本。
-- **不是全语言覆盖**。584 个文件全部解析成功，但 `impl` 里的关联类型、
+- **不是全语言覆盖**。585 个文件全部解析成功，但 `impl` 里的关联类型、
   `lexmatch`、宏等构造仍按保守 `Expr` 处理。
-- **不是性能基准**。上面的耗时包含每个文件一次进程启动（Windows 上约 110 ms），
-  所以 166 个文件要 99 秒。分析本身在 3.2 万行单文件上约 1.5 秒，见
-  `bench/README.md`。批量模式（一次进程扫多文件）还没做。
+- **不是性能基准**。`dead --dir` 是单进程批量分析，166 个文件约 1.0 s；
+  单文件 3.2 万语句的基准见 `bench/README.md`。两者测的不是同一件事。
+- **解析失败会被跳过而不是猜测**。`--dir` 在 JSON/SARIF 里报告失败文件，
+  文本模式用 `# error:` 行提示；失败文件不计入 `files`，其余文件照常分析。
 - **闭包捕获是超近似**。被闭包读取的变量会一直被视为 live，可能漏报真正的死存储。
 
 ## 和“只看示例”的区别

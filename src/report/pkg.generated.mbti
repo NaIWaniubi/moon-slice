@@ -8,9 +8,13 @@ import {
 // Values
 pub fn json_string(String) -> String
 
+pub fn sarif_dead_message(@core.SNode) -> String
+
 pub fn to_call_dot(Array[(String, String)]) -> String
 
 pub fn to_call_json(Array[(String, String)]) -> String
+
+pub fn to_dead_json(@core.Program, @core.SliceResult, Int32) -> String
 
 pub fn to_dot(@core.Pdg) -> String
 
@@ -24,11 +28,23 @@ pub fn to_json(@core.Program, @core.SliceResult) -> String
 
 pub fn to_result_json(@core.Program, @core.SliceResult, Int32, Int32) -> String
 
+pub fn to_sarif(String, @core.Program, Array[Int32], Array[Int32], Int32, String) -> String
+
+pub fn to_sarif_findings(Array[SarifFinding], Int32, String, Int32, Int32) -> String
+
+pub fn to_scan_json(Array[SarifFinding], Int32, Int32, Array[String]) -> String
+
 pub fn to_svg(@core.Program, @core.Pdg, @core.SliceResult, Int32) -> String
 
 // Errors
 
 // Types and methods
+pub(all) struct SarifFinding {
+  file : String
+  line : Int32
+  rule : String
+  message : String
+}
 
 // Type aliases
 

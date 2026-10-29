@@ -229,3 +229,70 @@ test "result json cannot be broken out of by source text" {
   assert_true(!json.contains("</script>"))
   assert_true(json.contains("\u003c") || json.contains("<\/script>") || !json.contains("<"))
 }
+
+///|
+test "dead json carries the suppressed count" {
+  let json = @report.to_dead_json(sample_program(), sample_result(), 3)
+  assert_true(json.contains("\"nodes\":[1,2]"))
+  assert_true(json.contains("\"suppressed\":3"))
+}
+
+///|
+test "sarif classifies dead stores and unreachable code" {
+  let sarif = @report.to_sarif(
+    "src\\sample.mbt",
+    sample_program(),
+    [1, 2],
+    [1],
+    1,
+    "0.5.0",
+  )
+  assert_true(sarif.contains("\"version\":\"2.1.0\""))
+  assert_true(sarif.contains("\"version\":\"0.5.0\""))
+  // Windows separators become URI separators.
+  assert_true(sarif.contains("\"uri\":\"src/sample.mbt\""))
+  assert_true(sarif.contains("\"ruleId\":\"dead-store\""))
+  assert_true(sarif.contains("\"ruleId\":\"unreachable-code\""))
+  assert_true(sarif.contains("\"startLine\":2"))
+  assert_true(sarif.contains("\"startLine\":3"))
+  assert_true(sarif.contains("`x`"))
+  assert_true(sarif.contains("\"suppressed\":1"))
+  assert_true(sarif.contains("\"partialFingerprints\""))
+}
+
+///|
+test "sarif is valid with no findings" {
+  let sarif = @report.to_sarif("a.mbt", sample_program(), [], [], 0, "0.5.0")
+  assert_true(sarif.contains("\"results\":[]"))
+  assert_true(sarif.contains("\"suppressed\":0"))
+}
+
+///|
+test "scan json lists findings by file with scan counts" {
+  let findings : Array[@report.SarifFinding] = [
+    @report.SarifFinding::{ file: "src/a.mbt", line: 3, rule: "dead-store", message: "m" },
+    @report.SarifFinding::{ file: "src/b.mbt", line: 9, rule: "unreachable-code", message: "m" },
+  ]
+  let json = @report.to_scan_json(findings, 12, 4, ["src/c.mbt: 2 parser diagnostic(s)"])
+  assert_true(json.contains("\"findings\":[{\"file\":\"src/a.mbt\",\"line\":3,\"kind\":\"dead-store\"}"))
+  assert_true(json.contains("\"file\":\"src/b.mbt\",\"line\":9"))
+  assert_true(json.contains("\"files\":12"))
+  assert_true(json.contains("\"suppressed\":4"))
+  assert_true(json.contains("src/c.mbt: 2 parser diagnostic(s)"))
+}
+
+///|
+test "sarif findings merge files and expose scan counts" {
+  let findings : Array[@report.SarifFinding] = [
+    @report.SarifFinding::{ file: "a.mbt", line: 3, rule: "dead-store", message: "m1" },
+    @report.SarifFinding::{ file: "b.mbt", line: 9, rule: "unreachable-code", message: "m2" },
+  ]
+  let sarif = @report.to_sarif_findings(findings, 2, "0.5.0", 7, 1)
+  assert_true(sarif.contains("\"uri\":\"a.mbt\""))
+  assert_true(sarif.contains("\"uri\":\"b.mbt\""))
+  assert_true(sarif.contains("\"ruleId\":\"dead-store\""))
+  assert_true(sarif.contains("\"ruleId\":\"unreachable-code\""))
+  assert_true(sarif.contains("\"files\":7"))
+  assert_true(sarif.contains("\"parseFailures\":1"))
+  assert_true(sarif.contains("\"executionSuccessful\":false"))
+}

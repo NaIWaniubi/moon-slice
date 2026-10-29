@@ -45,8 +45,12 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - CLI：`slice --interprocedural`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
 - 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用与条件位置，保留递归自环。
 - 改动影响分析：`review --diff`（配 `tools/review.sh`）对 git diff 的每个改动行做向前切片，汇总受影响行与函数。
-- 真实仓库验证：`tools/scan.mjs` 在 moonbitlang/async（368 文件）与 moonbitlang/x（166 文件）上 100% 解析、0 死代码命中；自身仓库 7 处命中全部人工确认为真。
-- 测试：248 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- 仓库级死代码扫描：`dead --dir D` 一次进程分析整棵源码树（跳过 `.git/_build/target/.mooncakes/node_modules`），解析失败按文件报告且不中断其他文件。
+- CI 集成：`dead --format sarif` 输出 SARIF 2.1.0（dead-store / unreachable-code 两条规则、artifact location、partialFingerprints）；`--write-baseline/--baseline` 记录并抑制存量；`--fail-on-findings` 仅对新增问题退出 1。
+- GitHub Action：`action.yml` 封装安装/构建/执行，`templates/review-workflow.yml` 同时接入 PR 影响面报告与 code-scanning 上传。
+- 真实仓库验证：`dead --dir` 在 moonbitlang/async（368 文件 / 50,388 行）与 moonbitlang/x（166 文件 / 37,595 行）上 100% 解析、0 死代码命中；批量扫描分别约 1.2 s / 1.0 s。自身仓库 7 处命中全部人工确认为真。
+- 真实提交验证：对 moonbitlang/x 提交 `4705764`（15 个改动行）做 review，正确报告 duration.mbt 影响 6 个函数/36 行、period.mbt 影响 3 个函数/4 行、测试文件 0 行。
+- 测试：256 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 精准度：独立预言器按"定义到使用存在一条不被重定义阻断的路径"重新推导
   reaching definitions，与工作列表算法逐对比较；另有种子化属性测试，每轮生成
@@ -72,7 +76,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 248/248 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 256/256 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`
@@ -81,4 +85,6 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
   输出 `2,6,7,8,12`。
 - `./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html`
   生成可打开的自包含 HTML；渲染截图见 `docs/report.png`。
+- `./dev.sh run cmd/main -- dead --dir examples` 输出 7 行；
+  `--format sarif --out x.sarif` 生成可被 code scanning 解析的 SARIF 2.1.0。
 - README 提供可复现 quickstart、架构说明、支持子集与诚实的局限性。

@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.5.0 — 2026-10-29
+
+CI-facing output and tree-scale scanning. The tool now answers a reviewing
+team's two questions with commands they can put in a workflow.
+
+- **`dead --dir D`.** One process scans every `.mbt` file under a tree,
+  skipping `.git`, `_build`, `target`, `.mooncakes` and `node_modules`. Parse
+  failures are reported per file and do not abort the scan. On
+  `moonbitlang/x` (166 files) the batch takes about 1.0 s, against 99 s for the
+  old per-file process loop.
+- **SARIF 2.1.0.** `dead --format sarif` emits one run with `dead-store` and
+  `unreachable-code` rules, artifact locations, and stable partial fingerprints,
+  ready for `github/codeql-action/upload-sarif`.
+- **Baselines.** `--write-baseline FILE` records `path:line`; `--baseline FILE`
+  hides those findings and reports how many it hid (`suppressed` in JSON).
+  `--fail-on-findings` exits 1 only for findings that survive, so a repository
+  can adopt the gate without fixing its history first.
+- **`--out FILE` for `dead`**, in text, JSON and SARIF modes.
+- **`action.yml` and `templates/review-workflow.yml`.** A composite action
+  builds the pinned tag and runs `review` or `dead`; the template wires both a
+  pull-request impact report and a SARIF upload.
+- **Real-commit review case study.** On `moonbitlang/x@4705764`, 15 changed
+  lines reach 40 lines across 6 functions in `duration.mbt` and 4 in
+  `period.mbt`; the test files correctly reach 0. See `docs/CASE_STUDY.md`.
+- **256 tests**, including scan-path normalisation, SARIF shape, and the
+  directory-mode CLI end to end.
+
 ## 0.4.2 — 2026-10-29
 
 Real-world validation and the `review` command. Numbers and commands are in

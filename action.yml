@@ -1,0 +1,60 @@
+name: moon-slice
+description: Program slicing, dead-code detection, and diff impact analysis for MoonBit
+author: moon-slice contributors
+branding:
+  icon: scissors
+  color: purple
+
+inputs:
+  command:
+    description: Command to run (review, dead, slice, graph, callgraph)
+    required: false
+    default: review
+  args:
+    description: Arguments passed to the command
+    required: false
+    default: --diff .moon-slice/pr.diff
+  since:
+    description: Git revision to diff against; when set, review writes .moon-slice/pr.diff
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Install MoonBit
+      shell: bash
+      run: |
+        curl -fsSL https://cli.moonbitlang.cn/install/unix.sh | bash
+        echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+    - name: Build moon-slice
+      shell: bash
+      run: |
+        export PATH="$HOME/.moon/bin:$PATH"
+        cd "${{ github.action_path }}"
+        moon update
+        moon build --target native --release cmd/main
+
+    - name: Run moon-slice
+      shell: bash
+      env:
+        MOONSLICE_COMMAND: ${{ inputs.command }}
+        MOONSLICE_ARGS: ${{ inputs.args }}
+        MOONSLICE_SINCE: ${{ inputs.since }}
+      run: |
+        export PATH="$HOME/.moon/bin:$PATH"
+        bin="${{ github.action_path }}/_build/native/release/build/cmd/main/main.exe"
+        if [ ! -x "$bin" ]; then
+          bin="${bin%.exe}"
+        fi
+        if [ ! -x "$bin" ]; then
+          echo "moon-slice: no built binary at $bin" >&2
+          exit 2
+        fi
+        if [ "$MOONSLICE_COMMAND" = "review" ] && [ -n "$MOONSLICE_SINCE" ]; then
+          mkdir -p .moon-slice
+          git diff -U0 "$MOONSLICE_SINCE" -- '*.mbt' > .moon-slice/pr.diff
+        fi
+        cd "$GITHUB_WORKSPACE"
+        "$bin" "$MOONSLICE_COMMAND" $MOONSLICE_ARGS

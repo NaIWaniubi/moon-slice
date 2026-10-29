@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-29 (v0.4.2). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-29 (v0.5.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 248, passed: 248, failed: 0` |
+| `./dev.sh test` | `Total tests: 256, passed: 256, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -30,8 +30,39 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `./dev.sh run cmd/main -- review --diff <synthetic diff>` | `review_probe.mbt: changed 1 line(s) -> affected 2 line(s)`, `affected lines: 3,4` (also in JSON) |
 | `node tools/scan.mjs <release-binary> /tmp/async` | 368 files, 50,388 lines, 0 parse failures, 0 hits |
 | `node tools/scan.mjs <release-binary> /tmp/x` | 166 files, 37,595 lines, 0 parse failures, 0 hits |
-| `node tools/scan.mjs <release-binary> .` | 50 files, 9,712 lines, 0 parse failures, 6 files / 7 lines — all intentional dead stores in `examples/` |
+| `node tools/scan.mjs <release-binary> .` | 51 files, 10,401 lines, 0 parse failures, 6 files / 7 lines — all intentional dead stores in `examples/` |
+| `dead --dir .` (release) | 51 files, 7 findings, 0 errors; identical to the independent `tools/scan.mjs` result |
+| `dead --dir . --json` (in /tmp/async) | `files=368, findings=0, errors=0`; about 1.2 s |
+| `dead --dir . --json` (in /tmp/x) | `files=166, findings=0, errors=0`; about 1.0 s |
+| `dead --format sarif --out F` | parses as SARIF 2.1.0; 2 results on `examples/08`, rules/locations/fingerprints present |
+| `dead --write-baseline` then `--baseline` | 2 findings → empty output, `"suppressed":2`; `--fail-on-findings` exits 1 before, 0 after |
+| `action` steps simulated in /tmp/x | `review --diff .moon-slice/pr.diff` reports 4 files / 15 changed / 40 affected; `dead --dir . --format sarif` returns 0 findings |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
+
+## 0.5.0 CI integration (2026-10-29)
+
+1. **`dead --dir D`** scans a tree in one process. It skips `.git`, `_build`,
+   `target`, `.mooncakes` and `node_modules`, reports parse failures per file,
+   and keeps a deterministic lexical order. On the same corpora as 0.4.2 the
+   results are identical to the independent per-file `tools/scan.mjs`, but the
+   run time drops from 99 s to about 1.0 s for 166 files.
+2. **SARIF 2.1.0** (`dead --format sarif`) emits one run with the two rules
+   `dead-store` and `unreachable-code`, artifact URIs, region lines, and partial
+   fingerprints; `invocations[0].executionSuccessful` and
+   `properties.parseFailures` distinguish clean from incomplete scans.
+3. **Baselines and the gate.** `--write-baseline` records `path:line`;
+   `--baseline` hides those entries and reports `suppressed`; `--fail-on-findings`
+   exits 1 only for survivors (exit 2 remains usage/IO error).
+4. **`--out` for `dead`** writes text, JSON or SARIF to a file, so a workflow
+   does not need shell redirection.
+5. **`action.yml` + `templates/review-workflow.yml`** build the pinned tag and
+   run `review` (with `since` generating the diff) or `dead`; the template also
+   uploads SARIF to code scanning.
+6. **Real-commit review evidence.** On `moonbitlang/x@4705764`, 15 changed lines
+   reach 40 lines: `duration.mbt` affects 6 functions / 36 lines and
+   `period.mbt` affects 3 functions / 4 lines; both test files correctly reach 0.
+7. **Tests: 256.** New coverage: scan path normalisation, SARIF shape, scan JSON,
+   and the directory CLI end to end (including both gate exit codes).
 
 ## 0.4.2 precision hardening (2026-10-29)
 
@@ -259,7 +290,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 248 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 256 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings
@@ -272,7 +303,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] inter-procedural return-value cone (whole body for bare calls)
 - [x] deterministic fuzz-style invariant tests
 - [x] diff-aware impact analysis (`review`, `tools/review.sh`)
-- [x] real-world validation over 584 files / 97,695 lines with 0 false positives
+- [x] real-world validation over 585 files / 98,384 lines with 0 false positives
   (`docs/CASE_STUDY.md`, `tools/scan.mjs`)
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits

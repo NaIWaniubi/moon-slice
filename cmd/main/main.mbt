@@ -20,7 +20,10 @@ fn usage() -> Unit {
     "        [--node ID]   disambiguate several statements on the same line\n" +
     "  graph --file F [--format dot|json]\n" +
     "  callgraph --file F [--json]\n" +
-    "  dead  --file F [--json]\n" +
+    "  dead  --file F [--json] [--format sarif] [--out FILE]\n" +
+    "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
+    "  dead  --dir D [--json] [--format sarif] [--out FILE]  scan a tree\n" +
+    "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
     "  path  --file F --from VAR --to VAR [--json]\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
@@ -33,9 +36,18 @@ fn usage() -> Unit {
     "              over-approximations. Works with slice/graph/dead/html.\n" +
     "  --json      machine-readable output; failures become\n" +
     "              {\"error\":{\"code\":..,\"message\":..}} and still exit 2.\n" +
+    "  --format sarif   (dead only) SARIF 2.1.0 for code-scanning uploads.\n" +
+    "  --baseline FILE  (dead only) hide findings listed in FILE. The file is\n" +
+    "              the output of a previous --write-baseline run.\n" +
+    "  --write-baseline FILE  record the current findings and exit.\n" +
+    "  --fail-on-findings     (dead only) exit 1 when a finding remains after\n" +
+    "              baseline filtering; output is written first.\n" +
+    "  --dir D     (dead only) scan every .mbt file under D. Mutually exclusive\n" +
+    "              with --file; parse failures are reported, not fatal.\n" +
     "\n" +
-    "Exit codes: 0 success, 2 usage error, unreadable input, parse error or\n" +
-    "write failure. When a line holds several statements, `dump --line N` lists\n" +
+    "Exit codes: 0 success, 1 findings with --fail-on-findings, 2 usage error,\n" +
+    "unreadable input, parse error or write failure. When a line holds several\n" +
+    "statements, `dump --line N` lists\n" +
     "their node ids; pass the wanted one with `--node ID`.\n",
   )
 }
@@ -59,6 +71,9 @@ fn prescan_json(argv : Array[String]) -> Bool {
 /// because the flag is parsed before the command runs, and the failure helpers
 /// are shared by every command.
 let json_mode : Array[Bool] = [false]
+
+///|
+let tool_version : String = "0.5.0"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise
@@ -285,6 +300,306 @@ fn kind_name(kind : @core.SNodeKind) -> String {
 }
 
 ///|
+/// Baseline entries are `path:line`, so a path must compare equal regardless of
+/// the separator the caller used.
+fn normalize_path(path : String) -> String {
+  let out = StringBuilder()
+  for ch in path.iter() {
+    match ch {
+      '\\' => out.write_char('/')
+      _ => out.write_char(ch)
+    }
+  }
+  let joined = out.to_string()
+  if joined.has_prefix("./") { joined[2:].to_owned() } else { joined }
+}
+
+///|
+fn baseline_key(file : String, line : Int32) -> String {
+  normalize_path(file) + ":" + line.to_string()
+}
+
+///|
+/// Read a baseline written by `--write-baseline`. Blank lines and `#` comments
+/// are ignored, so the file can carry a short header.
+fn parse_baseline(text : String) -> Set[String] {
+  let keys : Set[String] = Set([])
+  for raw in text.split("\n") {
+    let line = raw.replace(old="\r", new="").to_owned()
+    if line != "" && !line.has_prefix("#") {
+      keys.add(normalize_path(line))
+    }
+  }
+  keys
+}
+
+///|
+fn filter_baseline(
+  program : @core.Program,
+  ids : Array[Int32],
+  file : String,
+  baseline : Set[String],
+) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for id in ids {
+    match @query.node_by_id(program, id) {
+      None => out.push(id)
+      Some(node) =>
+        if !baseline.contains(baseline_key(file, node.loc.start_line)) {
+          out.push(id)
+        }
+    }
+  }
+  out
+}
+
+///|
+fn write_baseline_file(
+  path : String,
+  file : String,
+  ids : Array[Int32],
+  program : @core.Program,
+) -> Unit {
+  let out = StringBuilder()
+  out.write_string("# moon-slice baseline v1\n")
+  out.write_string("# path:line, one finding per line\n")
+  for id in ids {
+    match @query.node_by_id(program, id) {
+      None => ()
+      Some(node) => {
+        out.write_string(baseline_key(file, node.loc.start_line))
+        out.write_char('\n')
+      }
+    }
+  }
+  @fs.write_string_to_file(path, out.to_string()) catch {
+    @fs.IOError(msg) => fail_code("write_failed", "failed to write \{path}: \{msg}")
+  }
+  println("wrote \{path} (\{ids.length()} finding(s))")
+}
+
+///|
+fn is_mbt_file(name : String) -> Bool {
+  match name.find(".mbt") {
+    Some(index) => index == name.length() - 4
+    None => false
+  }
+}
+
+///|
+fn skip_scan_dir(name : String) -> Bool {
+  name == ".git" ||
+  name == "_build" ||
+  name == "target" ||
+  name == "node_modules" ||
+  name == ".mooncakes"
+}
+
+///|
+fn collect_mbt_files(dir : String, out : Array[String]) -> Unit {
+  let entries : Array[String] = @fs.read_dir(dir) catch {
+    @fs.IOError(_) => []
+  }
+  entries.sort_by(fn(a, b) { a.lexical_compare(b) })
+  for name in entries {
+    let path = if dir == "." { name } else { dir + "/" + name }
+    let directory = @fs.is_dir(path) catch {
+      @fs.IOError(_) => false
+    }
+    if directory {
+      if !skip_scan_dir(name) {
+        collect_mbt_files(path, out)
+      }
+    } else if is_mbt_file(name) {
+      out.push(path)
+    }
+  }
+}
+
+///|
+fn render_findings_text(findings : Array[@report.SarifFinding]) -> String {
+  let out = StringBuilder()
+  let mut first = true
+  let mut previous = ""
+  for finding in findings {
+    let key = finding.file + ":" + finding.line.to_string()
+    if key != previous {
+      if !first {
+        out.write_char('\n')
+      }
+      out.write_string(key)
+      previous = key
+      first = false
+    }
+  }
+  out.to_string()
+}
+
+///|
+fn write_scan_baseline(path : String, findings : Array[@report.SarifFinding]) -> Unit {
+  let out = StringBuilder()
+  out.write_string("# moon-slice baseline v1\n")
+  out.write_string("# path:line, one finding per line\n")
+  let mut previous = ""
+  for finding in findings {
+    let key = baseline_key(finding.file, finding.line)
+    if key != previous {
+      out.write_string(key)
+      out.write_char('\n')
+      previous = key
+    }
+  }
+  @fs.write_string_to_file(path, out.to_string()) catch {
+    @fs.IOError(msg) => fail_code("write_failed", "failed to write \{path}: \{msg}")
+  }
+  println("wrote \{path} (\{findings.length()} finding(s))")
+}
+
+///|
+fn read_scan_file(path : String, errors : Array[String]) -> String? {
+  let ok = [true]
+  let text = @fs.read_file_to_string(path) catch {
+    @fs.IOError(msg) => {
+      ok[0] = false
+      errors.push(path + ": " + msg)
+      ""
+    }
+  }
+  if ok[0] { Some(text) } else { None }
+}
+
+///|
+/// Scan every `.mbt` file under `dir`. Unlike the single-file path, a parse
+/// failure in one file must not hide the others: failures are collected and
+/// reported, and only successfully parsed files count towards `files`.
+fn run_dead_dir(
+  dir : String,
+  format : String,
+  json : Bool,
+  out_path : String,
+  baseline_path : String,
+  write_baseline : String,
+  fail_on_findings : Bool,
+) -> Unit {
+  let paths : Array[String] = []
+  let is_directory = @fs.is_dir(dir) catch {
+    @fs.IOError(_) => false
+  }
+  if !is_directory {
+    fail_code("read_failed", "not a directory: \{dir}")
+  }
+  collect_mbt_files(dir, paths)
+  paths.sort_by(fn(a, b) { a.lexical_compare(b) })
+  let baseline = if baseline_path == "" {
+    Set([])
+  } else {
+    parse_baseline(read_source(baseline_path))
+  }
+  let all : Array[@report.SarifFinding] = []
+  let errors : Array[String] = []
+  let mut scanned = 0
+  for path in paths {
+    let maybe_source = read_scan_file(path, errors)
+    match maybe_source {
+      None => ()
+      Some(source) => {
+        let (program, cfg, defuse, _) = analyze(source, path, false)
+        if program.errors.length() > 0 {
+          errors.push(
+            path +
+            ": " +
+            program.errors.length().to_string() +
+            " parser diagnostic(s)",
+          )
+        } else {
+          scanned = scanned + 1
+          let dead = @query.dead_nodes(program, defuse)
+          let unreach = @query.unreachable_nodes(program, cfg)
+          let ids = @query.union_sorted(dead, unreach)
+          for id in ids {
+            match @query.node_by_id(program, id) {
+              None => ()
+              Some(node) => {
+                let is_dead = dead.contains(id)
+                all.push(@report.SarifFinding::{
+                  file: normalize_path(path),
+                  line: node.loc.start_line,
+                  rule: if is_dead { "dead-store" } else { "unreachable-code" },
+                  message: if is_dead {
+                    @report.sarif_dead_message(node)
+                  } else {
+                    "unreachable code: no execution path reaches this statement"
+                  },
+                })
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  all.sort_by(fn(a, b) {
+    let by_file = a.file.lexical_compare(b.file)
+    if by_file < 0 {
+      -1
+    } else if by_file > 0 {
+      1
+    } else if a.line < b.line {
+      -1
+    } else if a.line > b.line {
+      1
+    } else {
+      let by_rule = a.rule.lexical_compare(b.rule)
+      if by_rule < 0 {
+        -1
+      } else if by_rule > 0 {
+        1
+      } else {
+        0
+      }
+    }
+  })
+  if write_baseline != "" {
+    write_scan_baseline(write_baseline, all)
+    return
+  }
+  let kept : Array[@report.SarifFinding] = []
+  let mut suppressed = 0
+  for finding in all {
+    if baseline.contains(baseline_key(finding.file, finding.line)) {
+      suppressed = suppressed + 1
+    } else {
+      kept.push(finding)
+    }
+  }
+  let rendered = if format == "sarif" {
+    @report.to_sarif_findings(kept, suppressed, tool_version, scanned, errors.length())
+  } else if json {
+    @report.to_scan_json(kept, scanned, suppressed, errors)
+  } else {
+    let mut text = render_findings_text(kept)
+    for message in errors {
+      if text != "" {
+        text = text + "\n"
+      }
+      text = text + "# error: " + message
+    }
+    text
+  }
+  if out_path == "" {
+    println(rendered)
+  } else {
+    @fs.write_string_to_file(out_path, rendered) catch {
+      @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out_path}: \{msg}")
+    }
+    println("wrote \{out_path}")
+  }
+  if fail_on_findings && kept.length() > 0 {
+    @sys.exit(1)
+  }
+}
+
+///|
 fn main {
   let argv = @env.args()
   json_mode[0] = prescan_json(argv)
@@ -294,7 +609,7 @@ fn main {
   }
   let command = argv[1]
   if command == "version" || command == "--version" {
-    println("moon-slice 0.4.2")
+    println("moon-slice " + tool_version)
     return
   }
   if command == "help" || command == "--help" {
@@ -317,6 +632,10 @@ fn main {
   let mut precise_cdg = false
   let mut diff_path = ""
   let mut with_control = false
+  let mut baseline_path = ""
+  let mut write_baseline = ""
+  let mut fail_on_findings = false
+  let mut dir_path = ""
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -334,9 +653,24 @@ fn main {
       i = i + 2
     } else if arg == "--format" {
       format = require_value(argv, i, arg)
-      if format != "dot" && format != "json" {
-        fail_code("bad_format", "unsupported --format \{format} (use dot or json)")
+      if format != "dot" && format != "json" && format != "sarif" {
+        fail_code("bad_format", "unsupported --format \{format} (use dot, json, or sarif)")
       }
+      if format == "sarif" && command != "dead" {
+        fail_code("bad_format", "--format sarif is only supported by dead")
+      }
+      i = i + 2
+    } else if arg == "--baseline" {
+      baseline_path = require_value(argv, i, arg)
+      i = i + 2
+    } else if arg == "--write-baseline" {
+      write_baseline = require_value(argv, i, arg)
+      i = i + 2
+    } else if arg == "--fail-on-findings" {
+      fail_on_findings = true
+      i = i + 1
+    } else if arg == "--dir" {
+      dir_path = require_value(argv, i, arg)
       i = i + 2
     } else if arg == "--out" {
       out = require_value(argv, i, arg)
@@ -376,12 +710,39 @@ fn main {
     run_review(diff_path, json)
     return
   }
+  if dir_path != "" {
+    if command != "dead" {
+      fail_code("bad_flag", "--dir is only supported by dead")
+    }
+    if file != "" {
+      fail_code("bad_flag", "use either --file or --dir, not both")
+    }
+    run_dead_dir(
+      dir_path,
+      format,
+      json,
+      out,
+      baseline_path,
+      write_baseline,
+      fail_on_findings,
+    )
+    return
+  }
   if file == "" {
     fail_code("missing_file", "--file is required")
   }
   require_line(command, line)
   if command == "path" && (from_var == "" || to_var == "") {
     fail_code("missing_path_args", "--from and --to are required")
+  }
+  if (baseline_path != "" || write_baseline != "") && command != "dead" {
+    fail_code("bad_flag", "--baseline and --write-baseline are only supported by dead")
+  }
+  if baseline_path != "" && write_baseline != "" {
+    fail_code("bad_flag", "use either --baseline or --write-baseline, not both")
+  }
+  if fail_on_findings && command != "dead" {
+    fail_code("bad_flag", "--fail-on-findings is only supported by dead")
   }
   let source = read_source(file)
   let (program, cfg, defuse, pdg) = analyze(source, file, precise_cdg)
@@ -504,14 +865,38 @@ fn main {
       let dead = @query.dead_nodes(program, defuse)
       let unreach = @query.unreachable_nodes(program, cfg)
       let all = @query.union_sorted(dead, unreach)
-      let result = @core.SliceResult::{
-        nodes: all,
-        lines: @query.visible_lines(program, all),
+      if write_baseline != "" {
+        write_baseline_file(write_baseline, file, all, program)
+        return
       }
-      if json {
-        println(@report.to_json(program, result))
+      let baseline = if baseline_path == "" {
+        Set([])
       } else {
-        print_lines(result)
+        parse_baseline(read_source(baseline_path))
+      }
+      let kept = filter_baseline(program, all, file, baseline)
+      let suppressed = all.length() - kept.length()
+      let result = @core.SliceResult::{
+        nodes: kept,
+        lines: @query.visible_lines(program, kept),
+      }
+      let rendered = if format == "sarif" {
+        @report.to_sarif(file, program, kept, dead, suppressed, tool_version)
+      } else if json {
+        @report.to_dead_json(program, result, suppressed)
+      } else {
+        lines_text(result.lines)
+      }
+      if out == "" {
+        println(rendered)
+      } else {
+        @fs.write_string_to_file(out, rendered) catch {
+          @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out}: \{msg}")
+        }
+        println("wrote \{out}")
+      }
+      if fail_on_findings && kept.length() > 0 {
+        @sys.exit(1)
       }
     }
     "html" => {

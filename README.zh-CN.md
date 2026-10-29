@@ -43,7 +43,7 @@ git clone https://github.com/cs6210501-lab/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 248 个测试
+./dev.sh test                  # 256 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -86,6 +86,42 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `tools/review.sh` 用 `git diff -U0` 取改动行，CLI 的 `review --diff` 对每个改动行
 做向前切片并汇总到函数名。可以直接在评委/同事的仓库上跑。
 
+## 接入 CI（SARIF / 基线 / GitHub Action）
+
+`dead --dir D` 一条命令扫描整棵树（跳过 `.git`、`_build`、`target`、
+`.mooncakes`、`node_modules`），输出顺序稳定。三个开关让它变成 CI 门禁：
+
+```bash
+# 1. 生成 GitHub code scanning 认识的 SARIF 2.1.0
+./dev.sh run cmd/main -- dead --dir . --format sarif --out moon-slice.sarif
+
+# 2. 记录当前存量问题
+./dev.sh run cmd/main -- dead --dir . --write-baseline .moon-slice-baseline
+
+# 3. 只对新增问题失败（退出码 1），存量不阻塞
+./dev.sh run cmd/main -- dead --dir . --baseline .moon-slice-baseline --fail-on-findings
+```
+
+基线是纯文本的 `path:line` 列表；解析失败的文件会写进 JSON/SARIF 的
+`errors` / `parseFailures`，不会掩盖其他文件的结果。
+
+仓库根目录的 `action.yml` 把“装工具链、构建、执行”封装成 composite action，
+`templates/review-workflow.yml` 可直接复制到业务仓库：
+
+```yaml
+- uses: cs6210501-lab/moon-slice@v0.5.0
+  with:
+    command: review
+    since: ${{ github.event.pull_request.base.sha }}
+
+- uses: cs6210501-lab/moon-slice@v0.5.0
+  with:
+    command: dead
+    args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
+```
+
+action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就是实际运行的版本。
+
 ## 两种控制依赖，一屏看清差别
 
 结构化 CDG 便宜但会过度近似；`--precise` 用后支配计算精确控制依赖。`compare`
@@ -119,9 +155,9 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 | --- | --- | --- | --- | --- |
 | moonbitlang/async | 368 | 50,388 | 0 | 0 |
 | moonbitlang/x | 166 | 37,595 | 0 | 0 |
-| moon-slice 自身 | 50 | 9,712 | 0 | 7（全部人工确认） |
+| moon-slice 自身 | 51 | 10,401 | 0 | 7（全部人工确认） |
 
-第一轮扫描报了 176 行，逐类核对后发现全是工具自身的误报。修掉 6 类缺陷后降到 0，
+第一轮扫描报了 176 行，逐类核对后发现全是工具自身的误报。修掉 7 类缺陷后降到 0，
 每一类都有回归测试。这条「先报错、再证明是误报、再修掉」的过程写在 case study 里。
 
 ## 支持范围
@@ -148,7 +184,7 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 
 ## 工程
 
-- 248 个测试；库代码行覆盖率约 89%
+- 256 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

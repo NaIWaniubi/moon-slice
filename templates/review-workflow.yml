@@ -1,0 +1,44 @@
+# Copy this file to .github/workflows/moon-slice.yml in your repository.
+#
+# Job 1 answers "what does this pull request touch?" by slicing every added
+# line. Job 2 uploads dead-store findings to code scanning.
+#
+# To gate the build on new dead stores, commit a baseline first:
+#   moon-slice dead --dir . --write-baseline .moon-slice-baseline
+# then add this to the dead job's args:
+#   --baseline .moon-slice-baseline --fail-on-findings
+name: moon-slice
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: cs6210501-lab/moon-slice@v0.5.0
+        with:
+          command: review
+          since: ${{ github.event.pull_request.base.sha }}
+
+  dead:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cs6210501-lab/moon-slice@v0.5.0
+        with:
+          command: dead
+          args: --dir . --format sarif --out moon-slice.sarif
+      - uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: moon-slice.sarif
