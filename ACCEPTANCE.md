@@ -87,7 +87,7 @@ node web/smoke.mjs
   CLI smoke → committed bundle smoke → JS 重建 → rebuilt bundle smoke
 - `action` job：`uses: ./` 真实执行 `action.yml`（安装工具链、构建、`dead --dir src --fail-on-findings`）
 
-最近一次全绿：CI `40919898540`（`test` + `action`，263 tests），Pages `40919898469`。
+最近一次全绿：CI `41014834580`（`test` + `action`，284 tests，含 playground 预设检查），Pages `41014834554`。
 构建产物与线上页面均在上表中可查。
 
 ## 6. 可运行示例
