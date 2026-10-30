@@ -44,7 +44,9 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
 - 包级存活分析：`unused --dir D` 找出整个包内已无人调用的私有函数（以目录为包）。排除 `main`/`init`、`pub` API、方法与仅有声明的桩；名字在包内任何位置出现过即不报，命中即“全包只出现一次”。
 - CLI：`slice --interprocedural`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
-- 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用与条件位置，保留递归自环。
+- 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用、条件位置与限定调用 `T::f(x)`，保留递归自环。
+- 包级切片：`slice --dir D --file F --line N --interprocedural` 把被调函数追到 D 下任意文件（同文件优先），结果按文件分组；裸调用展开整个函数体，有返回值的调用只展开返回值 cone。
+- 反向查询：`callers --dir D --name F` 列出包内所有调用点及所属函数（`--json` 含 caller 字段），在 moonbitlang/x 的 time 包上找出 10 个 `Duration::parse_str` 调用点。
 - 改动影响分析：`review --diff`（配 `tools/review.sh`）对 git diff 的每个改动行做向前切片，汇总受影响行与函数。
 - 仓库级死代码扫描：`dead --dir D` 一次进程分析整棵源码树（跳过 `.git/_build/target/.mooncakes/node_modules`），解析失败按文件报告且不中断其他文件。
 - CI 集成：`dead --format sarif` 输出 SARIF 2.1.0（dead-store / unreachable-code 两条规则、artifact location、partialFingerprints）；`--write-baseline/--baseline` 记录并抑制存量；`--fail-on-findings` 仅对新增问题退出 1。
@@ -52,7 +54,7 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 真实仓库验证：`dead --dir` 在 moonbitlang/async（368 文件 / 50,388 行）与 moonbitlang/x（166 文件 / 37,595 行）上 100% 解析、0 死代码命中；批量扫描分别约 1.2 s / 1.0 s。自身仓库 7 处命中全部人工确认为真。
 - 包级存活验证：`unused --dir` 在 async、x、core 合计 1987 个文件上 0 误报；core 首轮命中的 4 个全部带官方 `#warnings("-unused_value")` 标注（故意不调用），分析已尊重该标注。
 - 真实提交验证：对 moonbitlang/x 提交 `4705764`（15 个改动行）做 review，正确报告 duration.mbt 影响 6 个函数/36 行、period.mbt 影响 3 个函数/4 行、测试文件 0 行。
-- 测试：284 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- 测试：294 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 精准度：独立预言器按"定义到使用存在一条不被重定义阻断的路径"重新推导
   reaching definitions，与工作列表算法逐对比较；另有种子化属性测试，每轮生成
@@ -78,7 +80,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 284/284 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 294/294 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`

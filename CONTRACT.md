@@ -42,6 +42,7 @@ Nothing outside `src/core` defines a type that another package depends on.
 | `src/cfg` … `src/pdg` | `core` only | import the parser or the adapter |
 | `src/slice`, `src/query` | `core` | reach into the AST |
 | `src/liveness` | `moonbitlang/parser` | duplicate the IR passes |
+| `src/interproc` | `core`, the passes, `query` | import the AST directly |
 | `src/report` | `core` | know about the CLI |
 | `cmd/main` | everything | contain analysis logic |
 
@@ -79,6 +80,12 @@ pub fn forward(pdg : @core.Pdg, target : Int) -> @core.SliceResult
 // src/liveness
 pub fn collect(path : String, source : String) -> FileFacts
 pub fn unused_functions(facts : Array[FileFacts]) -> Array[UnusedFn]
+
+// src/interproc
+pub fn build_file(path : String, source : String, precise? : Bool = false) -> PackageFile?
+pub fn index(files : Array[PackageFile]) -> PackageIndex
+pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult) -> Array[FileSlice]
+pub fn callers(index : PackageIndex, name : String) -> Array[CallSiteRef]
 
 // src/report
 pub fn to_json(program : @core.Program, result : @core.SliceResult) -> String

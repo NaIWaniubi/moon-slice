@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.6.0" version
+expect_eq "moon-slice 0.7.0" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -227,12 +227,88 @@ if(!r.message.text.includes("never referenced")) throw new Error("bad message");
 expect_fail "not a directory" unused --dir examples/does_not_exist
 expect_json_error missing_dir unused --file examples/01_let.mbt
 
+# Package-scope slicing: the callee lives in a sibling file, so the single-file
+# expansion cannot see it. `--dir D --file F` makes the package the scope.
+tmp_pkg="$(mktemp -d)"
+cat > "$tmp_pkg/a.mbt" <<'MBT'
+fn main_fn(x : Int) -> Int {
+  twice(x)
+}
+MBT
+cat > "$tmp_pkg/b.mbt" <<'MBT'
+fn inc(x : Int) -> Int {
+  x + 1
+}
+
+fn twice(x : Int) -> Int {
+  let a = inc(x)
+  let b = inc(a)
+  b
+}
+MBT
+# Absolute paths are platform-dependent (the shell's /tmp becomes a Windows path
+# in the binary), so the assertions name files by suffix.
+pkg_line="$(run slice --dir "$tmp_pkg" --file "$tmp_pkg/a.mbt" --line 2)"
+printf '%s' "$pkg_line" | grep -Fq "a.mbt: 2"
+if printf '%s' "$pkg_line" | grep -Fq "b.mbt"; then
+  printf 'FAIL: package slice expanded without --interprocedural
+  got: %s
+' "$pkg_line" >&2
+  exit 1
+fi
+pkg_cross="$(run slice --dir "$tmp_pkg" --file "$tmp_pkg/a.mbt" --line 2 --interprocedural)"
+printf '%s' "$pkg_cross" | grep -Fq "a.mbt: 2"
+printf '%s' "$pkg_cross" | grep -Fq "b.mbt: 2,6,7,8"
+slice_pkg_out="$(mktemp)"
+run slice --dir "$tmp_pkg" --file "$tmp_pkg/a.mbt" --line 2 --interprocedural --json > "$slice_pkg_out"
+node -e '
+const fs=require("fs");
+const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
+if(j.files.length!==2) throw new Error("expected 2 files, got "+j.files.length);
+const b=j.files.find(f=>f.file.endsWith("b.mbt"));
+if(!b) throw new Error("no b.mbt record");
+if(JSON.stringify(b.lines)!==JSON.stringify([2,6,7,8])) throw new Error("bad b.mbt lines: "+b.lines);
+if(b.nodes.length===0) throw new Error("no nodes");
+if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+' "$slice_pkg_out"
+expect_json_error missing_file slice --dir "$tmp_pkg" --line 2
+
+# `callers`: who calls a function, across the package. Qualified calls
+# (`T::f(x)`) count; receiver calls do not, because the receiver's type is
+# unknown and guessing would invent a call.
+expect_contains "a.mbt:2: main_fn" callers --dir "$tmp_pkg" --name twice
+expect_eq "" callers --dir "$tmp_pkg" --name nobody_calls_this
+callers_json="$(run callers --dir "$tmp_pkg" --name twice --json)"
+printf '%s' "$callers_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.name!=="twice") throw new Error("bad name");
+  if(j.callers.length!==1) throw new Error("expected 1 caller, got "+j.callers.length);
+  const c=j.callers[0];
+  if(!c.file.endsWith("a.mbt")||c.line!==2||c.caller!=="main_fn") throw new Error("bad caller: "+JSON.stringify(c));
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+});'
+cat >> "$tmp_pkg/b.mbt" <<'MBT'
+
+fn T::qualified(x : Int) -> Int {
+  x * 2
+}
+MBT
+cat >> "$tmp_pkg/a.mbt" <<'MBT'
+
+fn uses_qualified() -> Int {
+  T::qualified(3)
+}
+MBT
+expect_contains "a.mbt:6: uses_qualified" callers --dir "$tmp_pkg" --name qualified
+expect_eq "" callers --dir "$tmp_pkg" --name unqualified_missing
+
 # Interprocedural return cone
 expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}" "${tmp_unused_base:-}" "${unused_sarif:-}" "${unused_json_out:-}"' EXIT
+trap 'rm -rf "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}" "${tmp_unused_base:-}" "${unused_sarif:-}" "${unused_json_out:-}" "${tmp_pkg:-}" "${slice_pkg_out:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"

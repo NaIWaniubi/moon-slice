@@ -160,6 +160,41 @@ package — comments included — suppresses the finding. A function annotated
 `#warnings("-unused_value")` is the author saying it is intentionally unused, and
 is not reported.
 
+## 10b. Slicing across a package, and who calls a function
+
+```bash
+mkdir -p pkg && cat > pkg/a.mbt <<'MBT'
+fn main_fn(x : Int) -> Int {
+  twice(x)
+}
+MBT
+cat > pkg/b.mbt <<'MBT'
+fn inc(x : Int) -> Int {
+  x + 1
+}
+
+fn twice(x : Int) -> Int {
+  let a = inc(x)
+  let b = inc(a)
+  b
+}
+MBT
+
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2
+# pkg/a.mbt: 2
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural
+# pkg/a.mbt: 2
+# pkg/b.mbt: 2,6,7,8
+./dev.sh run cmd/main -- callers --dir pkg --name inc
+# pkg/b.mbt:6: twice
+# pkg/b.mbt:7: twice
+```
+
+The slice is reported per file, because a node id only means something inside the
+program it came from. `callers` is the mirror question, and both see qualified
+calls (`T::f(x)`); receiver calls (`x.f()`) are not followed, because the
+receiver's type is unknown and guessing would invent a call.
+
 ## 11. CI output: SARIF, baseline, gate
 
 ```bash
@@ -186,6 +221,6 @@ node web/smoke.mjs
 node web/presets.mjs
 ```
 
-Expected: 0 errors, `Total tests: 284, passed: 284, failed: 0`,
+Expected: 0 errors, `Total tests: 294, passed: 294, failed: 0`,
 `corpus ok: 10 examples, headers and expected.json agree`, `cli smoke ok`,
 `web smoke ok: 7006 bytes`, `playground presets ok`.

@@ -98,3 +98,18 @@ test "pattern tuple binding defines every component" {
   bind.defs.each(fn(d) { names.push(d.name) })
   assert_eq(names, ["a", "b"])
 }
+
+///|
+test "a qualified call is recorded by its function name" {
+  // `T::helper(x)` and `x.helper()` share an AST shape, and both name the
+  // function `helper`. Recording that segment is what lets `callers` and the
+  // interprocedural expansion see method and qualified calls.
+  let source = "fn T::helper(x : Int) -> Int {\n  x + 1\n}\n\nfn caller() -> Int {\n  T::helper(1)\n}\n"
+  let program = parse_source(source, "q.mbt")
+  assert_eq(program.errors.length(), 0)
+  let callees : Array[String] = []
+  for call in program.calls {
+    callees.push(call.callee)
+  }
+  assert_true(callees.contains("helper"))
+}

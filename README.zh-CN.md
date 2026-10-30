@@ -46,7 +46,7 @@ git clone https://github.com/cs6210501-lab/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 284 个测试
+./dev.sh test                  # 294 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -156,6 +156,39 @@ action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就
 `unused_function` / `suppress_unused_v128_import_on_*` 的函数。细节与由此在
 moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
 
+## 跨文件切片与 callers
+
+`slice --file F` 只看一个文件。加 `--dir D` 后，包成为分析单位：调用会被追到 `D`
+下定义该被调函数的那个文件。
+
+```bash
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2
+# pkg/a.mbt: 2
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural
+# pkg/a.mbt: 2
+# pkg/b.mbt: 2,6,7,8
+```
+
+结果按文件分组，因为节点编号只在它所属的程序里有意义。语义与单文件一致：裸调用
+贡献被调函数整个函数体，有返回值的调用只贡献返回值 cone（被调函数里的死存储不会
+被带进来），且可传递。同文件内定义优先于其他文件的同名函数。
+
+反向问题是一个独立命令：
+
+```bash
+./dev.sh run cmd/main -- callers --dir . --name baseline_key
+# cmd/main/main.mbt:352: filter_baseline
+# cmd/main/main.mbt:374: write_baseline_file
+# cmd/main/main.mbt:449: write_scan_baseline
+# cmd/main/main.mbt:573: run_dead_dir
+# cmd/main/main.mbt:613: write_unused_baseline
+# cmd/main/main.mbt:765: run_unused_dir
+```
+
+两者都能识别限定调用 `T::f(x)`——真实 MoonBit 代码就是这么调自己的函数的。接收者
+调用 `x.f()` 刻意不跟进：接收者类型未知，硬算成名为 `f` 的函数等于凭空造一次调用；
+这一条也有回归测试守着。
+
 ## 浏览器 playground（点行即切片）
 
 `web/index.html` 现在是一个小工具而不是文本框：**行号槽可点击**，点哪行就切哪行；
@@ -228,7 +261,7 @@ moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
 
 ## 工程
 
-- 284 个测试；库代码行覆盖率约 89%
+- 294 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

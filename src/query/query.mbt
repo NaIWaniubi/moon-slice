@@ -521,7 +521,9 @@ pub fn call_edges(program : @core.Program) -> Array[(String, String)] {
 }
 
 ///|
-fn function_named(
+///|
+/// The function a name resolves to inside one program, if any.
+pub fn function_named(
   program : @core.Program,
   name : String,
 ) -> @core.FunctionInfo? {
@@ -534,7 +536,11 @@ fn function_named(
 }
 
 ///|
-fn call_site_node(
+///|
+/// The node at `line` that calls `callee_name`, restricted to the caller's
+/// own node range. Name match first, line fallback second, because some
+/// unsupported forms do not keep the callee in `uses`.
+pub fn call_site_node(
   program : @core.Program,
   caller : @core.FunctionInfo,
   callee_name : String,
@@ -573,7 +579,7 @@ fn call_site_node(
 /// Nodes that can reach any return of `callee`. This is the callee's
 /// return-value cone: dead stores and branches that do not affect the return
 /// are excluded.
-fn return_cone(
+pub fn return_cone(
   program : @core.Program,
   pdg : @core.Pdg,
   callee : @core.FunctionInfo,

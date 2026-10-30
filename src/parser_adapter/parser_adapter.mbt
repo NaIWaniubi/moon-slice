@@ -259,11 +259,38 @@ impl @syntax.IterVisitor for CallCollector with fn visit_Expr_Apply(
             name,
             { start_line: loc.start.lnum, start_col: loc.start.column(), end_line: loc.end.lnum, end_col: loc.end.column() },
           ))
+        // `@pkg.f(x)` is a dotted callee: it names a function of another
+        // package. Recording the segment would make a local function of the
+        // same name look called, so it is deliberately not recorded here.
         Dot(..) => ()
       }
     _ => ()
   }
   @syntax.IterVisitor::visit_Expr_Apply(self.base(), func~, args~, loc~)
+}
+
+///|
+/// `T::f(x)` is a `Method` node: a type-qualified call, which names a function
+/// of that type explicitly. Recording it is what lets `callers`, the call graph
+/// and the interprocedural expansion see the calls real MoonBit code makes —
+/// `Duration::parse_str(str)` looked like a function nobody calls without it.
+///
+/// `x.f()` is a `DotApply` and is deliberately *not* recorded: the receiver's
+/// type is unknown here, so attributing it to a function named `f` would invent
+/// a call that does not exist. Receiver calls need type resolution, which this
+/// pass does not do.
+impl @syntax.IterVisitor for CallCollector with fn visit_Expr_Method(
+  env,
+  type_name~,
+  method_name~,
+  loc~,
+) {
+  ignore(type_name)
+  ignore(loc)
+  env.names.push((
+    method_name.name,
+    { start_line: method_name.loc.start.lnum, start_col: method_name.loc.start.column(), end_line: method_name.loc.end.lnum, end_col: method_name.loc.end.column() },
+  ))
 }
 
 ///|

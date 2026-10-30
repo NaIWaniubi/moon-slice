@@ -1,17 +1,17 @@
 # 验收对照表
 
 按「2026 MoonBit 国产基础软件开源大赛-10 月黑客松」验收指南逐条对照。所有
-命令都在仓库根目录执行；当前版本 `v0.6.0`，`master` 已有 50+ 个提交。
+命令都在仓库根目录执行；当前版本 `v0.7.0`，`master` 已有 50+ 个提交。
 
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/cs6210501-lab/moon-slice，50+ commits，tag `v0.6.0` |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/cs6210501-lab/moon-slice，50+ commits，tag `v0.7.0` |
 | 3 | 源代码结构清晰，核心功能可完成 | 通过 | 8 个库包 + CLI + playground；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
-| 7 | 完整测试覆盖核心路径 | 通过 | 284 个测试 + corpus + CLI smoke + web smoke |
+| 7 | 完整测试覆盖核心路径 | 通过 | 294 个测试 + corpus + CLI smoke + web smoke |
 | 8 | 发布到 mooncakes.io | **待完成** | 打包已验证；缺维护者 `moon login`，见 `PUBLISHING.md` |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
@@ -30,7 +30,7 @@ MoonBit。仓库里的 JavaScript 只做两件事：把同一份 MoonBit 源码�
 
 ```bash
 git rev-list --count HEAD   # 50+
-git tag --sort=-v:refname   # v0.6.0 v0.5.0 v0.4.2 ...
+git tag --sort=-v:refname   # v0.7.0 v0.6.0 v0.5.0 ...
 ```
 
 公开地址：https://github.com/cs6210501-lab/moon-slice
@@ -59,6 +59,9 @@ git tag --sort=-v:refname   # v0.6.0 v0.5.0 v0.4.2 ...
 ./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total
 # n1 L4 -> n5 L7
 ./dev.sh run cmd/main -- review --diff <unified diff>
+./dev.sh run cmd/main -- slice --dir cmd/main --file cmd/main/main.mbt --line 1086 --interprocedural
+./dev.sh run cmd/main -- callers --dir . --name baseline_key
+./dev.sh run cmd/main -- unused --dir src
 ```
 
 ## 4. README 与可复现性
@@ -110,7 +113,7 @@ node web/smoke.mjs
 
 ```bash
 ./dev.sh test
-# Total tests: 284, passed: 284, failed: 0.
+# Total tests: 294, passed: 294, failed: 0.
 ```
 
 覆盖层次：
@@ -136,7 +139,7 @@ bash tools/publish.sh   # 校验、打包、预览、确认后发布
 
 ```bash
 moon package
-# Package to .../_build/publish/chen-moon-slice-0.6.0.zip  (1012 KB, 134 files)
+# Package to .../_build/publish/chen-moon-slice-0.7.0.zip  (1023 KB, 138 files)
 ```
 
 若登录账号的命名空间不是 `chen`，`PUBLISHING.md` 给出了改模块名和 11 处

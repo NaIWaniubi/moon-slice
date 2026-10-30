@@ -75,7 +75,7 @@ fn prescan_json(argv : Array[String]) -> Bool {
 let json_mode : Array[Bool] = [false]
 
 ///|
-let tool_version : String = "0.6.0"
+let tool_version : String = "0.7.0"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise
@@ -106,6 +106,7 @@ fn known_command(command : String) -> Bool {
   command == "compare" ||
   command == "review" ||
   command == "unused" ||
+  command == "callers" ||
   command == "callgraph" ||
   command == "dead" ||
   command == "path" ||
@@ -825,6 +826,244 @@ fn run_unused_dir(
 }
 
 ///|
+fn slice_files_json(
+  slices : Array[@interproc.FileSlice],
+  errors : Array[String],
+) -> String {
+  let out = StringBuilder()
+  out.write_string("{\"files\":[")
+  let mut first = true
+  for file in slices {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string("{\"file\":")
+    out.write_string(@report.json_string(file.path))
+    out.write_string(",\"nodes\":[")
+    out.write_string(lines_text(file.nodes))
+    out.write_string("],\"lines\":[")
+    out.write_string(lines_text(file.lines))
+    out.write_string("]}")
+  }
+  out.write_string("],\"errors\":[")
+  first = true
+  for message in errors {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string(@report.json_string(message))
+  }
+  out.write_string("]}")
+  out.to_string()
+}
+
+///|
+/// Slice one file, with callees resolved across the whole `dir` tree.
+///
+/// `--interprocedural` decides whether callee bodies are pulled in; without it
+/// this is the same slice as `slice --file`, only reported per file so the
+/// caller never has to guess which file a line number belongs to.
+fn run_slice_package(
+  dir : String,
+  file : String,
+  line : Int32,
+  override_node : Int32?,
+  direction : String,
+  interproc : Bool,
+  precise : Bool,
+  json : Bool,
+  out_path : String,
+) -> Unit {
+  let is_directory = @fs.is_dir(dir) catch {
+    @fs.IOError(_) => false
+  }
+  if !is_directory {
+    fail_code("read_failed", "not a directory: \{dir}")
+  }
+  let target = normalize_path(file)
+  let paths : Array[String] = []
+  collect_mbt_files(dir, paths)
+  paths.sort_by(fn(a, b) { a.lexical_compare(b) })
+  let errors : Array[String] = []
+  let files : Array[@interproc.PackageFile] = []
+  let mut found_target = false
+  for path in paths {
+    let normalized = normalize_path(path)
+    match read_scan_file(path, errors) {
+      None => ()
+      Some(source) =>
+        match @interproc.build_file(normalized, source, precise~) {
+          None => errors.push(normalized + ": parser diagnostic(s)")
+          Some(built) => {
+            if normalized == target {
+              found_target = true
+            }
+            files.push(built)
+          }
+        }
+    }
+  }
+  if !found_target {
+    fail_code("missing_file", "\{file} is not a readable .mbt file under \{dir}")
+  }
+  let index = @interproc.index(files)
+  let mut target_file : @interproc.PackageFile? = None
+  for candidate in files {
+    if candidate.path == target {
+      target_file = Some(candidate)
+    }
+  }
+  let program = match target_file {
+    Some(built) => built.program
+    None => {
+      fail_code("missing_file", "\{file} is not a readable .mbt file under \{dir}")
+      return
+    }
+  }
+  let built = match target_file {
+    Some(value) => value
+    None => return
+  }
+  let node = select_target(program, line, override_node)
+  let sliced = if direction == "forward" {
+    @slice.forward(built.pdg, node, program=program)
+  } else {
+    @slice.backward(built.pdg, node, program=program)
+  }
+  let slices = if interproc {
+    @interproc.expand(index, target, sliced)
+  } else {
+    [
+      @interproc.FileSlice::{
+        path: target,
+        nodes: sliced.nodes,
+        lines: @query.visible_lines(program, sliced.nodes),
+      },
+    ]
+  }
+  let rendered = if json {
+    slice_files_json(slices, errors)
+  } else {
+    let text = StringBuilder()
+    let mut first = true
+    for slice in slices {
+      if !first {
+        text.write_char('\n')
+      }
+      first = false
+      text.write_string(slice.path)
+      text.write_string(": ")
+      text.write_string(lines_text(slice.lines))
+    }
+    let mut rendered = text.to_string()
+    for message in errors {
+      if rendered != "" {
+        rendered = rendered + "\n"
+      }
+      rendered = rendered + "# error: " + message
+    }
+    rendered
+  }
+  if out_path == "" {
+    println(rendered)
+  } else {
+    @fs.write_string_to_file(out_path, rendered) catch {
+      @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out_path}: \{msg}")
+    }
+    println("wrote \{out_path}")
+  }
+}
+
+///|
+fn run_callers(
+  dir : String,
+  name : String,
+  json : Bool,
+  out_path : String,
+) -> Unit {
+  let is_directory = @fs.is_dir(dir) catch {
+    @fs.IOError(_) => false
+  }
+  if !is_directory {
+    fail_code("read_failed", "not a directory: \{dir}")
+  }
+  let paths : Array[String] = []
+  collect_mbt_files(dir, paths)
+  paths.sort_by(fn(a, b) { a.lexical_compare(b) })
+  let errors : Array[String] = []
+  let files : Array[@interproc.PackageFile] = []
+  for path in paths {
+    match read_scan_file(path, errors) {
+      None => ()
+      Some(source) =>
+        match @interproc.build_file(normalize_path(path), source) {
+          None => errors.push(normalize_path(path) + ": parser diagnostic(s)")
+          Some(built) => files.push(built)
+        }
+    }
+  }
+  let found = @interproc.callers(@interproc.index(files), name)
+  let rendered = if json {
+    let out = StringBuilder()
+    out.write_string("{\"name\":")
+    out.write_string(@report.json_string(name))
+    out.write_string(",\"files\":")
+    out.write_string(files.length().to_string())
+    out.write_string(",\"callers\":[")
+    let mut first = true
+    for site in found {
+      if !first {
+        out.write_char(',')
+      }
+      first = false
+      out.write_string("{\"file\":")
+      out.write_string(@report.json_string(site.path))
+      out.write_string(",\"line\":")
+      out.write_string(site.line.to_string())
+      out.write_string(",\"caller\":")
+      out.write_string(@report.json_string(site.caller))
+      out.write_string("}")
+    }
+    out.write_string("],\"errors\":[")
+    first = true
+    for message in errors {
+      if !first {
+        out.write_char(',')
+      }
+      first = false
+      out.write_string(@report.json_string(message))
+    }
+    out.write_string("]}")
+    out.to_string()
+  } else {
+    let text = StringBuilder()
+    let mut first = true
+    for site in found {
+      if !first {
+        text.write_char('\n')
+      }
+      first = false
+      text.write_string(site.path)
+      text.write_char(':')
+      text.write_string(site.line.to_string())
+      text.write_string(": ")
+      text.write_string(site.caller)
+    }
+    text.to_string()
+  }
+  if out_path == "" {
+    println(rendered)
+  } else {
+    @fs.write_string_to_file(out_path, rendered) catch {
+      @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out_path}: \{msg}")
+    }
+    println("wrote \{out_path}")
+  }
+}
+
+///|
 fn main {
   let argv = @env.args()
   json_mode[0] = prescan_json(argv)
@@ -861,6 +1100,7 @@ fn main {
   let mut write_baseline = ""
   let mut fail_on_findings = false
   let mut dir_path = ""
+  let mut name_var = ""
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -896,6 +1136,9 @@ fn main {
       i = i + 1
     } else if arg == "--dir" {
       dir_path = require_value(argv, i, arg)
+      i = i + 2
+    } else if arg == "--name" {
+      name_var = require_value(argv, i, arg)
       i = i + 2
     } else if arg == "--out" {
       out = require_value(argv, i, arg)
@@ -953,9 +1196,45 @@ fn main {
     )
     return
   }
+  // Package-scope slicing: --dir D names the package root, --file F the file to
+  // slice inside it. Callees are then looked up across every file under D.
+  if command == "callers" {
+    if dir_path == "" {
+      fail_code("missing_dir", "callers scans a package: --dir D is required")
+    }
+    if name_var == "" {
+      fail_code("missing_name", "callers needs --name F: the function to look for")
+    }
+    if file != "" {
+      fail_code("bad_flag", "callers works on a package directory, not a single file")
+    }
+    run_callers(dir_path, name_var, json, out)
+    return
+  }
+  if dir_path != "" && command == "slice" {
+    if file == "" {
+      fail_code(
+        "missing_file",
+        "slice --dir D needs --file F: the file to slice inside D",
+      )
+    }
+    require_line(command, line)
+    run_slice_package(
+      dir_path,
+      file,
+      line.to_int64().to_int(),
+      node_override,
+      direction,
+      interproc,
+      precise_cdg,
+      json,
+      out,
+    )
+    return
+  }
   if dir_path != "" {
     if command != "dead" {
-      fail_code("bad_flag", "--dir is only supported by dead")
+      fail_code("bad_flag", "--dir is only supported by dead, unused and slice")
     }
     if file != "" {
       fail_code("bad_flag", "use either --file or --dir, not both")

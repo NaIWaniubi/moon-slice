@@ -3,22 +3,27 @@
 The shipped surface is listed in `README.md`. This file records what is
 deliberately missing and in what order it makes sense to add it.
 
+## Shipped in 0.6.0 / 0.7.0
+
+- **Cross-file expansion**: `slice --dir D` follows calls into sibling files.
+- **Unused private functions**: `unused --dir D`, calibrated on 1987 upstream
+  files.
+- **Who calls what**: `callers --dir D --name F`, including qualified calls
+  (`T::f(x)`).
+- **Click-to-slice playground** with per-example, per-direction checks in CI.
+
 ## Next
 
-1. **Cross-file call graph.** `dead --dir` analyses each file on its own, so a
-   private function called from a sibling file is still an unknown. A
-   package-level program (one `Program` per package, calls resolved across
-   files) would make unused-function detection sound and improve
-   `--interprocedural` beyond a single file.
-2. **Unused function detection.** Blocked on the previous item: without
-   visibility (`pub`) and cross-file calls it would produce false positives.
-3. **A format for suppressions inside source.** Baselines are per line and
+1. **Receiver calls.** `x.f()` is not followed: the receiver's type is unknown, so
+   attributing it would invent a call. Real type resolution would close the last
+   gap in the call graph and let `unused` see methods as well.
+2. **A format for suppressions inside source.** Baselines are per line and
    survive edits poorly. A comment form (`// moon-slice: ignore dead-store`) is
    cheaper for reviewers and travels with the code.
-4. **Editor integration.** The JSON contract is stable enough for a minimal
+3. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
-5. **More SARIF rules.** Today only `dead-store` and `unreachable-code`. A
-   `no-path` result for a declared source→sink pair is the natural third rule.
+4. **A path rule in SARIF.** `dead-store`, `unreachable-code` and
+   `unused-function` are reported today; `path --from A --to B` has no rule yet.
 
 ## Considered, not planned
 

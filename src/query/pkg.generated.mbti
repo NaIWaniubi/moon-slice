@@ -8,9 +8,13 @@ import {
 // Values
 pub fn call_edges(@core.Program) -> Array[(String, String)]
 
+pub fn call_site_node(@core.Program, @core.FunctionInfo, String, Int32, Array[Int32]) -> @core.SNode?
+
 pub fn dead_nodes(@core.Program, @core.DefUse) -> Array[Int32]
 
 pub fn expand_calls(@core.Program, @core.Pdg, @core.SliceResult) -> @core.SliceResult
+
+pub fn function_named(@core.Program, String) -> @core.FunctionInfo?
 
 pub fn lines_of(@core.Program, Array[Int32]) -> Array[Int32]
 
@@ -27,6 +31,8 @@ pub fn nodes_using_name(@core.Program, String) -> Array[Int32]
 pub fn nodes_with_name(@core.Program, String) -> Array[Int32]
 
 pub fn path_between(@core.Pdg, Array[Int32], Array[Int32], with_control? : Bool) -> Array[Int32]?
+
+pub fn return_cone(@core.Program, @core.Pdg, @core.FunctionInfo) -> Array[Int32]
 
 pub fn statement_candidates(@core.Program, Int32) -> Array[Int32]
 

@@ -180,6 +180,55 @@ fn suppress_unused_v128_import_on_js() -> Unit {
 宏展开都不建模；名字只要在包内任何位置出现过（含注释、属性、插值文本）就不再
 报告。因此它给出的每一条都要求“整个包里只出现一次”，代价是可能漏掉真死函数。
 
+## 跨文件切片与 callers（2026-10-30）
+
+`slice --dir D` 把包当作用域，`callers --dir D` 回答反向问题。两者都靠
+“限定调用 `T::f(x)` 也是一个调用”这一条：真实 MoonBit 代码大多这样调自己的函数。
+
+自举例子（在本仓库根目录，release 二进制）：
+
+```bash
+$ BIN slice --dir cmd/main --file cmd/main/main.mbt --line 1086 --interprocedural
+cmd/main/main.mbt: 84,85,87,89,122,123,124,126,980,982,986,987,991,1003,...
+cmd/main/review.mbt: 25,26,27,28,29,30,31,32,33,34,36,37,38,40,42,43,46,47,...
+```
+
+被切的第 1086 行是 `run_review(diff_path, json)`，`run_review` 定义在
+`cmd/main/review.mbt`。单文件模式只会给出 `main.mbt` 内的 47 行；跨文件展开把它
+在另一个文件里的整个函数体（100+ 行）以及它继续调用的 `parse_diff`、
+`review_file`、`functions_touching` 一并带出来。
+
+```bash
+$ BIN slice --dir cmd/main --file cmd/main/review.mbt --line 206 --direction forward
+cmd/main/review.mbt: 206,212,214,224,226,230,243,244,249,261
+```
+
+第 206 行是 `run_review` 里调用 `review_file` 的地方；向前切片给出这次调用的结果在
+本文件里流向了哪些语句。
+
+反向查询在真实仓库上：
+
+```bash
+# moonbitlang/x 的 time 包（5 个文件、10 个调用点）
+$ (cd /tmp/x/time && BIN callers --dir . --name parse_str)
+duration.mbt:65: from_string
+duration.mbt:132: from_str
+plain_date.mbt:75: from_string
+...
+# 本仓库
+$ BIN callers --dir . --name baseline_key
+cmd/main/main.mbt:352: filter_baseline
+cmd/main/main.mbt:374: write_baseline_file
+...
+```
+
+`Duration::parse_str(...)` 在修复前完全不可见：它是 `Method` 节点而不是 `Apply`，
+调用收集器没有看它的方法名，于是这些函数看起来“没人调用”。而 `x.f()`（`DotApply`）
+刻意不记录——接收者类型未知，算成同名函数就是凭空造调用，回归测试同时钉住这两条。
+
+不能证明什么：接收者调用（`x.f()`）、`@pkg.f(x)` 包限定调用、trait 动态派发都不跟进；
+同名跨文件冲突时按“同文件优先、同目录次之”的顺序选一个，属超近似。
+
 ## 这份验证不能证明什么
 
 - **不是“发现了上游 bug”**。两个上游仓库零命中，这是它们代码干净的证据，不是

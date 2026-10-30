@@ -25,7 +25,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (284 tests, including a
+All layers are implemented and covered by `moon test` (294 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -41,8 +41,9 @@ frozen; the CLI is usable.
 | Slicing | `src/slice` | implemented — backward/forward BFS |
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
 | Liveness | `src/liveness` | implemented — private functions nothing calls |
+| Package scope | `src/interproc` | implemented — cross-file expansion and callers |
 | Report | `src/report` | implemented — JSON, DOT, SARIF, inline SVG, HTML |
-| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead`, `unused`, `review`, `path`, `html`, debug dumps |
+| CLI | `cmd/main` | implemented — `slice` (file or package), `graph`, `callgraph`, `dead`, `unused`, `callers`, `review`, `path`, `html`, debug dumps |
 | Browser playground | `src/web`, `web/` | implemented — JS build + click-to-slice page |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
@@ -121,6 +122,8 @@ The JSON shapes are fixed, so a consumer can rely on them:
 | `dead --json` | `{"nodes":[..],"lines":[..],"errors":[..],"suppressed":N}` |
 | `dead --dir D --json` | `{"findings":[{"file","line","kind"}],"files","suppressed","errors"}` |
 | `unused --dir D --json` | `{"findings":[{"file","line","name"}],"packages","files","suppressed","errors"}` |
+| `slice --dir D --file F --json` | `{"files":[{"file","nodes","lines"}],"errors"}` |
+| `callers --dir D --name F --json` | `{"name","files","callers":[{"file","line","caller"}],"errors"}` |
 | `dead --format sarif` | SARIF 2.1.0 (`runs[0].results[]`, `properties.files`) |
 | `path --json` with no path | `{"found":false}` |
 | `callgraph --json` | `[["caller","callee"],..]` |
@@ -419,6 +422,47 @@ nothing; on `moonbitlang/core` (1452 files) it finds four functions, every one o
 them named `unused_function` / `suppress_unused_v128_import_on_*` by the library
 itself. Details and the two false-positive classes this found in moon-slice are
 in [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
+
+## Slicing across a package
+
+`slice --file F` sees one file. With `--dir D` the package becomes the scope, so
+a call is followed into whichever file under `D` defines the callee:
+
+```bash
+# Callee in a sibling file: `twice` lives in b.mbt, the call site in a.mbt.
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2
+# pkg/a.mbt: 2
+./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural
+# pkg/a.mbt: 2
+# pkg/b.mbt: 2,6,7,8
+```
+
+The result is per file, because a node id only means something inside the program
+it came from. Semantics match the single-file expansion: a bare call contributes
+the callee's whole body, a value-returning call contributes only its
+return-value cone (so a dead store in the callee stays out), and expansion is
+transitive. A definition in the same file always wins over a same-named one
+elsewhere.
+
+The mirror question has its own command:
+
+```bash
+./dev.sh run cmd/main -- callers --dir . --name baseline_key
+# cmd/main/main.mbt:352: filter_baseline
+# cmd/main/main.mbt:374: write_baseline_file
+# cmd/main/main.mbt:449: write_scan_baseline
+# cmd/main/main.mbt:573: run_dead_dir
+# cmd/main/main.mbt:613: write_unused_baseline
+# cmd/main/main.mbt:765: run_unused_dir
+```
+
+Both work through qualified calls (`T::f(x)`), which is how most MoonBit code
+calls its own functions. Receiver calls (`x.f()`) are deliberately not followed:
+the receiver's type is unknown here, so attributing the call to a function named
+`f` would invent a call — a regression test pins that too.
+
+Slicing itself: [docs/CASE_STUDY.md](docs/CASE_STUDY.md) records the package-scope
+run on moon-slice's own `main.mbt` → `review.mbt` call.
 
 ## CI integration
 

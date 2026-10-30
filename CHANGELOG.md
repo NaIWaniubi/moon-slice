@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.7.0 — 2026-10-30
+
+The analysis became package-scoped: calls are followed into sibling files, and
+the mirror question — who calls this — has a command.
+
+- **`slice --dir D --file F --line N [--interprocedural]`.** With `--dir`, the
+  package is the scope: callees are looked up across every `.mbt` file under `D`
+  instead of only the file being sliced. A bare call contributes the callee's
+  whole body, a value-returning call contributes its return-value cone, and the
+  result is reported per file because a node id only means something inside the
+  program it came from. Verified on moon-slice itself: slicing the
+  `run_review(...)` call in `cmd/main/main.mbt` pulls in 100+ lines from
+  `cmd/main/review.mbt`.
+- **`callers --dir D --name F`.** Every call site of `F` in the package, with the
+  enclosing function; `--json` adds the caller names. On `moonbitlang/x`'s time
+  package it lists the ten `Duration::parse_str` / `Period::parse_str` call sites
+  across five files.
+- **Qualified calls are now recorded.** `T::f(x)` is a `Method` node, a
+  type-qualified reference to a function of that type, and recording it is what
+  makes the two commands above work on real code — before this,
+  `Duration::parse_str(str)`, which is how most MoonBit code calls its own
+  functions, looked like a function nobody calls. `x.f()` is a `DotApply` and is
+  deliberately *not* recorded: the receiver's type is unknown here, so
+  attributing it to a function named `f` would invent a call. A regression test
+  pins both halves.
+- **`src/interproc`**: the package index and the two queries, with its own tests
+  (cross-file expansion, return-cone precision, transitivity, local-wins,
+  unknown callee, unparsable files, qualified vs receiver calls).
+- **294 tests.** CI now also checks the playground presets, and the CLI smoke
+  covers package-scope slicing and `callers`.
+
 ## 0.6.0 — 2026-10-30
 
 Dead code now means two things, and the browser demo became a tool.

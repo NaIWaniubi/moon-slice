@@ -1,0 +1,48 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/interproc"
+
+import {
+  "chen/moon-slice/src/core",
+}
+
+// Values
+pub fn build_file(String, String, precise? : Bool) -> PackageFile?
+
+pub fn callers(PackageIndex, String) -> Array[CallSiteRef]
+
+pub fn expand(PackageIndex, String, @core.SliceResult) -> Array[FileSlice]
+
+pub fn files_in_package(PackageIndex, String) -> Array[String]
+
+pub fn index(Array[PackageFile]) -> PackageIndex
+
+pub fn package_dir(String) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct CallSiteRef {
+  path : String
+  line : Int32
+  caller : String
+}
+
+pub(all) struct FileSlice {
+  path : String
+  nodes : Array[Int32]
+  lines : Array[Int32]
+}
+
+pub(all) struct PackageFile {
+  path : String
+  program : @core.Program
+  pdg : @core.Pdg
+}
+
+pub(all) struct PackageIndex {
+  files : Array[PackageFile]
+}
+
+// Type aliases
+
+// Traits

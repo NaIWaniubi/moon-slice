@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-30 (v0.6.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-30 (v0.7.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 284, passed: 284, failed: 0` |
+| `./dev.sh test` | `Total tests: 294, passed: 294, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -44,8 +44,38 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `unused --dir examples --write-baseline` then `--baseline --fail-on-findings` | gate exits 1 before the baseline, 0 after it |
 | `unused --dir examples --format sarif` | `ruleId=unused-function`, `ruleIndex=2`, artifact URI and line present |
 | `node web/presets.mjs` | all 5 page examples resolve; backward `4,5,6,7,8`, forward `7,10`, interprocedural `2,6,7,8,12` through the JS engine |
+| `slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural` | `pkg/a.mbt: 2` and `pkg/b.mbt: 2,6,7,8` — callee in a sibling file |
+| `slice --dir cmd/main --file cmd/main/main.mbt --line 1086 --interprocedural` | `cmd/main/main.mbt` (47 lines) plus 100+ lines from `cmd/main/review.mbt` |
+| `callers --dir . --name baseline_key` | 6 call sites in `cmd/main/main.mbt` with their enclosing functions |
+| `callers --dir . --name parse_str` (in /tmp/x/time) | 10 call sites across 5 files — qualified `Duration::parse_str(...)` calls |
 | `node web/playground_e2e.mjs .` | passes on 3 consecutive runs (gutter, status and escaping) |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
+
+## 0.7.0 package-scope analysis (2026-10-30)
+
+1. **`slice --dir D --file F --line N [--interprocedural]`** follows calls into
+   any file under `D`, reporting the slice per file because a node id only means
+   something inside its own program. A bare call contributes the callee's whole
+   body, a value-returning call its return-value cone; expansion is transitive and
+   a same-file definition wins over a same-named one elsewhere. On moon-slice
+   itself, slicing `run_review(...)` at `cmd/main/main.mbt:1086` adds 100+ lines
+   from `cmd/main/review.mbt`.
+2. **`callers --dir D --name F`** lists every call site of `F` in the package with
+   the enclosing function, as text or JSON. On the `time` package of
+   `moonbitlang/x` it finds the ten `Duration::parse_str` / `Period::parse_str`
+   call sites across five files.
+3. **Qualified calls are recorded.** `T::f(x)` is an `Expr::Method` — an explicit
+   type-qualified reference — and recording it is what made points 1 and 2 work on
+   real code. Before this, code called its own functions in a way the tool could
+   not see. `x.f()` (`Expr::DotApply`) is deliberately *not* recorded: without the
+   receiver's type, attributing it to a function named `f` would invent a call.
+   Both halves have regression tests, including the existing test that caught the
+   first attempt at this change.
+4. **`src/interproc`** holds the package index, the expansion and the callers
+   query, with nine tests of its own.
+5. **Tests: 294.** New: cross-file expansion, return-cone precision across files,
+   transitivity, local-wins, unknown callee, unparsable files, qualified vs
+   receiver calls, and CLI smoke for both new commands.
 
 ## 0.6.0 liveness and playground (2026-10-30)
 
@@ -353,7 +383,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 284 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 294 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings
@@ -368,6 +398,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] diff-aware impact analysis (`review`, `tools/review.sh`)
 - [x] real-world validation over 585 files / 98,384 lines with 0 false positives
 - [x] package liveness over 1987 files (async, x, core) with 0 false positives
+- [x] cross-file expansion and a `callers` query, both covered by CLI smoke
 - [x] click-to-slice playground with preset and direction checks in CI
   (`docs/CASE_STUDY.md`, `tools/scan.mjs`)
 - [x] 500-statement benchmark (see `bench/README.md`)
