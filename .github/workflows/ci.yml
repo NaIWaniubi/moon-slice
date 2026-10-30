@@ -55,6 +55,12 @@ jobs:
       - name: Smoke the rebuilt bundle
         run: node web/smoke.mjs
 
+      # Every example the playground offers, plus each direction, through the
+      # JavaScript engine. Catches a mistyped preset line or a direction that
+      # silently stops being honoured.
+      - name: Check playground presets
+        run: node web/presets.mjs
+
   # Exercise action.yml the way a consumer does: GitHub resolves the composite
   # action, the action installs MoonBit, builds the pinned source, and scans a
   # tree. `src/` has no findings, so the --fail-on-findings gate stays green.

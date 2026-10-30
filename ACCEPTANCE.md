@@ -11,7 +11,7 @@
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
-| 7 | 完整测试覆盖核心路径 | 通过 | 263 个测试 + corpus + CLI smoke + web smoke |
+| 7 | 完整测试覆盖核心路径 | 通过 | 284 个测试 + corpus + CLI smoke + web smoke |
 | 8 | 发布到 mooncakes.io | **待完成** | 打包已验证；缺维护者 `moon login`，见 `PUBLISHING.md` |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
@@ -110,7 +110,7 @@ node web/smoke.mjs
 
 ```bash
 ./dev.sh test
-# Total tests: 263, passed: 263, failed: 0.
+# Total tests: 284, passed: 284, failed: 0.
 ```
 
 覆盖层次：

@@ -46,7 +46,7 @@ git clone https://github.com/cs6210501-lab/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 263 个测试
+./dev.sh test                  # 284 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -125,6 +125,47 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 
 action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就是实际运行的版本。
 
+## 死代码与无人调用的函数
+
+两个问题、两个命令。`dead` 看函数内部：
+
+```bash
+./dev.sh run cmd/main -- dead --file examples/08_dead_assignment.mbt   # 4,5
+./dev.sh run cmd/main -- dead --dir examples
+```
+
+`unused` 看整个包：私有函数对同包所有文件可见，所以“还有没有人调用它”只能在
+包（目录）这一级回答，按文件问必然是错的。
+
+```bash
+./dev.sh run cmd/main -- unused --dir src      # 空
+./dev.sh run cmd/main -- unused --dir examples # 10 处：示例本身就是独立片段
+```
+
+它刻意保守，每条规则都来自真实代码打脸：
+
+- **入口点不报**：`main` 和 `init` 由运行时调用；
+- **`pub` 是 API**，永不报告；
+- **方法不在范围内**：`impl T with fn m` 与 `fn T::m(self)` 走点号或 trait 派发，
+  本 pass 不建模；
+- **名字只要在包内出现过就不再报告**（包括注释、属性、插值文本），因此留下的
+  只有“整个包里只出现一次”的名字——也就是它的定义本身。
+
+在 `moonbitlang/async`（368 文件）与 `moonbitlang/x`（166 文件）上零命中；
+在 `moonbitlang/core`（1452 文件）上命中 4 个，全部是官方自己命名为
+`unused_function` / `suppress_unused_v128_import_on_*` 的函数。细节与由此在
+moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
+
+## 浏览器 playground（点行即切片）
+
+`web/index.html` 现在是一个小工具而不是文本框：**行号槽可点击**，点哪行就切哪行；
+行号槽用绿色标出切片、琥珀色标出目标行（数据来自报告内嵌的 JSON，报告本身仍可
+单独打开）；内置 5 个示例（while、match、死存储、过程间、遮蔽）各自带目标行与
+方向；编辑后自动重跑，`Ctrl`+`Enter` 立即执行；**Copy link** 把源码、行号、方向
+写进 URL。`web/presets.mjs` 会逐个示例、逐个方向用 JS 引擎核对，数字与 CLI 一致。
+
+截图见 `docs/playground.png`。
+
 ## 两种控制依赖，一屏看清差别
 
 结构化 CDG 便宜但会过度近似；`--precise` 用后支配计算精确控制依赖。`compare`
@@ -187,7 +228,7 @@ action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就
 
 ## 工程
 
-- 263 个测试；库代码行覆盖率约 89%
+- 284 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

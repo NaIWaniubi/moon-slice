@@ -5,62 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>moon-slice playground</title>
 <style>
-:root{--bg:#0f1115;--panel:#151922;--line:#2b2f3a;--text:#d7dae0;--muted:#9aa0a6;--accent:#ffb74d;--blue:#8ab4f8}
+:root{--bg:#0f1115;--panel:#151922;--line:#2b2f3a;--text:#d7dae0;--muted:#9aa0a6;--accent:#ffb74d;--blue:#8ab4f8;--hit:#1f3b2a;--hitfg:#b7f7c1}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:ui-monospace,Menlo,Consolas,monospace}
-header{display:flex;align-items:baseline;gap:1rem;padding:1.2rem 1.5rem;border-bottom:1px solid var(--line)}
+header{display:flex;align-items:baseline;gap:1rem;padding:1rem 1.5rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
 header h1{margin:0;font-size:1.1rem}
 header h1 span{color:var(--accent)}
 header p{margin:0;color:var(--muted);font-size:.85rem}
-main{display:grid;grid-template-columns:minmax(360px,42%) 1fr;gap:1rem;padding:1rem 1.5rem}
+main{display:grid;grid-template-columns:minmax(380px,44%) 1fr;gap:1rem;padding:1rem 1.5rem}
 section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.8rem}
 label{display:block;color:var(--muted);font-size:.8rem;margin:.2rem 0 .35rem}
-textarea{width:100%;height:46vh;resize:vertical;background:#0b0e13;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:.7rem;font:inherit;font-size:.85rem;line-height:1.5}
-.controls{display:flex;flex-wrap:wrap;gap:.8rem;align-items:end;margin-top:.7rem}
-.controls input,.controls select{background:#0b0e13;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:.4rem .5rem;font:inherit}
-.controls input[type=number]{width:6rem}
-button{background:var(--accent);color:#1b1200;border:0;border-radius:6px;padding:.5rem .9rem;font:inherit;font-weight:700;cursor:pointer}
+.toolbar{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin-bottom:.6rem}
+.toolbar label{margin:0}
+select,input[type=number]{background:#0b0e13;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:.35rem .45rem;font:inherit;font-size:.82rem}
+input[type=number]{width:5.2rem}
+button{background:var(--accent);color:#1b1200;border:0;border-radius:6px;padding:.45rem .85rem;font:inherit;font-weight:700;cursor:pointer}
+button.ghost{background:#222836;color:var(--text);font-weight:400}
 button:hover{filter:brightness(1.08)}
+.editor{display:flex;border:1px solid var(--line);border-radius:8px;background:#0b0e13;overflow:hidden;height:46vh}
+.gutter{flex:0 0 auto;overflow:hidden;padding:.7rem .35rem .7rem .5rem;text-align:right;color:#5c6370;font-size:.85rem;line-height:1.5;user-select:none}
+.gutter i{display:block;font-style:normal;padding:0 .15rem;border-radius:3px;cursor:pointer}
+.gutter i:hover{color:var(--text);background:#1b2130}
+.gutter i.hit{color:var(--hitfg);background:var(--hit)}
+.gutter i.target{background:var(--accent);color:#1b1200;font-weight:700}
+textarea{flex:1 1 auto;width:100%;border:0;outline:0;resize:none;background:transparent;color:var(--text);padding:.7rem;font:inherit;font-size:.85rem;line-height:1.5;white-space:pre;overflow:auto}
 .hint{color:var(--muted);font-size:.78rem;margin:.6rem 0 0;line-height:1.5}
+.hint kbd{background:#222836;border:1px solid var(--line);border-radius:3px;padding:0 .25rem;font-size:.95em}
 .right{display:flex;flex-direction:column;gap:.5rem}
-.status{color:var(--muted);font-size:.78rem}
-iframe{width:100%;height:78vh;border:0;border-radius:8px;background:#0f1115}
-@media(max-width:900px){main{grid-template-columns:1fr}textarea{height:34vh}iframe{height:60vh}}
+.status{color:var(--muted);font-size:.78rem;min-height:1.1em}
+.status b{color:var(--text);font-weight:600}
+iframe{width:100%;height:76vh;border:0;border-radius:8px;background:#0f1115}
+@media(max-width:900px){main{grid-template-columns:1fr}.editor{height:34vh}iframe{height:60vh}}
 </style>
 </head>
 <body>
 <header>
   <h1>moon-slice <span>playground</span></h1>
-  <p>MoonBit → CFG → def-use → CDG → PDG → slice, compiled to JavaScript. No server.</p>
+  <p>MoonBit → CFG → def-use → CDG → PDG → slice, compiled to JavaScript. Click a line number to slice it. No server, no upload.</p>
 </header>
 <main>
   <section class="left">
-    <label for="source">MoonBit source</label>
-    <textarea id="source" spellcheck="false">// EXPECT-BACKWARD 7 -> [4, 5, 6, 7, 8]
-// EXPECT-FORWARD 7 -> [7, 10]
-fn loop_sum(n : Int) -> Int {
-  let mut i = 0
-  let mut total = 0
-  while i < n {
-    total = total + i // target
-    i = i + 1
-  }
-  return total
-}
-</textarea>
-    <div class="controls">
-      <label>Line <input id="line" type="number" value="7" min="1"></label>
-      <label>Node <input id="node" type="number" min="0" placeholder="auto" title="Optional: pick a specific node id when several statements share a line"></label>
+    <div class="toolbar">
+      <label>Example
+        <select id="example">
+          <option value="while">while loop</option>
+          <option value="match">match arms</option>
+          <option value="dead">dead stores</option>
+          <option value="interproc">interprocedural</option>
+          <option value="shadow">shadowing</option>
+        </select>
+      </label>
       <label>Direction
         <select id="direction">
           <option value="backward">backward</option>
           <option value="forward">forward</option>
-          <option value="interprocedural">interprocedural (backward)</option>
+          <option value="interprocedural">interprocedural</option>
         </select>
       </label>
+      <label>Line <input id="line" type="number" value="7" min="1"></label>
+      <label>Node <input id="node" type="number" min="0" placeholder="auto" title="Optional: pick a specific node id when several statements share a line"></label>
       <button id="run">Slice</button>
+      <button id="link" class="ghost" title="Copy a link that reopens this exact example">Copy link</button>
     </div>
-    <p class="hint">Target a statement line. Backward answers “where did this value come from?”, forward answers “what does this value affect?”, interprocedural expands callee return-value cones. If a line holds several statements, fill Node to choose one; otherwise the report says which node it used.</p>
+    <div class="editor">
+      <div class="gutter" id="gutter" aria-hidden="true"></div>
+      <textarea id="source" spellcheck="false" aria-label="MoonBit source"></textarea>
+    </div>
+    <p class="hint">Click a line number to slice that statement; the gutter marks the slice (<span style="color:var(--hitfg)">green</span>) and the target (<span style="background:var(--accent);color:#1b1200;padding:0 .2rem;border-radius:3px">amber</span>). Editing re-runs automatically after a pause; <kbd>Ctrl</kbd>+<kbd>Enter</kbd> runs now. Backward answers “where did this value come from?”, forward “what does this value affect?”, interprocedural expands callee return-value cones.</p>
   </section>
   <section class="right">
     <div class="status" id="status" role="status" aria-live="polite">loading engine…</div>
@@ -69,22 +80,87 @@ fn loop_sum(n : Int) -> Int {
   </section>
 </main>
 <script>
+  const EXAMPLES = {
+    while: {
+      line: 7,
+      source: "// EXPECT-BACKWARD 7 -> [4, 5, 6, 7, 8]\n// EXPECT-FORWARD 7 -> [7, 10]\nfn loop_sum(n : Int) -> Int {\n  let mut i = 0\n  let mut total = 0\n  while i < n {\n    total = total + i // target\n    i = i + 1\n  }\n  return total\n}\n",
+    },
+    match: {
+      line: 7,
+      source: "// EXPECT-BACKWARD 7 -> [5, 7]\n// EXPECT-FORWARD 7 -> [7, 10]\nfn classify(code : Int) -> Int {\n  let mut label = 0\n  match code {\n    0 => { label = 10 }\n    1 => { label = 20 } // target\n    _ => { label = 30 }\n  }\n  return label\n}\n",
+    },
+    dead: {
+      line: 6,
+      source: "// dead stores: lines 3 and 4 are overwritten before any read\nfn dead_store() -> Int {\n  let mut cache = 1\n  cache = 2\n  cache = 3\n  cache = cache + 4 // target\n  let result = cache * 2\n  return result\n}\n",
+    },
+    interproc: {
+      line: 12,
+      direction: "interprocedural",
+      source: "fn inc(x : Int) -> Int {\n  x + 1\n}\n\nfn twice(x : Int) -> Int {\n  let a = inc(x)\n  let b = inc(a)\n  b\n}\n\nfn main_fn(x : Int) -> Int {\n  twice(x) // target\n}\n",
+    },
+    shadow: {
+      line: 5,
+      source: "// `a` on line 3 is shadowed on line 4 and never read\nfn shadow() -> Int {\n  let a = 1\n  let a = 2\n  return a // target\n}\n",
+    },
+  };
+
+  const $ = (id) => document.getElementById(id);
+  const gutter = $('gutter');
+  const source = $('source');
+  const lineInput = $('line');
+  const nodeInput = $('node');
+  const out = $('out');
+  const status = $('status');
   let runSerial = 0;
+  let liveTimer = 0;
+  let sliceLines = [];
+  let targetLine = 0;
 
   function currentInput() {
     return {
-      direction: document.getElementById('direction').value,
-      line: document.getElementById('line').value,
-      node: document.getElementById('node').value,
-      source: document.getElementById('source').value,
+      direction: $('direction').value,
+      line: lineInput.value,
+      node: nodeInput.value,
+      source: source.value,
     };
   }
 
+  // --- gutter -------------------------------------------------------------
+
+  function paintGutter() {
+    const count = source.value.split('\n').length;
+    const target = Number(lineInput.value) || 0;
+    let html = '';
+    for (let n = 1; n <= count; n++) {
+      const classes = [];
+      if (sliceLines.includes(n)) classes.push('hit');
+      if (n === target) classes.push('target');
+      html += `<i class="${classes.join(' ')}" data-line="${n}">${n}</i>`;
+    }
+    gutter.innerHTML = html;
+    gutter.scrollTop = source.scrollTop;
+  }
+
+  gutter.addEventListener('click', (event) => {
+    const node = event.target.closest('i[data-line]');
+    if (!node) return;
+    lineInput.value = node.dataset.line;
+    nodeInput.value = '';
+    run();
+  });
+  source.addEventListener('scroll', () => { gutter.scrollTop = source.scrollTop; });
+  source.addEventListener('input', () => {
+    paintGutter();
+    clearTimeout(liveTimer);
+    liveTimer = setTimeout(run, 450);
+  });
+
+  // --- run loop -----------------------------------------------------------
+
   function run() {
     const serial = ++runSerial;
-    const old = document.getElementById('engine');
+    const old = $('engine');
     if (old) old.remove();
-    const status = document.getElementById('status');
     status.textContent = 'running…';
     const frame = document.createElement('iframe');
     frame.id = 'engine';
@@ -93,13 +169,12 @@ fn loop_sum(n : Int) -> Int {
     // The engine URL is stable on purpose: a fresh iframe gives each run a
     // fresh global scope, while the stable URL lets the browser reuse its
     // cached copy of the 10 MB bundle instead of re-downloading it per click.
-    const input = currentInput();
     const token = String(serial);
     const closeTag = '<' + '/script>';
     frame.srcdoc = `<!doctype html><script>
       globalThis.moonSliceReadInput = () => parent.moonSliceReadInput(${JSON.stringify(token)});
       globalThis.moonSliceWriteOutput = (html) => parent.moonSliceWriteOutput(${JSON.stringify(token)}, html);
-    ${closeTag}<script src="moon-slice.js?v=4">${closeTag}`;
+    ${closeTag}<script src="moon-slice.js?v=5">${closeTag}`;
     frame.onerror = () => {
       if (serial === runSerial) status.textContent = 'failed to load moon-slice.js — run bash web/build.sh';
     };
@@ -114,11 +189,92 @@ fn loop_sum(n : Int) -> Int {
 
   globalThis.moonSliceWriteOutput = (token, html) => {
     if (token !== String(runSerial)) return;
-    document.getElementById('out').srcdoc = html;
-    document.getElementById('status').textContent = 'rendered ' + html.length + ' bytes';
+    // Which run owns the panel. The load event fires later, and by then a newer
+    // run may already be in flight; the serial is what keeps a late load from
+    // repainting the gutter or the status with a stale result.
+    out.dataset.serial = token;
+    out.srcdoc = html;
+    status.textContent = 'rendered ' + html.length + ' bytes';
   };
 
-  document.getElementById('run').addEventListener('click', run);
+  // The report embeds its own machine-readable result. Reading it back is what
+  // turns the gutter into a slice map; it is also why the report can be opened
+  // on its own without losing information.
+  out.addEventListener('load', () => {
+    if (out.dataset.serial !== String(runSerial)) return;
+    let result = null;
+    try {
+      const el = out.contentDocument && out.contentDocument.getElementById('moon-slice-result');
+      if (el) result = JSON.parse(el.textContent);
+    } catch (error) {
+      result = null;
+    }
+    if (!result) return;
+    sliceLines = Array.isArray(result.lines) ? result.lines : [];
+    targetLine = result.target && result.target.line ? result.target.line : 0;
+    lineInput.value = String(targetLine || lineInput.value);
+    paintGutter();
+    const nodes = Array.isArray(result.nodes) ? result.nodes.length : 0;
+    status.innerHTML = 'rendered <b>' + nodes + '</b> node(s) · lines <b>' +
+      (sliceLines.length ? sliceLines.join(',') : 'none') +
+      '</b> · target line <b>' + targetLine + '</b>';
+  });
+
+  // --- examples, links, keys ---------------------------------------------
+
+  function load(name, keepLine) {
+    const example = EXAMPLES[name] || EXAMPLES.while;
+    source.value = example.source;
+    if (example.direction) $('direction').value = example.direction;
+    if (!keepLine) lineInput.value = String(example.line);
+    nodeInput.value = '';
+    sliceLines = [];
+    paintGutter();
+    run();
+  }
+
+  $('example').addEventListener('change', (event) => load(event.target.value));
+  $('direction').addEventListener('change', run);
+  $('run').addEventListener('click', run);
+  lineInput.addEventListener('change', run);
+  document.addEventListener('keydown', (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+      event.preventDefault();
+      run();
+    }
+  });
+  $('link').addEventListener('click', async () => {
+    const input = currentInput();
+    const payload = encodeURIComponent(JSON.stringify({
+      s: input.source, l: Number(input.line) || 1, d: input.direction,
+    }));
+    const url = location.origin + location.pathname + '#s=' + payload;
+    history.replaceState(null, '', '#s=' + payload);
+    try {
+      await navigator.clipboard.writeText(url);
+      status.innerHTML = 'link copied · ' + status.innerHTML;
+    } catch (error) {
+      status.innerHTML = 'link in the address bar · ' + status.innerHTML;
+    }
+  });
+
+  function fromHash() {
+    const hash = location.hash || '';
+    if (!hash.startsWith('#s=')) return false;
+    try {
+      const state = JSON.parse(decodeURIComponent(hash.slice(3)));
+      if (typeof state.s !== 'string') return false;
+      source.value = state.s;
+      lineInput.value = String(state.l || 1);
+      if (state.d) $('direction').value = state.d;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  if (!fromHash()) source.value = EXAMPLES.while.source;
+  paintGutter();
   window.addEventListener('DOMContentLoaded', run);
 </script>
 </body>

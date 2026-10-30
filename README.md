@@ -25,9 +25,10 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (263 tests, including a
-10-example end-to-end corpus, a path-based precision oracle, and a seeded
-property-based differential suite). The data model is frozen; the CLI is usable.
+All layers are implemented and covered by `moon test` (284 tests, including a
+10-example end-to-end corpus, a path-based precision oracle, a seeded
+property-based differential suite, and package-level liveness). The data model is
+frozen; the CLI is usable.
 
 | Layer | Package | State |
 | --- | --- | --- |
@@ -39,9 +40,10 @@ property-based differential suite). The data model is frozen; the CLI is usable.
 | PDG | `src/pdg` | implemented — data + control edges |
 | Slicing | `src/slice` | implemented — backward/forward BFS |
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
-| Report | `src/report` | implemented — JSON, DOT, inline SVG, HTML |
-| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead` (file or tree, SARIF, baseline), `review`, `path`, `html`, debug dumps |
-| Browser playground | `src/web`, `web/` | implemented — JS build + single page |
+| Liveness | `src/liveness` | implemented — private functions nothing calls |
+| Report | `src/report` | implemented — JSON, DOT, SARIF, inline SVG, HTML |
+| CLI | `cmd/main` | implemented — `slice`, `graph`, `callgraph`, `dead`, `unused`, `review`, `path`, `html`, debug dumps |
+| Browser playground | `src/web`, `web/` | implemented — JS build + click-to-slice page |
 | Example corpus | `examples/`, `testdata/` | 10 examples + expected JSON |
 
 ## Install
@@ -118,6 +120,7 @@ The JSON shapes are fixed, so a consumer can rely on them:
 | `slice` / `path --json` | `{"nodes":[..],"lines":[..],"errors":[..]}` |
 | `dead --json` | `{"nodes":[..],"lines":[..],"errors":[..],"suppressed":N}` |
 | `dead --dir D --json` | `{"findings":[{"file","line","kind"}],"files","suppressed","errors"}` |
+| `unused --dir D --json` | `{"findings":[{"file","line","name"}],"packages","files","suppressed","errors"}` |
 | `dead --format sarif` | SARIF 2.1.0 (`runs[0].results[]`, `properties.files`) |
 | `path --json` with no path | `{"found":false}` |
 | `callgraph --json` | `[["caller","callee"],..]` |
@@ -293,9 +296,20 @@ rendered example.
 ## Browser playground
 
 The same MoonBit pipeline compiles to JavaScript (`moon build --target js src/web`).
-`web/index.html` is a no-server playground: edit source, choose a line and
-direction, and the report renders in the iframe. The prebuilt engine is
-`web/moon-slice.js`; `web/build.sh` rebuilds it and `web/smoke.mjs` asserts it.
+`web/index.html` is a no-server playground that behaves like a small tool rather
+than a text box:
+
+- **the line gutter is clickable** — click a number to slice that statement;
+- the gutter **marks the slice in green and the target in amber**, painted from
+  the report's own embedded JSON, so the standalone report stays complete;
+- **five examples** ship with it (while, match, dead stores, interprocedural,
+  shadowing), each carrying its own target line and direction;
+- editing **re-runs automatically** after a pause, `Ctrl`+`Enter` runs at once;
+- **Copy link** puts the exact source, line and direction in the URL.
+
+The prebuilt engine is `web/moon-slice.js`; `web/build.sh` rebuilds it,
+`web/smoke.mjs` asserts it renders a full report, and `web/presets.mjs` checks
+every example *and* every direction against the same numbers the CLI documents.
 
 ![moon-slice playground](docs/playground.png)
 
@@ -371,19 +385,57 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `review --diff FILE`, so the analysis is testable without a git process and the
 wrapper is three lines of shell.
 
+## Dead code and unused functions
+
+Two questions, two commands. `dead` looks inside functions:
+
+```bash
+./dev.sh run cmd/main -- dead --file examples/08_dead_assignment.mbt   # 4,5
+./dev.sh run cmd/main -- dead --dir examples                          # the whole tree
+```
+
+`unused` looks at the package as a whole: a private function is visible to its
+whole package, so the question "does anything still call this?" can only be
+answered per package, not per file.
+
+```bash
+./dev.sh run cmd/main -- unused --dir src
+./dev.sh run cmd/main -- unused --dir examples        # 10 findings: the snippets are standalone
+```
+
+It is deliberately conservative, and each rule exists because real code broke the
+simpler version:
+
+- **entry points stay silent**: `main` and `init` are called by the runtime;
+- **`pub` functions are the API**, so they are never reported;
+- **methods are out of scope** — `impl T with fn m` and `fn T::m(self)` are
+  reached through dot syntax or trait dispatch, which this pass does not model;
+- **a name mentioned anywhere in the package suppresses the finding**, including
+  comments and interpolation text, so the report only contains names that occur
+  exactly once: at their own definition.
+
+On `moonbitlang/async` (368 files) and `moonbitlang/x` (166 files) it reports
+nothing; on `moonbitlang/core` (1452 files) it finds four functions, every one of
+them named `unused_function` / `suppress_unused_v128_import_on_*` by the library
+itself. Details and the two false-positive classes this found in moon-slice are
+in [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
+
 ## CI integration
 
-`dead --dir D` scans a tree in one command, skips `.git`, `_build`, `target`,
-`.mooncakes` and `node_modules`, and returns a stable order. It composes with
-SARIF, a baseline and a gate:
+`dead --dir D` and `unused --dir D` scan a tree in one command, skip `.git`,
+`_build`, `target`, `.mooncakes` and `node_modules`, and return a stable order.
+Both compose with SARIF, a baseline and a gate:
 
 ```bash
 # Upload findings to GitHub code scanning.
-./dev.sh run cmd/main -- dead --dir . --format sarif --out moon-slice.sarif
+./dev.sh run cmd/main -- dead   --dir . --format sarif --out dead.sarif
+./dev.sh run cmd/main -- unused --dir . --format sarif --out unused.sarif
 
 # Record today's findings, then fail only on new ones.
-./dev.sh run cmd/main -- dead --dir . --write-baseline .moon-slice-baseline
-./dev.sh run cmd/main -- dead --dir . --baseline .moon-slice-baseline --fail-on-findings
+./dev.sh run cmd/main -- dead   --dir . --write-baseline .moon-slice-baseline
+./dev.sh run cmd/main -- unused --dir . --write-baseline .moon-slice-baseline
+./dev.sh run cmd/main -- dead   --dir . --baseline .moon-slice-baseline --fail-on-findings
+./dev.sh run cmd/main -- unused --dir . --baseline .moon-slice-baseline --fail-on-findings
 ```
 
 The baseline is a text file of `path:line` entries; `--write-baseline` generates

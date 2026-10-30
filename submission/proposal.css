@@ -1,11 +1,11 @@
-@page { size: A4; margin: 8mm 10mm; }
-html { font-size: 8.2pt; }
-body { font-family: "Microsoft YaHei", "Noto Sans CJK SC", "PingFang SC", sans-serif; line-height: 1.24; color: #111; margin: 0; }
+@page { size: A4; margin: 7mm 9mm; }
+html { font-size: 7.9pt; }
+body { font-family: "Microsoft YaHei", "Noto Sans CJK SC", "PingFang SC", sans-serif; line-height: 1.2; color: #111; margin: 0; }
 h1 { font-size: 13.5pt; margin: 0 0 1.4mm; line-height: 1.15; }
 blockquote { margin: 0 0 2mm; padding: 1mm 2.5mm; background: #f5f7fa; border-left: 1.8pt solid #999; font-size: 7.6pt; line-height: 1.25; }
 blockquote p { margin: 0; }
-h2 { font-size: 9.2pt; margin: 1.4mm 0 0.5mm; border-bottom: 0.3pt solid #bbb; padding-bottom: 0.2mm; break-after: avoid; }
-p { margin: 0 0 0.5mm; }
+h2 { font-size: 9pt; margin: 1.1mm 0 0.4mm; border-bottom: 0.3pt solid #bbb; padding-bottom: 0.2mm; break-after: avoid; }
+p { margin: 0 0 0.45mm; }
 ul, ol { margin: 0 0 0.7mm; padding-left: 4.5mm; }
 li { margin: 0 0 0.1mm; break-inside: avoid; }
 code { font-family: Consolas, "Courier New", monospace; font-size: 7.8pt; background: #f2f2f2; padding: 0 0.4mm; }

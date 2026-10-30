@@ -245,10 +245,10 @@ test "sarif classifies dead stores and unreachable code" {
     [1, 2],
     [1],
     1,
-    "0.5.0",
+    "0.6.0",
   )
   assert_true(sarif.contains("\"version\":\"2.1.0\""))
-  assert_true(sarif.contains("\"version\":\"0.5.0\""))
+  assert_true(sarif.contains("\"version\":\"0.6.0\""))
   // Windows separators become URI separators.
   assert_true(sarif.contains("\"uri\":\"src/sample.mbt\""))
   assert_true(sarif.contains("\"ruleId\":\"dead-store\""))
@@ -262,7 +262,7 @@ test "sarif classifies dead stores and unreachable code" {
 
 ///|
 test "sarif is valid with no findings" {
-  let sarif = @report.to_sarif("a.mbt", sample_program(), [], [], 0, "0.5.0")
+  let sarif = @report.to_sarif("a.mbt", sample_program(), [], [], 0, "0.6.0")
   assert_true(sarif.contains("\"results\":[]"))
   assert_true(sarif.contains("\"suppressed\":0"))
 }
@@ -287,7 +287,7 @@ test "sarif findings merge files and expose scan counts" {
     @report.SarifFinding::{ file: "a.mbt", line: 3, rule: "dead-store", message: "m1" },
     @report.SarifFinding::{ file: "b.mbt", line: 9, rule: "unreachable-code", message: "m2" },
   ]
-  let sarif = @report.to_sarif_findings(findings, 2, "0.5.0", 7, 1)
+  let sarif = @report.to_sarif_findings(findings, 2, "0.6.0", 7, 1)
   assert_true(sarif.contains("\"uri\":\"a.mbt\""))
   assert_true(sarif.contains("\"uri\":\"b.mbt\""))
   assert_true(sarif.contains("\"ruleId\":\"dead-store\""))

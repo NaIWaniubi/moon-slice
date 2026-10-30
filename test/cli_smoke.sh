@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.5.0" version
+expect_eq "moon-slice 0.6.0" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -178,12 +178,61 @@ fi
 expect_fail "use either --file or --dir" dead --dir examples --file examples/01_let.mbt
 expect_fail "not a directory" dead --dir examples/does_not_exist.mbt
 
+# Package liveness: a private function nothing in its package calls. The
+# examples are standalone snippets, so every one of them is reported.
+expect_contains "examples/04_while.mbt:3: loop_sum" unused --dir examples
+unused_json_out="$(mktemp)"
+run unused --dir examples --json > "$unused_json_out"
+node -e '
+const fs=require("fs");
+const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
+if(j.packages!==1) throw new Error("packages != 1: "+j.packages);
+if(j.files!==10) throw new Error("files != 10: "+j.files);
+if(j.findings.length!==10) throw new Error("findings != 10: "+j.findings.length);
+if(j.suppressed!==0) throw new Error("suppressed != 0");
+if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+if(typeof j.findings[0].name!=="string") throw new Error("bad name field");
+' "$unused_json_out"
+tmp_unused_base="$(mktemp)"
+expect_contains "10 finding(s)" unused --dir examples --write-baseline "$tmp_unused_base"
+expect_eq "" unused --dir examples --baseline "$tmp_unused_base"
+set +e
+run unused --dir examples --baseline "$tmp_unused_base" --fail-on-findings >/dev/null
+unused_rc=$?
+set -e
+if [ "$unused_rc" -ne 0 ]; then
+  printf 'FAIL: unused baseline gate exit %s (expected 0)
+' "$unused_rc" >&2
+  exit 1
+fi
+set +e
+run unused --dir examples --fail-on-findings >/dev/null
+unused_rc=$?
+set -e
+if [ "$unused_rc" -ne 1 ]; then
+  printf 'FAIL: unused gate exit %s (expected 1)
+' "$unused_rc" >&2
+  exit 1
+fi
+unused_sarif="$(mktemp)"
+run unused --dir examples --format sarif --out "$unused_sarif" >/dev/null
+node -e '
+const fs=require("fs");
+const run=JSON.parse(fs.readFileSync(process.argv[1],"utf8")).runs[0];
+if(run.results.length!==10) throw new Error("sarif results != 10");
+const r=run.results[0];
+if(r.ruleId!=="unused-function"||r.ruleIndex!==2) throw new Error("bad rule");
+if(!r.message.text.includes("never referenced")) throw new Error("bad message");
+' "$unused_sarif"
+expect_fail "not a directory" unused --dir examples/does_not_exist
+expect_json_error missing_dir unused --file examples/01_let.mbt
+
 # Interprocedural return cone
 expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction backward --interprocedural
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}"' EXIT
+trap 'rm -f "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}" "${tmp_unused_base:-}" "${unused_sarif:-}" "${unused_json_out:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"

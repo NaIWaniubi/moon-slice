@@ -24,6 +24,8 @@ fn usage() -> Unit {
     "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
     "  dead  --dir D [--json] [--format sarif] [--out FILE]  scan a tree\n" +
     "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
+    "  unused --dir D [--json] [--format sarif] [--out FILE]  private functions\n" +
+    "        [--fail-on-findings]                     nothing calls anymore\n" +
     "  path  --file F --from VAR --to VAR [--json]\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
@@ -36,14 +38,14 @@ fn usage() -> Unit {
     "              over-approximations. Works with slice/graph/dead/html.\n" +
     "  --json      machine-readable output; failures become\n" +
     "              {\"error\":{\"code\":..,\"message\":..}} and still exit 2.\n" +
-    "  --format sarif   (dead only) SARIF 2.1.0 for code-scanning uploads.\n" +
+    "  --format sarif   (dead, unused) SARIF 2.1.0 for code-scanning uploads.\n" +
     "  --baseline FILE  (dead only) hide findings listed in FILE. The file is\n" +
     "              the output of a previous --write-baseline run.\n" +
     "  --write-baseline FILE  record the current findings and exit.\n" +
-    "  --fail-on-findings     (dead only) exit 1 when a finding remains after\n" +
+    "  --fail-on-findings     (dead, unused) exit 1 when a finding remains after\n" +
     "              baseline filtering; output is written first.\n" +
-    "  --dir D     (dead only) scan every .mbt file under D. Mutually exclusive\n" +
-    "              with --file; parse failures are reported, not fatal.\n" +
+    "  --dir D     (dead, unused) scan every .mbt file under D. Mutually\n" +
+    "              exclusive with --file; parse failures are reported, not fatal.\n" +
     "\n" +
     "Exit codes: 0 success, 1 findings with --fail-on-findings, 2 usage error,\n" +
     "unreadable input, parse error or write failure. When a line holds several\n" +
@@ -73,7 +75,7 @@ fn prescan_json(argv : Array[String]) -> Bool {
 let json_mode : Array[Bool] = [false]
 
 ///|
-let tool_version : String = "0.5.0"
+let tool_version : String = "0.6.0"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise
@@ -103,6 +105,7 @@ fn known_command(command : String) -> Bool {
   command == "graph" ||
   command == "compare" ||
   command == "review" ||
+  command == "unused" ||
   command == "callgraph" ||
   command == "dead" ||
   command == "path" ||
@@ -600,6 +603,228 @@ fn run_dead_dir(
 }
 
 ///|
+fn write_unused_baseline(path : String, unused : Array[@liveness.UnusedFn]) -> Unit {
+  let out = StringBuilder()
+  out.write_string("# moon-slice baseline v1\n")
+  out.write_string("# path:line, one finding per line\n")
+  let mut previous = ""
+  for item in unused {
+    let key = baseline_key(item.path, item.line)
+    if key != previous {
+      out.write_string(key)
+      out.write_char('\n')
+      previous = key
+    }
+  }
+  @fs.write_string_to_file(path, out.to_string()) catch {
+    @fs.IOError(msg) => fail_code("write_failed", "failed to write \{path}: \{msg}")
+  }
+  println("wrote \{path} (\{unused.length()} finding(s))")
+}
+
+///|
+/// The directory a file belongs to. In MoonBit a package is one directory, so
+/// this is the unit the liveness question is asked about.
+fn package_key(path : String) -> String {
+  let normalized = normalize_path(path)
+  let mut last_separator = -1
+  let mut index = 0
+  for ch in normalized.iter() {
+    if ch == '/' {
+      last_separator = index
+    }
+    index = index + 1
+  }
+  if last_separator < 0 {
+    "."
+  } else {
+    normalized[:last_separator].to_owned()
+  }
+}
+
+///|
+fn add_facts(
+  groups : Array[(String, Array[@liveness.FileFacts])],
+  facts : @liveness.FileFacts,
+) -> Unit {
+  let key = package_key(facts.path)
+  let mut index = -1
+  let mut i = 0
+  while i < groups.length() {
+    if groups[i].0 == key {
+      index = i
+    }
+    i = i + 1
+  }
+  if index >= 0 {
+    groups[index].1.push(facts)
+  } else {
+    groups.push((key, [facts]))
+  }
+}
+
+///|
+fn unused_json(
+  unused : Array[@liveness.UnusedFn],
+  packages : Int,
+  files : Int,
+  suppressed : Int,
+  errors : Array[String],
+) -> String {
+  let out = StringBuilder()
+  out.write_string("{\"findings\":[")
+  let mut first = true
+  for item in unused {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string("{\"file\":")
+    out.write_string(@report.json_string(item.path))
+    out.write_string(",\"line\":")
+    out.write_string(item.line.to_string())
+    out.write_string(",\"name\":")
+    out.write_string(@report.json_string(item.name))
+    out.write_string("}")
+  }
+  out.write_string("],\"packages\":")
+  out.write_string(packages.to_string())
+  out.write_string(",\"files\":")
+  out.write_string(files.to_string())
+  out.write_string(",\"suppressed\":")
+  out.write_string(suppressed.to_string())
+  out.write_string(",\"errors\":[")
+  first = true
+  for message in errors {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string(@report.json_string(message))
+  }
+  out.write_string("]}")
+  out.to_string()
+}
+
+///|
+/// Report private free functions that nothing in their package references.
+///
+/// The unit of analysis is the package (one directory), because that is the
+/// scope a private function is visible in; a file-local answer would be wrong
+/// for callers in sibling files.
+fn run_unused_dir(
+  dir : String,
+  format : String,
+  json : Bool,
+  out_path : String,
+  baseline_path : String,
+  write_baseline : String,
+  fail_on_findings : Bool,
+) -> Unit {
+  let paths : Array[String] = []
+  let is_directory = @fs.is_dir(dir) catch {
+    @fs.IOError(_) => false
+  }
+  if !is_directory {
+    fail_code("read_failed", "not a directory: \{dir}")
+  }
+  collect_mbt_files(dir, paths)
+  paths.sort_by(fn(a, b) { a.lexical_compare(b) })
+  let errors : Array[String] = []
+  let groups : Array[(String, Array[@liveness.FileFacts])] = []
+  let mut scanned = 0
+  for path in paths {
+    match read_scan_file(path, errors) {
+      None => ()
+      Some(source) => {
+        scanned = scanned + 1
+        add_facts(groups, @liveness.collect(normalize_path(path), source))
+      }
+    }
+  }
+  groups.sort_by(fn(a, b) { a.0.lexical_compare(b.0) })
+  let all : Array[@liveness.UnusedFn] = []
+  for group in groups {
+    for item in @liveness.unused_functions(group.1) {
+      all.push(item)
+    }
+  }
+  if write_baseline != "" {
+    write_unused_baseline(write_baseline, all)
+    return
+  }
+  let baseline = if baseline_path == "" {
+    Set([])
+  } else {
+    parse_baseline(read_source(baseline_path))
+  }
+  let unused : Array[@liveness.UnusedFn] = []
+  let mut suppressed = 0
+  for item in all {
+    if baseline.contains(baseline_key(item.path, item.line)) {
+      suppressed = suppressed + 1
+    } else {
+      unused.push(item)
+    }
+  }
+  let findings : Array[@report.SarifFinding] = []
+  for item in unused {
+    findings.push(@report.SarifFinding::{
+      file: item.path,
+      line: item.line,
+      rule: "unused-function",
+      message: "private function `" +
+        item.name +
+        "` is never referenced in its package",
+    })
+  }
+  let rendered = if format == "sarif" {
+    @report.to_sarif_findings(
+      findings,
+      suppressed,
+      tool_version,
+      scanned,
+      errors.length(),
+    )
+  } else if json {
+    unused_json(unused, groups.length(), scanned, suppressed, errors)
+  } else {
+    let text = StringBuilder()
+    let mut first = true
+    for item in unused {
+      if !first {
+        text.write_char('\n')
+      }
+      first = false
+      text.write_string(item.path)
+      text.write_char(':')
+      text.write_string(item.line.to_string())
+      text.write_string(": ")
+      text.write_string(item.name)
+    }
+    let mut rendered = text.to_string()
+    for message in errors {
+      if rendered != "" {
+        rendered = rendered + "\n"
+      }
+      rendered = rendered + "# error: " + message
+    }
+    rendered
+  }
+  if out_path == "" {
+    println(rendered)
+  } else {
+    @fs.write_string_to_file(out_path, rendered) catch {
+      @fs.IOError(msg) => fail_code("write_failed", "failed to write \{out_path}: \{msg}")
+    }
+    println("wrote \{out_path}")
+  }
+  if fail_on_findings && unused.length() > 0 {
+    @sys.exit(1)
+  }
+}
+
+///|
 fn main {
   let argv = @env.args()
   json_mode[0] = prescan_json(argv)
@@ -656,8 +881,8 @@ fn main {
       if format != "dot" && format != "json" && format != "sarif" {
         fail_code("bad_format", "unsupported --format \{format} (use dot, json, or sarif)")
       }
-      if format == "sarif" && command != "dead" {
-        fail_code("bad_format", "--format sarif is only supported by dead")
+      if format == "sarif" && command != "dead" && command != "unused" {
+        fail_code("bad_format", "--format sarif is only supported by dead and unused")
       }
       i = i + 2
     } else if arg == "--baseline" {
@@ -710,6 +935,24 @@ fn main {
     run_review(diff_path, json)
     return
   }
+  if command == "unused" {
+    if dir_path == "" {
+      fail_code("missing_dir", "unused scans a package: --dir D is required")
+    }
+    if file != "" {
+      fail_code("bad_flag", "unused works on a package directory, not a single file")
+    }
+    run_unused_dir(
+      dir_path,
+      format,
+      json,
+      out,
+      baseline_path,
+      write_baseline,
+      fail_on_findings,
+    )
+    return
+  }
   if dir_path != "" {
     if command != "dead" {
       fail_code("bad_flag", "--dir is only supported by dead")
@@ -741,8 +984,11 @@ fn main {
   if baseline_path != "" && write_baseline != "" {
     fail_code("bad_flag", "use either --baseline or --write-baseline, not both")
   }
-  if fail_on_findings && command != "dead" {
-    fail_code("bad_flag", "--fail-on-findings is only supported by dead")
+  if fail_on_findings && command != "dead" && command != "unused" {
+    fail_code(
+      "bad_flag",
+      "--fail-on-findings is only supported by dead and unused",
+    )
   }
   let source = read_source(file)
   let (program, cfg, defuse, pdg) = analyze(source, file, precise_cdg)

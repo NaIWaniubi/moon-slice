@@ -1,14 +1,44 @@
 # Changelog
 
-## Unreleased
+## 0.6.0 — 2026-10-30
 
-- Added whitebox tests for the diff parser and the file-level review helper
-  (hunk coordinates, deleted files, context lines, unparsable input, function
-  attribution). Suite is now 263 tests.
-- Added `ACCEPTANCE.md` (the nine review items with evidence), `PUBLISHING.md`
+Dead code now means two things, and the browser demo became a tool.
+
+- **`unused --dir D`** answers the question `dead` could not: which private
+  functions does nothing in the package call? The unit is the package (one
+  directory), because that is the scope a private function is visible in; a
+  file-local answer would be wrong for callers in sibling files. Entry points
+  (`main`, `init`), `pub` functions, methods (both `impl` and `fn T::m(self)`)
+  and declaration-only stubs are excluded, and the result is filtered by an
+  identifier scan over the whole package, so a name mentioned anywhere — a
+  comment, an attribute, interpolation text — suppresses the finding.
+- **Two false-positive classes found on real code and fixed**, each with a
+  regression: `fn Decode::_use_decode_debug(self)` is a method, not a free
+  function (`moonbitlang/x`), and `fn init { ... }` is a package initialiser the
+  runtime calls (`moonbitlang/async`). After the fixes both repositories report
+  nothing: 534 files, 0 findings.
+- **Validation on the standard library**: `moonbitlang/core@56256d0`, 1452
+  files, 4 findings — every one a function the library itself named
+  `unused_function` / `suppress_unused_v128_import_on_*`. Exact, not noisy.
+- **Baselines and the gate work for `unused` too**: `--write-baseline`,
+  `--baseline` and `--fail-on-findings`, plus `--format sarif` with the new
+  `unused-function` rule (index 2), so findings land in code scanning.
+- **The playground is a tool now.** A clickable line gutter slices whatever line
+  you click, marks the slice in green and the target in amber, offers five
+  examples (including an interprocedural one), re-runs after edits, supports
+  `Ctrl`+`Enter`, and can copy a link that reopens the exact example. The slice
+  map is read back from the report's embedded JSON, so the report stays a
+  standalone artefact.
+- **`web/presets.mjs`** checks every example the page offers *and* every
+  direction through the JavaScript engine, with the same numbers the CLI
+  documents; wired into CI.
+- **284 tests.** New coverage: 19 liveness cases, the engine flow
+  (`web_engine_test.mbt`), and the playground preset/direction matrix.
+
+- **Also in this release**: whitebox tests for the diff parser and the review
+  helper, `ACCEPTANCE.md` (the nine review items with evidence), `PUBLISHING.md`
   (verified packaging, credentials format, namespace rename), `THIRD_PARTY.md`,
-  and `tools/publish.sh`.
-- CI now runs an explicit native release build between check and test.
+  `tools/publish.sh`, and an explicit native release build step in CI.
 
 ## 0.5.0 — 2026-10-29
 

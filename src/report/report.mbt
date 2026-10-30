@@ -607,7 +607,7 @@ pub fn to_html(
     target_node.to_string() +
     " on line " +
     target_line.to_string()
-  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.5.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
+  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.6.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
   metrics +
@@ -776,6 +776,16 @@ pub(all) struct SarifFinding {
 }
 
 ///|
+/// The index of `rule` in the `rules` array above, in the same order.
+fn sarif_rule_index(rule : String) -> String {
+  match rule {
+    "dead-store" => "0"
+    "unreachable-code" => "1"
+    _ => "2"
+  }
+}
+
+///|
 /// Merge any number of files into one SARIF run. `files` is how many files were
 /// analysed and `parse_failures` how many could not be parsed; both are exposed
 /// as run properties so a CI job can tell "clean" from "did not look".
@@ -792,14 +802,13 @@ pub fn to_sarif_findings(
   )
   out.write_string(json_string(version))
   out.write_string(
-    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"}]}},",
+    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unused-function\",\"name\":\"UnusedFunction\",\"shortDescription\":{\"text\":\"A private function nothing in its package references\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"}]}},",
   )
   out.write_string("\"invocations\":[{\"executionSuccessful\":")
   out.write_string(if parse_failures == 0 { "true" } else { "false" })
   out.write_string("}],\"results\":[")
   let mut first = true
   for finding in findings {
-    let is_dead = finding.rule == "dead-store"
     if !first {
       out.write_char(',')
     }
@@ -807,7 +816,7 @@ pub fn to_sarif_findings(
     out.write_string("{\"ruleId\":")
     out.write_string(json_string(finding.rule))
     out.write_string(",\"ruleIndex\":")
-    out.write_string(if is_dead { "0" } else { "1" })
+    out.write_string(sarif_rule_index(finding.rule))
     out.write_string(",\"level\":\"warning\",\"message\":{\"text\":")
     out.write_string(json_string(finding.message))
     out.write_string("},\"locations\":[{\"physicalLocation\":{\"artifactLocation\":{\"uri\":")

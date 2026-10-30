@@ -42,6 +42,7 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 切片：backward / forward，输出节点集合与源码行号。
 - 报告：JSON、DOT、自包含 HTML（内联 SVG 依赖图 + 源码高亮 + 切片节点表）。
 - 查询：`dead`（无使用定义 + 不可达代码）、`path`（source→sink 数据流路径）。
+- 包级存活分析：`unused --dir D` 找出整个包内已无人调用的私有函数（以目录为包）。排除 `main`/`init`、`pub` API、方法与仅有声明的桩；名字在包内任何位置出现过即不报，命中即“全包只出现一次”。
 - CLI：`slice --interprocedural`、`graph`、`callgraph`、`dead`、`path`、`html`，以及 `dump-*` 调试命令。
 - 过程间：基于 `Program.calls` 的返回值 cone 展开（裸调用语句展开整个函数体）；调用图覆盖 let/assign/return、嵌套调用与条件位置，保留递归自环。
 - 改动影响分析：`review --diff`（配 `tools/review.sh`）对 git diff 的每个改动行做向前切片，汇总受影响行与函数。
@@ -49,8 +50,9 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - CI 集成：`dead --format sarif` 输出 SARIF 2.1.0（dead-store / unreachable-code 两条规则、artifact location、partialFingerprints）；`--write-baseline/--baseline` 记录并抑制存量；`--fail-on-findings` 仅对新增问题退出 1。
 - GitHub Action：`action.yml` 封装安装/构建/执行，`templates/review-workflow.yml` 同时接入 PR 影响面报告与 code-scanning 上传。
 - 真实仓库验证：`dead --dir` 在 moonbitlang/async（368 文件 / 50,388 行）与 moonbitlang/x（166 文件 / 37,595 行）上 100% 解析、0 死代码命中；批量扫描分别约 1.2 s / 1.0 s。自身仓库 7 处命中全部人工确认为真。
+- 包级存活验证：`unused --dir` 在 async、x、core 合计 1987 个文件上 0 误报；core 首轮命中的 4 个全部带官方 `#warnings("-unused_value")` 标注（故意不调用），分析已尊重该标注。
 - 真实提交验证：对 moonbitlang/x 提交 `4705764`（15 个改动行）做 review，正确报告 duration.mbt 影响 6 个函数/36 行、period.mbt 影响 3 个函数/4 行、测试文件 0 行。
-- 测试：263 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
+- 测试：284 个测试，含 parser smoke、CFG 精确边、def-use、切片节点集合、
   10 个示例的端到端断言、路径查询与不可达回归；`moon check` 0 warning。
 - 精准度：独立预言器按"定义到使用存在一条不被重定义阻断的路径"重新推导
   reaching definitions，与工作列表算法逐对比较；另有种子化属性测试，每轮生成
@@ -60,7 +62,7 @@ moon-slice 是一个面向 MoonBit 的开发者工具。用户选中一个变量
 - 性能：32000 条语句的直线函数，`dead` 0.80 s、`graph` 0.74 s、`slice` 1.55 s
   （native release，`bench/bench.mjs` 可复现）。
 - 工程化：GitHub Actions CI、可复现的 32000 语句性能基准、零网络依赖报告。
-- 浏览器 playground：同一 MoonBit 管线编译到 JavaScript，单页编辑/选行/切片，开箱即用。
+- 浏览器 playground：同一管线编译到 JavaScript；点击行号即切片，行号槽标出切片/目标行，内置 5 个示例与 Copy link；`web/presets.mjs` 逐示例逐方向用 JS 引擎核对，数字与 CLI 一致。
 
 ## 6. 原创 / 移植说明
 
@@ -76,7 +78,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 8. 预期验收
 
-- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 263/263 通过。
+- `./dev.sh check` 0 errors / 0 warnings；`./dev.sh test` 284/284 通过。
 - `./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward`
   输出 `4,5,6,7,8`；forward 输出 `7,10`。
 - `./dev.sh run cmd/main -- path --file examples/04_while.mbt --from i --to total`

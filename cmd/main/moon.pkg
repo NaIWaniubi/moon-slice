@@ -8,6 +8,7 @@ import {
   "chen/moon-slice/src/slice",
   "chen/moon-slice/src/report",
   "chen/moon-slice/src/query",
+  "chen/moon-slice/src/liveness",
   "moonbitlang/x/fs",
   "moonbitlang/x/sys",
   "moonbitlang/core/env",

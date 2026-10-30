@@ -122,6 +122,64 @@ review: 4 file(s), 15 changed line(s), 40 affected line(s)
 是 0，符合预期（测试只调用 API，没有内部数据依赖）。这就是 review 想回答的
 问题：**一个 diff 在表面之外还动了什么**。
 
+## 无人调用的私有函数（`unused`）
+
+`dead` 只看函数内部；“这个私有函数还有人调用吗”必须在**包**这一级回答，因为私有
+函数对同包所有文件可见：按文件问，兄弟文件里的调用会漏，反过来也会多报。
+
+```bash
+./dev.sh build --target native --release cmd/main
+BIN=_build/native/release/build/cmd/main/main.exe
+(cd /tmp/async && $BIN unused --dir .)
+(cd /tmp/x     && $BIN unused --dir .)
+(cd /tmp/core  && $BIN unused --dir .)
+```
+
+结果（2026-10-30，耗时取 3 次最小值）：
+
+| 仓库 | commit | 文件 | 包 | 首轮命中 | 修完误报后 | 耗时 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `moonbitlang/async` | `cc2d5d8` | 369 | 54 | 16 | 0 | 1.09 s |
+| `moonbitlang/x` | `4705764` | 166 | 25 | 1 | 0 | 1.14 s |
+| `moonbitlang/core` | `56256d0` | 1452 | 140 | 4 | 0 | 6.93 s |
+| **合计** | | **1987** | **219** | **21** | **0** | |
+
+首轮 21 处命中暴露了分析自身的两类误报，两类都在真实代码上才暴露出来：
+
+| # | 症状 | 根因 | 修复 |
+| --- | --- | --- | --- |
+| 1 | async 里 16 个 `fn init` 被判“无人调用” | `init` 是包初始化器，由运行时调用 | `main` 与 `init` 都算入口点 |
+| 2 | x 的 `Decode::_use_decode_debug` 被判“无人调用” | `fn T::m(self)` 写在 `impl` 块外也是方法，走点号调用 | 带 `type_name` 的声明不是候选 |
+
+修完这两类，async 与 x 都是 0。然后换更大的语料：`moonbitlang/core` 1452 个文件、
+140 个包，命中 4 个：
+
+```text
+encoding/ascii/decode.mbt:25: suppress_unused_v128_import_on_js
+encoding/utf16/decode.mbt:27: suppress_unused_v128_import_on_js
+env/env.mbt:82: unused_function
+json/json.mbt:428: suppress_unused_v128_import_on_scalar_targets
+```
+
+逐个看过：这 4 个全部带着官方自己的标注，函数体只是为了保住一个 import：
+
+```moonbit
+#cfg(target="js")
+#warnings("-unused_value")
+fn suppress_unused_v128_import_on_js() -> Unit {
+  ignore(@v128.i8x16_splat(0))
+}
+```
+
+这就是精确度的另一种证明：**不是 0 命中才叫好，而是命中的正好是该命中的。** 工具在
+1452 个文件里独立挑出来的，正好是标准库显式声明“这里就是故意不调用”的那 4 个。
+既然作者已经用 `#warnings("-unused_value")` 写明了意图，分析现在直接尊重这个标注
+（等价于 Rust 的 `#[allow(dead_code)]`），于是三个仓库合计 1987 个文件 0 命中。
+
+这份分析保守的地方，也说清楚：方法（`impl` 与 `fn T::m(self)`）、trait 派发、
+宏展开都不建模；名字只要在包内任何位置出现过（含注释、属性、插值文本）就不再
+报告。因此它给出的每一条都要求“整个包里只出现一次”，代价是可能漏掉真死函数。
+
 ## 这份验证不能证明什么
 
 - **不是“发现了上游 bug”**。两个上游仓库零命中，这是它们代码干净的证据，不是

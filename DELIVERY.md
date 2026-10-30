@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-29 (v0.5.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
+Date: 2026-10-30 (v0.6.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
 Live playground: https://cs6210501-lab.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 263, passed: 263, failed: 0` |
+| `./dev.sh test` | `Total tests: 284, passed: 284, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -37,7 +37,44 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | `dead --format sarif --out F` | parses as SARIF 2.1.0; 2 results on `examples/08`, rules/locations/fingerprints present |
 | `dead --write-baseline` then `--baseline` | 2 findings → empty output, `"suppressed":2`; `--fail-on-findings` exits 1 before, 0 after |
 | `action` steps simulated in /tmp/x | `review --diff .moon-slice/pr.diff` reports 4 files / 15 changed / 40 affected; `dead --dir . --format sarif` returns 0 findings |
+| `unused --dir .` (release) in /tmp/async | 369 files, 54 packages, 0 findings, 0 parse failures; 1.09 s |
+| `unused --dir .` (release) in /tmp/x | 166 files, 0 findings; 1.14 s |
+| `unused --dir .` (release) in /tmp/core | 1452 files, 140 packages, 0 findings; 6.93 s |
+| `unused --dir examples --json` | 10 findings, `packages=1`, `files=10`, `suppressed=0`, `errors=[]` |
+| `unused --dir examples --write-baseline` then `--baseline --fail-on-findings` | gate exits 1 before the baseline, 0 after it |
+| `unused --dir examples --format sarif` | `ruleId=unused-function`, `ruleIndex=2`, artifact URI and line present |
+| `node web/presets.mjs` | all 5 page examples resolve; backward `4,5,6,7,8`, forward `7,10`, interprocedural `2,6,7,8,12` through the JS engine |
+| `node web/playground_e2e.mjs .` | passes on 3 consecutive runs (gutter, status and escaping) |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
+
+## 0.6.0 liveness and playground (2026-10-30)
+
+1. **`unused --dir D`** answers what `dead` cannot: which private functions the
+   package no longer calls. It works per package (one directory), because that is
+   the scope a private function is visible in. Entry points (`main`, `init`),
+   `pub` functions, methods — `impl T with fn m` and `fn T::m(self)` — and
+   declaration-only stubs are excluded, and a name that occurs anywhere else in
+   the package suppresses the finding.
+2. **Two false-positive classes found on real code and fixed**, each with a
+   regression: `fn Decode::_use_decode_debug(self)` in `moonbitlang/x` is a
+   method, and `fn init` in `moonbitlang/async`'s setup files is a package
+   initialiser. The first scan of those two repositories produced 17 findings,
+   all of them these two shapes; after the fixes the same scan produces none.
+3. **Calibrated on the standard library.** `moonbitlang/core@56256d0`, 1452
+   files, 140 packages: the first pass named 4 functions, and every one of them
+   carries the library's own `#warnings("-unused_value")` opt-out
+   (`unused_function`, `suppress_unused_v128_import_on_js` ×2,
+   `suppress_unused_v128_import_on_scalar_targets`). The pass now honours that
+   attribute, so all three corpora report nothing: **1987 files, 0 findings, 0
+   parse failures**.
+4. **The playground became a tool**: clickable line gutter, slice/target markers
+   painted from the report's embedded JSON, five examples with their own target
+   and direction, auto re-run after edits, `Ctrl`+`Enter`, and a copy-link
+   button. `web/presets.mjs` checks every example and every direction through the
+   JavaScript engine with the same numbers the CLI documents, and CI runs it.
+5. **Tests: 284.** New: 20 liveness cases (interpolation references, `priv`,
+   top-level `let`, `impl` bodies, opt-out attribute, sibling-file callers,
+   unparsable packages), the engine-flow test, and the preset matrix.
 
 ## 0.5.0 CI integration (2026-10-29)
 
@@ -117,7 +154,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10268679`, equal to the committed file |
 | `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 6992 bytes` (real Chrome, two runs on the deployed site) |
 
-## Earlier remote verification (commit `94283d4`, v0.3.0)
+## Earlier remote verification (commit `94284d4`, v0.3.0)
 
 | Check | Result |
 | --- | --- |
@@ -304,7 +341,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 263 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 284 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings
@@ -318,6 +355,8 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] deterministic fuzz-style invariant tests
 - [x] diff-aware impact analysis (`review`, `tools/review.sh`)
 - [x] real-world validation over 585 files / 98,384 lines with 0 false positives
+- [x] package liveness over 1987 files (async, x, core) with 0 false positives
+- [x] click-to-slice playground with preset and direction checks in CI
   (`docs/CASE_STUDY.md`, `tools/scan.mjs`)
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits

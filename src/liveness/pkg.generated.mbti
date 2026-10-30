@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "chen/moon-slice/src/liveness"
+
+// Values
+pub fn collect(String, String) -> FileFacts
+
+pub fn unused_functions(Array[FileFacts]) -> Array[UnusedFn]
+
+// Errors
+
+// Types and methods
+pub(all) struct FileFacts {
+  path : String
+  source : String
+  decls : Array[FnDecl]
+  referenced : Array[String]
+  parse_errors : Int32
+}
+
+pub(all) struct FnDecl {
+  name : String
+  line : Int32
+  exported : Bool
+  has_body : Bool
+  is_method : Bool
+}
+
+pub(all) struct UnusedFn {
+  path : String
+  name : String
+  line : Int32
+}
+
+// Type aliases
+
+// Traits
