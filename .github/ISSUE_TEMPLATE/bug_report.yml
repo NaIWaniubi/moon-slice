@@ -13,7 +13,7 @@ body:
     attributes:
       label: moon-slice version
       description: Output of `moon-slice version`
-      placeholder: moon-slice 0.5.0
+      placeholder: moon-slice 0.6.0
     validations:
       required: true
   - type: input

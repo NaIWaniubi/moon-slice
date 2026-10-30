@@ -68,7 +68,7 @@ cd moon-slice
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
 ```
 
-Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库计划随 0.5.0 发布到 mooncakes.io，`moon add chen/moon-slice@0.5.0` 与当前发布状态见 `PUBLISHING.md`。
+Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库计划随 0.6.0 发布到 mooncakes.io，`moon add chen/moon-slice@0.6.0` 与当前发布状态见 `PUBLISHING.md`。
 
 ## 改动影响分析（review）
 
@@ -112,12 +112,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: cs6210501-lab/moon-slice@v0.5.0
+- uses: cs6210501-lab/moon-slice@v0.6.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: cs6210501-lab/moon-slice@v0.5.0
+- uses: cs6210501-lab/moon-slice@v0.6.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

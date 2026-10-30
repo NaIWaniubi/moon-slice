@@ -122,7 +122,21 @@ The rendered page is `docs/report.png`.
 
 Open `web/index.html` directly. It renders the live report in an iframe; the
 engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
-`node web/smoke.mjs`.
+`node web/smoke.mjs` and `node web/presets.mjs`.
+
+Or open the hosted copy: https://cs6210501-lab.github.io/moon-slice/
+
+What to do there:
+
+1. click a **line number in the left gutter** — the slice for that statement
+   appears on the right, and the gutter turns the slice green and the target
+   amber;
+2. switch **Direction** to `forward` on the while example: `4,5,6,7,8` becomes
+   `7,10`;
+3. pick the **interprocedural** example and direction: the slice of `twice(x)`
+   becomes `2,6,7,8,12`, including the callee bodies;
+4. edit the source: the page re-runs after a pause (`Ctrl`+`Enter` runs at once);
+5. press **Copy link**: the URL now reopens the exact source, line and direction.
 
 ## 9. JSON
 
@@ -131,13 +145,47 @@ engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 # {"nodes":[0,1,2,3,4,5,6],"lines":[4,5,6,7,8],"errors":[]}
 ```
 
-## 10. Full verification
+## 10. Dead code and unused functions across a tree
+
+```bash
+./dev.sh run cmd/main -- dead --dir examples          # writes nobody reads
+./dev.sh run cmd/main -- unused --dir src             # private functions nothing calls
+./dev.sh run cmd/main -- unused --dir examples        # 10: the snippets are standalone
+```
+
+`unused` works per package (one directory) because that is the scope a private
+function is visible in. Entry points (`main`, `init`), `pub` functions, methods
+and declaration-only stubs are excluded, and a name mentioned anywhere else in the
+package — comments included — suppresses the finding. A function annotated
+`#warnings("-unused_value")` is the author saying it is intentionally unused, and
+is not reported.
+
+## 11. CI output: SARIF, baseline, gate
+
+```bash
+tmp="$(mktemp)"
+./dev.sh run cmd/main -- dead --dir examples --format sarif --out /tmp/dead.sarif
+./dev.sh run cmd/main -- unused --dir examples --write-baseline "$tmp"
+./dev.sh run cmd/main -- unused --dir examples --baseline "$tmp"          # empty
+./dev.sh run cmd/main -- unused --dir examples --fail-on-findings; echo "exit $?"
+# 10 findings printed, exit 1
+```
+
+Both commands take `--format sarif` (rules `dead-store`, `unreachable-code`,
+`unused-function`), `--out FILE`, `--baseline`/`--write-baseline` and
+`--fail-on-findings`, so the same gate works for either.
+
+## 12. Full verification
 
 ```bash
 ./dev.sh check
 ./dev.sh test
 bash testdata/verify_corpus.sh
+bash test/cli_smoke.sh
+node web/smoke.mjs
+node web/presets.mjs
 ```
 
-Expected: 0 errors, `Total tests: 240, passed: 240, failed: 0`, and
-`corpus ok: 10 examples, headers and expected.json agree`.
+Expected: 0 errors, `Total tests: 284, passed: 284, failed: 0`,
+`corpus ok: 10 examples, headers and expected.json agree`, `cli smoke ok`,
+`web smoke ok: 7006 bytes`, `playground presets ok`.

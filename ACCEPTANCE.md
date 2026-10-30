@@ -1,12 +1,12 @@
 # 验收对照表
 
 按「2026 MoonBit 国产基础软件开源大赛-10 月黑客松」验收指南逐条对照。所有
-命令都在仓库根目录执行；当前版本 `v0.5.0`，`master` 已有 50+ 个提交。
+命令都在仓库根目录执行；当前版本 `v0.6.0`，`master` 已有 50+ 个提交。
 
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/cs6210501-lab/moon-slice，50+ commits，tag `v0.5.0` |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/cs6210501-lab/moon-slice，50+ commits，tag `v0.6.0` |
 | 3 | 源代码结构清晰，核心功能可完成 | 通过 | 8 个库包 + CLI + playground；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
@@ -30,7 +30,7 @@ MoonBit。仓库里的 JavaScript 只做两件事：把同一份 MoonBit 源码�
 
 ```bash
 git rev-list --count HEAD   # 50+
-git tag --sort=-v:refname   # v0.5.0 v0.4.2 v0.4.1 ...
+git tag --sort=-v:refname   # v0.6.0 v0.5.0 v0.4.2 ...
 ```
 
 公开地址：https://github.com/cs6210501-lab/moon-slice
@@ -136,7 +136,7 @@ bash tools/publish.sh   # 校验、打包、预览、确认后发布
 
 ```bash
 moon package
-# Package to .../_build/publish/chen-moon-slice-0.5.0.zip  (976 KB, 122 files)
+# Package to .../_build/publish/chen-moon-slice-0.6.0.zip  (1012 KB, 134 files)
 ```
 
 若登录账号的命名空间不是 `chen`，`PUBLISHING.md` 给出了改模块名和 11 处

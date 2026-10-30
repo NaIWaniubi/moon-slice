@@ -58,8 +58,8 @@ cd moon-slice
 ./dev.sh test       # run the test suite
 ```
 
-The library targets the 0.5.0 release line on mooncakes.io; see
-[PUBLISHING.md](PUBLISHING.md) for the exact `moon add chen/moon-slice@0.5.0`
+The library targets the 0.6.0 release line on mooncakes.io; see
+[PUBLISHING.md](PUBLISHING.md) for the exact `moon add chen/moon-slice@0.6.0`
 step and its current publication status.
 
 ## Quickstart
@@ -75,7 +75,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.5.0
+# moon-slice 0.6.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -447,12 +447,12 @@ line in text mode) but does not hide the other files.
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: cs6210501-lab/moon-slice@v0.5.0
+- uses: cs6210501-lab/moon-slice@v0.6.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: cs6210501-lab/moon-slice@v0.5.0
+- uses: cs6210501-lab/moon-slice@v0.6.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

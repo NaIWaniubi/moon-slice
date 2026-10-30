@@ -11,7 +11,7 @@ from the repository alone.
 | `moonc -v` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
 | `moon check` | 0 errors, 0 warnings |
 | `moon test` | 256 / 256 |
-| `moon package` | `_build/publish/chen-moon-slice-0.5.0.zip` (976 KB, 122 files) |
+| `moon package` | `_build/publish/chen-moon-slice-0.6.0.zip` (976 KB, 122 files) |
 | Manifest | name, version, readme, repository, license, keywords, description |
 | License | Apache-2.0 (`LICENSE`), dependencies Apache-2.0 (`THIRD_PARTY.md`) |
 
@@ -24,14 +24,14 @@ mooncakes.io account. It writes `~/.moon/credentials.json`.
 moon login
 ```
 
-## Publish 0.5.0
+## Publish 0.6.0
 
 From the repository root, with the same account that owns the `chen` namespace:
 
 ```bash
 moon publish --dry-run     # validates and prints what would be uploaded
 moon publish
-moon search moon-slice     # the registry should list chen/moon-slice 0.5.0
+moon search moon-slice     # the registry should list chen/moon-slice 0.6.0
 ```
 
 Or run the checked wrapper, which repeats the local verification, logs in if
@@ -72,7 +72,7 @@ In a scratch MoonBit module:
 ```bash
 moon new /tmp/moon-slice-verify
 cd /tmp/moon-slice-verify
-moon add chen/moon-slice@0.5.0
+moon add chen/moon-slice@0.6.0
 moon check
 ```
 

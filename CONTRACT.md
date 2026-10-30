@@ -1,27 +1,59 @@
-# moon-slice — frozen contract
+# moon-slice — design contract
 
-Goal: a MoonBit program-slicing workbench. Input a `.mbt` file and a target
-statement; output the backward slice (what may have produced this value) and
-the forward slice (what this value may affect), plus JSON/DOT/HTML reports.
+The invariants that keep the analysis trustworthy. They are the rules the code
+base is held to; `CONTRIBUTING.md` covers how to run things.
 
-## Hard rules
+## What the tool must answer
 
-- `src/core/types.mbt` is frozen. Missions must not edit it. If a type must
-  change, write `CONTRACT_CHANGE.md` and stop; the coordinator decides.
-- Each mission owns only its own directories. Never edit another mission's
-  files. Never edit `moon.mod`, `moon.pkg` of the root, or another package's
-  `moon.pkg`.
-- Every command goes through `./dev.sh` (Git Bash) or `dev.cmd` (cmd/PowerShell).
-  Those wrappers put `%USERPROFILE%\.moon\bin` on `PATH`.
-- Every mission must leave `./dev.sh check` and `./dev.sh test` green.
-- Use meaningful commits; no empty/repeated commits.
-- End the worker reply with one line:
-  `TOWER_RESULT: {"summary":"...","tests":"pass|fail","files":["..."]}`
+Point it at a statement and it must say, correctly and conservatively:
 
-## Frozen package APIs
+1. **backward** — which statements may have produced the value used here;
+2. **forward** — which statements this value may affect;
+3. **dead** — which writes nothing reads, which statements no path reaches, and
+   (per package) which private functions nothing calls.
 
-Implement exactly these signatures. Add helpers freely, but do not rename or
-change the public ones.
+When the analysis cannot see something (dynamic dispatch, a macro, a `#cfg`
+branch it did not take) it must **over-approximate**: include a statement that
+might not matter, never drop one that does. A wrong line is worse than a missing
+one, and every imprecision is documented in `README.md` under Limitations.
+
+## Frozen data model
+
+`src/core/types.mbt` is the shared contract between the passes: `SNode`, `VarId`,
+`Loc`, `FunctionInfo`, `CallSite`, `Program`, `Cfg`, `DefUse`, `Cdg`, `Pdg`,
+`SliceResult`.
+
+Changing it is allowed but expensive, and the cost is the point:
+
+- every producer and consumer is updated in the same change;
+- `moon check` and `moon test` stay green;
+- the change is described in `CHANGELOG.md` (the model is part of the public
+  behaviour, so a change to it is a minor version bump);
+- `COVERAGE.md` is refreshed in the same commit.
+
+Nothing outside `src/core` defines a type that another package depends on.
+
+## Package boundaries
+
+| Package | May import | Must not |
+| --- | --- | --- |
+| `src/core` | nothing of ours | contain logic |
+| `src/parser_adapter` | `core`, `moonbitlang/parser` | be imported by the analysis passes |
+| `src/cfg` … `src/pdg` | `core` only | import the parser or the adapter |
+| `src/slice`, `src/query` | `core` | reach into the AST |
+| `src/liveness` | `moonbitlang/parser` | duplicate the IR passes |
+| `src/report` | `core` | know about the CLI |
+| `cmd/main` | everything | contain analysis logic |
+
+Two rules matter most. **Only `src/parser_adapter` and `src/liveness` see the
+AST**: everything downstream works on `Program`, which is what makes the passes
+testable without a parser and what keeps a parser upgrade contained. And
+**`cmd/main` holds no analysis**: flags in, rendered text out, so the CLI can be
+covered by `test/cli_smoke.sh` while the interesting logic is unit-tested.
+
+## Frozen public APIs
+
+Add helpers freely; do not rename or change these signatures.
 
 ```moonbit
 // src/parser_adapter
@@ -35,6 +67,7 @@ pub fn analyze(program : @core.Program, cfg : @core.Cfg) -> @core.DefUse
 
 // src/cdg
 pub fn build(program : @core.Program, cfg : @core.Cfg) -> @core.Cdg
+pub fn build_precise(program : @core.Program, cfg : @core.Cfg) -> @core.Cdg
 
 // src/pdg
 pub fn build(defuse : @core.DefUse, cdg : @core.Cdg) -> @core.Pdg
@@ -43,12 +76,18 @@ pub fn build(defuse : @core.DefUse, cdg : @core.Cdg) -> @core.Pdg
 pub fn backward(pdg : @core.Pdg, target : Int) -> @core.SliceResult
 pub fn forward(pdg : @core.Pdg, target : Int) -> @core.SliceResult
 
+// src/liveness
+pub fn collect(path : String, source : String) -> FileFacts
+pub fn unused_functions(facts : Array[FileFacts]) -> Array[UnusedFn]
+
 // src/report
 pub fn to_json(program : @core.Program, result : @core.SliceResult) -> String
 pub fn to_dot(pdg : @core.Pdg) -> String
+pub fn to_sarif_findings(findings : Array[SarifFinding], suppressed : Int,
+                         version : String, files : Int, parse_failures : Int) -> String
 ```
 
-`@core` is `chen/moon-slice/src/core`. Import it in each package's `moon.pkg`:
+`@core` is `chen/moon-slice/src/core`:
 
 ```text
 import {
@@ -56,73 +95,15 @@ import {
 }
 ```
 
-## Mission ownership
+## Rules every change follows
 
-### Mission 1 — parser adapter + CFG + def-use
-
-Directories: `src/parser_adapter/`, `src/cfg/`, `src/defuse/`.
-
-- `parser_adapter`: call `@parser.parse_string(source, name=name)`. Walk
-  `@syntax.Impls`; for each `Impl::TopFuncDef(fun_decl~, decl_body~, ..)`
-  and `DeclBody::DeclBody(expr~)`, build `SNode`s. Convert `Location` to
-  `@core.Loc`. Support the subset: `let`, `let mut`, assignment, `if`,
-  `while`, `for`/`for each`, `match`, `sequence`, `return`, `break`,
-  `continue`, calls, identifiers, field/array access. Unsupported nodes:
-  treat as `Expr`, collect all identifiers as `uses` (conservative).
-- `cfg`: sequence edges, if/else edges, loop back edges, break/continue
-  edges, entry/exit.
-- `defuse`: reaching definitions for the modeled subset. Conservative for
-  aliasing/field writes.
-- Tests: parser smoke test; CFG edge tests; def-use tests; shadowing test.
-
-### Mission 2 — control dependence + PDG + slicing
-
-Directories: `src/cdg/`, `src/pdg/`, `src/slice/`.
-
-- `cdg`: structured control dependence first. `if`/`while`/`for`/`match`
-  conditions control the statements in their branches/body. Handle
-  `return`/`break`/`continue` conservatively. Do not require post-dominators
-  for the MVP; document the limitation.
-- `pdg`: data edges from `DefUse.reaching`; control edges from `Cdg.edges`.
-- `slice`: BFS/DFS over the PDG. `backward` follows incoming edges;
-  `forward` follows outgoing edges. `nodes` sorted ascending; `lines` =
-  unique sorted `loc.start_line`.
-- Tests: build graphs by hand, assert exact node sets; a small end-to-end
-  test with a manually built `Program`.
-- Do not import `parser_adapter`, `cfg`, or `defuse`; depend only on
-  `@core` types so this mission can run in parallel.
-
-### Mission 3 — examples + test corpus + README
-
-Directories: `examples/`, `testdata/`, `README.md`.
-
-- 10 small MoonBit programs under `examples/`, each with a comment block
-  `// EXPECT-BACKWARD line -> [lines]` and `// EXPECT-FORWARD line -> [lines]`.
-  Cover: let, mut, if/else, while, for, match, return, dead assignment,
-  shadowing, field write.
-- A `testdata/README.md` table mapping each example to the expected slices.
-- `README.md`: problem, quickstart (`./dev.sh run cmd/main -- ...`), design,
-  supported subset, limitations, examples, license. Do not claim features
-  the code does not have yet.
-- No dependency on other missions' packages.
-
-### Mission 4 — CLI + report + integration (wave 2)
-
-Directories: `src/report/`, `cmd/main/`, `src/integration_test/`.
-
-- `report::to_json` / `to_dot` as specified.
-- CLI: `slice --file F --line N --direction backward|forward`, `graph
-  --file F --format dot`, `dead --file F`, `html --file F --line N --out O`.
-- End-to-end test: parse an example, build CFG/defuse/CDG/PDG, slice,
-  assert the expected lines.
-- `html`: self-contained file, source highlighted, graph embedded as DOT
-  text or SVG. No network dependency.
-
-## Definition of done (coordinator)
-
-- `./dev.sh check` and `./dev.sh test` green on the merged base.
-- `./dev.sh run cmd/main -- slice --file examples/bug.mbt --line <n>
-  --direction backward` prints the expected lines.
-- `README.md` has a reproducible demo and honest limitations.
-- 10+ meaningful commits across missions.
-- Apache-2.0 LICENSE present; parser dependency is Apache-2.0.
+- Commands go through `./dev.sh` (Git Bash) or `dev.cmd` (cmd/PowerShell), which
+  put `~/.moon/bin` on `PATH`. No global installs, no `npm install -g`.
+- `moon check` stays at 0 warnings and `moon test` stays green.
+- A fix for a wrong result arrives with the test that fails without it; a
+  precision claim arrives with a number that can be reproduced.
+- Output formats are contracts too: `--json` failures keep the shape
+  `{"error":{"code","message"}}` and exit 2; the HTML report stays
+  self-contained and escapes everything it interpolates.
+- Anything a user can see (README, CHANGELOG, `docs/CASE_STUDY.md`) is updated in
+  the same commit as the behaviour it describes.
