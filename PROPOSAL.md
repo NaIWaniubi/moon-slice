@@ -1,6 +1,6 @@
 # moon-slice — 项目申报书（一页）
 
-> 仓库：https://github.com/cs6210501-lab/moon-slice ｜ 在线演示：https://cs6210501-lab.github.io/moon-slice/
+> 仓库：https://github.com/NaIWaniubi/moon-slice ｜ 在线演示：https://NaIWaniubi.github.io/moon-slice/
 
 ## 1. 项目名称
 
@@ -74,7 +74,7 @@ PDG 构造；不复制任何现有实现代码。使用 MoonBit 官方 `moonbitl
 
 ## 7. GitHub 仓库
 
-`https://github.com/cs6210501-lab/moon-slice`
+`https://github.com/NaIWaniubi/moon-slice`
 
 仓库包含不少于 10 个有效 commits，保留连续开发记录、测试与 README。
 

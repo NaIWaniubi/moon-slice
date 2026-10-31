@@ -12,7 +12,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-old="cs6210501-lab"
+old="NaIWaniubi"
 dry=""
 owner="${1:-}"
 if [ "$owner" = "--dry-run" ]; then

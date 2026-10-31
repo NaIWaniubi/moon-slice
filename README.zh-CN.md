@@ -12,7 +12,7 @@
 
 ![报告截图](docs/report.png)
 
-- 在线试用（无需安装）：https://cs6210501-lab.github.io/moon-slice/
+- 在线试用（无需安装）：https://NaIWaniubi.github.io/moon-slice/
 - 英文文档：[README.md](README.md)
 - 真实仓库验证：[docs/CASE_STUDY.md](docs/CASE_STUDY.md)
 
@@ -42,7 +42,7 @@ PDG ──▶ 向后/向前切片、死代码、数据流路径、调用图、HT
 只用于可选的网页工具与冒烟脚本。
 
 ```bash
-git clone https://github.com/cs6210501-lab/moon-slice
+git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
@@ -112,12 +112,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: cs6210501-lab/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.6.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: cs6210501-lab/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.6.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

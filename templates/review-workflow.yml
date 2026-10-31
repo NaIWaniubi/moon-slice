@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: cs6210501-lab/moon-slice@v0.6.0
+      - uses: NaIWaniubi/moon-slice@v0.6.0
         with:
           command: review
           since: ${{ github.event.pull_request.base.sha }}
@@ -34,7 +34,7 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: cs6210501-lab/moon-slice@v0.6.0
+      - uses: NaIWaniubi/moon-slice@v0.6.0
         with:
           command: dead
           args: --dir . --format sarif --out moon-slice.sarif

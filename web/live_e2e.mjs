@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-const url = process.argv[2] ?? 'https://cs6210501-lab.github.io/moon-slice/';
+const url = process.argv[2] ?? 'https://NaIWaniubi.github.io/moon-slice/';
 const chrome = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const port = 9413;
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'moon-slice-live-'));

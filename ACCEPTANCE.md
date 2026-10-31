@@ -6,7 +6,7 @@
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/cs6210501-lab/moon-slice，50+ commits，tag `v0.7.0` |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，50+ commits，tag `v0.7.0` |
 | 3 | 源代码结构清晰，核心功能可完成 | 通过 | 8 个库包 + CLI + playground；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
@@ -33,7 +33,7 @@ git rev-list --count HEAD   # 50+
 git tag --sort=-v:refname   # v0.7.0 v0.6.0 v0.5.0 ...
 ```
 
-公开地址：https://github.com/cs6210501-lab/moon-slice
+公开地址：https://github.com/NaIWaniubi/moon-slice
 
 ## 3. 源代码结构与核心功能
 
@@ -69,7 +69,7 @@ git tag --sort=-v:refname   # v0.7.0 v0.6.0 v0.5.0 ...
 - 英文：`README.md`；中文：`README.zh-CN.md`
 - 目标、架构、安装、quickstart、支持子集、诚实的局限性都在 README 内
 - 报告示例：`docs/report.html`（自包含）、`docs/report.png`
-- 在线 playground：https://cs6210501-lab.github.io/moon-slice/
+- 在线 playground：https://NaIWaniubi.github.io/moon-slice/
 
 复现：
 
@@ -155,7 +155,7 @@ moon package
 ## 五分钟复核
 
 ```bash
-git clone https://github.com/cs6210501-lab/moon-slice
+git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 ./dev.sh check
 ./dev.sh test

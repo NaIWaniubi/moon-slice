@@ -798,11 +798,11 @@ pub fn to_sarif_findings(
 ) -> String {
   let out = StringBuilder()
   out.write_string(
-    "{\"$schema\":\"https://json.schemastore.org/sarif-2.1.0.json\",\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"moon-slice\",\"informationUri\":\"https://github.com/cs6210501-lab/moon-slice\",\"version\":",
+    "{\"$schema\":\"https://json.schemastore.org/sarif-2.1.0.json\",\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"moon-slice\",\"informationUri\":\"https://github.com/NaIWaniubi/moon-slice\",\"version\":",
   )
   out.write_string(json_string(version))
   out.write_string(
-    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"},{\"id\":\"unused-function\",\"name\":\"UnusedFunction\",\"shortDescription\":{\"text\":\"A private function nothing in its package references\"},\"helpUri\":\"https://github.com/cs6210501-lab/moon-slice#dead-code\"}]}},",
+    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unused-function\",\"name\":\"UnusedFunction\",\"shortDescription\":{\"text\":\"A private function nothing in its package references\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"}]}},",
   )
   out.write_string("\"invocations\":[{\"executionSuccessful\":")
   out.write_string(if parse_failures == 0 { "true" } else { "false" })

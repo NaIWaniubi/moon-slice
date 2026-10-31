@@ -1,7 +1,7 @@
 # moon-slice
 
-[![CI](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/ci.yml)
-[![Pages](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/cs6210501-lab/moon-slice/actions/workflows/pages.yml)
+[![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
+[![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -18,7 +18,7 @@ narrowing down a diff during review.
 
 [Open the generated report](docs/report.html) (self-contained HTML; no toolchain needed).
 
-[Open the browser playground](https://cs6210501-lab.github.io/moon-slice/) — edit the source, choose a line and direction, and render the report live. The same page is in `web/index.html`.
+[Open the browser playground](https://NaIWaniubi.github.io/moon-slice/) — edit the source, choose a line and direction, and render the report live. The same page is in `web/index.html`.
 
 The HTML report renders the PDG as an inline SVG, highlights the slice in the
 source, and stays self-contained (no network, no CDN).
@@ -53,7 +53,7 @@ Requires `moonc` **0.10.16 or newer** (verified with `v0.10.17`). The analysis
 packages are pure MoonBit; Node is only needed for the optional web tools.
 
 ```bash
-git clone https://github.com/cs6210501-lab/moon-slice
+git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 ./dev.sh check      # type-check the whole module
 ./dev.sh test       # run the test suite
@@ -317,7 +317,7 @@ every example *and* every direction against the same numbers the CLI documents.
 ![moon-slice playground](docs/playground.png)
 
 `.github/workflows/pages.yml` publishes `web/` to GitHub Pages on every push to
-`master`: https://cs6210501-lab.github.io/moon-slice/
+`master`: https://NaIWaniubi.github.io/moon-slice/
 
 ## Data-flow paths
 
@@ -491,12 +491,12 @@ line in text mode) but does not hide the other files.
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: cs6210501-lab/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.6.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: cs6210501-lab/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.6.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

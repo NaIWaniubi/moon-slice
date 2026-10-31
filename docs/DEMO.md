@@ -124,7 +124,7 @@ Open `web/index.html` directly. It renders the live report in an iframe; the
 engine is `web/moon-slice.js`, rebuilt with `bash web/build.sh` and asserted by
 `node web/smoke.mjs` and `node web/presets.mjs`.
 
-Or open the hosted copy: https://cs6210501-lab.github.io/moon-slice/
+Or open the hosted copy: https://NaIWaniubi.github.io/moon-slice/
 
 What to do there:
 

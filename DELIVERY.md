@@ -1,7 +1,7 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-30 (v0.7.0). Repository: https://github.com/cs6210501-lab/moon-slice (public, `master`).
-Live playground: https://cs6210501-lab.github.io/moon-slice/
+Date: 2026-10-30 (v0.7.0). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
 
@@ -228,7 +228,7 @@ Live playground: https://cs6210501-lab.github.io/moon-slice/
 | Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10228502`; first and last 2 KiB identical to the committed file (full download is throttled on this link) |
 | Live page markers | `frame.srcdoc`, `aria-live`, `moon-slice.js?run=` all present |
 
-Public repo: https://github.com/cs6210501-lab/moon-slice
+Public repo: https://github.com/NaIWaniubi/moon-slice
 
 ## Integration bugs found and fixed
 
@@ -415,7 +415,7 @@ Findings from an independent audit, all fixed with regression coverage:
   (`docs/CASE_STUDY.md`, `tools/scan.mjs`)
 - [x] 500-statement benchmark (see `bench/README.md`)
 - [x] 20+ meaningful commits
-- [x] push to GitHub: public repo `cs6210501-lab/moon-slice`, branch `master`
+- [x] push to GitHub: public repo `NaIWaniubi/moon-slice`, branch `master`
 - [x] GitHub Actions CI and Pages workflows added; Pages enabled for `web/`
 - [x] `action.yml` exercised by CI through `uses: ./`
 - [x] contribution guide, roadmap, and issue forms
@@ -424,6 +424,6 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] `moon package` produces `chen-moon-slice-0.5.0.zip` (976 KB, 122 files)
 - [ ] `moon publish` to mooncakes.io — requires the maintainer's interactive
   `moon login`; see `PUBLISHING.md`
-- [x] live playground verified at https://cs6210501-lab.github.io/moon-slice/
+- [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [ ] fill author / team / contact in `PROPOSAL.md`
 - [ ] submit the Feishu form before 2026-10-31 23:59:59
