@@ -440,5 +440,5 @@ Findings from an independent audit, all fixed with regression coverage:
 - [ ] `moon publish` to mooncakes.io — requires the maintainer's interactive
   `moon login`; see `PUBLISHING.md`
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
-- [ ] fill author / team / contact in `PROPOSAL.md`
+- [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
 - [ ] submit the Feishu form before 2026-10-31 23:59:59

@@ -1,6 +1,6 @@
 # moon-slice — 项目申报书（一页）
 
-> 仓库：https://github.com/NaIWaniubi/moon-slice ｜ 在线演示：https://NaIWaniubi.github.io/moon-slice/
+> 作者：陈勇润（东莞理工学院） ｜ 仓库：https://github.com/NaIWaniubi/moon-slice ｜ 在线演示：https://NaIWaniubi.github.io/moon-slice/
 
 ## 1. 项目名称
 
