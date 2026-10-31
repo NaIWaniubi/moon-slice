@@ -165,6 +165,8 @@ bundle and the proposal PDF, and verified no old reference remained.
 | Live `index.html` SHA-256 | `77412b22...d26b48`, identical to the committed file |
 | Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10275869` |
 | `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 7 node(s) · lines 4,5,6,7,8 · target line 7` |
+| GitHub Release | `v0.7.0` published with the one-page `PROPOSAL.pdf` attached |
+| `docs/demo.gif` | 10 s, 1200x750, three states (backward / forward / interprocedural), 178 KB, embedded in the README |
 
 ## Remote verification (2026-10-30, commit `7e65306`, v0.7.0)
 

@@ -314,7 +314,7 @@ The prebuilt engine is `web/moon-slice.js`; `web/build.sh` rebuilds it,
 `web/smoke.mjs` asserts it renders a full report, and `web/presets.mjs` checks
 every example *and* every direction against the same numbers the CLI documents.
 
-![moon-slice playground](docs/playground.png)
+![moon-slice playground: click a line, the slice appears](docs/demo.gif)
 
 `.github/workflows/pages.yml` publishes `web/` to GitHub Pages on every push to
 `master`: https://NaIWaniubi.github.io/moon-slice/

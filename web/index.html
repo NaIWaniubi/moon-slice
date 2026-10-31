@@ -267,6 +267,10 @@ iframe{width:100%;height:76vh;border:0;border-radius:8px;background:#0f1115}
       source.value = state.s;
       lineInput.value = String(state.l || 1);
       if (state.d) $('direction').value = state.d;
+      // Keep the Example picker honest: a deep link that carries an example's
+      // source should show that example selected, not whatever was default.
+      const match = Object.entries(EXAMPLES).find(([, example]) => example.source === state.s);
+      if (match) $('example').value = match[0];
       return true;
     } catch (error) {
       return false;
