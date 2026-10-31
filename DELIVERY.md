@@ -151,6 +151,21 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 5. **Test suite** grew to 248 with `real_world_test.mbt`, the review smoke test,
    and the closure/`impl` regressions.
 
+## Remote verification after the account rename (2026-10-31, commit `18cbd11`)
+
+GitHub renamed `cs6210501-lab` to `NaIWaniubi`; the repository and the Pages site
+moved with it. `tools/rename-owner.sh` rewrote 10 tracked files, regenerated the
+bundle and the proposal PDF, and verified no old reference remained.
+
+| Check | Result |
+| --- | --- |
+| CI `41156714579` | success on `NaIWaniubi/moon-slice`: check, native build, 294 tests, corpus, CLI smoke, bundle smokes, playground presets, action job |
+| Pages `41156714577` | success: deployed `web/` under the new owner |
+| New site | `https://naiwaniubi.github.io/moon-slice/` returns 200 |
+| Live `index.html` SHA-256 | `77412b22...d26b48`, identical to the committed file |
+| Live `moon-slice.js` | `HTTP/1.1 200`, `Content-Length: 10275869` |
+| `node web/live_e2e.mjs` | `live e2e ok: rendered 6960 bytes -> rendered 7 node(s) · lines 4,5,6,7,8 · target line 7` |
+
 ## Remote verification (2026-10-30, commit `7e65306`, v0.7.0)
 
 | Check | Result |
