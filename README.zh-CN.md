@@ -118,12 +118,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.7.2
+- uses: NaIWaniubi/moon-slice@v0.7.3
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.7.2
+- uses: NaIWaniubi/moon-slice@v0.7.3
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

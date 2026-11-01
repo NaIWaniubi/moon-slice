@@ -34,7 +34,7 @@ frozen; the CLI is usable.
 | Layer | Package | State |
 | --- | --- | --- |
 | Data model | `src/core` | frozen — types only |
-| Parser adapter | `src/parser_adapter` | implemented — MoonBit AST → `SNode` |
+| Parser adapter | `src/parser_adapter` | implemented — MoonBit AST → `SNode`; direct and receiver call sites |
 | CFG | `src/cfg` | implemented — sequence, branch, loop, jump edges |
 | Def-use | `src/defuse` | implemented — reaching definitions |
 | CDG | `src/cdg` | implemented — structured control dependence |
@@ -540,12 +540,12 @@ cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.7.2
+- uses: NaIWaniubi/moon-slice@v0.7.3
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.7.2
+- uses: NaIWaniubi/moon-slice@v0.7.3
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

@@ -8,7 +8,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 315, passed: 315, failed: 0` |
+| `./dev.sh test` | `Total tests: 338, passed: 338, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -51,7 +51,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | `node web/playground_e2e.mjs .` | passes on 3 consecutive runs (gutter, status and escaping) |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
 
-## 0.7.1 / 0.7.2 — registry and suppressions (2026-11-01)
+## 0.7.1 – 0.7.3 — registry, suppressions, receiver calls (2026-11-01)
 
 **Publishing.** `moon publish` returned `Server status: 200 OK` for
 `NaIWaniubi/moon-slice@0.7.1` and again for `@0.7.2`. The registry rejects a
@@ -65,7 +65,7 @@ namespace moved off the old account name and the shipped bundle was rebuilt
 | Consumer run in a clean module | `backward-lines=[4]` / `line=1..4` — the parameter, both bindings, the target |
 | Registry page | <https://mooncakes.io/docs/NaIWaniubi/moon-slice> lists 0.7.2 as latest |
 | Package | `1,173,362 bytes`, `144 files` |
-| CI `41284592450`, `41284590226` | success: check, native release build, 315 tests, corpus, CLI smoke (with suppression cases), both bundle smokes, playground presets |
+| CI `41288274865` | success: check, native release build, 338 tests, corpus, CLI smoke (suppression and receiver-call cases), both bundle smokes, playground presets; the `action` job runs both gates |
 | Pages `41284590228` | success |
 | Live bundle | contains `moon-slice 0.7.2` |
 | `node web/live_e2e.mjs` | `live e2e ok: ... lines 4,5,6,7,8 · target line 7` |
@@ -82,6 +82,17 @@ alone on a line it covers the next line of code. Verified end to end:
 | `ignore unreachable-code` on the same line | `"suppressed":1` |
 | `ignore dead_stores` (a typo) | line still reported: unknown names are inert |
 | `unused --dir` with one suppressed declaration | `"suppressed":1`, other findings intact |
+
+**Receiver calls.** `callers` now resolves `x.f()` when the receiver's type is
+written in the source and the package declares that method on that type.
+
+| Check | Result |
+| --- | --- |
+| `fn use_point(p : Point) { p.norm() }` + `impl Point with fn norm` | `a.mbt:6: use_point` |
+| `self.norm()` inside `impl Point` | `b.mbt:2: norm` |
+| `let p = make(); p.norm()` (no annotation) | no site — nothing inferred |
+| `p.norm()` with only a free `fn norm()` declared | no site — owner check |
+| `callers --dir .mooncakes/moonbitlang/parser/syntax --name loc` | three `self.loc()` sites across two files |
 
 ## 0.7.0 package-scope analysis (2026-10-30)
 
@@ -444,7 +455,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 294 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 338 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings

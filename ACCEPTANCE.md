@@ -7,11 +7,11 @@
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
 | 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，50+ commits，tag `v0.7.3` |
-| 3 | 源代码结构清晰，核心功能可完成 | 通过 | 8 个库包 + CLI + playground；见下方命令 |
+| 3 | 源代码结构清晰，核心功能可完成 | 通过 | 13 个库包（core / parser_adapter / cfg / defuse / cdg / pdg / slice / query / liveness / interproc / suppress / report / web）+ CLI；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
-| 7 | 完整测试覆盖核心路径 | 通过 | 294 个测试 + corpus + CLI smoke + web smoke |
+| 7 | 完整测试覆盖核心路径 | 通过 | 338 个测试 + corpus + CLI smoke + web smoke |
 | 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.7.3` 已上线（`Server status: 200 OK`），见第 8 节 |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
@@ -88,9 +88,9 @@ node web/smoke.mjs
 
 - `test` job：`moon check` → `moon test` → native release 构建 → corpus →
   CLI smoke → committed bundle smoke → JS 重建 → rebuilt bundle smoke
-- `action` job：`uses: ./` 真实执行 `action.yml`（安装工具链、构建、`dead --dir src --fail-on-findings`）
+- `action` job：`uses: ./` 真实执行 `action.yml`（安装工具链、构建，`dead` 与 `unused` 各跑一次 `--dir src --fail-on-findings`）
 
-最近一次全绿：CI `41156714579`（`test` + `action`，294 tests，含 playground 预设检查），Pages `41156714577`；仓库与线上地址已随账号改名切到 `NaIWaniubi`。
+最近一次全绿：CI `41288517194`（`test` + `action`，338 tests，含 playground 预设检查），Pages `41288517199`；0.7.3 发布提交的 CI 为 `41288274865`。
 构建产物与线上页面均在上表中可查。
 
 ## 6. 可运行示例

@@ -119,8 +119,9 @@ bash web/build.sh          # the JS bundle embeds package names in symbol names
 moon publish
 ```
 
-There are 32 files carrying the self-import; `moon check` catches any that were
-missed, and the playground presets catch a stale bundle.
+Twelve `moon.pkg` files carry the self-import (32 files changed in total);
+`moon check` catches any that were missed, and the playground presets catch a
+stale bundle.
 
 ## Credentials format (verified)
 
