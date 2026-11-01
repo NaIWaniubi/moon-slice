@@ -204,12 +204,12 @@ fn helper() -> Unit { ... }
 
 ```bash
 ./dev.sh run cmd/main -- callers --dir . --name baseline_key
-# cmd/main/main.mbt:352: filter_baseline
-# cmd/main/main.mbt:374: write_baseline_file
-# cmd/main/main.mbt:449: write_scan_baseline
-# cmd/main/main.mbt:573: run_dead_dir
-# cmd/main/main.mbt:613: write_unused_baseline
-# cmd/main/main.mbt:765: run_unused_dir
+# cmd/main/main.mbt:385: filter_baseline
+# cmd/main/main.mbt:407: write_baseline_file
+# cmd/main/main.mbt:482: write_scan_baseline
+# cmd/main/main.mbt:613: run_dead_dir
+# cmd/main/main.mbt:653: write_unused_baseline
+# cmd/main/main.mbt:812: run_unused_dir
 ```
 
 `callers` 识别限定调用 `T::f(x)`，也识别**类型写在源码里**的接收者调用 `x.f()`：
