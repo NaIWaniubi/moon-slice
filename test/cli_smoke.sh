@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.2" version
+expect_eq "moon-slice 0.7.3" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -512,5 +512,45 @@ supp_pkg="$(run unused --dir "$supp_dir" --json)"
 printf '%s' "$supp_pkg" | grep -Fq '"suppressed":1'
 
 rm -rf "$supp_dir"
+
+
+# Receiver calls in `callers`: a dot call is an edge only when the receiver's
+# type is written in the source and the package declares that method on it.
+rc_dir="$(mktemp -d)"
+cat > "$rc_dir/a.mbt" <<'MBT'
+struct Point {
+  x : Int
+}
+
+fn use_point(p : Point) -> Int {
+  p.norm()
+}
+
+fn unannotated() -> Int {
+  let p = make()
+  p.norm()
+}
+MBT
+cat > "$rc_dir/b.mbt" <<'MBT'
+impl Point with fn norm(self) -> Int {
+  self.wrap()
+}
+
+fn Point::wrap(self) -> Int {
+  self.x
+}
+MBT
+rc_out="$(run callers --dir "$rc_dir" --name norm)"
+# The tool normalizes paths to the platform form, so match on file:line:caller.
+printf '%s\n' "$rc_out" | grep -Fq "a.mbt:6: use_point"
+# The unannotated receiver on line 11 must not appear.
+if printf '%s' "$rc_out" | grep -Fq "a.mbt:11"; then
+  printf 'FAIL: an unannotated receiver produced a caller edge\n  %s\n' "$rc_out" >&2
+  exit 1
+fi
+rc_self="$(run callers --dir "$rc_dir" --name wrap)"
+printf '%s' "$rc_self" | grep -Fq "b.mbt:2: norm"
+
+rm -rf "$rc_dir"
 
 printf 'cli smoke ok\n'

@@ -1,18 +1,18 @@
 # 验收对照表
 
 按「2026 MoonBit 国产基础软件开源大赛-10 月黑客松」验收指南逐条对照。所有
-命令都在仓库根目录执行；当前版本 `v0.7.2`，`master` 已有 50+ 个提交。
+命令都在仓库根目录执行；当前版本 `v0.7.3`，`master` 已有 50+ 个提交。
 
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，50+ commits，tag `v0.7.2` |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，50+ commits，tag `v0.7.3` |
 | 3 | 源代码结构清晰，核心功能可完成 | 通过 | 8 个库包 + CLI + playground；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
 | 7 | 完整测试覆盖核心路径 | 通过 | 294 个测试 + corpus + CLI smoke + web smoke |
-| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.7.2` 已上线（`Server status: 200 OK`），见第 8 节 |
+| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.7.3` 已上线（`Server status: 200 OK`），见第 8 节 |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
 ## 1. MoonBit 为主要实现语言
@@ -113,13 +113,13 @@ node web/smoke.mjs
 
 ```bash
 ./dev.sh test
-# Total tests: 315, passed: 315, failed: 0.
+# Total tests: 338, passed: 338, failed: 0.
 ```
 
 覆盖层次：
 
 - 单元/白盒：parser adapter、CFG、def-use、CDG（两套构造）、PDG、query、suppress、report
-- 跨包：切片节点集合、过程间返回 cone、真实仓库回归（`real_world_test.mbt`）
+- 跨包：切片节点集合、过程间返回 cone、接收者调用（箭头与拒绝两种方向）、真实仓库回归（`real_world_test.mbt`）
 - 精度：路径枚举预言器逐对比较 reaching definitions；40 个种子化生成程序检查
   结构不变量、切片闭包、行投影、过程间超集
 - 端到端：10 个 corpus 示例的精确行集合
@@ -129,7 +129,7 @@ node web/smoke.mjs
 ## 8. mooncakes.io
 
 **已发布**：`NaIWaniubi/moon-slice@0.7.0`（2026-10-31）、`@0.7.1`（2026-11-01，
-仓库、清单、注册表三者对齐）、`@0.7.2`（2026-11-01，加入就地抑制）。
+仓库、清单、注册表三者对齐）、`@0.7.2`（就地抑制）、`@0.7.3`（接收者调用）。
 
 ```bash
 moon publish
@@ -143,8 +143,8 @@ moon publish
 发布产物与消费验证（在空模块里只依赖已发布版本，不读工作区源码）：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.2
-# Downloading NaIWaniubi/moon-slice@0.7.2
+moon add NaIWaniubi/moon-slice@0.7.3
+# Downloading NaIWaniubi/moon-slice@0.7.3
 moon run cmd/main
 # backward-lines=[4]
 # line=1
@@ -153,8 +153,8 @@ moon run cmd/main
 # line=4
 ```
 
-打包结果：`_build/publish/NaIWaniubi-moon-slice-0.7.2.zip`（1,173,362 字节，
-144 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
+打包结果：`_build/publish/NaIWaniubi-moon-slice-0.7.3.zip`（1,182,221 字节，
+146 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
 才上传。
 
 发布细节、命名空间不匹配时的改名步骤、以及 CI 发布选项见 `PUBLISHING.md`。

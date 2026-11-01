@@ -6,11 +6,29 @@ import {
 }
 
 // Values
+pub fn call_facts(String, String) -> CallFacts
+
 pub fn parse_source(String, String) -> @core.Program
 
 // Errors
 
 // Types and methods
+pub(all) struct CallFacts {
+  receivers : Array[ReceiverCall]
+  methods : Array[MethodDecl]
+}
+
+pub(all) struct MethodDecl {
+  owner : String
+  name : String
+}
+
+pub(all) struct ReceiverCall {
+  line : Int32
+  receiver_type : String
+  method_name : String
+  caller : String
+}
 
 // Type aliases
 

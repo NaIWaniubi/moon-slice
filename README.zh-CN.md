@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 315 个测试
+./dev.sh test                  # 338 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.2
+moon add NaIWaniubi/moon-slice@0.7.3
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -212,9 +212,20 @@ fn helper() -> Unit { ... }
 # cmd/main/main.mbt:765: run_unused_dir
 ```
 
-两者都能识别限定调用 `T::f(x)`——真实 MoonBit 代码就是这么调自己的函数的。接收者
-调用 `x.f()` 刻意不跟进：接收者类型未知，硬算成名为 `f` 的函数等于凭空造一次调用；
-这一条也有回归测试守着。
+`callers` 识别限定调用 `T::f(x)`，也识别**类型写在源码里**的接收者调用 `x.f()`：
+
+```moonbit
+fn use_point(p : Point) -> Int { p.norm() }   // 参数标注
+let q : Point = ...      ; q.norm()           // 标注过的 let / let mut
+impl Point { fn m(self) { self.norm() } }     // impl 里的 self
+fn Point::m(self) { self.norm() }             // 限定方法里的 self
+```
+
+只有当接收者类型**在同包里声明了同名方法**时才算一条边，所以 `p.norm()` 不会被算到
+无关的自由函数 `norm` 头上——这条规则有测试守着。没有标注的接收者
+（`let p = make(); p.norm()`）、链式接收者（`a.b.f()`）、同名变量被标注成两种类型，
+都刻意不解析：漏一条边好过凭空造一条。过程间切片目前仍只展开直接调用，`x.f()` 只
+影响 `callers`，不会让切片变宽。
 
 ## 浏览器 playground（点行即切片）
 
@@ -288,7 +299,7 @@ fn helper() -> Unit { ... }
 
 ## 工程
 
-- 315 个测试；库代码行覆盖率约 89%
+- 338 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

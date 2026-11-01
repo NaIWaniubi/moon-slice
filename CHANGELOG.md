@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.7.3 — 2026-11-01
+
+The call graph can now see `x.f()` — but only where the source says what `x` is.
+
+- **Receiver calls with written types.** A dot call becomes an edge when the
+  receiver's type appears in a parameter annotation, an annotated `let` /
+  `let mut`, or as `self` inside an `impl` or `fn T::m(self)`. Types are read,
+  never inferred: `let p = make(); p.norm()` stays unresolved, as do chained
+  receivers (`a.b.f()`) and a name annotated with two different types.
+- **An owner check keeps it honest.** `p.norm()` becomes an edge only when the
+  package declares a method named `norm` on `Point`. Without that check the call
+  would be credited to any free function named `norm` — the invented edge the
+  call collector has always refused to make.
+- **`callers --dir D --name f` includes those sites**, with the enclosing
+  function, next to the qualified `T::f(x)` calls. On `moonbitlang/parser`'s
+  `syntax` package it resolves `self.loc()` style calls across three files.
+- **Interprocedural slicing is unchanged**: it still expands direct calls only,
+  so a slice never widens because of a receiver edge that might belong to a
+  trait method.
+- **`src/parser_adapter::call_facts`** exposes the pass (`receivers`, `methods`)
+  so other consumers can use it without re-deriving the AST walk. 18 tests in
+  `receivers_test.mbt` and 5 in `interproc_test.mbt` pin the accepted and
+  rejected forms.
+- **338 tests.**
+
 ## 0.7.2 — 2026-11-01
 
 Findings can now be silenced where they are written, which is the one thing a

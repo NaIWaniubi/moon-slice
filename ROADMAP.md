@@ -12,19 +12,22 @@ deliberately missing and in what order it makes sense to add it.
   (`T::f(x)`).
 - **Click-to-slice playground** with per-example, per-direction checks in CI.
 
-## Shipped in 0.7.1 / 0.7.2
+## Shipped in 0.7.1 – 0.7.3
 
 - **Published to mooncakes.io** as `NaIWaniubi/moon-slice`, so `moon add` is an
   install path next to cloning.
 - **Suppressions inside the source**: `// moon-slice: ignore[dead-store]` on the
   finding's line, or on its own line above it. Suppressed findings still count
   in `suppressed` and still reach `--write-baseline`.
+- **Receiver calls in `callers`** when the receiver's type is written in the
+  source (parameter, annotated `let`, `self`) and the package declares that
+  method on that type.
 
 ## Next
 
-1. **Receiver calls.** `x.f()` is not followed: the receiver's type is unknown, so
-   attributing it would invent a call. Real type resolution would close the last
-   gap in the call graph and let `unused` see methods as well.
+1. **Receiver edges beyond `callers`.** The slice expander and `unused` still
+   ignore `x.f()`. Doing that safely needs more than annotations: a return-type
+   environment, and a rule for methods reached through a trait.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
 3. **A path rule in SARIF.** `dead-store`, `unreachable-code` and

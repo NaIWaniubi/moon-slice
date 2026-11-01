@@ -87,6 +87,9 @@ pub fn index(files : Array[PackageFile]) -> PackageIndex
 pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult) -> Array[FileSlice]
 pub fn callers(index : PackageIndex, name : String) -> Array[CallSiteRef]
 
+// src/parser_adapter
+pub fn call_facts(source : String, name : String) -> CallFacts
+
 // src/suppress
 pub fn parse(source : String) -> Directives
 pub fn suppresses(directives : Directives, line : Int, rule : String) -> Bool

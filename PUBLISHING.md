@@ -2,7 +2,7 @@
 
 Status: **published** — `NaIWaniubi/moon-slice@0.7.0` went live on 2026-10-31,
 0.7.1 republished the same analysis so that tag, manifest and registry agreed,
-and 0.7.2 added in-source suppressions.
+0.7.2 added in-source suppressions and 0.7.3 receiver calls in `callers`.
 
 ```
 Server status: 200 OK
@@ -17,7 +17,7 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 | `moonc --version` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
 | `moon check` | 0 errors, 0 warnings |
 | `moon test` | 294 / 294 |
-| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.7.2.zip` (1,173,362 bytes, 144 files) |
+| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.7.3.zip` (1,182,221 bytes, 146 files) |
 | `moon publish` | `Server status: 200 OK` |
 | Manifest | name, version, readme, repository, license, keywords, description |
 | License | Apache-2.0 (`LICENSE`), dependencies Apache-2.0 (`THIRD_PARTY.md`) |
@@ -25,8 +25,8 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 ## Evidence from the registry
 
 ```bash
-$ moon add NaIWaniubi/moon-slice@0.7.2
-Downloading NaIWaniubi/moon-slice@0.7.2
+$ moon add NaIWaniubi/moon-slice@0.7.3
+Downloading NaIWaniubi/moon-slice@0.7.3
 ```
 
 A scratch module consuming the published package, not the working tree:

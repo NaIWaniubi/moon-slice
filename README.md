@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.2-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.3-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (315 tests, including a
+All layers are implemented and covered by `moon test` (338 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.2
+moon add NaIWaniubi/moon-slice@0.7.3
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -254,7 +254,8 @@ may report a larger slice than a precise analysis would:
   uses the first statement on the line and says which node that was.
 - **No points-to, no reflection, no macro expansion.** Dynamic dispatch and
   metaprogramming are opaque; the conservative "all identifiers are uses" rule
-  applies.
+  applies. `callers` resolves `x.f()` only when the receiver's type is written in
+  the source, and interprocedural slicing does not follow those edges at all.
 - **Line granularity.** Results are sets of line numbers. Two statements on the
   same line collapse into one entry, and multi-line expressions are attributed
   to their first line. The `nodes` field of `--json` keeps the distinction; use
@@ -488,10 +489,24 @@ The mirror question has its own command:
 # cmd/main/main.mbt:765: run_unused_dir
 ```
 
-Both work through qualified calls (`T::f(x)`), which is how most MoonBit code
-calls its own functions. Receiver calls (`x.f()`) are deliberately not followed:
-the receiver's type is unknown here, so attributing the call to a function named
-`f` would invent a call — a regression test pins that too.
+`callers` works through qualified calls (`T::f(x)`) and through receiver calls
+(`x.f()`) whose type is written down in the source:
+
+```moonbit
+fn use_point(p : Point) -> Int { p.norm() }   // parameter annotation
+let q : Point = ...      ; q.norm()           // annotated let / let mut
+impl Point { fn m(self) { self.norm() } }     // self in an impl
+fn Point::m(self) { self.norm() }             // self in a qualified method
+```
+
+A dot call becomes an edge only when the receiver's type declares that method in
+the same package, so `p.norm()` is never credited to an unrelated free function
+named `norm`; the rule that keeps the call graph honest is pinned by tests. A
+receiver with no annotation (`let p = make(); p.norm()`), a chained receiver
+(`a.b.f()`), and a name annotated with two different types are all left
+unresolved on purpose — a missing edge beats an invented one. Interprocedural
+slicing still expands only direct calls, so `x.f()` shifts `callers` without
+widening a slice.
 
 Slicing itself: [docs/CASE_STUDY.md](docs/CASE_STUDY.md) records the package-scope
 run on moon-slice's own `main.mbt` → `review.mbt` call.

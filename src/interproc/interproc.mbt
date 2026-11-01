@@ -14,6 +14,10 @@ pub(all) struct PackageFile {
   path : String
   program : @core.Program
   pdg : @core.Pdg
+  /// `x.f()` sites whose receiver type is written in the source.
+  receivers : Array[@parser_adapter.ReceiverCall]
+  /// Methods this file declares, so a dot call can be matched to a real owner.
+  methods : Array[@parser_adapter.MethodDecl]
 }
 
 ///|
@@ -51,7 +55,10 @@ pub fn build_file(
     @cdg.build(program, cfg)
   }
   let pdg = @pdg.build(defuse, cdg)
-  Some(PackageFile::{ path, program, pdg })
+  // A second parse, kept separate so `parse_source` stays the single place
+  // that lowers the AST into the node IR.
+  let facts = @parser_adapter.call_facts(source, path)
+  Some(PackageFile::{ path, program, pdg, receivers: facts.receivers, methods: facts.methods })
 }
 
 ///|
@@ -263,6 +270,16 @@ pub(all) struct CallSiteRef {
 /// run?", this answers "who runs this function?". Both work across the package,
 /// which is the scope a private function is visible in.
 pub fn callers(index : PackageIndex, name : String) -> Array[CallSiteRef] {
+  // A dot call is only an edge when the receiver's type declares that method in
+  // this package. Without the owner check `p.norm()` would be credited to any
+  // free function named `norm`, which is exactly the invented edge the call
+  // collector refuses to make.
+  let declared : Set[String] = Set([])
+  for file in index.files {
+    for owner_of in file.methods {
+      declared.add(owner_of.owner + "::" + owner_of.name)
+    }
+  }
   let out : Array[CallSiteRef] = []
   for file in index.files {
     for call in file.program.calls {
@@ -272,6 +289,16 @@ pub fn callers(index : PackageIndex, name : String) -> Array[CallSiteRef] {
           None => call.caller
         }
         out.push(CallSiteRef::{ path: file.path, line: call.line, caller })
+      }
+    }
+    for receiver in file.receivers {
+      if receiver.method_name == name &&
+        declared.contains(receiver.receiver_type + "::" + name) {
+        out.push(CallSiteRef::{
+          path: file.path,
+          line: receiver.line,
+          caller: receiver.caller,
+        })
       }
     }
   }

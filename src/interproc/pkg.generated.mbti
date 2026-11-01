@@ -3,6 +3,7 @@ package "NaIWaniubi/moon-slice/src/interproc"
 
 import {
   "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
 }
 
 // Values
@@ -37,6 +38,8 @@ pub(all) struct PackageFile {
   path : String
   program : @core.Program
   pdg : @core.Pdg
+  receivers : Array[@parser_adapter.ReceiverCall]
+  methods : Array[@parser_adapter.MethodDecl]
 }
 
 pub(all) struct PackageIndex {

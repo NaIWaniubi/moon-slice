@@ -129,3 +129,56 @@ test "a receiver call is not attributed to a same-named free function" {
   assert_eq(lines_of(result, "pkg/b.mbt"), [])
   assert_eq(@interproc.callers(index, "m").length(), 0)
 }
+
+///|
+test "a receiver call is listed when the package declares the method" {
+  let a = "fn caller(p : Point) -> Int {\n  p.norm()\n}\n"
+  let b = "impl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let sites = @interproc.callers(index, "norm")
+  assert_eq(sites.length(), 1)
+  assert_eq(sites[0].path, "pkg/a.mbt")
+  assert_eq(sites[0].line, 2)
+  assert_eq(sites[0].caller, "caller")
+}
+
+///|
+test "a receiver call to a method the package never declares is not listed" {
+  // `Point::norm` is declared nowhere in this package, so `p.norm()` may be a
+  // method from a dependency. Counting it would invent the edge.
+  let a = "fn caller(p : Point) -> Int {\n  p.norm()\n}\n"
+  let b = "impl Other with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  assert_eq(@interproc.callers(index, "norm").length(), 0)
+}
+
+///|
+test "self.helper() inside an impl is listed with the method as its caller" {
+  let a =
+    "impl Point with fn norm(self) -> Int {\n  self.helper()\n}\nfn Point::helper(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a)])
+  let sites = @interproc.callers(index, "helper")
+  assert_eq(sites.length(), 1)
+  assert_eq(sites[0].line, 2)
+  assert_eq(sites[0].caller, "norm")
+}
+
+///|
+test "an unannotated receiver is not listed even when the method exists" {
+  let a = "fn caller() -> Int {\n  let p = make()\n  p.norm()\n}\n"
+  let b = "impl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  assert_eq(@interproc.callers(index, "norm").length(), 0)
+}
+
+///|
+test "qualified and receiver calls to the same name are listed together" {
+  let a =
+    "fn by_type() -> Int {\n  Point::norm()\n}\nfn by_receiver(p : Point) -> Int {\n  p.norm()\n}\n"
+  let b = "impl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let sites = @interproc.callers(index, "norm")
+  assert_eq(sites.length(), 2)
+  assert_eq(sites[0].line, 2)
+  assert_eq(sites[1].line, 5)
+}
