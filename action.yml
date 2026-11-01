@@ -7,7 +7,7 @@ branding:
 
 inputs:
   command:
-    description: Command to run (review, dead, slice, graph, callgraph)
+    description: Command to run (review, dead, unused, slice, graph, callgraph, callers, path, html)
     required: false
     default: review
   args:

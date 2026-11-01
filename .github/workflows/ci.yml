@@ -63,7 +63,8 @@ jobs:
 
   # Exercise action.yml the way a consumer does: GitHub resolves the composite
   # action, the action installs MoonBit, builds the pinned source, and scans a
-  # tree. `src/` has no findings, so the --fail-on-findings gate stays green.
+  # tree. Both gates run: `dead` and `unused`. `src/` has no findings either way,
+  # so --fail-on-findings proves the pass path rather than a failing build.
   action:
     runs-on: ubuntu-latest
     steps:
@@ -72,4 +73,9 @@ jobs:
       - uses: ./
         with:
           command: dead
+          args: --dir src --fail-on-findings
+
+      - uses: ./
+        with:
+          command: unused
           args: --dir src --fail-on-findings

@@ -8,7 +8,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 294, passed: 294, failed: 0` |
+| `./dev.sh test` | `Total tests: 315, passed: 315, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -50,6 +50,38 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | `callers --dir . --name parse_str` (in /tmp/x/time) | 10 call sites across 5 files — qualified `Duration::parse_str(...)` calls |
 | `node web/playground_e2e.mjs .` | passes on 3 consecutive runs (gutter, status and escaping) |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
+
+## 0.7.1 / 0.7.2 — registry and suppressions (2026-11-01)
+
+**Publishing.** `moon publish` returned `Server status: 200 OK` for
+`NaIWaniubi/moon-slice@0.7.1` and again for `@0.7.2`. The registry rejects a
+module whose first path segment is not the logged-in username, so the module
+namespace moved off the old account name and the shipped bundle was rebuilt
+(its mangled symbol names embed the package path).
+
+| Check | Result |
+| --- | --- |
+| `moon add NaIWaniubi/moon-slice@0.7.2` | `Downloading NaIWaniubi/moon-slice@0.7.2` |
+| Consumer run in a clean module | `backward-lines=[4]` / `line=1..4` — the parameter, both bindings, the target |
+| Registry page | <https://mooncakes.io/docs/NaIWaniubi/moon-slice> lists 0.7.2 as latest |
+| Package | `1,173,362 bytes`, `144 files` |
+| CI `41284592450`, `41284590226` | success: check, native release build, 315 tests, corpus, CLI smoke (with suppression cases), both bundle smokes, playground presets |
+| Pages `41284590228` | success |
+| Live bundle | contains `moon-slice 0.7.2` |
+| `node web/live_e2e.mjs` | `live e2e ok: ... lines 4,5,6,7,8 · target line 7` |
+
+**Suppressions.** `// moon-slice: ignore[rule]` covers the finding on its line;
+alone on a line it covers the next line of code. Verified end to end:
+
+| Check | Result |
+| --- | --- |
+| `dead --file plain.mbt` | `3` |
+| same line with `// moon-slice: ignore dead-store` | `{"nodes":[],"lines":[],"errors":[],"suppressed":1}` |
+| directive alone above the line | same, `"suppressed":1` |
+| `ignore dead-store` on an unreachable statement | finding stays — it is `unreachable-code` |
+| `ignore unreachable-code` on the same line | `"suppressed":1` |
+| `ignore dead_stores` (a typo) | line still reported: unknown names are inert |
+| `unused --dir` with one suppressed declaration | `"suppressed":1`, other findings intact |
 
 ## 0.7.0 package-scope analysis (2026-10-30)
 

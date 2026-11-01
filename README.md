@@ -517,18 +517,20 @@ Both compose with SARIF, a baseline and a gate:
 The baseline is a text file of `path:line` entries; `--write-baseline` generates
 it, and `--fail-on-findings` exits `1` only for findings that survive filtering.
 A file that cannot be parsed is reported in `--json`/SARIF (and as a `# error:`
-line in text mode) but does not hide the other files.
+line in text mode) but does not hide the other files. A single finding is
+cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
+[Suppressing a finding](#suppressing-a-finding)).
 
 `action.yml` wraps the build and the commands for GitHub Actions, and
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.7.2
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.6.0
+- uses: NaIWaniubi/moon-slice@v0.7.2
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
