@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.1-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -59,9 +60,14 @@ cd moon-slice
 ./dev.sh test       # run the test suite
 ```
 
-The library targets the 0.6.0 release line on mooncakes.io; see
-[PUBLISHING.md](PUBLISHING.md) for the exact `moon add chen/moon-slice@0.6.0`
-step and its current publication status.
+The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
+
+```bash
+moon add NaIWaniubi/moon-slice@0.7.1
+```
+
+<https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
+[PUBLISHING.md](PUBLISHING.md).
 
 ## Quickstart
 

@@ -1,8 +1,8 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "chen/moon-slice/src/query"
+package "NaIWaniubi/moon-slice/src/query"
 
 import {
-  "chen/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/core",
 }
 
 // Values

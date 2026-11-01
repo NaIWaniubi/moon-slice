@@ -1,15 +1,15 @@
 import {
-  "chen/moon-slice/src/core",
-  "chen/moon-slice/src/parser_adapter",
-  "chen/moon-slice/src/cfg",
-  "chen/moon-slice/src/defuse",
-  "chen/moon-slice/src/cdg",
-  "chen/moon-slice/src/pdg",
-  "chen/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/cdg",
+  "NaIWaniubi/moon-slice/src/pdg",
+  "NaIWaniubi/moon-slice/src/query",
 }
 
 import {
-  "chen/moon-slice/src/core",
-  "chen/moon-slice/src/slice",
-  "chen/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/slice",
+  "NaIWaniubi/moon-slice/src/query",
 } for "test"

@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.7.1 — 2026-11-01
+
+Release hygiene: the version, the tag, the repository and the registry now name
+the same thing.
+
+- **Module namespace moved to the account that publishes it.** mooncakes rejects
+  a module whose first path segment is not the logged-in username, so
+  `chen/moon-slice` became `NaIWaniubi/moon-slice` in `moon.mod`, all 11
+  `moon.pkg` self-imports, the generated `.mbti` files, and the shipped JS
+  bundle (its mangled symbol names embed the package path, so it was rebuilt).
+- **First publish.** `NaIWaniubi/moon-slice@0.7.0` went live on 2026-10-31 with
+  `Server status: 200 OK`; a scratch module depending only on the registry copy
+  prints `backward-lines=[4]` / `line=1..4`.
+- **0.7.1 republishes the same analysis** so that the git tag, `moon.mod` and the
+  registry entry all point at one commit, and so the docs carry the verified
+  artifact rather than a plan. No API or behaviour change.
+
 ## 0.7.0 — 2026-10-30
 
 The analysis became package-scoped: calls are followed into sibling files, and
@@ -30,6 +47,12 @@ the mirror question — who calls this — has a command.
   unknown callee, unparsable files, qualified vs receiver calls).
 - **294 tests.** CI now also checks the playground presets, and the CLI smoke
   covers package-scope slicing and `callers`.
+- **Published to mooncakes.io** on 2026-10-31 as
+  `NaIWaniubi/moon-slice@0.7.0` (`Server status: 200 OK`). The module namespace
+  moved from the old account name to `NaIWaniubi`, so every internal
+  `moon.pkg` self-import and the packaged JS bundle were rebuilt to match; a
+  scratch module that only depends on the registry copy runs the pipeline and
+  prints `backward-lines=[4]` / `line=1..4`. Details in `PUBLISHING.md`.
 
 ## 0.6.0 — 2026-10-30
 

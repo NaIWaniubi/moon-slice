@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "chen/moon-slice/src/liveness"
+package "NaIWaniubi/moon-slice/src/liveness"
 
 // Values
 pub fn collect(String, String) -> FileFacts

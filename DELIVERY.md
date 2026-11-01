@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-10-30 (v0.7.0). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-01 (v0.7.1; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
@@ -438,9 +438,8 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `chen-moon-slice-0.5.0.zip` (976 KB, 122 files)
-- [ ] `moon publish` to mooncakes.io — requires the maintainer's interactive
-  `moon login`; see `PUBLISHING.md`
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.1.zip` (1,161,277 bytes, 140 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.1`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
-- [ ] submit the Feishu form before 2026-10-31 23:59:59
+- [x] registration submitted by the author ahead of the deadline; the guide's remaining expectation is a repository that stays current, which is what every commit after it keeps true

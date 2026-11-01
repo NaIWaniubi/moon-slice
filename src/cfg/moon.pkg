@@ -1,7 +1,7 @@
 import {
-  "chen/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/core",
 }
 
 import {
-  "chen/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
 } for "test"

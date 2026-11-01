@@ -68,7 +68,13 @@ cd moon-slice
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
 ```
 
-Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库计划随 0.6.0 发布到 mooncakes.io，`moon add chen/moon-slice@0.6.0` 与当前发布状态见 `PUBLISHING.md`。
+Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
+
+```bash
+moon add NaIWaniubi/moon-slice@0.7.1
+```
+
+<https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
 
 ## 改动影响分析（review）
 

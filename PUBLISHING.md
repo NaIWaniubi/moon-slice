@@ -1,37 +1,78 @@
 # Publishing to mooncakes.io
 
-Status: **not yet published** as of 2026-10-29. Everything except the maintainer
-login has been verified; this is the only acceptance item that cannot be done
-from the repository alone.
+Status: **published** — `NaIWaniubi/moon-slice@0.7.0` went live on 2026-10-31, and
+0.7.1 republished the same analysis on 2026-11-01 so that tag, manifest and
+registry agree.
 
-## Verified locally
+```
+Server status: 200 OK
+```
+
+The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
+
+## Published artifact
 
 | Check | Result |
 | --- | --- |
-| `moonc -v` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
+| `moonc --version` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
 | `moon check` | 0 errors, 0 warnings |
-| `moon test` | 256 / 256 |
-| `moon package` | `_build/publish/chen-moon-slice-0.7.0.zip` (976 KB, 122 files) |
+| `moon test` | 294 / 294 |
+| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.7.1.zip` |
+| `moon publish` | `Server status: 200 OK` |
 | Manifest | name, version, readme, repository, license, keywords, description |
 | License | Apache-2.0 (`LICENSE`), dependencies Apache-2.0 (`THIRD_PARTY.md`) |
 
-## One-time login
-
-`moon login` is interactive: it needs a terminal and a browser session for the
-mooncakes.io account. It writes `~/.moon/credentials.json`.
+## Evidence from the registry
 
 ```bash
-moon login
+$ moon add NaIWaniubi/moon-slice@0.7.1
+Downloading NaIWaniubi/moon-slice@0.7.1
 ```
 
-## Publish 0.7.0
+A scratch module consuming the published package, not the working tree:
 
-From the repository root, with the same account that owns the `chen` namespace:
+```moonbit
+// cmd/main/moon.pkg imports NaIWaniubi/moon-slice/src/{parser_adapter,cfg,defuse,cdg,pdg,query,slice}
+let program = @parser_adapter.parse_source(source, "consumer.mbt")
+let cfg     = @cfg.build(program)
+let defuse  = @defuse.analyze(program, cfg)
+let cdg     = @cdg.build(program, cfg)
+let pdg     = @pdg.build(defuse, cdg)
+let node    = @query.target_node(program, 4).unwrap()
+let result  = @slice.backward(pdg, node, program=program)
+```
+
+```
+$ moon run cmd/main
+backward-lines=[4]
+line=1
+line=2
+line=3
+line=4
+```
+
+The slice is `[1, 2, 3, 4]` for a target on line 4 — the parameter, both
+intermediate bindings, and the target itself.
+
+## One-time login
+
+`moon login` is interactive: it needs a real terminal (it refuses a pipe with
+`IO error: not a terminal`) and a browser session for the mooncakes.io account.
+It writes `~/.moon/credentials.json`.
 
 ```bash
-moon publish --dry-run     # validates and prints what would be uploaded
+moon login      # Password or Github; the Github path prints an authorize URL
+                # and then asks for the code shown on the callback page
+```
+
+## Republish / next release
+
+From the repository root, as the account that owns the namespace:
+
+```bash
+moon publish --dry-run     # validates, packages, checks the extracted zip
 moon publish
-moon search moon-slice     # the registry should list chen/moon-slice 0.7.0
+moon search moon-slice     # the registry should list NaIWaniubi/moon-slice
 ```
 
 Or run the checked wrapper, which repeats the local verification, logs in if
@@ -41,48 +82,45 @@ needed, previews the upload and asks before publishing:
 bash tools/publish.sh
 ```
 
-`moon publish` uses the version in `moon.mod`; a version can be published once.
-Bump `version` before the next release.
+`moon publish` uses the `version` in `moon.mod`; each version can be published
+once. Bump `version` before the next release.
 
-## If the account namespace is not `chen`
+## If the account namespace changes
 
-The module is `chen/moon-slice`. If the logged-in mooncakes account is named
-differently, the registry will reject the namespace; rename the module and its
-internal imports first:
+The registry rejects a module whose first path segment is not the logged-in
+username:
+
+```
+Server status: 403 Forbidden, detail: User mismatch: The username in the module
+config file (chen) does not match the authenticated user's username (NaIWaniubi).
+```
+
+If that happens, rename the module and every self-import first:
 
 ```bash
 # Replace <account> with the logged-in mooncakes username.
-sed -i 's#^name = "chen/moon-slice"#name = "<account>/moon-slice"#' moon.mod
-grep -rl '"chen/moon-slice/' --include=moon.pkg . \
-  | xargs sed -i 's#"chen/moon-slice/#"<account>/moon-slice/#g'
-grep -rl 'chen/moon-slice' README.md README.zh-CN.md PUBLISHING.md \
-  | xargs sed -i 's#chen/moon-slice#<account>/moon-slice#g'
+python - <<'PY'
+import os
+old, new = b"chen/moon-slice", b"<account>/moon-slice"
+skip = {"_build", ".git", "node_modules"}
+for root, dirs, files in os.walk("."):
+    dirs[:] = [d for d in dirs if d not in skip]
+    for name in files:
+        path = os.path.join(root, name)
+        if path.lower().endswith((".png", ".jpg", ".gif", ".pdf", ".zip")):
+            continue
+        data = open(path, "rb").read()
+        if old in data:
+            open(path, "wb").write(data.replace(old, new))
+PY
 
 ./dev.sh check && ./dev.sh test
+bash web/build.sh          # the JS bundle embeds package names in symbol names
 moon publish
 ```
 
-There are 11 `moon.pkg` files carrying the self-import; `moon check` catches any
-that were missed.
-
-## Verify the published package
-
-In a scratch MoonBit module:
-
-```bash
-moon new /tmp/moon-slice-verify
-cd /tmp/moon-slice-verify
-moon add chen/moon-slice@0.7.0
-moon check
-```
-
-Then import a library package, for example:
-
-```moonbit
-// moon.pkg: import { "chen/moon-slice/src/parser_adapter" }
-let program = @parser_adapter.parse_source("fn f() -> Int { 1 }\n", "a.mbt")
-println(program.errors.length()) // 0
-```
+There are 32 files carrying the self-import; `moon check` catches any that were
+missed, and the playground presets catch a stale bundle.
 
 ## Credentials format (verified)
 
@@ -92,16 +130,12 @@ println(program.errors.length()) // 0
 {"token": "<mooncakes token>", "username": "<account name>"}
 ```
 
-`username` is optional. The format was verified against the CLI's
-`Credentials` struct and by a `moon publish --dry-run` probe: with a probe file
-present the command passed its local checks and attempted
-`POST https://mooncakes.io/api/v0/publish`. The request failed with the probe
-token, nothing was published, and the probe file was deleted.
+`username` is optional. Do not commit this file.
 
 ## CI option
 
-Publishing is not wired into this repository's CI by default because the token
-is account-scoped. If you keep it as a repository secret
+Publishing is not wired into this repository's CI because the token is
+account-scoped. If you keep it as a repository secret
 (`MOONCAKES_CREDENTIALS`, the JSON above), a release job can write the file and
 publish:
 
@@ -116,6 +150,3 @@ publish:
 - name: Publish
   run: moon publish
 ```
-
-Do not commit the credentials file. `moon login` remains the simplest local
-path and needs a TTY plus a browser session.

@@ -651,7 +651,7 @@ function _M0TPB3MapGsRPB5ArrayGiEE(param0, param1, param2, param3, param4, param
   this.head = param5;
   this.tail = param6;
 }
-function _M0TPB3MapGiRP44chen12moon_2dslice3src4core5SNodeE(param0, param1, param2, param3, param4, param5, param6) {
+function _M0TPB3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(param0, param1, param2, param3, param4, param5, param6) {
   this.entries = param0;
   this.size = param1;
   this.capacity = param2;
@@ -696,7 +696,7 @@ function _M0TPB3MapGsRPC15debug4ReprE(param0, param1, param2, param3, param4, pa
   this.head = param5;
   this.tail = param6;
 }
-function _M0TPB5EntryGiRP44chen12moon_2dslice3src4core5SNodeE(param0, param1, param2, param3, param4, param5) {
+function _M0TPB5EntryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(param0, param1, param2, param3, param4, param5) {
   this.prev = param0;
   this.next = param1;
   this.psl = param2;
@@ -1685,7 +1685,7 @@ function _M0DTPC14list4ListGWRP311moonbitlang6parser12yacc__parser8YYSymbolERP31
   this._1 = param1;
 }
 _M0DTPC14list4ListGWRP311moonbitlang6parser12yacc__parser8YYSymbolERP311moonbitlang6parser12yacc__parser10YYDecisionE4More.prototype.$tag = 1;
-function _M0TPB9ArrayViewGUiRP44chen12moon_2dslice3src4core5SNodeEE(param0, param1, param2) {
+function _M0TPB9ArrayViewGUiRP410NaIWaniubi12moon_2dslice3src4core5SNodeEE(param0, param1, param2) {
   this.buf = param0;
   this.start = param1;
   this.end = param2;
@@ -1705,36 +1705,36 @@ function _M0TPB9ArrayViewGUiRPB5ArrayGiEEE(param0, param1, param2) {
   this.start = param1;
   this.end = param2;
 }
-function _M0TP44chen12moon_2dslice3src3cdg5Index(param0, param1, param2, param3, param4) {
+function _M0TP410NaIWaniubi12moon_2dslice3src3cdg5Index(param0, param1, param2, param3, param4) {
   this.by_id = param0;
   this.ids = param1;
   this.children = param2;
   this.parent = param3;
   this.all = param4;
 }
-function _M0TP44chen12moon_2dslice3src4core3Cdg(param0) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core3Cdg(param0) {
   this.edges = param0;
 }
-function _M0TP44chen12moon_2dslice3src3cfg7LoopCtx(param0, param1) {
+function _M0TP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtx(param0, param1) {
   this.continue_to = param0;
   this.break_to = param1;
 }
-function _M0TP44chen12moon_2dslice3src3cfg7Builder(param0, param1, param2, param3) {
+function _M0TP410NaIWaniubi12moon_2dslice3src3cfg7Builder(param0, param1, param2, param3) {
   this.by_id = param0;
   this.edges = param1;
   this.seen = param2;
   this.exit_slot = param3;
 }
-function _M0TP44chen12moon_2dslice3src4core3Cfg(param0, param1, param2) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core3Cfg(param0, param1, param2) {
   this.edges = param0;
   this.entry = param1;
   this.exit = param2;
 }
-function _M0TP44chen12moon_2dslice3src6defuse5Facts(param0, param1) {
+function _M0TP410NaIWaniubi12moon_2dslice3src6defuse5Facts(param0, param1) {
   this.defs = param0;
   this.uses = param1;
 }
-function _M0TP44chen12moon_2dslice3src4core6DefUse(param0) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core6DefUse(param0) {
   this.reaching = param0;
 }
 function _M0TPB9ArrayViewGUsRPC15debug4ReprEE(param0, param1, param2) {
@@ -3698,7 +3698,7 @@ function _M0TPB9ArrayViewGRP311moonbitlang5lexer5basic6ReportE(param0, param1, p
   this.start = param1;
   this.end = param2;
 }
-function _M0TP44chen12moon_2dslice3src4core5SNode(param0, param1, param2, param3, param4, param5, param6) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core5SNode(param0, param1, param2, param3, param4, param5, param6) {
   this.id = param0;
   this.kind = param1;
   this.loc = param2;
@@ -3707,28 +3707,28 @@ function _M0TP44chen12moon_2dslice3src4core5SNode(param0, param1, param2, param3
   this.children = param5;
   this.parent = param6;
 }
-function _M0TP44chen12moon_2dslice3src4core5VarId(param0, param1) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core5VarId(param0, param1) {
   this.name = param0;
   this.scope = param1;
 }
-function _M0TP44chen12moon_2dslice3src15parser__adapter11IdCollector(param0) {
+function _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollector(param0) {
   this.names = param0;
 }
-function _M0TP44chen12moon_2dslice3src4core3Loc(param0, param1, param2, param3) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(param0, param1, param2, param3) {
   this.start_line = param0;
   this.start_col = param1;
   this.end_line = param2;
   this.end_col = param3;
 }
-function _M0TP44chen12moon_2dslice3src4core8CallSite(param0, param1, param2) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core8CallSite(param0, param1, param2) {
   this.caller = param0;
   this.callee = param1;
   this.line = param2;
 }
-function _M0TP44chen12moon_2dslice3src15parser__adapter13CallCollector(param0) {
+function _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollector(param0) {
   this.names = param0;
 }
-function _M0TP44chen12moon_2dslice3src4core12FunctionInfo(param0, param1, param2) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core12FunctionInfo(param0, param1, param2) {
   this.name = param0;
   this.entry = param1;
   this.exit = param2;
@@ -3738,7 +3738,7 @@ function _M0TPB9ArrayViewGUsRPB5ArrayGiEEE(param0, param1, param2) {
   this.start = param1;
   this.end = param2;
 }
-function _M0TP44chen12moon_2dslice3src15parser__adapter7Adapter(param0, param1, param2, param3, param4, param5, param6, param7) {
+function _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter7Adapter(param0, param1, param2, param3, param4, param5, param6, param7) {
   this.nodes = param0;
   this.functions = param1;
   this.calls = param2;
@@ -3748,13 +3748,13 @@ function _M0TP44chen12moon_2dslice3src15parser__adapter7Adapter(param0, param1, 
   this.current_function = param6;
   this.closure_captures = param7;
 }
-function _M0TP44chen12moon_2dslice3src4core7Program(param0, param1, param2, param3) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core7Program(param0, param1, param2, param3) {
   this.nodes = param0;
   this.functions = param1;
   this.calls = param2;
   this.errors = param3;
 }
-function _M0TP44chen12moon_2dslice3src4core7PdgEdge(param0, param1, param2) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core7PdgEdge(param0, param1, param2) {
   this.from = param0;
   this.to = param1;
   this.kind = param2;
@@ -3764,10 +3764,10 @@ function _M0TPB9ArrayViewGUiiiEE(param0, param1, param2) {
   this.start = param1;
   this.end = param2;
 }
-function _M0TP44chen12moon_2dslice3src4core3Pdg(param0) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core3Pdg(param0) {
   this.edges = param0;
 }
-function _M0TP44chen12moon_2dslice3src4core11SliceResult(param0, param1) {
+function _M0TP410NaIWaniubi12moon_2dslice3src4core11SliceResult(param0, param1) {
   this.nodes = param0;
   this.lines = param1;
 }
@@ -3776,8 +3776,8 @@ function _M0TPB9ArrayViewGUisEE(param0, param1, param2) {
   this.start = param1;
   this.end = param2;
 }
-const _M0FP44chen12moon_2dslice3src3web11read__input = moonSliceReadInput;
-const _M0FP44chen12moon_2dslice3src3web13write__output = moonSliceWriteOutput;
+const _M0FP410NaIWaniubi12moon_2dslice3src3web11read__input = moonSliceReadInput;
+const _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output = moonSliceWriteOutput;
 const _M0FP092moonbitlang_2fcore_2fbuiltin_2fStringBuilder_24as_24_40moonbitlang_2fcore_2fbuiltin_2eLogger = { method_0: _M0IPB13StringBuilderPB6Logger13write__string, method_1: _M0IP016_24default__implPB6Logger16write__substringGRPB13StringBuilderE, method_2: _M0IPB13StringBuilderPB6Logger11write__view, method_3: _M0IPB13StringBuilderPB6Logger11write__char, method_4: _M0IP016_24default__implPB6Logger28write__string__interpolationGRPB13StringBuilderE, method_5: _M0IP016_24default__implPB6Logger5writeGRPB13StringBuilderE };
 const _M0MPB4Iter4nextN6constrS184GsE = 0;
 const _M0MPB4Iter4nextN6constrS185GsE = 0;
@@ -3816,6 +3816,8 @@ const _M0FP311moonbitlang6parser12yacc__parser15yy__action__321N6constrS21714 = 
 const _M0FP311moonbitlang6parser12yacc__parser16yy__action__1135N6constrS29689 = new _M0DTP311moonbitlang6parser6syntax8Constant4Bool(true);
 const _M0FP311moonbitlang6parser12yacc__parser16yy__action__1136N6constrS29692 = new _M0DTP311moonbitlang6parser6syntax8Constant4Bool(false);
 const _M0FPB4seed = _M0FPB12random__seed();
+const _M0MPC16string10StringView4findN6constrS517 = 0;
+const _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51284 = new _M0TPC16string10StringView("\n", 0, 1);
 const _M0FP311moonbitlang6parser18handrolled__parser26expect__tokens__to__stringN6recordS9640 = new _M0TPC16string10StringView(", ", 0, 2);
 const _M0MP311moonbitlang6parser18handrolled__parser5State32parse__error__annotation_2einnerN6constrS9817 = new _M0DTP311moonbitlang6parser6syntax9LongIdent5Ident("Error");
 const _M0MP311moonbitlang6parser6syntax9DocString5emptyN7_2abindS9482 = "";
@@ -22773,9 +22775,7 @@ const _M0FP311moonbitlang6parser12yacc__parser15yy__state__1158N6constrS50038 = 
 const _M0MPC16string10StringView4trimN6recordS781 = new _M0TPC16string10StringView("\t\n\r ", 0, 4);
 const _M0FP211moonbitlang6parser18attach__docstringsN6recordS50307 = new _M0TP311moonbitlang5lexer5basic8Position("", -1, 0, 0);
 const _M0FP211moonbitlang5lexer20tokens__from__stringN6recordS5460 = new _M0TP311moonbitlang5lexer5basic8Position("", 1, 0, 0);
-const _M0MPC16string10StringView4findN6constrS517 = 0;
-const _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS51284 = new _M0TPC16string10StringView("\n", 0, 1);
-const _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS51370 = new _M0TPC16string10StringView("\n", 0, 1);
+const _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51370 = new _M0TPC16string10StringView("\n", 0, 1);
 function _M0FPB13consume4__acc(acc, input) {
   const _p = (acc >>> 0) + ((Math.imul(input, -1028477379) | 0) >>> 0) | 0;
   const _p$2 = 17;
@@ -23811,7 +23811,7 @@ function _M0MPC15array5Array4pushGsE(self, value) {
 function _M0MPC15array5Array4pushGiE(self, value) {
   _M0MPB7JSArray4push(self, value);
 }
-function _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(self, value) {
+function _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(self, value) {
   _M0MPB7JSArray4push(self, value);
 }
 function _M0MPC15array5Array4pushGbE(self, value) {
@@ -24508,13 +24508,13 @@ function _M0FPB8new__mapGsRPB5ArrayGiEE(capacity) {
   const _bind$5 = undefined;
   return new _M0TPB3MapGsRPB5ArrayGiEE(_bind$4, 0, capacity$2, _bind$2, _bind$3, _bind$5, -1);
 }
-function _M0FPB8new__mapGiRP44chen12moon_2dslice3src4core5SNodeE(capacity) {
+function _M0FPB8new__mapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(capacity) {
   const capacity$2 = _M0MPC13int3Int20next__power__of__two(capacity);
   const _bind$2 = capacity$2 - 1 | 0;
   const _bind$3 = (Math.imul(capacity$2, 13) | 0) / 16 | 0;
   const _bind$4 = $make_array_len_and_init(capacity$2, undefined);
   const _bind$5 = undefined;
-  return new _M0TPB3MapGiRP44chen12moon_2dslice3src4core5SNodeE(_bind$4, 0, capacity$2, _bind$2, _bind$3, _bind$5, -1);
+  return new _M0TPB3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(_bind$4, 0, capacity$2, _bind$2, _bind$3, _bind$5, -1);
 }
 function _M0FPB8new__mapGisE(capacity) {
   const capacity$2 = _M0MPC13int3Int20next__power__of__two(capacity);
@@ -24556,7 +24556,7 @@ function _M0FPB21capacity__for__length(length) {
   }
   return capacity;
 }
-function _M0MPB3Map20add__entry__to__tailGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, entry) {
+function _M0MPB3Map20add__entry__to__tailGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, entry) {
   const _bind$2 = self.tail;
   if (_bind$2 === -1) {
     self.head = entry;
@@ -24676,7 +24676,7 @@ function _M0MPB3Map20add__entry__to__tailGsRPC15debug4ReprE(self, idx, entry) {
   self.entries[idx] = entry;
   self.size = self.size + 1 | 0;
 }
-function _M0MPB3Map10set__entryGiRP44chen12moon_2dslice3src4core5SNodeE(self, entry, new_idx) {
+function _M0MPB3Map10set__entryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, entry, new_idx) {
   const _bind$2 = entry.next;
   if (_bind$2 === undefined) {
     self.tail = new_idx;
@@ -24742,7 +24742,7 @@ function _M0MPB3Map10set__entryGsRPC15debug4ReprE(self, entry, new_idx) {
   }
   self.entries[new_idx] = entry;
 }
-function _M0MPB3Map10push__awayGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, entry) {
+function _M0MPB3Map10push__awayGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, entry) {
   let _tmp = entry.psl + 1 | 0;
   let _tmp$2 = idx + 1 & self.capacity_mask;
   let _tmp$3 = entry;
@@ -24753,14 +24753,14 @@ function _M0MPB3Map10push__awayGiRP44chen12moon_2dslice3src4core5SNodeE(self, id
     const _bind$2 = self.entries[idx$2];
     if (_bind$2 === undefined) {
       entry$2.psl = psl;
-      _M0MPB3Map10set__entryGiRP44chen12moon_2dslice3src4core5SNodeE(self, entry$2, idx$2);
+      _M0MPB3Map10set__entryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, entry$2, idx$2);
       return;
     } else {
       const _Some = _bind$2;
       const _curr_entry = _Some;
       if (psl > _curr_entry.psl) {
         entry$2.psl = psl;
-        _M0MPB3Map10set__entryGiRP44chen12moon_2dslice3src4core5SNodeE(self, entry$2, idx$2);
+        _M0MPB3Map10set__entryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, entry$2, idx$2);
         _tmp = _curr_entry.psl + 1 | 0;
         _tmp$2 = idx$2 + 1 & self.capacity_mask;
         _tmp$3 = _curr_entry;
@@ -24928,7 +24928,7 @@ function _M0MPB3Map10push__awayGsRPC15debug4ReprE(self, idx, entry) {
     }
   }
 }
-function _M0MPB3Map20rehash__place__entryGiRP44chen12moon_2dslice3src4core5SNodeE(self, outer) {
+function _M0MPB3Map20rehash__place__entryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, outer) {
   const hash = outer.hash;
   let _tmp = 0;
   let _tmp$2 = hash & self.capacity_mask;
@@ -24939,16 +24939,16 @@ function _M0MPB3Map20rehash__place__entryGiRP44chen12moon_2dslice3src4core5SNode
     if (_bind$2 === undefined) {
       outer.psl = psl;
       outer.prev = self.tail;
-      _M0MPB3Map20add__entry__to__tailGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, outer);
+      _M0MPB3Map20add__entry__to__tailGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, outer);
       return undefined;
     } else {
       const _Some = _bind$2;
       const _curr = _Some;
       if (psl > _curr.psl) {
-        _M0MPB3Map10push__awayGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, _curr);
+        _M0MPB3Map10push__awayGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, _curr);
         outer.psl = psl;
         outer.prev = self.tail;
-        _M0MPB3Map20add__entry__to__tailGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, outer);
+        _M0MPB3Map20add__entry__to__tailGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, outer);
         return undefined;
       } else {
         _tmp = psl + 1 | 0;
@@ -25108,7 +25108,7 @@ function _M0MPB3Map20rehash__place__entryGsRPC15debug4ReprE(self, outer) {
     }
   }
 }
-function _M0MPB3Map4growGiRP44chen12moon_2dslice3src4core5SNodeE(self) {
+function _M0MPB3Map4growGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self) {
   const old_head = self.head;
   const new_capacity = self.capacity << 1;
   self.entries = $make_array_len_and_init(new_capacity, undefined);
@@ -25129,7 +25129,7 @@ function _M0MPB3Map4growGiRP44chen12moon_2dslice3src4core5SNodeE(self) {
       const _e = _Some;
       const next_in_chain = _e.next;
       _e.next = undefined;
-      _M0MPB3Map20rehash__place__entryGiRP44chen12moon_2dslice3src4core5SNodeE(self, _e);
+      _M0MPB3Map20rehash__place__entryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, _e);
       _tmp = next_in_chain;
       continue;
     }
@@ -25270,7 +25270,7 @@ function _M0MPB3Map4growGsRPC15debug4ReprE(self) {
     }
   }
 }
-function _M0MPB3Map15set__with__hashGiRP44chen12moon_2dslice3src4core5SNodeE(self, key, value, hash) {
+function _M0MPB3Map15set__with__hashGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, key, value, hash) {
   let _tmp = 0;
   let _tmp$2 = hash & self.capacity_mask;
   while (true) {
@@ -25279,15 +25279,15 @@ function _M0MPB3Map15set__with__hashGiRP44chen12moon_2dslice3src4core5SNodeE(sel
     const _bind$2 = self.entries[idx];
     if (_bind$2 === undefined) {
       if (self.size >= self.grow_at) {
-        _M0MPB3Map4growGiRP44chen12moon_2dslice3src4core5SNodeE(self);
+        _M0MPB3Map4growGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self);
         _tmp = 0;
         _tmp$2 = hash & self.capacity_mask;
         continue;
       }
       const _bind$3 = self.tail;
       const _bind$4 = undefined;
-      const entry = new _M0TPB5EntryGiRP44chen12moon_2dslice3src4core5SNodeE(_bind$3, _bind$4, psl, hash, key, value);
-      _M0MPB3Map20add__entry__to__tailGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, entry);
+      const entry = new _M0TPB5EntryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(_bind$3, _bind$4, psl, hash, key, value);
+      _M0MPB3Map20add__entry__to__tailGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, entry);
       return undefined;
     } else {
       const _Some = _bind$2;
@@ -25298,16 +25298,16 @@ function _M0MPB3Map15set__with__hashGiRP44chen12moon_2dslice3src4core5SNodeE(sel
       }
       if (psl > _curr_entry.psl) {
         if (self.size >= self.grow_at) {
-          _M0MPB3Map4growGiRP44chen12moon_2dslice3src4core5SNodeE(self);
+          _M0MPB3Map4growGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self);
           _tmp = 0;
           _tmp$2 = hash & self.capacity_mask;
           continue;
         }
-        _M0MPB3Map10push__awayGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, _curr_entry);
+        _M0MPB3Map10push__awayGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, _curr_entry);
         const _bind$3 = self.tail;
         const _bind$4 = undefined;
-        const entry = new _M0TPB5EntryGiRP44chen12moon_2dslice3src4core5SNodeE(_bind$3, _bind$4, psl, hash, key, value);
-        _M0MPB3Map20add__entry__to__tailGiRP44chen12moon_2dslice3src4core5SNodeE(self, idx, entry);
+        const entry = new _M0TPB5EntryGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(_bind$3, _bind$4, psl, hash, key, value);
+        _M0MPB3Map20add__entry__to__tailGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, idx, entry);
         return undefined;
       }
       _tmp = psl + 1 | 0;
@@ -25546,8 +25546,8 @@ function _M0MPB3Map15set__with__hashGsRPC15debug4ReprE(self, key, value, hash) {
     }
   }
 }
-function _M0MPB3Map3setGiRP44chen12moon_2dslice3src4core5SNodeE(self, key, value) {
-  _M0MPB3Map15set__with__hashGiRP44chen12moon_2dslice3src4core5SNodeE(self, key, value, _M0IPC13int3IntPB4Hash4hash(key));
+function _M0MPB3Map3setGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, key, value) {
+  _M0MPB3Map15set__with__hashGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, key, value, _M0IPC13int3IntPB4Hash4hash(key));
 }
 function _M0MPB3Map3setGisE(self, key, value) {
   _M0MPB3Map15set__with__hashGisE(self, key, value, _M0IPC13int3IntPB4Hash4hash(key));
@@ -25591,7 +25591,7 @@ function _M0MPB3Map3MapGsRPB5ArrayGiEE(arr, capacity) {
   }
   return m;
 }
-function _M0MPB3Map3MapGiRP44chen12moon_2dslice3src4core5SNodeE(arr, capacity) {
+function _M0MPB3Map3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(arr, capacity) {
   const length = arr.end - arr.start | 0;
   let capacity$2;
   if (capacity === undefined) {
@@ -25602,14 +25602,14 @@ function _M0MPB3Map3MapGiRP44chen12moon_2dslice3src4core5SNodeE(arr, capacity) {
     const _p = _M0FPB21capacity__for__length(length);
     capacity$2 = _capacity > _p ? _capacity : _p;
   }
-  const m = _M0FPB8new__mapGiRP44chen12moon_2dslice3src4core5SNodeE(capacity$2);
+  const m = _M0FPB8new__mapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(capacity$2);
   const _bind$2 = arr.end - arr.start | 0;
   let _tmp = 0;
   while (true) {
     const _ = _tmp;
     if (_ < _bind$2) {
       const e = arr.buf[arr.start + _ | 0];
-      _M0MPB3Map3setGiRP44chen12moon_2dslice3src4core5SNodeE(m, e._0, e._1);
+      _M0MPB3Map3setGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(m, e._0, e._1);
       _tmp = _ + 1 | 0;
       continue;
     } else {
@@ -25726,7 +25726,7 @@ function _M0MPB3Map3MapGsRPC15debug4ReprE(arr, capacity) {
   }
   return m;
 }
-function _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(self, key) {
+function _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, key) {
   const hash = _M0IPC13int3IntPB4Hash4hash(key);
   let _tmp = 0;
   let _tmp$2 = hash & self.capacity_mask;
@@ -25851,7 +25851,7 @@ function _M0MPB3Map3getGsRPB5ArrayGiEE(self, key) {
     }
   }
 }
-function _M0MPB3Map8containsGiRP44chen12moon_2dslice3src4core5SNodeE(self, key) {
+function _M0MPB3Map8containsGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(self, key) {
   const hash = _M0IPC13int3IntPB4Hash4hash(key);
   let _tmp = 0;
   let _tmp$2 = hash & self.capacity_mask;
@@ -26258,7 +26258,7 @@ function _M0MPC15array5Array21clamped__view_2einnerGURPC15error5ErrorRP311moonbi
   const _bind$2 = self;
   return new _M0TPB9ArrayViewGURPC15error5ErrorRP311moonbitlang5lexer5basic8PositionRP311moonbitlang5lexer5basic8PositionEE(_bind$2, lo, lo + count | 0);
 }
-function _M0MPC15array5Array28unsafe__truncate__to__lengthGRP44chen12moon_2dslice3src4core5VarIdE(self, new_len) {
+function _M0MPC15array5Array28unsafe__truncate__to__lengthGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(self, new_len) {
   _M0MPB7JSArray11set__length(self, new_len);
 }
 function _M0MPC15array5Array6appendGRP311moonbitlang5lexer5basic6ReportE(self, other) {
@@ -26327,7 +26327,7 @@ function _M0MPC15array5Array2atGiE(self, index) {
   const len = self.length;
   return index >= 0 && index < len ? self[index] : $panic();
 }
-function _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(self, index) {
+function _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(self, index) {
   const len = self.length;
   return index >= 0 && index < len ? self[index] : $panic();
 }
@@ -26373,7 +26373,7 @@ function _M0MPC15array5Array3setGiE(self, index, value) {
     return;
   }
 }
-function _M0MPC15array5Array3setGRPB5ArrayGUiRP44chen12moon_2dslice3src4core5VarIdEEE(self, index, value) {
+function _M0MPC15array5Array3setGRPB5ArrayGUiRP410NaIWaniubi12moon_2dslice3src4core5VarIdEEE(self, index, value) {
   const len = self.length;
   if (index >= 0 && index < len) {
     self[index] = value;
@@ -27052,7 +27052,7 @@ function _M0MPC15array5Array8containsGiE(self, value) {
     }
   }
 }
-function _M0MPC15array5Array8containsGRP44chen12moon_2dslice3src4core5VarIdE(self, value) {
+function _M0MPC15array5Array8containsGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(self, value) {
   const _bind$2 = self.length;
   let _tmp = 0;
   while (true) {
@@ -27086,9 +27086,9 @@ function _M0MPC15array5Array8containsGRP311moonbitlang5lexer6tokens9TokenKindE(s
     }
   }
 }
-function _M0MPC15array5Array8truncateGRP44chen12moon_2dslice3src4core5VarIdE(self, len) {
+function _M0MPC15array5Array8truncateGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(self, len) {
   if (len >= 0 && len < self.length) {
-    _M0MPC15array5Array28unsafe__truncate__to__lengthGRP44chen12moon_2dslice3src4core5VarIdE(self, len);
+    _M0MPC15array5Array28unsafe__truncate__to__lengthGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(self, len);
     return;
   } else {
     return;
@@ -27126,7 +27126,7 @@ function _M0MPC15array5Array10push__iterGRP311moonbitlang5lexer6tokens9TokenKind
     }
   }
 }
-function _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(self) {
+function _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(self) {
   if (self.length === 0) {
     return undefined;
   } else {
@@ -30544,10 +30544,10 @@ function _M0MPC14list4List4dropGWRP311moonbitlang6parser12yacc__parser8YYSymbolE
     }
   }
 }
-function _M0IP44chen12moon_2dslice3src4core3LocPB2Eq5equal(_x_59, _x_60) {
+function _M0IP410NaIWaniubi12moon_2dslice3src4core3LocPB2Eq5equal(_x_59, _x_60) {
   return _x_59.start_line === _x_60.start_line && _x_59.start_col === _x_60.start_col && _x_59.end_line === _x_60.end_line && _x_59.end_col === _x_60.end_col;
 }
-function _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_x_29, _x_30) {
+function _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_x_29, _x_30) {
   switch (_x_29) {
     case 0: {
       if (_x_30 === 0) {
@@ -30635,9 +30635,9 @@ function _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_x_29, _x_30) {
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cdg14index__program(program) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg14index__program(program) {
   const _bind$2 = [];
-  const by_id = _M0MPB3Map3MapGiRP44chen12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP44chen12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
+  const by_id = _M0MPB3Map3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP410NaIWaniubi12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
   const ids = [];
   const _bind$3 = program.nodes;
   const _bind$4 = _bind$3.length;
@@ -30646,7 +30646,7 @@ function _M0FP44chen12moon_2dslice3src3cdg14index__program(program) {
     const _ = _tmp;
     if (_ < _bind$4) {
       const node = _bind$3[_];
-      _M0MPB3Map3setGiRP44chen12moon_2dslice3src4core5SNodeE(by_id, node.id, node);
+      _M0MPB3Map3setGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(by_id, node.id, node);
       _M0MPC15array5Array4pushGiE(ids, node.id);
       _tmp = _ + 1 | 0;
       continue;
@@ -30683,7 +30683,7 @@ function _M0FP44chen12moon_2dslice3src3cdg14index__program(program) {
       } else {
         const _Some = _bind$10;
         const _p = _Some;
-        if (_p !== node.id && (_M0MPB3Map8containsGiRP44chen12moon_2dslice3src4core5SNodeE(by_id, _p) && !_M0MPB3Map8containsGiiE(parent, node.id))) {
+        if (_p !== node.id && (_M0MPB3Map8containsGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(by_id, _p) && !_M0MPB3Map8containsGiiE(parent, node.id))) {
           _M0MPB3Map3setGiiE(parent, node.id, _p);
         }
       }
@@ -30712,7 +30712,7 @@ function _M0FP44chen12moon_2dslice3src3cdg14index__program(program) {
         const _$2 = _tmp$5;
         if (_$2 < _bind$15) {
           const kid = _bind$14[_$2];
-          if (kid !== node.id && (_M0MPB3Map8containsGiRP44chen12moon_2dslice3src4core5SNodeE(by_id, kid) && !_M0MPC13set3Set8containsGiE(seen, kid))) {
+          if (kid !== node.id && (_M0MPB3Map8containsGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(by_id, kid) && !_M0MPC13set3Set8containsGiE(seen, kid))) {
             _M0MPC13set3Set3addGiE(seen, kid);
             _M0MPC15array5Array4pushGiE(kids, kid);
             if (!_M0MPB3Map8containsGiiE(parent, kid)) {
@@ -30763,9 +30763,9 @@ function _M0FP44chen12moon_2dslice3src3cdg14index__program(program) {
       break;
     }
   }
-  return new _M0TP44chen12moon_2dslice3src3cdg5Index(by_id, ids, children, parent, all);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src3cdg5Index(by_id, ids, children, parent, all);
 }
-function _M0FP44chen12moon_2dslice3src3cdg17is__control__kind(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg17is__control__kind(kind) {
   switch (kind) {
     case 3: {
       return true;
@@ -30784,7 +30784,7 @@ function _M0FP44chen12moon_2dslice3src3cdg17is__control__kind(kind) {
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cdg14is__loop__kind(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg14is__loop__kind(kind) {
   switch (kind) {
     case 4: {
       return true;
@@ -30797,7 +30797,7 @@ function _M0FP44chen12moon_2dslice3src3cdg14is__loop__kind(kind) {
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cdg7subtree(index, id) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg7subtree(index, id) {
   const _bind$2 = [];
   const out = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
   _M0MPC13set3Set3addGiE(out, id);
@@ -30841,7 +30841,7 @@ function _M0FP44chen12moon_2dslice3src3cdg7subtree(index, id) {
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src3cdg21enclosing__loop__from(index, id, fuel) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg21enclosing__loop__from(index, id, fuel) {
   let _tmp = id;
   let _tmp$2 = fuel;
   while (true) {
@@ -30856,13 +30856,13 @@ function _M0FP44chen12moon_2dslice3src3cdg21enclosing__loop__from(index, id, fue
     } else {
       const _Some = _bind$2;
       const _p = _Some;
-      const _bind$3 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(index.by_id, _p);
+      const _bind$3 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(index.by_id, _p);
       if (_bind$3 === undefined) {
         return undefined;
       } else {
         const _Some$2 = _bind$3;
         const _node = _Some$2;
-        if (_M0FP44chen12moon_2dslice3src3cdg14is__loop__kind(_node.kind)) {
+        if (_M0FP410NaIWaniubi12moon_2dslice3src3cdg14is__loop__kind(_node.kind)) {
           return _p;
         } else {
           _tmp = _p;
@@ -30873,10 +30873,10 @@ function _M0FP44chen12moon_2dslice3src3cdg21enclosing__loop__from(index, id, fue
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cdg15enclosing__loop(index, id) {
-  return _M0FP44chen12moon_2dslice3src3cdg21enclosing__loop__from(index, id, index.ids.length + 1 | 0);
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg15enclosing__loop(index, id) {
+  return _M0FP410NaIWaniubi12moon_2dslice3src3cdg21enclosing__loop__from(index, id, index.ids.length + 1 | 0);
 }
-function _M0FP44chen12moon_2dslice3src3cdg16subtree__escapes(index, inner) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg16subtree__escapes(index, inner) {
   let has_return = false;
   let has_jump = false;
   const _bind$2 = _M0MPC13set3Set9to__arrayGiE(inner);
@@ -30886,7 +30886,7 @@ function _M0FP44chen12moon_2dslice3src3cdg16subtree__escapes(index, inner) {
     const _ = _tmp;
     if (_ < _bind$3) {
       const id = _bind$2[_];
-      const _bind$4 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(index.by_id, id);
+      const _bind$4 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(index.by_id, id);
       if (_bind$4 === undefined) {
       } else {
         const _Some = _bind$4;
@@ -30919,7 +30919,7 @@ function _M0FP44chen12moon_2dslice3src3cdg16subtree__escapes(index, inner) {
   }
   return { _0: has_return, _1: has_jump };
 }
-function _M0FP44chen12moon_2dslice3src3cdg18collect__ancestors(index, id, fuel, out) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg18collect__ancestors(index, id, fuel, out) {
   let _tmp = id;
   let _tmp$2 = fuel;
   while (true) {
@@ -30945,27 +30945,27 @@ function _M0FP44chen12moon_2dslice3src3cdg18collect__ancestors(index, id, fuel, 
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cdg9ancestors(index, id) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg9ancestors(index, id) {
   const _bind$2 = [];
   const out = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
-  _M0FP44chen12moon_2dslice3src3cdg18collect__ancestors(index, id, index.ids.length + 1 | 0, out);
+  _M0FP410NaIWaniubi12moon_2dslice3src3cdg18collect__ancestors(index, id, index.ids.length + 1 | 0, out);
   return out;
 }
-function _M0FP44chen12moon_2dslice3src3cdg14escape__region(index, id, has_return) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg14escape__region(index, id, has_return) {
   let base;
   if (has_return) {
     base = index.all;
   } else {
-    const _bind$2 = _M0FP44chen12moon_2dslice3src3cdg15enclosing__loop(index, id);
+    const _bind$2 = _M0FP410NaIWaniubi12moon_2dslice3src3cdg15enclosing__loop(index, id);
     if (_bind$2 === undefined) {
       base = index.all;
     } else {
       const _Some = _bind$2;
       const _loop_id = _Some;
-      base = _M0FP44chen12moon_2dslice3src3cdg7subtree(index, _loop_id);
+      base = _M0FP410NaIWaniubi12moon_2dslice3src3cdg7subtree(index, _loop_id);
     }
   }
-  const blocked = _M0FP44chen12moon_2dslice3src3cdg9ancestors(index, id);
+  const blocked = _M0FP410NaIWaniubi12moon_2dslice3src3cdg9ancestors(index, id);
   const _bind$2 = [];
   const region = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
   const _bind$3 = _M0MPC13set3Set9to__arrayGiE(base);
@@ -30986,7 +30986,7 @@ function _M0FP44chen12moon_2dslice3src3cdg14escape__region(index, id, has_return
   }
   return region;
 }
-function _M0FP44chen12moon_2dslice3src3cdg15escape__targets(succ, inner, region) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg15escape__targets(succ, inner, region) {
   const targets = [];
   const _bind$2 = [];
   const visited = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
@@ -31062,7 +31062,7 @@ function _M0FP44chen12moon_2dslice3src3cdg15escape__targets(succ, inner, region)
   }
   return targets;
 }
-function _M0FP44chen12moon_2dslice3src3cdg15cfg__successors(cfg) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg15cfg__successors(cfg) {
   const _bind$2 = [];
   const succ = _M0MPB3Map3MapGiRPB5ArrayGiEE(new _M0TPB9ArrayViewGUiRPB5ArrayGiEEE(_bind$2, 0, 0), undefined);
   const _bind$3 = cfg.edges;
@@ -31090,7 +31090,7 @@ function _M0FP44chen12moon_2dslice3src3cdg15cfg__successors(cfg) {
   }
   return succ;
 }
-function _M0FP44chen12moon_2dslice3src3cdg9cmp__pair(a, b) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg9cmp__pair(a, b) {
   if (a._0 !== b._0) {
     return a._0 < b._0 ? -1 : 1;
   }
@@ -31099,9 +31099,9 @@ function _M0FP44chen12moon_2dslice3src3cdg9cmp__pair(a, b) {
   }
   return 0;
 }
-function _M0FP44chen12moon_2dslice3src3cdg5build(program, cfg) {
-  const index = _M0FP44chen12moon_2dslice3src3cdg14index__program(program);
-  const succ = _M0FP44chen12moon_2dslice3src3cdg15cfg__successors(cfg);
+function _M0FP410NaIWaniubi12moon_2dslice3src3cdg5build(program, cfg) {
+  const index = _M0FP410NaIWaniubi12moon_2dslice3src3cdg14index__program(program);
+  const succ = _M0FP410NaIWaniubi12moon_2dslice3src3cdg15cfg__successors(cfg);
   const collected = [];
   const _bind$2 = index.ids;
   const _bind$3 = _bind$2.length;
@@ -31110,13 +31110,13 @@ function _M0FP44chen12moon_2dslice3src3cdg5build(program, cfg) {
     const _ = _tmp;
     if (_ < _bind$3) {
       const id = _bind$2[_];
-      const _bind$4 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(index.by_id, id);
+      const _bind$4 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(index.by_id, id);
       if (_bind$4 === undefined) {
       } else {
         const _Some = _bind$4;
         const _node = _Some;
-        if (_M0FP44chen12moon_2dslice3src3cdg17is__control__kind(_node.kind)) {
-          const inner = _M0FP44chen12moon_2dslice3src3cdg7subtree(index, id);
+        if (_M0FP410NaIWaniubi12moon_2dslice3src3cdg17is__control__kind(_node.kind)) {
+          const inner = _M0FP410NaIWaniubi12moon_2dslice3src3cdg7subtree(index, id);
           const _bind$5 = _M0MPC13set3Set9to__arrayGiE(inner);
           const _bind$6 = _bind$5.length;
           let _tmp$2 = 0;
@@ -31133,13 +31133,13 @@ function _M0FP44chen12moon_2dslice3src3cdg5build(program, cfg) {
               break;
             }
           }
-          const _bind$7 = _M0FP44chen12moon_2dslice3src3cdg16subtree__escapes(index, inner);
+          const _bind$7 = _M0FP410NaIWaniubi12moon_2dslice3src3cdg16subtree__escapes(index, inner);
           const _has_return = _bind$7._0;
           const _has_jump = _bind$7._1;
-          const escape_matters = _has_return || _has_jump && !_M0FP44chen12moon_2dslice3src3cdg14is__loop__kind(_node.kind);
+          const escape_matters = _has_return || _has_jump && !_M0FP410NaIWaniubi12moon_2dslice3src3cdg14is__loop__kind(_node.kind);
           if (escape_matters) {
-            const region = _M0FP44chen12moon_2dslice3src3cdg14escape__region(index, id, _has_return);
-            const _bind$8 = _M0FP44chen12moon_2dslice3src3cdg15escape__targets(succ, inner, region);
+            const region = _M0FP410NaIWaniubi12moon_2dslice3src3cdg14escape__region(index, id, _has_return);
+            const _bind$8 = _M0FP410NaIWaniubi12moon_2dslice3src3cdg15escape__targets(succ, inner, region);
             const _bind$9 = _bind$8.length;
             let _tmp$3 = 0;
             while (true) {
@@ -31181,10 +31181,10 @@ function _M0FP44chen12moon_2dslice3src3cdg5build(program, cfg) {
       break;
     }
   }
-  _M0MPC15array5Array8sort__byGUiiEE(edges, _M0FP44chen12moon_2dslice3src3cdg9cmp__pair);
-  return new _M0TP44chen12moon_2dslice3src4core3Cdg(edges);
+  _M0MPC15array5Array8sort__byGUiiEE(edges, _M0FP410NaIWaniubi12moon_2dslice3src3cdg9cmp__pair);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core3Cdg(edges);
 }
-function _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, from, to) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, from, to) {
   if (from < 0 || to < 0) {
     return undefined;
   }
@@ -31197,7 +31197,7 @@ function _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, from, to) {
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src3cfg11copy__loops(loops) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg11copy__loops(loops) {
   const out = [];
   const _p = loops.length;
   let _tmp = 0;
@@ -31214,11 +31214,11 @@ function _M0FP44chen12moon_2dslice3src3cfg11copy__loops(loops) {
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src3cfg11step__block(builder, head, statements) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg11step__block(builder, head, statements) {
   if (statements.length === 0) {
     return undefined;
   }
-  const _bind$2 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(builder.by_id, _M0MPC15array5Array2atGiE(statements, statements.length - 1 | 0));
+  const _bind$2 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(builder.by_id, _M0MPC15array5Array2atGiE(statements, statements.length - 1 | 0));
   let last;
   if (_bind$2 === undefined) {
     return undefined;
@@ -31226,12 +31226,12 @@ function _M0FP44chen12moon_2dslice3src3cfg11step__block(builder, head, statement
     const _Some = _bind$2;
     last = _Some;
   }
-  return _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(last.kind, 11) && (_M0IP44chen12moon_2dslice3src4core3LocPB2Eq5equal(last.loc, head.loc) && last.children.length > 0) ? _M0MPC15array5Array2atGiE(last.children, 0) : undefined;
+  return _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(last.kind, 11) && (_M0IP410NaIWaniubi12moon_2dslice3src4core3LocPB2Eq5equal(last.loc, head.loc) && last.children.length > 0) ? _M0MPC15array5Array2atGiE(last.children, 0) : undefined;
 }
-function _M0FP44chen12moon_2dslice3src3cfg22loop__continue__target(builder, head, statements) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg22loop__continue__target(builder, head, statements) {
   const _bind$2 = head.kind;
   if (_bind$2 === 5) {
-    const _bind$3 = _M0FP44chen12moon_2dslice3src3cfg11step__block(builder, head, statements);
+    const _bind$3 = _M0FP410NaIWaniubi12moon_2dslice3src3cfg11step__block(builder, head, statements);
     if (_bind$3 === undefined) {
       return head.id;
     } else {
@@ -31242,11 +31242,11 @@ function _M0FP44chen12moon_2dslice3src3cfg22loop__continue__target(builder, head
     return head.id;
   }
 }
-function _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, statements, after, loops) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg10walk__list(builder, statements, after, loops) {
   let i = 0;
   while (true) {
     if (i < statements.length) {
-      const _bind$2 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(builder.by_id, _M0MPC15array5Array2atGiE(statements, i));
+      const _bind$2 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(builder.by_id, _M0MPC15array5Array2atGiE(statements, i));
       let node;
       if (_bind$2 === undefined) {
         continue;
@@ -31255,7 +31255,7 @@ function _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, statements, afte
         node = _Some;
       }
       const next = (i + 1 | 0) < statements.length ? _M0MPC15array5Array2atGiE(statements, i + 1 | 0) : after;
-      _M0FP44chen12moon_2dslice3src3cfg8dispatch(builder, node, next, loops);
+      _M0FP410NaIWaniubi12moon_2dslice3src3cfg8dispatch(builder, node, next, loops);
       i = i + 1 | 0;
       continue;
     } else {
@@ -31263,50 +31263,50 @@ function _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, statements, afte
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cfg8dispatch(builder, node, next, loops) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg8dispatch(builder, node, next, loops) {
   _L: {
     const _bind$2 = node.kind;
     switch (_bind$2) {
       case 7: {
-        _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, _M0MPC15array5Array2atGiE(builder.exit_slot, 0));
+        _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, _M0MPC15array5Array2atGiE(builder.exit_slot, 0));
         return;
       }
       case 8: {
-        const _bind$3 = _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(loops);
+        const _bind$3 = _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(loops);
         if (_bind$3 === undefined) {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
           return;
         } else {
           const _Some = _bind$3;
           const _loop_ = _Some;
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, _loop_.break_to);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, _loop_.break_to);
           return;
         }
       }
       case 9: {
-        const _bind$4 = _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(loops);
+        const _bind$4 = _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(loops);
         if (_bind$4 === undefined) {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
           return;
         } else {
           const _Some = _bind$4;
           const _loop_ = _Some;
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, _loop_.continue_to);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, _loop_.continue_to);
           return;
         }
       }
       case 3: {
         const regions = node.children;
         if (regions.length === 0) {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
           return;
         } else {
-          _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 0), next, loops);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 0), next, loops);
           if (regions.length > 1) {
-            _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 1), next, loops);
+            _M0FP410NaIWaniubi12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 1), next, loops);
             return;
           } else {
-            _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+            _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
             return;
           }
         }
@@ -31320,7 +31320,7 @@ function _M0FP44chen12moon_2dslice3src3cfg8dispatch(builder, node, next, loops) 
       case 6: {
         const regions$2 = node.children;
         if (regions$2.length === 0) {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
           return;
         } else {
           const _p = regions$2.length;
@@ -31329,7 +31329,7 @@ function _M0FP44chen12moon_2dslice3src3cfg8dispatch(builder, node, next, loops) 
             const _p$2 = _tmp;
             if (_p$2 < _p) {
               const _p$3 = regions$2[_p$2];
-              _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, node.id, _p$3, next, loops);
+              _M0FP410NaIWaniubi12moon_2dslice3src3cfg12walk__branch(builder, node.id, _p$3, next, loops);
               _tmp = _p$2 + 1 | 0;
               continue;
             } else {
@@ -31340,38 +31340,38 @@ function _M0FP44chen12moon_2dslice3src3cfg8dispatch(builder, node, next, loops) 
       }
       case 11: {
         if (node.children.length === 0) {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
           return;
         } else {
-          _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, _M0MPC15array5Array2atGiE(node.children, 0));
-          _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, node.children, next, loops);
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, _M0MPC15array5Array2atGiE(node.children, 0));
+          _M0FP410NaIWaniubi12moon_2dslice3src3cfg10walk__list(builder, node.children, next, loops);
           return;
         }
       }
       default: {
-        _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+        _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
         return;
       }
     }
   }
   const regions = node.children;
   if (regions.length === 0) {
-    _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
     return;
   } else {
-    _M0FP44chen12moon_2dslice3src3cfg16walk__loop__body(builder, node, _M0MPC15array5Array2atGiE(regions, 0), next, loops);
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg16walk__loop__body(builder, node, _M0MPC15array5Array2atGiE(regions, 0), next, loops);
     if (regions.length > 1) {
-      _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 1), next, loops);
+      _M0FP410NaIWaniubi12moon_2dslice3src3cfg12walk__branch(builder, node.id, _M0MPC15array5Array2atGiE(regions, 1), next, loops);
       return;
     } else {
-      _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
+      _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, node.id, next);
       return;
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, head, region, next, loops) {
-  _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, head, region);
-  const _bind$2 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(builder.by_id, region);
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg12walk__branch(builder, head, region, next, loops) {
+  _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, head, region);
+  const _bind$2 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(builder.by_id, region);
   let statements;
   if (_bind$2 === undefined) {
     statements = [];
@@ -31381,17 +31381,17 @@ function _M0FP44chen12moon_2dslice3src3cfg12walk__branch(builder, head, region, 
     statements = _node.children;
   }
   if (statements.length === 0) {
-    _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, region, next);
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, region, next);
     return;
   } else {
-    _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, region, _M0MPC15array5Array2atGiE(statements, 0));
-    _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, statements, next, loops);
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, region, _M0MPC15array5Array2atGiE(statements, 0));
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg10walk__list(builder, statements, next, loops);
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src3cfg16walk__loop__body(builder, head, region, next, loops) {
-  _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, head.id, region);
-  const _bind$2 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(builder.by_id, region);
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg16walk__loop__body(builder, head, region, next, loops) {
+  _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, head.id, region);
+  const _bind$2 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(builder.by_id, region);
   let statements;
   if (_bind$2 === undefined) {
     statements = [];
@@ -31401,17 +31401,17 @@ function _M0FP44chen12moon_2dslice3src3cfg16walk__loop__body(builder, head, regi
     statements = _node.children;
   }
   if (statements.length === 0) {
-    _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, region, head.id);
+    _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, region, head.id);
     return undefined;
   }
-  _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, region, _M0MPC15array5Array2atGiE(statements, 0));
-  const inner = _M0FP44chen12moon_2dslice3src3cfg11copy__loops(loops);
-  _M0MPC15array5Array4pushGsE(inner, new _M0TP44chen12moon_2dslice3src3cfg7LoopCtx(_M0FP44chen12moon_2dslice3src3cfg22loop__continue__target(builder, head, statements), next));
-  _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, statements, head.id, inner);
+  _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, region, _M0MPC15array5Array2atGiE(statements, 0));
+  const inner = _M0FP410NaIWaniubi12moon_2dslice3src3cfg11copy__loops(loops);
+  _M0MPC15array5Array4pushGsE(inner, new _M0TP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtx(_M0FP410NaIWaniubi12moon_2dslice3src3cfg22loop__continue__target(builder, head, statements), next));
+  _M0FP410NaIWaniubi12moon_2dslice3src3cfg10walk__list(builder, statements, head.id, inner);
 }
-function _M0FP44chen12moon_2dslice3src3cfg5build(program) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3cfg5build(program) {
   const _bind$2 = [];
-  const by_id = _M0MPB3Map3MapGiRP44chen12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP44chen12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
+  const by_id = _M0MPB3Map3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP410NaIWaniubi12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
   const _bind$3 = program.nodes;
   const _bind$4 = _bind$3.length;
   let _tmp = 0;
@@ -31419,8 +31419,8 @@ function _M0FP44chen12moon_2dslice3src3cfg5build(program) {
     const _ = _tmp;
     if (_ < _bind$4) {
       const node = _bind$3[_];
-      if (!_M0MPB3Map8containsGiRP44chen12moon_2dslice3src4core5SNodeE(by_id, node.id)) {
-        _M0MPB3Map3setGiRP44chen12moon_2dslice3src4core5SNodeE(by_id, node.id, node);
+      if (!_M0MPB3Map8containsGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(by_id, node.id)) {
+        _M0MPB3Map3setGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(by_id, node.id, node);
       }
       _tmp = _ + 1 | 0;
       continue;
@@ -31432,7 +31432,7 @@ function _M0FP44chen12moon_2dslice3src3cfg5build(program) {
   const _bind$6 = [];
   const _bind$7 = _M0MPC13set3Set3SetGUiiEE(new _M0TPB9ArrayViewGUiiEE(_bind$6, 0, 0), undefined);
   const _bind$8 = [0];
-  const builder = new _M0TP44chen12moon_2dslice3src3cfg7Builder(by_id, _bind$5, _bind$7, _bind$8);
+  const builder = new _M0TP410NaIWaniubi12moon_2dslice3src3cfg7Builder(by_id, _bind$5, _bind$7, _bind$8);
   const _p = program.functions;
   const _p$2 = _p.length;
   let _tmp$2 = 0;
@@ -31463,10 +31463,10 @@ function _M0FP44chen12moon_2dslice3src3cfg5build(program) {
         }
       }
       if (_p$5.length === 0) {
-        _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, _p$4.entry, _p$4.exit);
+        _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, _p$4.entry, _p$4.exit);
       } else {
-        _M0FP44chen12moon_2dslice3src3cfg9add__edge(builder, _p$4.entry, _M0MPC15array5Array2atGiE(_p$5, 0));
-        _M0FP44chen12moon_2dslice3src3cfg10walk__list(builder, _p$5, _p$4.exit, []);
+        _M0FP410NaIWaniubi12moon_2dslice3src3cfg9add__edge(builder, _p$4.entry, _M0MPC15array5Array2atGiE(_p$5, 0));
+        _M0FP410NaIWaniubi12moon_2dslice3src3cfg10walk__list(builder, _p$5, _p$4.exit, []);
       }
       _tmp$2 = _p$3 + 1 | 0;
       continue;
@@ -31476,9 +31476,9 @@ function _M0FP44chen12moon_2dslice3src3cfg5build(program) {
   }
   const entry = program.functions.length > 0 ? _M0MPC15array5Array2atGsE(program.functions, 0).entry : 0;
   const exit = program.functions.length > 0 ? _M0MPC15array5Array2atGsE(program.functions, 0).exit : 0;
-  return new _M0TP44chen12moon_2dslice3src4core3Cfg(_bind$5, entry, exit);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core3Cfg(_bind$5, entry, exit);
 }
-function _M0FP44chen12moon_2dslice3src6defuse14collect__facts(program) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse14collect__facts(program) {
   const defs = [];
   const uses = [];
   const _p = program.nodes;
@@ -31522,9 +31522,9 @@ function _M0FP44chen12moon_2dslice3src6defuse14collect__facts(program) {
       break;
     }
   }
-  return new _M0TP44chen12moon_2dslice3src6defuse5Facts(defs, uses);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src6defuse5Facts(defs, uses);
 }
-function _M0FP44chen12moon_2dslice3src6defuse18push__unique__pair(items, pair) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse18push__unique__pair(items, pair) {
   let i = 0;
   let found = false;
   while (true) {
@@ -31554,7 +31554,7 @@ function _M0FP44chen12moon_2dslice3src6defuse18push__unique__pair(items, pair) {
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src6defuse22join__predecessor__out(preds, out_state) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse22join__predecessor__out(preds, out_state) {
   const joined = [];
   const _p = preds.length;
   let _tmp = 0;
@@ -31562,14 +31562,14 @@ function _M0FP44chen12moon_2dslice3src6defuse22join__predecessor__out(preds, out
     const _p$2 = _tmp;
     if (_p$2 < _p) {
       const _p$3 = preds[_p$2];
-      const _p$4 = _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(out_state, _p$3);
+      const _p$4 = _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(out_state, _p$3);
       const _p$5 = _p$4.length;
       let _tmp$2 = 0;
       while (true) {
         const _p$6 = _tmp$2;
         if (_p$6 < _p$5) {
           const _p$7 = _p$4[_p$6];
-          _M0FP44chen12moon_2dslice3src6defuse18push__unique__pair(joined, _p$7);
+          _M0FP410NaIWaniubi12moon_2dslice3src6defuse18push__unique__pair(joined, _p$7);
           _tmp$2 = _p$6 + 1 | 0;
           continue;
         } else {
@@ -31584,7 +31584,7 @@ function _M0FP44chen12moon_2dslice3src6defuse22join__predecessor__out(preds, out
   }
   return joined;
 }
-function _M0FP44chen12moon_2dslice3src6defuse13contains__int(items, needle) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse13contains__int(items, needle) {
   let i = 0;
   let found = false;
   while (true) {
@@ -31600,12 +31600,12 @@ function _M0FP44chen12moon_2dslice3src6defuse13contains__int(items, needle) {
   }
   return found;
 }
-function _M0FP44chen12moon_2dslice3src6defuse12predecessors(cfg, node_count) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse12predecessors(cfg, node_count) {
   const preds = [];
   let i = 0;
   while (true) {
     if (i < node_count) {
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(preds, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(preds, []);
       i = i + 1 | 0;
       continue;
     } else {
@@ -31620,8 +31620,8 @@ function _M0FP44chen12moon_2dslice3src6defuse12predecessors(cfg, node_count) {
     if (_p$3 < _p$2) {
       const _p$4 = _p[_p$3];
       if (_p$4._0 >= 0 && (_p$4._0 < node_count && (_p$4._1 >= 0 && _p$4._1 < node_count))) {
-        if (!_M0FP44chen12moon_2dslice3src6defuse13contains__int(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(preds, _p$4._1), _p$4._0)) {
-          _M0MPC15array5Array4pushGiE(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(preds, _p$4._1), _p$4._0);
+        if (!_M0FP410NaIWaniubi12moon_2dslice3src6defuse13contains__int(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(preds, _p$4._1), _p$4._0)) {
+          _M0MPC15array5Array4pushGiE(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(preds, _p$4._1), _p$4._0);
         }
       }
       _tmp = _p$3 + 1 | 0;
@@ -31632,7 +31632,7 @@ function _M0FP44chen12moon_2dslice3src6defuse12predecessors(cfg, node_count) {
   }
   return preds;
 }
-function _M0FP44chen12moon_2dslice3src6defuse14contains__pair(items, needle) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse14contains__pair(items, needle) {
   let i = 0;
   let found = false;
   while (true) {
@@ -31657,7 +31657,7 @@ function _M0FP44chen12moon_2dslice3src6defuse14contains__pair(items, needle) {
   }
   return found;
 }
-function _M0FP44chen12moon_2dslice3src6defuse9same__set(a, b) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse9same__set(a, b) {
   if (a.length !== b.length) {
     return false;
   }
@@ -31665,7 +31665,7 @@ function _M0FP44chen12moon_2dslice3src6defuse9same__set(a, b) {
   let same = true;
   while (true) {
     if (i < a.length) {
-      if (!_M0FP44chen12moon_2dslice3src6defuse14contains__pair(b, _M0MPC15array5Array2atGsE(a, i))) {
+      if (!_M0FP410NaIWaniubi12moon_2dslice3src6defuse14contains__pair(b, _M0MPC15array5Array2atGsE(a, i))) {
         same = false;
       }
       i = i + 1 | 0;
@@ -31676,12 +31676,12 @@ function _M0FP44chen12moon_2dslice3src6defuse9same__set(a, b) {
   }
   return same;
 }
-function _M0FP44chen12moon_2dslice3src6defuse10successors(cfg, node_count) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse10successors(cfg, node_count) {
   const out = [];
   let i = 0;
   while (true) {
     if (i < node_count) {
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(out, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(out, []);
       i = i + 1 | 0;
       continue;
     } else {
@@ -31699,7 +31699,7 @@ function _M0FP44chen12moon_2dslice3src6defuse10successors(cfg, node_count) {
       const _p$4 = _p[_p$3];
       if (_p$4._0 >= 0 && (_p$4._0 < node_count && (_p$4._1 >= 0 && (_p$4._1 < node_count && !_M0MPC13set3Set8containsGUiiEE(seen, _p$4))))) {
         _M0MPC13set3Set3addGUiiEE(seen, _p$4);
-        _M0MPC15array5Array4pushGiE(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(out, _p$4._0), _p$4._1);
+        _M0MPC15array5Array4pushGiE(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(out, _p$4._0), _p$4._1);
       }
       _tmp = _p$3 + 1 | 0;
       continue;
@@ -31709,7 +31709,7 @@ function _M0FP44chen12moon_2dslice3src6defuse10successors(cfg, node_count) {
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src6defuse15array__has__var(items, needle) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse15array__has__var(items, needle) {
   let i = 0;
   let found = false;
   while (true) {
@@ -31726,7 +31726,7 @@ function _M0FP44chen12moon_2dslice3src6defuse15array__has__var(items, needle) {
   }
   return found;
 }
-function _M0FP44chen12moon_2dslice3src6defuse8transfer(node, defined, incoming) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse8transfer(node, defined, incoming) {
   const out = [];
   const _p = incoming.length;
   let _tmp = 0;
@@ -31734,8 +31734,8 @@ function _M0FP44chen12moon_2dslice3src6defuse8transfer(node, defined, incoming) 
     const _p$2 = _tmp;
     if (_p$2 < _p) {
       const _p$3 = incoming[_p$2];
-      if (!_M0FP44chen12moon_2dslice3src6defuse15array__has__var(defined, _p$3._1)) {
-        _M0FP44chen12moon_2dslice3src6defuse18push__unique__pair(out, _p$3);
+      if (!_M0FP410NaIWaniubi12moon_2dslice3src6defuse15array__has__var(defined, _p$3._1)) {
+        _M0FP410NaIWaniubi12moon_2dslice3src6defuse18push__unique__pair(out, _p$3);
       }
       _tmp = _p$2 + 1 | 0;
       continue;
@@ -31749,7 +31749,7 @@ function _M0FP44chen12moon_2dslice3src6defuse8transfer(node, defined, incoming) 
     const _p$3 = _tmp$2;
     if (_p$3 < _p$2) {
       const _p$4 = defined[_p$3];
-      _M0FP44chen12moon_2dslice3src6defuse18push__unique__pair(out, { _0: node, _1: _p$4 });
+      _M0FP410NaIWaniubi12moon_2dslice3src6defuse18push__unique__pair(out, { _0: node, _1: _p$4 });
       _tmp$2 = _p$3 + 1 | 0;
       continue;
     } else {
@@ -31758,12 +31758,12 @@ function _M0FP44chen12moon_2dslice3src6defuse8transfer(node, defined, incoming) 
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
-  const facts = _M0FP44chen12moon_2dslice3src6defuse14collect__facts(program);
+function _M0FP410NaIWaniubi12moon_2dslice3src6defuse7analyze(program, cfg) {
+  const facts = _M0FP410NaIWaniubi12moon_2dslice3src6defuse14collect__facts(program);
   const node_count = program.nodes.length;
   if (node_count === 0) {
     const none = [];
-    return new _M0TP44chen12moon_2dslice3src4core6DefUse(none);
+    return new _M0TP410NaIWaniubi12moon_2dslice3src4core6DefUse(none);
   }
   let slot_count = node_count;
   const _bind$2 = program.nodes;
@@ -31787,8 +31787,8 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
   let i = 0;
   while (true) {
     if (i < slot_count) {
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(defs_at, []);
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(uses_at, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(defs_at, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(uses_at, []);
       i = i + 1 | 0;
       continue;
     } else {
@@ -31802,7 +31802,7 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
     const _p$3 = _tmp$2;
     if (_p$3 < _p$2) {
       const _p$4 = _p[_p$3];
-      _M0MPC15array5Array4pushGsE(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(defs_at, _p$4._0), _p$4._1);
+      _M0MPC15array5Array4pushGsE(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(defs_at, _p$4._0), _p$4._1);
       _tmp$2 = _p$3 + 1 | 0;
       continue;
     } else {
@@ -31816,7 +31816,7 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
     const _p$5 = _tmp$3;
     if (_p$5 < _p$4) {
       const _p$6 = _p$3[_p$5];
-      _M0MPC15array5Array4pushGsE(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(uses_at, _p$6._0), _p$6._1);
+      _M0MPC15array5Array4pushGsE(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(uses_at, _p$6._0), _p$6._1);
       _tmp$3 = _p$5 + 1 | 0;
       continue;
     } else {
@@ -31828,16 +31828,16 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
   i = 0;
   while (true) {
     if (i < slot_count) {
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(in_state, []);
-      _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(out_state, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(in_state, []);
+      _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(out_state, []);
       i = i + 1 | 0;
       continue;
     } else {
       break;
     }
   }
-  const preds = _M0FP44chen12moon_2dslice3src6defuse12predecessors(cfg, slot_count);
-  const succs = _M0FP44chen12moon_2dslice3src6defuse10successors(cfg, slot_count);
+  const preds = _M0FP410NaIWaniubi12moon_2dslice3src6defuse12predecessors(cfg, slot_count);
+  const succs = _M0FP410NaIWaniubi12moon_2dslice3src6defuse10successors(cfg, slot_count);
   const work = [];
   const _bind$4 = [];
   const queued = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$4, 0, 0), undefined);
@@ -31869,14 +31869,14 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
         current = _p$6;
       }
       _M0MPC13set3Set6removeGiE(queued, current);
-      const joined = _M0FP44chen12moon_2dslice3src6defuse22join__predecessor__out(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(preds, current), out_state);
-      if (!_M0FP44chen12moon_2dslice3src6defuse9same__set(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(in_state, current), joined)) {
-        _M0MPC15array5Array3setGRPB5ArrayGUiRP44chen12moon_2dslice3src4core5VarIdEEE(in_state, current, joined);
+      const joined = _M0FP410NaIWaniubi12moon_2dslice3src6defuse22join__predecessor__out(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(preds, current), out_state);
+      if (!_M0FP410NaIWaniubi12moon_2dslice3src6defuse9same__set(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(in_state, current), joined)) {
+        _M0MPC15array5Array3setGRPB5ArrayGUiRP410NaIWaniubi12moon_2dslice3src4core5VarIdEEE(in_state, current, joined);
       }
-      const next_out = _M0FP44chen12moon_2dslice3src6defuse8transfer(current, _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(defs_at, current), _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(in_state, current));
-      if (!_M0FP44chen12moon_2dslice3src6defuse9same__set(_M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(out_state, current), next_out)) {
-        _M0MPC15array5Array3setGRPB5ArrayGUiRP44chen12moon_2dslice3src4core5VarIdEEE(out_state, current, next_out);
-        const _bind$7 = _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(succs, current);
+      const next_out = _M0FP410NaIWaniubi12moon_2dslice3src6defuse8transfer(current, _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(defs_at, current), _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(in_state, current));
+      if (!_M0FP410NaIWaniubi12moon_2dslice3src6defuse9same__set(_M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(out_state, current), next_out)) {
+        _M0MPC15array5Array3setGRPB5ArrayGUiRP410NaIWaniubi12moon_2dslice3src4core5VarIdEEE(out_state, current, next_out);
+        const _bind$7 = _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(succs, current);
         const _bind$8 = _bind$7.length;
         let _tmp$5 = 0;
         while (true) {
@@ -31908,8 +31908,8 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
     const _ = _tmp$5;
     if (_ < _bind$9) {
       const node = _bind$8[_];
-      const state = _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(in_state, node.id);
-      const _p$5 = _M0MPC15array5Array2atGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(uses_at, node.id);
+      const state = _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(in_state, node.id);
+      const _p$5 = _M0MPC15array5Array2atGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(uses_at, node.id);
       const _p$6 = _p$5.length;
       let _tmp$6 = 0;
       while (true) {
@@ -31946,7 +31946,7 @@ function _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg) {
   }
   const reaching = _M0MPC13set3Set9to__arrayGUiiEE(pairs);
   _M0MPC15array5Array8sort__byGUiiEE(reaching, (a, b) => a._0 !== b._0 ? $compare_int(a._0, b._0) : $compare_int(a._1, b._1));
-  return new _M0TP44chen12moon_2dslice3src4core6DefUse(reaching);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core6DefUse(reaching);
 }
 function _M0IP311moonbitlang5lexer5basic8PositionPC15debug5Debug8to__repr(_x_76) {
   const _bind$2 = [{ _0: "fname", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_76.fname) }, { _0: "lnum", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_76.lnum) }, { _0: "bol", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_76.bol) }, { _0: "cnum", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_76.cnum) }];
@@ -37978,7 +37978,7 @@ function _M0MP211moonbitlang5lexer6LexEnv17preserve__comment(self) {
           return;
         } else {
           _L: {
-            const _bind$5 = _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(docstrings);
+            const _bind$5 = _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(docstrings);
             if (_bind$5 === undefined) {
               break _L;
             } else {
@@ -40272,874 +40272,874 @@ function _M0MP311moonbitlang6parser6syntax9Parameter3loc(self) {
     return _M0MP311moonbitlang5lexer5basic8Location5merge(binder.loc, _M0MP311moonbitlang6parser6syntax4Type3loc(_ty));
   }
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, faked) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, faked) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, faked) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, faked) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constant) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constant);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constant) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constant);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constant) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constant);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constant) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constant);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, name) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, name) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pkg, id) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pkg, id) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, name) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, name) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pkg, id) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pkg, id) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, hole) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, hole) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, hole) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, hole) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, question_loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, question_loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, question_loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, question_loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, fn_kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, fn_kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, question_loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, question_loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, question_loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, question_loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, fn_kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, fn_kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, fn_kind) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, fn_kind);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, fn_kind) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, fn_kind);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, group) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, group);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, group) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, group);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, group) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, group);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, group) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, group);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing_mark) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing_mark);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing_mark) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing_mark);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing_mark) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing_mark);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing_mark) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing_mark);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, package_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, package_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, package_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, package_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, package_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, package_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, package_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, package_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, tuple_index, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, tuple_index, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, tuple_index, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, tuple_index, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, repr, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, repr, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, repr, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, repr, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_source) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_source) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_source) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_source) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, string_val) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, string_val) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elems) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elems) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, try_operator_kind) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, try_operator_kind) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, string_val) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, string_val) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elems) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elems) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, try_operator_kind) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, try_operator_kind) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, str, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, str, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, str, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, str, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, str, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, str, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, str, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, str, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, bytes, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, bytes, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, bytes, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, bytes, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, bytes, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, bytes, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, bytes, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, bytes, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
-function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident) {
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc) {}
+function _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, long_ident) {
   if (long_ident.$tag === 0) {
     const _Ident = long_ident;
     const _name = _Ident._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _name);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _name);
     return;
   } else {
     const _Dot = long_ident;
     const _pkg = _Dot._0;
     const _id = _Dot._1;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pkg, _id);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pkg, _id);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, long_ident) {
   if (long_ident.$tag === 0) {
     const _Ident = long_ident;
     const _name = _Ident._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _name);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__LongIdent__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _name);
     return;
   } else {
     const _Dot = long_ident;
     const _pkg = _Dot._0;
     const _id = _Dot._1;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pkg, _id);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__LongIdent__DotGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pkg, _id);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name.name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name.name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name.name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name.name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id.id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id.id);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id.id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id.id);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_) {
   switch (type_.$tag) {
     case 0: {
       const _Any = type_;
       const _loc = _Any._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
       return;
     }
     case 1: {
@@ -41150,14 +41150,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _is_async = _Arrow._3;
       const _nocancel_ = _Arrow._4;
       const _loc$2 = _Arrow._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _args, _res, _err, _is_async, _nocancel_, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _args, _res, _err, _is_async, _nocancel_, _loc$2);
       return;
     }
     case 2: {
       const _Tuple = type_;
       const _tys = _Tuple._0;
       const _loc$3 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _tys, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _tys, _loc$3);
       return;
     }
     case 3: {
@@ -41165,7 +41165,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _constr_id = _Name._0;
       const _tys$2 = _Name._1;
       const _loc$4 = _Name._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr_id, _tys$2, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr_id, _tys$2, _loc$4);
       return;
     }
     case 4: {
@@ -41173,23 +41173,23 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _ty = _Option._0;
       const _loc$5 = _Option._1;
       const _question_loc = _Option._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty, _loc$5, _question_loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty, _loc$5, _question_loc);
       return;
     }
     default: {
       const _Object = type_;
       const _constr_id$2 = _Object._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr_id$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr_id$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_) {
   switch (type_.$tag) {
     case 0: {
       const _Any = type_;
       const _loc = _Any._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Type__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
       return;
     }
     case 1: {
@@ -41200,14 +41200,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _is_async = _Arrow._3;
       const _nocancel_ = _Arrow._4;
       const _loc$2 = _Arrow._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _args, _res, _err, _is_async, _nocancel_, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _args, _res, _err, _is_async, _nocancel_, _loc$2);
       return;
     }
     case 2: {
       const _Tuple = type_;
       const _tys = _Tuple._0;
       const _loc$3 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _tys, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _tys, _loc$3);
       return;
     }
     case 3: {
@@ -41215,7 +41215,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _constr_id = _Name._0;
       const _tys$2 = _Name._1;
       const _loc$4 = _Name._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr_id, _tys$2, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr_id, _tys$2, _loc$4);
       return;
     }
     case 4: {
@@ -41223,18 +41223,18 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _ty = _Option._0;
       const _loc$5 = _Option._1;
       const _question_loc = _Option._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty, _loc$5, _question_loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty, _loc$5, _question_loc);
       return;
     }
     default: {
       const _Object = type_;
       const _constr_id$2 = _Object._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr_id$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr_id$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, res, err, is_async, nocancel_, loc) {
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -41244,15 +41244,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, res);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, err);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, res);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, err);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__ArrowGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, res, err, is_async, nocancel_, loc) {
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -41262,15 +41262,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, res);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, err);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, res);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, err);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, tys, loc) {
   let _tmp = tys;
   while (true) {
     const _p = _tmp;
@@ -41280,13 +41280,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Type__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, tys, loc) {
   let _tmp = tys;
   while (true) {
     const _p = _tmp;
@@ -41296,14 +41296,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id, tys, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
   let _tmp = tys;
   while (true) {
     const _p = _tmp;
@@ -41313,14 +41313,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Type__NameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id, tys, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
   let _tmp = tys;
   while (true) {
     const _p = _tmp;
@@ -41330,36 +41330,36 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc, question_loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__OptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc, question_loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_id);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Type__ObjectGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstrIdGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_id);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, error_type) {
   switch (error_type.$tag) {
     case 0: {
       const _ErrorType = error_type;
       const _ty = _ErrorType._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty);
       return;
     }
     case 1: {
       const _DefaultErrorType = error_type;
       const _loc = _DefaultErrorType._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
       return;
     }
     case 2: {
@@ -41368,29 +41368,29 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 3: {
       const _Noraise = error_type;
       const _loc$2 = _Noraise._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
       return;
     }
     default: {
       const _MaybeError = error_type;
       const _ty$2 = _MaybeError._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, error_type) {
   switch (error_type.$tag) {
     case 0: {
       const _ErrorType = error_type;
       const _ty = _ErrorType._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty);
       return;
     }
     case 1: {
       const _DefaultErrorType = error_type;
       const _loc = _DefaultErrorType._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__ErrorType__DefaultErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
       return;
     }
     case 2: {
@@ -41399,28 +41399,28 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 3: {
       const _Noraise = error_type;
       const _loc$2 = _Noraise._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__ErrorType__NoraiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
       return;
     }
     default: {
       const _MaybeError = error_type;
       const _ty$2 = _MaybeError._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ErrorType__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ErrorType__MaybeErrorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
 function _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(self, f) {
   if (self === undefined) {
@@ -41512,7 +41512,7 @@ function _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRPC14list4ListG
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument_kind) {
   switch (argument_kind.$tag) {
     case 0: {
       return;
@@ -41520,32 +41520,32 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 1: {
       const _Labelled = argument_kind;
       const _label = _Labelled._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label);
       return;
     }
     case 2: {
       const _LabelledPun = argument_kind;
       const _label$2 = _LabelledPun._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$2);
       return;
     }
     case 3: {
       const _LabelledOption = argument_kind;
       const _label$3 = _LabelledOption._0;
       const _question_loc = _LabelledOption._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$3, _question_loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$3, _question_loc);
       return;
     }
     default: {
       const _LabelledOptionPun = argument_kind;
       const _label$4 = _LabelledOptionPun._0;
       const _question_loc$2 = _LabelledOptionPun._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$4, _question_loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label$4, _question_loc$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument_kind) {
   switch (argument_kind.$tag) {
     case 0: {
       return;
@@ -41553,63 +41553,63 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 1: {
       const _Labelled = argument_kind;
       const _label = _Labelled._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__ArgumentKind__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label);
       return;
     }
     case 2: {
       const _LabelledPun = argument_kind;
       const _label$2 = _LabelledPun._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArgumentKind__LabelledPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$2);
       return;
     }
     case 3: {
       const _LabelledOption = argument_kind;
       const _label$3 = _LabelledOption._0;
       const _question_loc = _LabelledOption._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$3, _question_loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__ArgumentKind__LabelledOptionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$3, _question_loc);
       return;
     }
     default: {
       const _LabelledOptionPun = argument_kind;
       const _label$4 = _LabelledOptionPun._0;
       const _question_loc$2 = _LabelledOptionPun._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$4, _question_loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor38visit__ArgumentKind__LabelledOptionPunGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label$4, _question_loc$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_.name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_.name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_.name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_.name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_extra_info) {
   switch (constructor_extra_info.$tag) {
     case 0: {
       const _TypeName = constructor_extra_info;
       const _type_name = _TypeName._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name);
       return;
     }
     case 1: {
       const _TypeNameWithConstrPackage = constructor_extra_info;
       const _type_name$2 = _TypeNameWithConstrPackage._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2);
       return;
     }
     case 2: {
       const _Package = constructor_extra_info;
       const _package_ = _Package._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _package_);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _package_);
       return;
     }
     default: {
@@ -41617,24 +41617,24 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_extra_info) {
   switch (constructor_extra_info.$tag) {
     case 0: {
       const _TypeName = constructor_extra_info;
       const _type_name = _TypeName._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name);
       return;
     }
     case 1: {
       const _TypeNameWithConstrPackage = constructor_extra_info;
       const _type_name$2 = _TypeNameWithConstrPackage._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2);
       return;
     }
     case 2: {
       const _Package = constructor_extra_info;
       const _package_ = _Package._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _package_);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _package_);
       return;
     }
     default: {
@@ -41642,103 +41642,103 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor37visit__ConstructorExtraInfo__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_.name);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_.extra_info);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor36visit__ConstructorExtraInfo__PackageGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, _discard_$2) {}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_.name);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constructor_.extra_info);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_.name);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_.extra_info);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__ConstrNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_.name);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__ConstructorExtraInfoGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constructor_.extra_info);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor) {
   switch (accessor.$tag) {
     case 0: {
       const _Label = accessor;
       const _label = _Label._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label);
       return;
     }
     case 1: {
       const _Index = accessor;
       const _tuple_index = _Index._0;
       const _loc = _Index._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _tuple_index, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _tuple_index, _loc);
       return;
     }
     default: {
       const _Newtype = accessor;
       const _loc$2 = _Newtype._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor) {
   switch (accessor.$tag) {
     case 0: {
       const _Label = accessor;
       const _label = _Label._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label);
       return;
     }
     case 1: {
       const _Index = accessor;
       const _tuple_index = _Index._0;
       const _loc = _Index._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _tuple_index, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__IndexGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _tuple_index, _loc);
       return;
     }
     default: {
       const _Newtype = accessor;
       const _loc$2 = _Newtype._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Accessor__NewtypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Accessor__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument.value);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument.kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument.value);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, argument.kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument.value);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument.kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument.value);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, argument.kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, parameter) {
   switch (parameter.$tag) {
     case 0: {
       const _DiscardPositional = parameter;
       const _ty = _DiscardPositional._0;
       const _loc = _DiscardPositional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _ty, _loc);
       return;
     }
     case 1: {
       const _Positional = parameter;
       const _binder = _Positional._0;
       const _ty$2 = _Positional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _ty$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _ty$2);
       return;
     }
     case 2: {
       const _Labelled = parameter;
       const _binder$2 = _Labelled._0;
       const _ty$3 = _Labelled._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2, _ty$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2, _ty$3);
       return;
     }
     case 3: {
@@ -41746,39 +41746,39 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$3 = _Optional._0;
       const _default = _Optional._1;
       const _ty$4 = _Optional._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$3, _default, _ty$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$3, _default, _ty$4);
       return;
     }
     default: {
       const _QuestionOptional = parameter;
       const _binder$4 = _QuestionOptional._0;
       const _ty$5 = _QuestionOptional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$4, _ty$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$4, _ty$5);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, parameter) {
   switch (parameter.$tag) {
     case 0: {
       const _DiscardPositional = parameter;
       const _ty = _DiscardPositional._0;
       const _loc = _DiscardPositional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _ty, _loc);
       return;
     }
     case 1: {
       const _Positional = parameter;
       const _binder = _Positional._0;
       const _ty$2 = _Positional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _ty$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _ty$2);
       return;
     }
     case 2: {
       const _Labelled = parameter;
       const _binder$2 = _Labelled._0;
       const _ty$3 = _Labelled._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2, _ty$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2, _ty$3);
       return;
     }
     case 3: {
@@ -41786,103 +41786,103 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$3 = _Optional._0;
       const _default = _Optional._1;
       const _ty$4 = _Optional._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$3, _default, _ty$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$3, _default, _ty$4);
       return;
     }
     default: {
       const _QuestionOptional = parameter;
       const _binder$4 = _QuestionOptional._0;
       const _ty$5 = _QuestionOptional._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$4, _ty$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$4, _ty$5);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor35visit__Parameter__DiscardPositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Parameter__PositionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__LabelledGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, default_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, default_, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, default_);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, default_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Parameter__OptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, default_, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, default_);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__Parameter__QuestionOptionalGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_.pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_.pattern);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(case_.guard_, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_.body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, case_.body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_.pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_.pattern);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(case_.guard_, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_.body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, case_.body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem.key);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem.expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem.key);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_expr_elem.expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem.key);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem.expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem.key);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_expr_elem.expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion.ty);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion.trait_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion.ty);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, static_assertion.trait_);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion.ty);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion.trait_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion.ty);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, static_assertion.trait_);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func) {
   const _parameters = func.parameters;
   const _body = func.body;
   const _return_type = func.return_type;
@@ -41897,19 +41897,19 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(_return_type, (t) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, t);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, t);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _error_type);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _kind);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _error_type);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func) {
   const _parameters = func.parameters;
   const _body = func.body;
   const _return_type = func.return_type;
@@ -41924,107 +41924,107 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ParameterGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(_return_type, (t) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, t);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, t);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _error_type);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _kind);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__ErrorTypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _error_type);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__FnKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def.label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def.expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def.label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_def.expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def.label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def.expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def.label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_def.expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, interp_elem) {
   switch (interp_elem.$tag) {
     case 0: {
       const _Literal = interp_elem;
       const _repr = _Literal._0;
       const _loc = _Literal._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _repr, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _repr, _loc);
       return;
     }
     case 1: {
       const _Expr = interp_elem;
       const _expr = _Expr._0;
       const _loc$2 = _Expr._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr, _loc$2);
       return;
     }
     default: {
       const _Source = interp_elem;
       const _interp_source = _Source._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _interp_source);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _interp_source);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, interp_elem) {
   switch (interp_elem.$tag) {
     case 0: {
       const _Literal = interp_elem;
       const _repr = _Literal._0;
       const _loc = _Literal._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _repr, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__InterpElem__LiteralGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _repr, _loc);
       return;
     }
     case 1: {
       const _Expr = interp_elem;
       const _expr = _Expr._0;
       const _loc$2 = _Expr._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr, _loc$2);
       return;
     }
     default: {
       const _Source = interp_elem;
       const _interp_source = _Source._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _interp_source);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__InterpElem__SourceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _interp_source);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__InterpElem__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, multiline_string_elem) {
   if (multiline_string_elem.$tag === 0) {
     const _String = multiline_string_elem;
     const _string_val = _String._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _string_val);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _string_val);
     return;
   } else {
     const _Interp = multiline_string_elem;
     const _interp_elems = _Interp._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _interp_elems);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _interp_elems);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, multiline_string_elem) {
   if (multiline_string_elem.$tag === 0) {
     const _String = multiline_string_elem;
     const _string_val = _String._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _string_val);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__StringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _string_val);
     return;
   } else {
     const _Interp = multiline_string_elem;
     const _interp_elems = _Interp._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _interp_elems);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__MultilineStringElem__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _interp_elems);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder) {
   switch (dot_dot_binder.$tag) {
     case 0: {
       return;
@@ -42035,18 +42035,18 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 2: {
       const _BinderAs = dot_dot_binder;
       const _binder = _BinderAs._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
       return;
     }
     default: {
       const _Binder = dot_dot_binder;
       const _binder$2 = _Binder._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder) {
   switch (dot_dot_binder.$tag) {
     case 0: {
       return;
@@ -42057,49 +42057,49 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
     case 2: {
       const _BinderAs = dot_dot_binder;
       const _binder = _BinderAs._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
       return;
     }
     default: {
       const _Binder = dot_dot_binder;
       const _binder$2 = _Binder._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__DotDotBinder__BinderAsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor27visit__DotDotBinder__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_pattern) {
   switch (array_pattern.$tag) {
     case 0: {
       const _Pattern = array_pattern;
       const _pattern = _Pattern._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pattern);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pattern);
       return;
     }
     case 1: {
       const _StringSpread = array_pattern;
       const _str = _StringSpread._0;
       const _loc = _StringSpread._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _str, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _str, _loc);
       return;
     }
     case 2: {
       const _BytesSpread = array_pattern;
       const _bytes = _BytesSpread._0;
       const _loc$2 = _BytesSpread._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _bytes, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _bytes, _loc$2);
       return;
     }
     default: {
@@ -42107,31 +42107,31 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder = _ConstSpread._0;
       const _pkg = _ConstSpread._1;
       const _loc$3 = _ConstSpread._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _pkg, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _pkg, _loc$3);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_pattern) {
   switch (array_pattern.$tag) {
     case 0: {
       const _Pattern = array_pattern;
       const _pattern = _Pattern._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pattern);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pattern);
       return;
     }
     case 1: {
       const _StringSpread = array_pattern;
       const _str = _StringSpread._0;
       const _loc = _StringSpread._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _str, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _str, _loc);
       return;
     }
     case 2: {
       const _BytesSpread = array_pattern;
       const _bytes = _BytesSpread._0;
       const _loc$2 = _BytesSpread._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _bytes, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _bytes, _loc$2);
       return;
     }
     default: {
@@ -42139,66 +42139,66 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder = _ConstSpread._0;
       const _pkg = _ConstSpread._1;
       const _loc$3 = _ConstSpread._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _pkg, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _pkg, _loc$3);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, str, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, str, loc) {
   ({ _0: str, _1: loc });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, str, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__ArrayPattern__StringSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, str, loc) {
   ({ _0: str, _1: loc });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, bytes, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(_discard_, bytes, loc) {
   ({ _0: bytes, _1: loc });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, bytes, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__BytesSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(_discard_, bytes, loc) {
   ({ _0: bytes, _1: loc });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, pkg, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor32visit__ArrayPattern__ConstSpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, pkg, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
   if (array_patterns.$tag === 0) {
     const _Closed = array_patterns;
     const _patterns = _Closed._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _patterns);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _patterns);
     return;
   } else {
     const _Open = array_patterns;
     const _prefix_patterns = _Open._0;
     const _suffix_patterns = _Open._1;
     const _dot_dot_binder = _Open._2;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _prefix_patterns, _suffix_patterns, _dot_dot_binder);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _prefix_patterns, _suffix_patterns, _dot_dot_binder);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
   if (array_patterns.$tag === 0) {
     const _Closed = array_patterns;
     const _patterns = _Closed._0;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _patterns);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _patterns);
     return;
   } else {
     const _Open = array_patterns;
     const _prefix_patterns = _Open._0;
     const _suffix_patterns = _Open._1;
     const _dot_dot_binder = _Open._2;
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _prefix_patterns, _suffix_patterns, _dot_dot_binder);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _prefix_patterns, _suffix_patterns, _dot_dot_binder);
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array_patterns) {
   let _tmp = array_patterns;
   while (true) {
     const _p = _tmp;
@@ -42208,13 +42208,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__ArrayPatterns__ClosedGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array_patterns) {
   let _tmp = array_patterns;
   while (true) {
     const _p = _tmp;
@@ -42224,13 +42224,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
   let _tmp = prefix_patterns;
   while (true) {
     const _p = _tmp;
@@ -42240,7 +42240,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
@@ -42254,14 +42254,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp$2 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, dot_dot_binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__ArrayPatterns__OpenGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, prefix_patterns, suffix_patterns, dot_dot_binder) {
   let _tmp = prefix_patterns;
   while (true) {
     const _p = _tmp;
@@ -42271,7 +42271,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
@@ -42285,14 +42285,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArrayPatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp$2 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__DotDotBinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, dot_dot_binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, where_clause) {
   const _p = where_clause.fields;
   let _tmp = _p;
   while (true) {
@@ -42303,14 +42303,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$3 = _p$2;
       const _p$4 = _p$3._0;
       const _p$5 = _p$3._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$4);
       _tmp = _p$5;
       continue;
     }
   }
   where_clause.loc;
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, where_clause) {
   const _p = where_clause.fields;
   let _tmp = _p;
   while (true) {
@@ -42321,65 +42321,65 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$3 = _p$2;
       const _p$4 = _p$3._0;
       const _p$5 = _p$3._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$4);
       _tmp = _p$5;
       continue;
     }
   }
   where_clause.loc;
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat.label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat.pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat.label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field_pat.pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat.label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat.pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat.label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field_pat.pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg.pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg.kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg.pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr_pat_arg.kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg.pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg.kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg.pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ArgumentKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr_pat_arg.kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem.key);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem.pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem.key);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, map_pat_elem.pat);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem.key);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem.pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem.key);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, map_pat_elem.pat);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern) {
   switch (pattern.$tag) {
     case 0: {
       const _Alias = pattern;
       const _pat = _Alias._0;
       const _alias_ = _Alias._1;
       const _loc = _Alias._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat, _alias_, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat, _alias_, _loc);
       return;
     }
     case 1: {
       const _Any = pattern;
       const _loc$2 = _Any._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$2);
       return;
     }
     case 2: {
       const _Array = pattern;
       const _pats = _Array._0;
       const _loc$3 = _Array._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pats, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pats, _loc$3);
       return;
     }
     case 3: {
       const _Constant = pattern;
       const _c = _Constant._0;
       const _loc$4 = _Constant._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _c, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _c, _loc$4);
       return;
     }
     case 4: {
@@ -42387,7 +42387,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat$2 = _Constraint._0;
       const _ty = _Constraint._1;
       const _loc$5 = _Constraint._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$2, _ty, _loc$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$2, _ty, _loc$5);
       return;
     }
     case 5: {
@@ -42396,21 +42396,21 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args = _Constr._1;
       const _is_open = _Constr._2;
       const _loc$6 = _Constr._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr, _args, _is_open, _loc$6);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr, _args, _is_open, _loc$6);
       return;
     }
     case 6: {
       const _ConstrAny = pattern;
       const _type_name = _ConstrAny._0;
       const _loc$7 = _ConstrAny._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name, _loc$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name, _loc$7);
       return;
     }
     case 7: {
       const _ConstrUnknown = pattern;
       const _type_name$2 = _ConstrUnknown._0;
       const _loc$8 = _ConstrUnknown._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2, _loc$8);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2, _loc$8);
       return;
     }
     case 8: {
@@ -42418,20 +42418,20 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat1 = _Or._0;
       const _pat2 = _Or._1;
       const _loc$9 = _Or._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat1, _pat2, _loc$9);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat1, _pat2, _loc$9);
       return;
     }
     case 9: {
       const _Tuple = pattern;
       const _pats$2 = _Tuple._0;
       const _loc$10 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pats$2, _loc$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pats$2, _loc$10);
       return;
     }
     case 10: {
       const _Var = pattern;
       const _binder = _Var._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
       return;
     }
     case 11: {
@@ -42439,7 +42439,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _fields = _Record._0;
       const _is_closed = _Record._1;
       const _loc$11 = _Record._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _fields, _is_closed, _loc$11);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _fields, _is_closed, _loc$11);
       return;
     }
     case 12: {
@@ -42447,7 +42447,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _elems = _Map._0;
       const _is_closed$2 = _Map._1;
       const _loc$12 = _Map._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems, _is_closed$2, _loc$12);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems, _is_closed$2, _loc$12);
       return;
     }
     case 13: {
@@ -42456,7 +42456,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _rhs = _Range._1;
       const _kind = _Range._2;
       const _loc$13 = _Range._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs, _rhs, _kind, _loc$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs, _rhs, _kind, _loc$13);
       return;
     }
     case 14: {
@@ -42464,7 +42464,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat$3 = _With._0;
       const _bindings = _With._1;
       const _loc$14 = _With._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$3, _bindings, _loc$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$3, _bindings, _loc$14);
       return;
     }
     default: {
@@ -42472,39 +42472,39 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$2 = _SpecialConstr._0;
       const _args$2 = _SpecialConstr._1;
       const _loc$15 = _SpecialConstr._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2, _args$2, _loc$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2, _args$2, _loc$15);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern) {
   switch (pattern.$tag) {
     case 0: {
       const _Alias = pattern;
       const _pat = _Alias._0;
       const _alias_ = _Alias._1;
       const _loc = _Alias._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat, _alias_, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat, _alias_, _loc);
       return;
     }
     case 1: {
       const _Any = pattern;
       const _loc$2 = _Any._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__AnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$2);
       return;
     }
     case 2: {
       const _Array = pattern;
       const _pats = _Array._0;
       const _loc$3 = _Array._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pats, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pats, _loc$3);
       return;
     }
     case 3: {
       const _Constant = pattern;
       const _c = _Constant._0;
       const _loc$4 = _Constant._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _c, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _c, _loc$4);
       return;
     }
     case 4: {
@@ -42512,7 +42512,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat$2 = _Constraint._0;
       const _ty = _Constraint._1;
       const _loc$5 = _Constraint._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$2, _ty, _loc$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$2, _ty, _loc$5);
       return;
     }
     case 5: {
@@ -42521,21 +42521,21 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args = _Constr._1;
       const _is_open = _Constr._2;
       const _loc$6 = _Constr._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr, _args, _is_open, _loc$6);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr, _args, _is_open, _loc$6);
       return;
     }
     case 6: {
       const _ConstrAny = pattern;
       const _type_name = _ConstrAny._0;
       const _loc$7 = _ConstrAny._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name, _loc$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name, _loc$7);
       return;
     }
     case 7: {
       const _ConstrUnknown = pattern;
       const _type_name$2 = _ConstrUnknown._0;
       const _loc$8 = _ConstrUnknown._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2, _loc$8);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2, _loc$8);
       return;
     }
     case 8: {
@@ -42543,20 +42543,20 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat1 = _Or._0;
       const _pat2 = _Or._1;
       const _loc$9 = _Or._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat1, _pat2, _loc$9);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat1, _pat2, _loc$9);
       return;
     }
     case 9: {
       const _Tuple = pattern;
       const _pats$2 = _Tuple._0;
       const _loc$10 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pats$2, _loc$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pats$2, _loc$10);
       return;
     }
     case 10: {
       const _Var = pattern;
       const _binder = _Var._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
       return;
     }
     case 11: {
@@ -42564,7 +42564,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _fields = _Record._0;
       const _is_closed = _Record._1;
       const _loc$11 = _Record._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _fields, _is_closed, _loc$11);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _fields, _is_closed, _loc$11);
       return;
     }
     case 12: {
@@ -42572,7 +42572,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _elems = _Map._0;
       const _is_closed$2 = _Map._1;
       const _loc$12 = _Map._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems, _is_closed$2, _loc$12);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems, _is_closed$2, _loc$12);
       return;
     }
     case 13: {
@@ -42581,7 +42581,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _rhs = _Range._1;
       const _kind = _Range._2;
       const _loc$13 = _Range._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs, _rhs, _kind, _loc$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs, _rhs, _kind, _loc$13);
       return;
     }
     case 14: {
@@ -42589,7 +42589,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _pat$3 = _With._0;
       const _bindings = _With._1;
       const _loc$14 = _With._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$3, _bindings, _loc$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$3, _bindings, _loc$14);
       return;
     }
     default: {
@@ -42597,41 +42597,41 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$2 = _SpecialConstr._0;
       const _args$2 = _SpecialConstr._1;
       const _loc$15 = _SpecialConstr._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2, _args$2, _loc$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2, _args$2, _loc$15);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, alias_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, alias_, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, alias_);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, alias_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__AliasGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, alias_, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, alias_);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__ArrayPatternsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Pattern__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, ty, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Pattern__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, ty, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, args, is_open, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRPC14list4ListGRP311moonbitlang6parser6syntax12ConstrPatArgEE(args, (args$2) => {
     let _tmp = args$2;
     while (true) {
@@ -42642,15 +42642,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
         _tmp = _p$4;
         continue;
       }
     }
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, args, is_open, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRPC14list4ListGRP311moonbitlang6parser6syntax12ConstrPatArgEE(args, (args$2) => {
     let _tmp = args$2;
     while (true) {
@@ -42661,34 +42661,34 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
         _tmp = _p$4;
         continue;
       }
     }
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Pattern__ConstrAnyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__ConstrUnknownGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat2);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1, pat2, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat2);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat2);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Pattern__OrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1, pat2, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat2);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pats, loc) {
   let _tmp = pats;
   while (true) {
     const _p = _tmp;
@@ -42698,13 +42698,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pats, loc) {
   let _tmp = pats;
   while (true) {
     const _p = _tmp;
@@ -42714,19 +42714,19 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, fields, is_closed, loc) {
   let _tmp = fields;
   while (true) {
     const _p = _tmp;
@@ -42736,13 +42736,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor22visit__Pattern__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, fields, is_closed, loc) {
   let _tmp = fields;
   while (true) {
     const _p = _tmp;
@@ -42752,13 +42752,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldPatGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_closed, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -42768,13 +42768,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Pattern__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_closed, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -42784,24 +42784,24 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__MapPatElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, kind, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Pattern__RangeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, kind, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__RangeKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat, bindings, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
   let _tmp = bindings;
   while (true) {
     const _p = _tmp;
@@ -42811,15 +42811,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Pattern__WithGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat, bindings, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
   let _tmp = bindings;
   while (true) {
     const _p = _tmp;
@@ -42829,15 +42829,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, args, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -42847,14 +42847,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor29visit__Pattern__SpecialConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, args, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -42864,14 +42864,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__ConstrPatArgGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, args, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, args, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -42881,14 +42881,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, args, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -42898,31 +42898,31 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, lhs, rhs, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, lhs, rhs, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, expr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, expr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, is_iter, loc) {
   let _tmp = exprs;
   while (true) {
     const _p = _tmp;
@@ -42932,13 +42932,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, is_iter, loc) {
   let _tmp = exprs;
   while (true) {
     const _p = _tmp;
@@ -42948,13 +42948,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, is_iter, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -42967,18 +42967,18 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       if (_p$3.$tag === 0) {
         const _p$5 = _p$3;
         const _p$6 = _p$5._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
       } else {
         const _p$5 = _p$3;
         const _p$6 = _p$5._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
       }
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, is_iter, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -42991,72 +42991,72 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       if (_p$3.$tag === 0) {
         const _p$5 = _p$3;
         const _p$6 = _p$5._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
       } else {
         const _p$5 = _p$3;
         const _p$6 = _p$5._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
       }
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, start_index, end_index, index_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(start_index, (e) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, e);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, e);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(end_index, (e) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, e);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, e);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, start_index, end_index, index_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(start_index, (e) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, e);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, e);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(end_index, (e) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, e);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, e);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array, index, value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array, index, value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op, array, index, value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, array);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, index);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op, array, index, value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, op);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, array);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, index);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, c);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, c);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, c);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, c);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43066,13 +43066,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43082,13 +43082,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__MultilineStringElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43098,13 +43098,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43114,13 +43114,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43130,126 +43130,126 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__InterpElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, ty, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ty);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, ty, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ty);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, constr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__ConstructorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, constr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, label);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loop_body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(while_else, (else_block) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond, loop_body, while_else, label, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loop_body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(while_else, (else_block) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, id);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, id, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, id);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, ifso);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, ifso, ifnot, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, ifso);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(ifnot, (expr) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, ifso);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, ifso, ifnot, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, ifso);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(ifnot, (expr) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(otherwise, (expr) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond, otherwise, body, exclamation, guard_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(otherwise, (expr) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, pat, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, pat, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, name);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, name, func, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, name);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, func);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, name);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, name, func, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, name);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, func);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, bindings, body, loc) {
   let _tmp = bindings;
   while (true) {
     const _p = _tmp;
@@ -43262,18 +43262,18 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$5 = _p$3._0;
       const _p$6 = _p$3._1;
       const _p$7 = _p$3._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$5);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(_p$6, (_p$8) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$8);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$8);
       });
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$7);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, bindings, body, loc) {
   let _tmp = bindings;
   while (true) {
     const _p = _tmp;
@@ -43286,28 +43286,28 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$5 = _p$3._0;
       const _p$6 = _p$3._1;
       const _p$7 = _p$3._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$5);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(_p$6, (_p$8) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$8);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$8);
       });
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__FuncGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$7);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pattern);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pattern);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, last_expr, loc) {
   let _tmp = exprs;
   while (true) {
     const _p = _tmp;
@@ -43317,14 +43317,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, last_expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, last_expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, last_expr, loc) {
   let _tmp = exprs;
   while (true) {
     const _p = _tmp;
@@ -43334,30 +43334,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, last_expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, last_expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc) {
-  let _tmp = exprs;
-  while (true) {
-    const _p = _tmp;
-    if (_p.$tag === 0) {
-      return;
-    } else {
-      const _p$2 = _p;
-      const _p$3 = _p$2._0;
-      const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
-      _tmp = _p$4;
-      continue;
-    }
-  }
-}
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, exprs, loc) {
   let _tmp = exprs;
   while (true) {
     const _p = _tmp;
@@ -43367,15 +43351,31 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, exprs, loc) {
+  let _tmp = exprs;
+  while (true) {
+    const _p = _tmp;
+    if (_p.$tag === 0) {
+      return;
+    } else {
+      const _p$2 = _p;
+      const _p$3 = _p$2._0;
+      const _p$4 = _p$2._1;
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _tmp = _p$4;
+      continue;
+    }
+  }
+}
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, fields, trailing, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax8TypeNameE(type_name, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
   let _tmp = fields;
   while (true) {
@@ -43386,16 +43386,16 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, trailing);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, fields, trailing, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax8TypeNameE(type_name, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
   let _tmp = fields;
   while (true) {
@@ -43406,16 +43406,16 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__TrailingMarkGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, trailing);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, type_name, record, fields, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax8TypeNameE(type_name, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
   let _tmp = fields;
   while (true) {
@@ -43426,16 +43426,16 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, record, fields, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax8TypeNameE(type_name, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
   let _tmp = fields;
   while (true) {
@@ -43446,28 +43446,28 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__FieldDefGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, method_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name, method_name, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, type_name);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, method_name);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, self);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, method_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, self, method_name, args, return_self, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, self);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, method_name);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -43477,15 +43477,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, self);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, method_name);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, self, method_name, args, return_self, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, self);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, method_name);
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -43495,38 +43495,38 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__ArgumentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, trait_);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, trait_, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, trait_);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, trait_);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, trait_, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__TypeNameGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, trait_);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, field);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record, accessor, field, augmented_by, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, accessor);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, field);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax3VarE(augmented_by, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, field);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record, accessor, field, augmented_by, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, record);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__AccessorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, accessor);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, field);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax3VarE(augmented_by, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, cases, match_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
   let _tmp = cases;
   while (true) {
     const _p = _tmp;
@@ -43536,14 +43536,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, cases, match_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
   let _tmp = cases;
   while (true) {
     const _p = _tmp;
@@ -43553,89 +43553,89 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder, ty, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder, ty, expr, body, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4TypeE(ty, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs, rhs, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, rhs);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs, rhs, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lhs);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, rhs);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_, expr, augmented_by, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, var_);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax3VarE(augmented_by, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_, expr, augmented_by, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, var_);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax3VarE(augmented_by, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor10visit__VarGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, loc, kind) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, loc, kind) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, return_value, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(return_value, (value) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, value);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, return_value, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(return_value, (value) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, value);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, err_value);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, err_value);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, arg, label, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(arg, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, arg, label, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(arg, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, args, label, loc) {
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -43645,16 +43645,16 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, args, label, loc) {
   let _tmp = args;
   while (true) {
     const _p = _tmp;
@@ -43664,16 +43664,16 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
   let _tmp = binders;
   while (true) {
     const _p = _tmp;
@@ -43683,14 +43683,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
       _tmp = _p$4;
       continue;
     }
   }
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(condition, (cond) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
   });
   let _tmp$2 = continue_block;
   while (true) {
@@ -43701,24 +43701,24 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
       _tmp$2 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(for_else, (else_block) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax11WhereClauseE(where_clause, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binders, condition, continue_block, body, for_else, label, loc, where_clause) {
   let _tmp = binders;
   while (true) {
     const _p = _tmp;
@@ -43728,14 +43728,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
       _tmp = _p$4;
       continue;
     }
   }
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(condition, (cond) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
   });
   let _tmp$2 = continue_block;
   while (true) {
@@ -43746,24 +43746,24 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
       _tmp$2 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(for_else, (else_block) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax11WhereClauseE(where_clause, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
   let _tmp = patterns;
   while (true) {
     const _p = _tmp;
@@ -43773,12 +43773,12 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
   let _tmp$2 = init;
   while (true) {
     const _p = _tmp$2;
@@ -43788,8 +43788,8 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
       _tmp$2 = _p$4;
       continue;
     }
@@ -43803,24 +43803,24 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
       _tmp$3 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(else_block, (else_block$2) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block$2);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, else_block$2);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax11WhereClauseE(where_clause, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, patterns, expr, init, continue_block, body, else_block, where_clause, label, loc) {
   let _tmp = patterns;
   while (true) {
     const _p = _tmp;
@@ -43830,12 +43830,12 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
   let _tmp$2 = init;
   while (true) {
     const _p = _tmp$2;
@@ -43845,8 +43845,8 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
       _tmp$2 = _p$4;
       continue;
     }
@@ -43860,25 +43860,25 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
       _tmp$3 = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(else_block, (else_block$2) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block$2);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, else_block$2);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax11WhereClauseE(where_clause, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__WhereClauseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(label, (x) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
   let _tmp = catch_;
   while (true) {
     const _p = _tmp;
@@ -43888,7 +43888,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
@@ -43903,15 +43903,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
         _tmp$2 = _p$4;
         continue;
       }
     }
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, catch_, try_else, has_try, try_loc, catch_loc, else_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
   let _tmp = catch_;
   while (true) {
     const _p = _tmp;
@@ -43921,7 +43921,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
@@ -43936,22 +43936,22 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__CaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
         _tmp$2 = _p$4;
         continue;
       }
     }
   });
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body, kind, try_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body, kind, try_loc, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__TryOperatorKindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43961,13 +43961,13 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -43977,21 +43977,21 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__MapExprElemGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, group);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr, group, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, group);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, group);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr, group, loc) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, group);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, asserts, body) {
   let _tmp = asserts;
   while (true) {
     const _p = _tmp;
@@ -44001,14 +44001,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, asserts, body) {
   let _tmp = asserts;
   while (true) {
     const _p = _tmp;
@@ -44018,14 +44018,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor22visit__StaticAssertionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, body);
 }
-function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat) {
+function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat) {
   let loc;
   let pat1;
   let pat2;
@@ -44037,7 +44037,7 @@ function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_
       case 1: {
         const _Reference = pat;
         const _lid = _Reference._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lid);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lid);
         return;
       }
       case 2: {
@@ -44064,16 +44064,16 @@ function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_
         const _Alias = pat;
         const _pat = _Alias._0;
         const _binder = _Alias._1;
-        _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
+        _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
         return;
       }
     }
   }
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1);
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat2);
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat1);
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, pat2);
 }
-function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat) {
+function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat) {
   let loc;
   let pat1;
   let pat2;
@@ -44085,7 +44085,7 @@ function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_
       case 1: {
         const _Reference = pat;
         const _lid = _Reference._0;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lid);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__LongIdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lid);
         return;
       }
       case 2: {
@@ -44112,16 +44112,16 @@ function _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_
         const _Alias = pat;
         const _pat = _Alias._0;
         const _binder = _Alias._1;
-        _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
+        _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
         return;
       }
     }
   }
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1);
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat2);
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat1);
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, pat2);
 }
-function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind) {
+function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, kind) {
   if (kind.$tag === 0) {
     const _Foreach = kind;
     const _patterns = _Foreach._0;
@@ -44137,12 +44137,12 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
         _tmp = _p$4;
         continue;
       }
     }
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr);
     let _tmp$2 = _init;
     while (true) {
       const _p = _tmp$2;
@@ -44152,8 +44152,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
         _tmp$2 = _p$4;
         continue;
       }
@@ -44167,8 +44167,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
         _tmp$3 = _p$4;
         continue;
       }
@@ -44187,14 +44187,14 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
         _tmp = _p$4;
         continue;
       }
     }
     _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(_condition, (cond) => {
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, cond);
     });
     let _tmp$2 = _continue_block;
     while (true) {
@@ -44205,8 +44205,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3._1);
         _tmp$2 = _p$4;
         continue;
       }
@@ -44214,7 +44214,7 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
     return;
   }
 }
-function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind) {
+function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, kind) {
   if (kind.$tag === 0) {
     const _Foreach = kind;
     const _patterns = _Foreach._0;
@@ -44230,12 +44230,12 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor14visit__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
         _tmp = _p$4;
         continue;
       }
     }
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr);
     let _tmp$2 = _init;
     while (true) {
       const _p = _tmp$2;
@@ -44245,8 +44245,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
         _tmp$2 = _p$4;
         continue;
       }
@@ -44260,8 +44260,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
         _tmp$3 = _p$4;
         continue;
       }
@@ -44280,14 +44280,14 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
         _tmp = _p$4;
         continue;
       }
     }
     _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(_condition, (cond) => {
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, cond);
     });
     let _tmp$2 = _continue_block;
     while (true) {
@@ -44298,8 +44298,8 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
         const _p$2 = _p;
         const _p$3 = _p$2._0;
         const _p$4 = _p$2._1;
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._0);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3._1);
         _tmp$2 = _p$4;
         continue;
       }
@@ -44307,14 +44307,14 @@ function _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44
     return;
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr) {
   switch (expr.$tag) {
     case 0: {
       const _Apply = expr;
       const _func = _Apply._0;
       const _args = _Apply._1;
       const _loc = _Apply._2;
-      _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Apply(env, _func, _args, _loc);
+      _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Apply(env, _func, _args, _loc);
       return;
     }
     case 1: {
@@ -44323,7 +44323,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _lhs = _Infix._1;
       const _rhs = _Infix._2;
       const _loc$2 = _Infix._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op, _lhs, _rhs, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op, _lhs, _rhs, _loc$2);
       return;
     }
     case 2: {
@@ -44331,7 +44331,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _op$2 = _Unary._0;
       const _expr = _Unary._1;
       const _loc$3 = _Unary._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op$2, _expr, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op$2, _expr, _loc$3);
       return;
     }
     case 3: {
@@ -44339,7 +44339,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exprs = _Array._0;
       const _is_iter = _Array._1;
       const _loc$4 = _Array._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs, _is_iter, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs, _is_iter, _loc$4);
       return;
     }
     case 4: {
@@ -44347,7 +44347,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _elems = _ArraySpread._0;
       const _is_iter$2 = _ArraySpread._1;
       const _loc$5 = _ArraySpread._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems, _is_iter$2, _loc$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems, _is_iter$2, _loc$5);
       return;
     }
     case 5: {
@@ -44355,11 +44355,11 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _kind = _ListComprehension._0;
       const _guard_ = _ListComprehension._1;
       const _body = _ListComprehension._2;
-      _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _kind);
+      _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _kind);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(_guard_, (x) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, x);
       });
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body);
       return;
     }
     case 6: {
@@ -44367,7 +44367,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _array = _ArrayGet._0;
       const _index = _ArrayGet._1;
       const _loc$6 = _ArrayGet._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array, _index, _loc$6);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array, _index, _loc$6);
       return;
     }
     case 7: {
@@ -44377,7 +44377,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _end_index = _ArrayGetSlice._2;
       const _index_loc = _ArrayGetSlice._3;
       const _loc$7 = _ArrayGetSlice._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array$2, _start_index, _end_index, _index_loc, _loc$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array$2, _start_index, _end_index, _index_loc, _loc$7);
       return;
     }
     case 8: {
@@ -44386,7 +44386,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _index$2 = _ArraySet._1;
       const _value = _ArraySet._2;
       const _loc$8 = _ArraySet._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array$3, _index$2, _value, _loc$8);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _array$3, _index$2, _value, _loc$8);
       return;
     }
     case 9: {
@@ -44396,35 +44396,35 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _index$3 = _ArrayAugmentedSet._2;
       const _value$2 = _ArrayAugmentedSet._3;
       const _loc$9 = _ArrayAugmentedSet._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op$3, _array$4, _index$3, _value$2, _loc$9);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _op$3, _array$4, _index$3, _value$2, _loc$9);
       return;
     }
     case 10: {
       const _Constant = expr;
       const _c = _Constant._0;
       const _loc$10 = _Constant._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _c, _loc$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _c, _loc$10);
       return;
     }
     case 11: {
       const _MultilineString = expr;
       const _elems$2 = _MultilineString._0;
       const _loc$11 = _MultilineString._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$2, _loc$11);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$2, _loc$11);
       return;
     }
     case 12: {
       const _Interp = expr;
       const _elems$3 = _Interp._0;
       const _loc$12 = _Interp._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$3, _loc$12);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__InterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$3, _loc$12);
       return;
     }
     case 13: {
       const _BytesInterp = expr;
       const _elems$4 = _BytesInterp._0;
       const _loc$13 = _BytesInterp._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$4, _loc$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$4, _loc$13);
       return;
     }
     case 14: {
@@ -44432,14 +44432,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$2 = _Constraint._0;
       const _ty = _Constraint._1;
       const _loc$14 = _Constraint._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$2, _ty, _loc$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$2, _ty, _loc$14);
       return;
     }
     case 15: {
       const _Constr = expr;
       const _constr = _Constr._0;
       const _loc$15 = _Constr._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr, _loc$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _constr, _loc$15);
       return;
     }
     case 16: {
@@ -44447,7 +44447,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _label = _LabelledBlock._0;
       const _body$2 = _LabelledBlock._1;
       const _loc$16 = _LabelledBlock._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label, _body$2, _loc$16);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _label, _body$2, _loc$16);
       return;
     }
     case 17: {
@@ -44457,21 +44457,21 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _while_else = _While._2;
       const _label$2 = _While._3;
       const _loc$17 = _While._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loop_cond, _loop_body, _while_else, _label$2, _loc$17);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loop_cond, _loop_body, _while_else, _label$2, _loc$17);
       return;
     }
     case 18: {
       const _Function = expr;
       const _func$2 = _Function._0;
       const _loc$18 = _Function._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _func$2, _loc$18);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _func$2, _loc$18);
       return;
     }
     case 19: {
       const _Ident = expr;
       const _id = _Ident._0;
       const _loc$19 = _Ident._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _id, _loc$19);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__IdentGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _id, _loc$19);
       return;
     }
     case 20: {
@@ -44480,7 +44480,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _ifso = _If._1;
       const _ifnot = _If._2;
       const _loc$20 = _If._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _cond, _ifso, _ifnot, _loc$20);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _cond, _ifso, _ifnot, _loc$20);
       return;
     }
     case 21: {
@@ -44491,7 +44491,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exclamation = _Guard._3;
       const _guard_loc = _Guard._4;
       const _loc$21 = _Guard._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _cond$2, _otherwise, _body$3, _exclamation, _guard_loc, _loc$21);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _cond$2, _otherwise, _body$3, _exclamation, _guard_loc, _loc$21);
       return;
     }
     case 22: {
@@ -44499,7 +44499,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$3 = _Is._0;
       const _pat = _Is._1;
       const _loc$22 = _Is._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$3, _pat, _loc$22);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$3, _pat, _loc$22);
       return;
     }
     case 23: {
@@ -44507,8 +44507,8 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$4 = _RegexMatch._0;
       const _pat$2 = _RegexMatch._1;
       const _bindings = _RegexMatch._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$4);
-      _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$4);
+      _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pat$2);
       let _tmp = _bindings;
       while (true) {
         const _p = _tmp;
@@ -44520,9 +44520,9 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
           const _p$4 = _p$2._1;
           const _p$5 = _p$3._0;
           const _p$6 = _p$3._1;
-          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$5);
+          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$5);
           _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax6BinderE(_p$6, (_p$7) => {
-            _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$7);
+            _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$7);
           });
           _tmp = _p$4;
           continue;
@@ -44534,7 +44534,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$5 = _Defer._0;
       const _body$4 = _Defer._1;
       const _loc$23 = _Defer._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$5, _body$4, _loc$23);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$5, _body$4, _loc$23);
       return;
     }
     case 25: {
@@ -44542,7 +44542,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$6 = _ErrDefer._0;
       const _body$5 = _ErrDefer._1;
       const _loc$24 = _ErrDefer._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$6, _body$5, _loc$24);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$6, _body$5, _loc$24);
       return;
     }
     case 26: {
@@ -44551,7 +44551,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _func$3 = _LetFn._1;
       const _body$6 = _LetFn._2;
       const _loc$25 = _LetFn._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _name, _func$3, _body$6, _loc$25);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _name, _func$3, _body$6, _loc$25);
       return;
     }
     case 27: {
@@ -44559,7 +44559,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _bindings$2 = _LetAnd._0;
       const _body$7 = _LetAnd._1;
       const _loc$26 = _LetAnd._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _bindings$2, _body$7, _loc$26);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _bindings$2, _body$7, _loc$26);
       return;
     }
     case 28: {
@@ -44568,7 +44568,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$7 = _Let._1;
       const _body$8 = _Let._2;
       const _loc$27 = _Let._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pattern, _expr$7, _body$8, _loc$27);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _pattern, _expr$7, _body$8, _loc$27);
       return;
     }
     case 29: {
@@ -44576,14 +44576,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exprs$2 = _Sequence._0;
       const _last_expr = _Sequence._1;
       const _loc$28 = _Sequence._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs$2, _last_expr, _loc$28);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs$2, _last_expr, _loc$28);
       return;
     }
     case 30: {
       const _Tuple = expr;
       const _exprs$3 = _Tuple._0;
       const _loc$29 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs$3, _loc$29);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _exprs$3, _loc$29);
       return;
     }
     case 31: {
@@ -44592,7 +44592,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _fields = _Record._1;
       const _trailing = _Record._2;
       const _loc$30 = _Record._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name, _fields, _trailing, _loc$30);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name, _fields, _trailing, _loc$30);
       return;
     }
     case 32: {
@@ -44601,7 +44601,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _record = _RecordUpdate._1;
       const _fields$2 = _RecordUpdate._2;
       const _loc$31 = _RecordUpdate._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2, _record, _fields$2, _loc$31);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _type_name$2, _record, _fields$2, _loc$31);
       return;
     }
     case 33: {
@@ -44609,7 +44609,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _record$2 = _Field._0;
       const _accessor = _Field._1;
       const _loc$32 = _Field._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _record$2, _accessor, _loc$32);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _record$2, _accessor, _loc$32);
       return;
     }
     case 34: {
@@ -44617,7 +44617,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _type_name$3 = _Method._0;
       const _method_name = _Method._1;
       const _loc$33 = _Method._2;
-      _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Method(env, _type_name$3, _method_name, _loc$33);
+      _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Method(env, _type_name$3, _method_name, _loc$33);
       return;
     }
     case 35: {
@@ -44627,7 +44627,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args$2 = _DotApply._2;
       const _return_self = _DotApply._3;
       const _loc$34 = _DotApply._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _self$2, _method_name$2, _args$2, _return_self, _loc$34);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _self$2, _method_name$2, _args$2, _return_self, _loc$34);
       return;
     }
     case 36: {
@@ -44635,7 +44635,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$8 = _As._0;
       const _trait_ = _As._1;
       const _loc$35 = _As._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$8, _trait_, _loc$35);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$8, _trait_, _loc$35);
       return;
     }
     case 37: {
@@ -44645,7 +44645,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _field = _Mutate._2;
       const _augmented_by = _Mutate._3;
       const _loc$36 = _Mutate._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _record$3, _accessor$2, _field, _augmented_by, _loc$36);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _record$3, _accessor$2, _field, _augmented_by, _loc$36);
       return;
     }
     case 38: {
@@ -44654,7 +44654,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _cases = _Match._1;
       const _match_loc = _Match._2;
       const _loc$37 = _Match._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$9, _cases, _match_loc, _loc$37);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$9, _cases, _match_loc, _loc$37);
       return;
     }
     case 39: {
@@ -44665,7 +44665,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _match_loc$2 = _LexScan._3;
       const _cases$2 = _LexScan._4;
       const _loc$38 = _LexScan._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _streaming, _strategy, _expr$10, _match_loc$2, _cases$2, _loc$38);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _streaming, _strategy, _expr$10, _match_loc$2, _cases$2, _loc$38);
       return;
     }
     case 40: {
@@ -44675,7 +44675,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$11 = _LetMut._2;
       const _body$9 = _LetMut._3;
       const _loc$39 = _LetMut._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _ty$2, _expr$11, _body$9, _loc$39);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder, _ty$2, _expr$11, _body$9, _loc$39);
       return;
     }
     case 41: {
@@ -44683,15 +44683,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _lhs$2 = _Pipe._0;
       const _rhs$2 = _Pipe._1;
       const _loc$40 = _Pipe._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$2, _rhs$2, _loc$40);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$2, _rhs$2, _loc$40);
       return;
     }
     case 42: {
       const _RevPipe = expr;
       const _lhs$3 = _RevPipe._0;
       const _rhs$3 = _RevPipe._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$3);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _rhs$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _rhs$3);
       return;
     }
     case 43: {
@@ -44700,28 +44700,28 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$12 = _Assign._1;
       const _augmented_by$2 = _Assign._2;
       const _loc$41 = _Assign._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _var_, _expr$12, _augmented_by$2, _loc$41);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _var_, _expr$12, _augmented_by$2, _loc$41);
       return;
     }
     case 44: {
       const _Hole = expr;
       const _loc$42 = _Hole._0;
       const _kind$2 = _Hole._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$42, _kind$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$42, _kind$2);
       return;
     }
     case 45: {
       const _Return = expr;
       const _return_value = _Return._0;
       const _loc$43 = _Return._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _return_value, _loc$43);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _return_value, _loc$43);
       return;
     }
     case 46: {
       const _Raise = expr;
       const _err_value = _Raise._0;
       const _loc$44 = _Raise._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _err_value, _loc$44);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _err_value, _loc$44);
       return;
     }
     case 47: {
@@ -44729,38 +44729,38 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$2 = _Quantifier._1;
       const _binder_ty = _Quantifier._2;
       const _body$10 = _Quantifier._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder_ty);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder_ty);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$10);
       return;
     }
     case 48: {
       const _Implies = expr;
       const _lhs$4 = _Implies._0;
       const _rhs$4 = _Implies._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$4);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _rhs$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _lhs$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _rhs$4);
       return;
     }
     case 49: {
       const _ProofAssert = expr;
       const _expr$13 = _ProofAssert._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$13);
       return;
     }
     case 50: {
       const _ProofLet = expr;
       const _binder$3 = _ProofLet._0;
       const _expr$14 = _ProofLet._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$3);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$14);
       return;
     }
     case 51: {
       const _Unit = expr;
       const _loc$45 = _Unit._0;
       const _faked = _Unit._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$45, _faked);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc$45, _faked);
       return;
     }
     case 52: {
@@ -44768,7 +44768,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _arg = _Break._0;
       const _label$3 = _Break._1;
       const _loc$46 = _Break._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _arg, _label$3, _loc$46);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _arg, _label$3, _loc$46);
       return;
     }
     case 53: {
@@ -44776,7 +44776,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args$3 = _Continue._0;
       const _label$4 = _Continue._1;
       const _loc$47 = _Continue._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _args$3, _label$4, _loc$47);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _args$3, _label$4, _loc$47);
       return;
     }
     case 54: {
@@ -44789,7 +44789,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _label$5 = _For._6;
       const _loc$48 = _For._7;
       const _where_clause = _For._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binders, _condition, _continue_block, _body$11, _for_else, _label$5, _loc$48, _where_clause);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binders, _condition, _continue_block, _body$11, _for_else, _label$5, _loc$48, _where_clause);
       return;
     }
     case 55: {
@@ -44803,7 +44803,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _where_clause$2 = _ForEach._6;
       const _label$6 = _ForEach._7;
       const _loc$49 = _ForEach._8;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _patterns, _expr$15, _init, _continue_block$2, _body$12, _else_block, _where_clause$2, _label$6, _loc$49);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _patterns, _expr$15, _init, _continue_block$2, _body$12, _else_block, _where_clause$2, _label$6, _loc$49);
       return;
     }
     case 56: {
@@ -44816,7 +44816,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _catch_loc = _Try._5;
       const _else_loc = _Try._6;
       const _loc$50 = _Try._7;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$13, _catch_, _try_else, _has_try, _try_loc, _catch_loc, _else_loc, _loc$50);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$13, _catch_, _try_else, _has_try, _try_loc, _catch_loc, _else_loc, _loc$50);
       return;
     }
     case 57: {
@@ -44825,14 +44825,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _kind$3 = _TryOperator._1;
       const _try_loc$2 = _TryOperator._2;
       const _loc$51 = _TryOperator._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$14, _kind$3, _try_loc$2, _loc$51);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _body$14, _kind$3, _try_loc$2, _loc$51);
       return;
     }
     case 58: {
       const _Map = expr;
       const _elems$5 = _Map._0;
       const _loc$52 = _Map._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$5, _loc$52);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _elems$5, _loc$52);
       return;
     }
     case 59: {
@@ -44840,34 +44840,34 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$16 = _Group._0;
       const _group = _Group._1;
       const _loc$53 = _Group._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$16, _group, _loc$53);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$16, _group, _loc$53);
       return;
     }
     case 60: {
       const _TemplateWriting = expr;
       const _expr$17 = _TemplateWriting._0;
       const _template = _TemplateWriting._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$17);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _template);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _expr$17);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _template);
       return;
     }
     default: {
       const _StaticAssert = expr;
       const _asserts = _StaticAssert._0;
       const _body$15 = _StaticAssert._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _asserts, _body$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _asserts, _body$15);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr) {
   switch (expr.$tag) {
     case 0: {
       const _Apply = expr;
       const _func = _Apply._0;
       const _args = _Apply._1;
       const _loc = _Apply._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _func, _args, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _func, _args, _loc);
       return;
     }
     case 1: {
@@ -44876,7 +44876,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _lhs = _Infix._1;
       const _rhs = _Infix._2;
       const _loc$2 = _Infix._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op, _lhs, _rhs, _loc$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__InfixGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op, _lhs, _rhs, _loc$2);
       return;
     }
     case 2: {
@@ -44884,7 +44884,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _op$2 = _Unary._0;
       const _expr = _Unary._1;
       const _loc$3 = _Unary._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op$2, _expr, _loc$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__UnaryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op$2, _expr, _loc$3);
       return;
     }
     case 3: {
@@ -44892,7 +44892,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exprs = _Array._0;
       const _is_iter = _Array._1;
       const _loc$4 = _Array._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs, _is_iter, _loc$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ArrayGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs, _is_iter, _loc$4);
       return;
     }
     case 4: {
@@ -44900,7 +44900,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _elems = _ArraySpread._0;
       const _is_iter$2 = _ArraySpread._1;
       const _loc$5 = _ArraySpread._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems, _is_iter$2, _loc$5);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__ArraySpreadGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems, _is_iter$2, _loc$5);
       return;
     }
     case 5: {
@@ -44908,11 +44908,11 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _kind = _ListComprehension._0;
       const _guard_ = _ListComprehension._1;
       const _body = _ListComprehension._2;
-      _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _kind);
+      _M0FP311moonbitlang6parser6syntax31iter__list__comprehension__kindGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _kind);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax4ExprE(_guard_, (x) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, x);
       });
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body);
       return;
     }
     case 6: {
@@ -44920,7 +44920,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _array = _ArrayGet._0;
       const _index = _ArrayGet._1;
       const _loc$6 = _ArrayGet._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array, _index, _loc$6);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArrayGetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array, _index, _loc$6);
       return;
     }
     case 7: {
@@ -44930,7 +44930,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _end_index = _ArrayGetSlice._2;
       const _index_loc = _ArrayGetSlice._3;
       const _loc$7 = _ArrayGetSlice._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array$2, _start_index, _end_index, _index_loc, _loc$7);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__ArrayGetSliceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array$2, _start_index, _end_index, _index_loc, _loc$7);
       return;
     }
     case 8: {
@@ -44939,7 +44939,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _index$2 = _ArraySet._1;
       const _value = _ArraySet._2;
       const _loc$8 = _ArraySet._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array$3, _index$2, _value, _loc$8);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ArraySetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _array$3, _index$2, _value, _loc$8);
       return;
     }
     case 9: {
@@ -44949,35 +44949,35 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _index$3 = _ArrayAugmentedSet._2;
       const _value$2 = _ArrayAugmentedSet._3;
       const _loc$9 = _ArrayAugmentedSet._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op$3, _array$4, _index$3, _value$2, _loc$9);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor30visit__Expr__ArrayAugmentedSetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _op$3, _array$4, _index$3, _value$2, _loc$9);
       return;
     }
     case 10: {
       const _Constant = expr;
       const _c = _Constant._0;
       const _loc$10 = _Constant._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _c, _loc$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ConstantGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _c, _loc$10);
       return;
     }
     case 11: {
       const _MultilineString = expr;
       const _elems$2 = _MultilineString._0;
       const _loc$11 = _MultilineString._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$2, _loc$11);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor28visit__Expr__MultilineStringGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$2, _loc$11);
       return;
     }
     case 12: {
       const _Interp = expr;
       const _elems$3 = _Interp._0;
       const _loc$12 = _Interp._1;
-      _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Interp(env, _elems$3, _loc$12);
+      _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Interp(env, _elems$3, _loc$12);
       return;
     }
     case 13: {
       const _BytesInterp = expr;
       const _elems$4 = _BytesInterp._0;
       const _loc$13 = _BytesInterp._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$4, _loc$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__BytesInterpGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$4, _loc$13);
       return;
     }
     case 14: {
@@ -44985,14 +44985,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$2 = _Constraint._0;
       const _ty = _Constraint._1;
       const _loc$14 = _Constraint._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$2, _ty, _loc$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor23visit__Expr__ConstraintGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$2, _ty, _loc$14);
       return;
     }
     case 15: {
       const _Constr = expr;
       const _constr = _Constr._0;
       const _loc$15 = _Constr._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr, _loc$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ConstrGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _constr, _loc$15);
       return;
     }
     case 16: {
@@ -45000,7 +45000,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _label = _LabelledBlock._0;
       const _body$2 = _LabelledBlock._1;
       const _loc$16 = _LabelledBlock._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label, _body$2, _loc$16);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor26visit__Expr__LabelledBlockGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _label, _body$2, _loc$16);
       return;
     }
     case 17: {
@@ -45010,21 +45010,21 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _while_else = _While._2;
       const _label$2 = _While._3;
       const _loc$17 = _While._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loop_cond, _loop_body, _while_else, _label$2, _loc$17);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__WhileGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loop_cond, _loop_body, _while_else, _label$2, _loc$17);
       return;
     }
     case 18: {
       const _Function = expr;
       const _func$2 = _Function._0;
       const _loc$18 = _Function._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _func$2, _loc$18);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__FunctionGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _func$2, _loc$18);
       return;
     }
     case 19: {
       const _Ident = expr;
       const _id = _Ident._0;
       const _loc$19 = _Ident._1;
-      _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Ident(env, _id, _loc$19);
+      _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Ident(env, _id, _loc$19);
       return;
     }
     case 20: {
@@ -45033,7 +45033,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _ifso = _If._1;
       const _ifnot = _If._2;
       const _loc$20 = _If._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _cond, _ifso, _ifnot, _loc$20);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IfGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _cond, _ifso, _ifnot, _loc$20);
       return;
     }
     case 21: {
@@ -45044,7 +45044,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exclamation = _Guard._3;
       const _guard_loc = _Guard._4;
       const _loc$21 = _Guard._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _cond$2, _otherwise, _body$3, _exclamation, _guard_loc, _loc$21);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GuardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _cond$2, _otherwise, _body$3, _exclamation, _guard_loc, _loc$21);
       return;
     }
     case 22: {
@@ -45052,7 +45052,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$3 = _Is._0;
       const _pat = _Is._1;
       const _loc$22 = _Is._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$3, _pat, _loc$22);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__IsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$3, _pat, _loc$22);
       return;
     }
     case 23: {
@@ -45060,8 +45060,8 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$4 = _RegexMatch._0;
       const _pat$2 = _RegexMatch._1;
       const _bindings = _RegexMatch._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$4);
-      _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$4);
+      _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pat$2);
       let _tmp = _bindings;
       while (true) {
         const _p = _tmp;
@@ -45073,9 +45073,9 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
           const _p$4 = _p$2._1;
           const _p$5 = _p$3._0;
           const _p$6 = _p$3._1;
-          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$5);
+          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$5);
           _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax6BinderE(_p$6, (_p$7) => {
-            _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$7);
+            _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$7);
           });
           _tmp = _p$4;
           continue;
@@ -45087,7 +45087,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$5 = _Defer._0;
       const _body$4 = _Defer._1;
       const _loc$23 = _Defer._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$5, _body$4, _loc$23);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__DeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$5, _body$4, _loc$23);
       return;
     }
     case 25: {
@@ -45095,7 +45095,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$6 = _ErrDefer._0;
       const _body$5 = _ErrDefer._1;
       const _loc$24 = _ErrDefer._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$6, _body$5, _loc$24);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ErrDeferGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$6, _body$5, _loc$24);
       return;
     }
     case 26: {
@@ -45104,7 +45104,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _func$3 = _LetFn._1;
       const _body$6 = _LetFn._2;
       const _loc$25 = _LetFn._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _name, _func$3, _body$6, _loc$25);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__LetFnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _name, _func$3, _body$6, _loc$25);
       return;
     }
     case 27: {
@@ -45112,7 +45112,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _bindings$2 = _LetAnd._0;
       const _body$7 = _LetAnd._1;
       const _loc$26 = _LetAnd._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _bindings$2, _body$7, _loc$26);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetAndGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _bindings$2, _body$7, _loc$26);
       return;
     }
     case 28: {
@@ -45121,7 +45121,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$7 = _Let._1;
       const _body$8 = _Let._2;
       const _loc$27 = _Let._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pattern, _expr$7, _body$8, _loc$27);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__LetGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _pattern, _expr$7, _body$8, _loc$27);
       return;
     }
     case 29: {
@@ -45129,14 +45129,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _exprs$2 = _Sequence._0;
       const _last_expr = _Sequence._1;
       const _loc$28 = _Sequence._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs$2, _last_expr, _loc$28);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__SequenceGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs$2, _last_expr, _loc$28);
       return;
     }
     case 30: {
       const _Tuple = expr;
       const _exprs$3 = _Tuple._0;
       const _loc$29 = _Tuple._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs$3, _loc$29);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__TupleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _exprs$3, _loc$29);
       return;
     }
     case 31: {
@@ -45145,7 +45145,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _fields = _Record._1;
       const _trailing = _Record._2;
       const _loc$30 = _Record._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name, _fields, _trailing, _loc$30);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__RecordGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name, _fields, _trailing, _loc$30);
       return;
     }
     case 32: {
@@ -45154,7 +45154,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _record = _RecordUpdate._1;
       const _fields$2 = _RecordUpdate._2;
       const _loc$31 = _RecordUpdate._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2, _record, _fields$2, _loc$31);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__RecordUpdateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$2, _record, _fields$2, _loc$31);
       return;
     }
     case 33: {
@@ -45162,7 +45162,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _record$2 = _Field._0;
       const _accessor = _Field._1;
       const _loc$32 = _Field._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _record$2, _accessor, _loc$32);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__FieldGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _record$2, _accessor, _loc$32);
       return;
     }
     case 34: {
@@ -45170,7 +45170,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _type_name$3 = _Method._0;
       const _method_name = _Method._1;
       const _loc$33 = _Method._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$3, _method_name, _loc$33);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MethodGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _type_name$3, _method_name, _loc$33);
       return;
     }
     case 35: {
@@ -45180,7 +45180,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args$2 = _DotApply._2;
       const _return_self = _DotApply._3;
       const _loc$34 = _DotApply._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _self$2, _method_name$2, _args$2, _return_self, _loc$34);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__DotApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _self$2, _method_name$2, _args$2, _return_self, _loc$34);
       return;
     }
     case 36: {
@@ -45188,7 +45188,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$8 = _As._0;
       const _trait_ = _As._1;
       const _loc$35 = _As._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$8, _trait_, _loc$35);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor15visit__Expr__AsGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$8, _trait_, _loc$35);
       return;
     }
     case 37: {
@@ -45198,7 +45198,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _field = _Mutate._2;
       const _augmented_by = _Mutate._3;
       const _loc$36 = _Mutate._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _record$3, _accessor$2, _field, _augmented_by, _loc$36);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__MutateGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _record$3, _accessor$2, _field, _augmented_by, _loc$36);
       return;
     }
     case 38: {
@@ -45207,7 +45207,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _cases = _Match._1;
       const _match_loc = _Match._2;
       const _loc$37 = _Match._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$9, _cases, _match_loc, _loc$37);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__MatchGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$9, _cases, _match_loc, _loc$37);
       return;
     }
     case 39: {
@@ -45218,7 +45218,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _match_loc$2 = _LexScan._3;
       const _cases$2 = _LexScan._4;
       const _loc$38 = _LexScan._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _streaming, _strategy, _expr$10, _match_loc$2, _cases$2, _loc$38);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _streaming, _strategy, _expr$10, _match_loc$2, _cases$2, _loc$38);
       return;
     }
     case 40: {
@@ -45228,7 +45228,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$11 = _LetMut._2;
       const _body$9 = _LetMut._3;
       const _loc$39 = _LetMut._4;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _ty$2, _expr$11, _body$9, _loc$39);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__LetMutGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder, _ty$2, _expr$11, _body$9, _loc$39);
       return;
     }
     case 41: {
@@ -45236,15 +45236,15 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _lhs$2 = _Pipe._0;
       const _rhs$2 = _Pipe._1;
       const _loc$40 = _Pipe._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$2, _rhs$2, _loc$40);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__PipeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$2, _rhs$2, _loc$40);
       return;
     }
     case 42: {
       const _RevPipe = expr;
       const _lhs$3 = _RevPipe._0;
       const _rhs$3 = _RevPipe._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$3);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _rhs$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _rhs$3);
       return;
     }
     case 43: {
@@ -45253,28 +45253,28 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$12 = _Assign._1;
       const _augmented_by$2 = _Assign._2;
       const _loc$41 = _Assign._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _var_, _expr$12, _augmented_by$2, _loc$41);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__AssignGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _var_, _expr$12, _augmented_by$2, _loc$41);
       return;
     }
     case 44: {
       const _Hole = expr;
       const _loc$42 = _Hole._0;
       const _kind$2 = _Hole._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$42, _kind$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__HoleGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$42, _kind$2);
       return;
     }
     case 45: {
       const _Return = expr;
       const _return_value = _Return._0;
       const _loc$43 = _Return._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _return_value, _loc$43);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__ReturnGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _return_value, _loc$43);
       return;
     }
     case 46: {
       const _Raise = expr;
       const _err_value = _Raise._0;
       const _loc$44 = _Raise._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _err_value, _loc$44);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__RaiseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _err_value, _loc$44);
       return;
     }
     case 47: {
@@ -45282,38 +45282,38 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _binder$2 = _Quantifier._1;
       const _binder_ty = _Quantifier._2;
       const _body$10 = _Quantifier._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder_ty);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$10);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$2);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__TypeGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder_ty);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$10);
       return;
     }
     case 48: {
       const _Implies = expr;
       const _lhs$4 = _Implies._0;
       const _rhs$4 = _Implies._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$4);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _rhs$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _lhs$4);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _rhs$4);
       return;
     }
     case 49: {
       const _ProofAssert = expr;
       const _expr$13 = _ProofAssert._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$13);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$13);
       return;
     }
     case 50: {
       const _ProofLet = expr;
       const _binder$3 = _ProofLet._0;
       const _expr$14 = _ProofLet._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$3);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$14);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$14);
       return;
     }
     case 51: {
       const _Unit = expr;
       const _loc$45 = _Unit._0;
       const _faked = _Unit._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$45, _faked);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor17visit__Expr__UnitGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc$45, _faked);
       return;
     }
     case 52: {
@@ -45321,7 +45321,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _arg = _Break._0;
       const _label$3 = _Break._1;
       const _loc$46 = _Break._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _arg, _label$3, _loc$46);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__BreakGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _arg, _label$3, _loc$46);
       return;
     }
     case 53: {
@@ -45329,7 +45329,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _args$3 = _Continue._0;
       const _label$4 = _Continue._1;
       const _loc$47 = _Continue._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _args$3, _label$4, _loc$47);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor21visit__Expr__ContinueGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _args$3, _label$4, _loc$47);
       return;
     }
     case 54: {
@@ -45342,7 +45342,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _label$5 = _For._6;
       const _loc$48 = _For._7;
       const _where_clause = _For._5;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binders, _condition, _continue_block, _body$11, _for_else, _label$5, _loc$48, _where_clause);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__ForGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binders, _condition, _continue_block, _body$11, _for_else, _label$5, _loc$48, _where_clause);
       return;
     }
     case 55: {
@@ -45356,7 +45356,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _where_clause$2 = _ForEach._6;
       const _label$6 = _ForEach._7;
       const _loc$49 = _ForEach._8;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _patterns, _expr$15, _init, _continue_block$2, _body$12, _else_block, _where_clause$2, _label$6, _loc$49);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__ForEachGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _patterns, _expr$15, _init, _continue_block$2, _body$12, _else_block, _where_clause$2, _label$6, _loc$49);
       return;
     }
     case 56: {
@@ -45369,7 +45369,7 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _catch_loc = _Try._5;
       const _else_loc = _Try._6;
       const _loc$50 = _Try._7;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$13, _catch_, _try_else, _has_try, _try_loc, _catch_loc, _else_loc, _loc$50);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__TryGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$13, _catch_, _try_else, _has_try, _try_loc, _catch_loc, _else_loc, _loc$50);
       return;
     }
     case 57: {
@@ -45378,14 +45378,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _kind$3 = _TryOperator._1;
       const _try_loc$2 = _TryOperator._2;
       const _loc$51 = _TryOperator._3;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$14, _kind$3, _try_loc$2, _loc$51);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor24visit__Expr__TryOperatorGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _body$14, _kind$3, _try_loc$2, _loc$51);
       return;
     }
     case 58: {
       const _Map = expr;
       const _elems$5 = _Map._0;
       const _loc$52 = _Map._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$5, _loc$52);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor16visit__Expr__MapGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _elems$5, _loc$52);
       return;
     }
     case 59: {
@@ -45393,31 +45393,31 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _expr$16 = _Group._0;
       const _group = _Group._1;
       const _loc$53 = _Group._2;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$16, _group, _loc$53);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__GroupGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$16, _group, _loc$53);
       return;
     }
     case 60: {
       const _TemplateWriting = expr;
       const _expr$17 = _TemplateWriting._0;
       const _template = _TemplateWriting._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$17);
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _template);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _expr$17);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _template);
       return;
     }
     default: {
       const _StaticAssert = expr;
       const _asserts = _StaticAssert._0;
       const _body$15 = _StaticAssert._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _asserts, _body$15);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__Expr__StaticAssertGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _asserts, _body$15);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(strategy, (strategy$2) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, strategy$2);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, strategy$2);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, expr);
   let _tmp = cases;
   while (true) {
     const _p = _tmp;
@@ -45427,17 +45427,17 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor20visit__Expr__LexScanGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, streaming, strategy, expr, match_loc, cases, loc) {
   _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax5LabelE(strategy, (strategy$2) => {
-    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, strategy$2);
+    _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, strategy$2);
   });
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, expr);
   let _tmp = cases;
   while (true) {
     const _p = _tmp;
@@ -45447,14 +45447,14 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$3);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case.pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case.pat);
   const _p = lex_scan_case.bindings;
   let _tmp = _p;
   while (true) {
@@ -45465,18 +45465,18 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$3 = _p$2;
       const _p$4 = _p$3._0;
       const _p$5 = _p$3._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$4._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$4._0);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax6BinderE(_p$4._1, (_p$6) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _p$6);
       });
       _tmp = _p$5;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case.body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case.body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case.pat);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__LexScanCaseGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case.pat);
   const _p = lex_scan_case.bindings;
   let _tmp = _p;
   while (true) {
@@ -45487,71 +45487,71 @@ function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parse
       const _p$3 = _p$2;
       const _p$4 = _p$3._0;
       const _p$5 = _p$3._1;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$4._0);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor12visit__LabelGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$4._0);
       _M0EPC16option6OptionP311moonbitlang6parser6syntax4eachGRP311moonbitlang6parser6syntax6BinderE(_p$4._1, (_p$6) => {
-        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
+        _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _p$6);
       });
       _tmp = _p$5;
       continue;
     }
   }
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case.body);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case.body);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, lex_scan_case_pattern) {
   switch (lex_scan_case_pattern.$tag) {
     case 0: {
       const _Pattern = lex_scan_case_pattern;
       const _regex_pattern = _Pattern._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _regex_pattern);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _regex_pattern);
       return;
     }
     case 1: {
       const _Binder = lex_scan_case_pattern;
       const _binder = _Binder._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _binder);
       return;
     }
     default: {
       const _Wildcard = lex_scan_case_pattern;
       const _loc = _Wildcard._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, _loc);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern) {
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor25visit__LexScanCasePatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, lex_scan_case_pattern) {
   switch (lex_scan_case_pattern.$tag) {
     case 0: {
       const _Pattern = lex_scan_case_pattern;
       const _regex_pattern = _Pattern._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _regex_pattern);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _regex_pattern);
       return;
     }
     case 1: {
       const _Binder = lex_scan_case_pattern;
       const _binder = _Binder._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _binder);
       return;
     }
     default: {
       const _Wildcard = lex_scan_case_pattern;
       const _loc = _Wildcard._0;
-      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
+      _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor35visit__LexScanCasePattern__WildcardGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, _loc);
       return;
     }
   }
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern) {
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern) {
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, regex_pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern) {
-  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor34visit__LexScanCasePattern__PatternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern) {
+  _M0FP311moonbitlang6parser6syntax20iter__regex__patternGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, regex_pattern);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(env, binder);
 }
-function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
+function _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor33visit__LexScanCasePattern__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder) {
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor13visit__BinderGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(env, binder);
 }
 function _M0MP311moonbitlang6parser6syntax9DocString5empty() {
   const dummy_pos = new _M0TP311moonbitlang5lexer5basic8Position(_M0MP311moonbitlang6parser6syntax9DocString5emptyN7_2abindS9482, 0, 0, 0);
@@ -45808,7 +45808,7 @@ function _M0MP311moonbitlang6parser18handrolled__parser5State12peek_2einner(stat
       continue;
     }
   }
-  const _bind$2 = _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(state.tokens);
+  const _bind$2 = _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(state.tokens);
   if (_bind$2 === undefined) {
     return $panic();
   } else {
@@ -46652,7 +46652,7 @@ function _M0MP311moonbitlang6parser18handrolled__parser5State28series__with__fol
         if (_M0MPC15array5Array8containsGRP311moonbitlang5lexer6tokens9TokenKindE(follow_set, _M0MP311moonbitlang6parser18handrolled__parser5State18peek__kind_2einner(self, 0))) {
         } else {
           _M0MP311moonbitlang6parser18handrolled__parser5State10push__sync(self, delim);
-          _M0MPC15array5Array4pushGRPB5ArrayGRP44chen12moon_2dslice3src4core5VarIdEE(result, f(self));
+          _M0MPC15array5Array4pushGRPB5ArrayGRP410NaIWaniubi12moon_2dslice3src4core5VarIdEE(result, f(self));
           _M0MP311moonbitlang6parser18handrolled__parser5State9pop__sync(self, delim);
           const _bind$4 = self.mode;
           if (_bind$4.$tag === 1) {
@@ -172130,7 +172130,7 @@ function _M0FP311moonbitlang6parser12yacc__parser9structure(tokens, initial_pos)
 function _M0FP211moonbitlang6parser18attach__docstringsN18search__docstringsS50305(docstrings, last_pos, loc) {
   let result = undefined;
   while (true) {
-    const _bind$2 = _M0MPC15array5Array4lastGRP44chen12moon_2dslice3src3cfg7LoopCtxE(docstrings);
+    const _bind$2 = _M0MPC15array5Array4lastGRP410NaIWaniubi12moon_2dslice3src3cfg7LoopCtxE(docstrings);
     if (_bind$2 === undefined) {
       break;
     } else {
@@ -172588,15 +172588,15 @@ function _M0FP211moonbitlang6parser13parse__string(source, name$46$opt, parser$4
   }
   return _M0FP211moonbitlang6parser21parse__string_2einner(source, name, parser);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, kind, loc, defs, uses, parent) {
-  const node = new _M0TP44chen12moon_2dslice3src4core5SNode(ctx.nodes.length, kind, loc, defs, uses, [], parent);
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, kind, loc, defs, uses, parent) {
+  const node = new _M0TP410NaIWaniubi12moon_2dslice3src4core5SNode(ctx.nodes.length, kind, loc, defs, uses, [], parent);
   _M0MPC15array5Array4pushGsE(ctx.nodes, node);
   return node;
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, name) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, name) {
   const scope = _M0MPC15array5Array2atGiE(ctx.scope_counter, 0);
   _M0MPC15array5Array3setGiE(ctx.scope_counter, 0, scope + 1 | 0);
-  const id = new _M0TP44chen12moon_2dslice3src4core5VarId(name, scope);
+  const id = new _M0TP410NaIWaniubi12moon_2dslice3src4core5VarId(name, scope);
   const position = ctx.env.length;
   _M0MPC15array5Array4pushGsE(ctx.env, { _0: name, _1: id });
   const _bind$2 = _M0MPB3Map3getGsRPB5ArrayGiEE(ctx.env_pos, name);
@@ -172609,7 +172609,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, name) 
   }
   return id;
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter17push__unique__var(out, needle) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17push__unique__var(out, needle) {
   let i = 0;
   let found = false;
   while (true) {
@@ -172631,14 +172631,14 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter17push__unique__var(out, 
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(out, extra) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(out, extra) {
   const _p = extra.length;
   let _tmp = 0;
   while (true) {
     const _p$2 = _tmp;
     if (_p$2 < _p) {
       const _p$3 = extra[_p$2];
-      _M0FP44chen12moon_2dslice3src15parser__adapter17push__unique__var(out, _p$3);
+      _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17push__unique__var(out, _p$3);
       _tmp = _p$2 + 1 | 0;
       continue;
     } else {
@@ -172646,32 +172646,32 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(out,
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter17identifier__names(expr) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17identifier__names(expr) {
   const _bind$2 = [];
-  const collector = new _M0TP44chen12moon_2dslice3src15parser__adapter11IdCollector(_bind$2);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(collector, expr);
+  const collector = new _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollector(_bind$2);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(collector, expr);
   return _bind$2;
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, name) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, name) {
   const _bind$2 = _M0MPB3Map3getGsRPB5ArrayGiEE(ctx.env_pos, name);
   if (_bind$2.$tag === 0) {
-    return new _M0TP44chen12moon_2dslice3src4core5VarId(name, -1);
+    return new _M0TP410NaIWaniubi12moon_2dslice3src4core5VarId(name, -1);
   } else {
     const _Some = _bind$2;
     const _stack = _Some._0;
-    return _stack.length === 0 ? new _M0TP44chen12moon_2dslice3src4core5VarId(name, -1) : _M0MPC15array5Array2atGsE(ctx.env, _M0MPC15array5Array2atGiE(_stack, _stack.length - 1 | 0))._1;
+    return _stack.length === 0 ? new _M0TP410NaIWaniubi12moon_2dslice3src4core5VarId(name, -1) : _M0MPC15array5Array2atGsE(ctx.env, _M0MPC15array5Array2atGiE(_stack, _stack.length - 1 | 0))._1;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, expr) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, expr) {
   const out = [];
-  const _p = _M0FP44chen12moon_2dslice3src15parser__adapter17identifier__names(expr);
+  const _p = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17identifier__names(expr);
   const _p$2 = _p.length;
   let _tmp = 0;
   while (true) {
     const _p$3 = _tmp;
     if (_p$3 < _p$2) {
       const _p$4 = _p[_p$3];
-      _M0FP44chen12moon_2dslice3src15parser__adapter17push__unique__var(out, _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$4));
+      _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17push__unique__var(out, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$4));
       _tmp = _p$3 + 1 | 0;
       continue;
     } else {
@@ -172680,15 +172680,15 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, expr) {
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, expr, out) {
-  _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(out, _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, expr));
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, expr, out) {
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(out, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, expr));
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter13begin__region(ctx, head, kind) {
-  const region = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, kind, head.loc, [], [], head.id);
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13begin__region(ctx, head, kind) {
+  const region = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, kind, head.loc, [], [], head.id);
   _M0MPC15array5Array4pushGiE(head.children, region.id);
   return region;
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(pattern, names, exprs) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(pattern, names, exprs) {
   let _tmp = pattern;
   _L: while (true) {
     const pattern$2 = _tmp;
@@ -172703,7 +172703,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
         const _Alias = pattern$2;
         const _pat = _Alias._0;
         const _alias_ = _Alias._1;
-        _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_pat, names, exprs);
+        _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_pat, names, exprs);
         _M0MPC15array5Array4pushGsE(names, _alias_.name);
         return;
       }
@@ -172719,7 +172719,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
             const _p$2 = _p;
             const _p$3 = _p$2._0;
             const _p$4 = _p$2._1;
-            _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$3, names, exprs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$3, names, exprs);
             _tmp$2 = _p$4;
             continue;
           }
@@ -172740,7 +172740,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
               const _p$2 = _p;
               const _p$3 = _p$2._0;
               const _p$4 = _p$2._1;
-              _M0FP44chen12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
               _tmp$3 = _p$4;
               continue;
             }
@@ -172759,7 +172759,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
               const _p$2 = _p;
               const _p$3 = _p$2._0;
               const _p$4 = _p$2._1;
-              _M0FP44chen12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
               _tmp$3 = _p$4;
               continue;
             }
@@ -172773,7 +172773,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
               const _p$2 = _p;
               const _p$3 = _p$2._0;
               const _p$4 = _p$2._1;
-              _M0FP44chen12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23collect__array__pattern(_p$3, names, exprs);
               _tmp$4 = _p$4;
               continue;
             }
@@ -172812,7 +172812,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
             const _p$2 = _p;
             const _p$3 = _p$2._0;
             const _p$4 = _p$2._1;
-            _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pattern, names, exprs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pattern, names, exprs);
             _tmp$3 = _p$4;
             continue;
           }
@@ -172835,7 +172835,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
               const _p$2 = _p;
               const _p$3 = _p$2._0;
               const _p$4 = _p$2._1;
-              _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
               _tmp$4 = _p$4;
               continue;
             }
@@ -172846,7 +172846,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
         const _Or = pattern$2;
         const _pat1 = _Or._0;
         const _pat2 = _Or._1;
-        _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_pat1, names, exprs);
+        _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_pat1, names, exprs);
         _tmp = _pat2;
         continue _L;
       }
@@ -172860,7 +172860,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
         const _Range = pattern$2;
         const _lhs = _Range._0;
         const _rhs = _Range._1;
-        _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_lhs, names, exprs);
+        _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_lhs, names, exprs);
         _tmp = _rhs;
         continue _L;
       }
@@ -172868,7 +172868,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
         const _With = pattern$2;
         const _pat$3 = _With._0;
         const _bindings = _With._1;
-        _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_pat$3, names, exprs);
+        _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_pat$3, names, exprs);
         let _tmp$4 = _bindings;
         while (true) {
           const _p = _tmp$4;
@@ -172896,7 +172896,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
             const _p$2 = _p;
             const _p$3 = _p$2._0;
             const _p$4 = _p$2._1;
-            _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
             _tmp$5 = _p$4;
             continue;
           }
@@ -172916,7 +172916,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
             const _p$2 = _p;
             const _p$3 = _p$2._0;
             const _p$4 = _p$2._1;
-            _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$3.pat, names, exprs);
             _tmp$6 = _p$4;
             continue;
           }
@@ -172937,12 +172937,12 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(patter
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter23collect__array__pattern(item, names, exprs) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23collect__array__pattern(item, names, exprs) {
   switch (item.$tag) {
     case 0: {
       const _Pattern = item;
       const _pattern = _Pattern._0;
-      _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_pattern, names, exprs);
+      _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_pattern, names, exprs);
       return;
     }
     case 3: {
@@ -172959,7 +172959,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter23collect__array__pattern
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark) {
   let i = ctx.env.length - 1 | 0;
   while (true) {
     if (i >= mark) {
@@ -172979,25 +172979,25 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark)
       break;
     }
   }
-  _M0MPC15array5Array8truncateGRP44chen12moon_2dslice3src4core5VarIdE(ctx.env, mark);
+  _M0MPC15array5Array8truncateGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(ctx.env, mark);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter13loc__from__to(head, tail) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13loc__from__to(head, tail) {
   const start = _M0MP311moonbitlang6parser6syntax4Expr3loc(head).start;
   const stop = _M0MP311moonbitlang6parser6syntax4Expr3loc(tail).end;
-  return new _M0TP44chen12moon_2dslice3src4core3Loc(start.lnum, (start.cnum - start.bol | 0) + 1 | 0, stop.lnum, (stop.cnum - stop.bol | 0) + 1 | 0);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(start.lnum, (start.cnum - start.bol | 0) + 1 | 0, stop.lnum, (stop.cnum - stop.bol | 0) + 1 | 0);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(expr) {
-  return _M0FP44chen12moon_2dslice3src15parser__adapter13loc__from__to(expr, expr);
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(expr) {
+  return _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13loc__from__to(expr, expr);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole, base, index, value, parent) {
-  const node = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole), [], [], parent);
-  const base_uses = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, base);
-  _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(node.defs, base_uses);
-  _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(node.uses, base_uses);
-  _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, index, node.uses);
-  _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, value, node.uses);
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole, base, index, value, parent) {
+  const node = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole), [], [], parent);
+  const base_uses = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, base);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(node.defs, base_uses);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(node.uses, base_uses);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, index, node.uses);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, value, node.uses);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter12record__call(ctx, callee, loc) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12record__call(ctx, callee, loc) {
   let _tmp;
   const _p = "";
   if (!(callee === _p)) {
@@ -173008,25 +173008,25 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter12record__call(ctx, calle
     _tmp = false;
   }
   if (_tmp) {
-    _M0MPC15array5Array4pushGsE(ctx.calls, new _M0TP44chen12moon_2dslice3src4core8CallSite(_M0MPC15array5Array2atGsE(ctx.current_function, 0), callee, loc.start_line));
+    _M0MPC15array5Array4pushGsE(ctx.calls, new _M0TP410NaIWaniubi12moon_2dslice3src4core8CallSite(_M0MPC15array5Array2atGsE(ctx.current_function, 0), callee, loc.start_line));
     return;
   } else {
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, expr) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, expr) {
   const _bind$2 = [];
-  const collector = new _M0TP44chen12moon_2dslice3src15parser__adapter13CallCollector(_bind$2);
-  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(collector, expr);
+  const collector = new _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollector(_bind$2);
+  _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(collector, expr);
   const _p = _bind$2.length;
   let _tmp = 0;
   while (true) {
     const _p$2 = _tmp;
     if (_p$2 < _p) {
       const _p$3 = _bind$2[_p$2];
-      const _p$4 = _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$3._0);
+      const _p$4 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$3._0);
       if (_p$4.scope === -1) {
-        _M0FP44chen12moon_2dslice3src15parser__adapter12record__call(ctx, _p$3._0, _p$3._1);
+        _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12record__call(ctx, _p$3._0, _p$3._1);
       }
       _tmp = _p$2 + 1 | 0;
       continue;
@@ -173035,11 +173035,11 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter19emit__loop__updates(ctx, region, head, updates) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter19emit__loop__updates(ctx, region, head, updates) {
   if (_M0MPC14list4List9is__emptyGURP311moonbitlang6parser6syntax6BinderRP311moonbitlang6parser6syntax4ExprEE(updates)) {
     return undefined;
   }
-  const step = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, head.loc, [], [], region.id);
+  const step = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, head.loc, [], [], region.id);
   _M0MPC15array5Array4pushGiE(region.children, step.id);
   let _tmp = updates;
   while (true) {
@@ -173050,31 +173050,31 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter19emit__loop__updates(ctx
       const _p$2 = _p;
       const _p$3 = _p$2._0;
       const _p$4 = _p$2._1;
-      _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _p$3._1);
-      const _p$5 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(_p$3._1), [], _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _p$3._1), step.id);
-      _M0MPC15array5Array4pushGsE(_p$5.defs, _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$3._0.name));
+      _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _p$3._1);
+      const _p$5 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(_p$3._1), [], _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _p$3._1), step.id);
+      _M0MPC15array5Array4pushGsE(_p$5.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, _p$3._0.name));
       _M0MPC15array5Array4pushGiE(step.children, _p$5.id);
       _tmp = _p$4;
       continue;
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, expr) {
-  _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, expr);
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, expr) {
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, expr);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter11var__id__of(ctx, var_) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11var__id__of(ctx, var_) {
   const _bind$2 = var_.name;
   if (_bind$2.$tag === 0) {
     const _Ident = _bind$2;
     const _name = _Ident._0;
-    return _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, _name);
+    return _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, _name);
   } else {
     const _Dot = _bind$2;
     const _id = _Dot._1;
-    return _M0FP44chen12moon_2dslice3src15parser__adapter13resolve__name(ctx, _id);
+    return _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13resolve__name(ctx, _id);
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, parent) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, parent) {
   let _tmp = whole;
   _L: while (true) {
     const whole$2 = _tmp;
@@ -173094,7 +173094,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$2 = _p;
                 const _p$3 = _p$2._0;
                 const _p$4 = _p$2._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, _p$3, parent);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, _p$3, parent);
                 _tmp$2 = _p$4;
                 continue;
               }
@@ -173119,32 +173119,32 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _pat = _Let._0;
             const _rhs = _Let._1;
             const _rest = _Let._2;
-            _M0FP44chen12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs);
-            const uses = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs);
+            const uses = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs);
             const bound = [];
             const pattern_exprs = [];
-            _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_pat, bound, pattern_exprs);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_pat, bound, pattern_exprs);
             const _p = pattern_exprs.length;
             let _tmp$3 = 0;
             while (true) {
               const _p$2 = _tmp$3;
               if (_p$2 < _p) {
                 const _p$3 = pattern_exprs[_p$2];
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$3, uses);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$3, uses);
                 _tmp$3 = _p$2 + 1 | 0;
                 continue;
               } else {
                 break;
               }
             }
-            const node = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP44chen12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _rhs), [], uses, parent);
+            const node = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _rhs), [], uses, parent);
             const _p$2 = bound.length;
             let _tmp$4 = 0;
             while (true) {
               const _p$3 = _tmp$4;
               if (_p$3 < _p$2) {
                 const _p$4 = bound[_p$3];
-                _M0MPC15array5Array4pushGsE(node.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$4));
+                _M0MPC15array5Array4pushGsE(node.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$4));
                 _tmp$4 = _p$3 + 1 | 0;
                 continue;
               } else {
@@ -173159,10 +173159,10 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _binder = _LetMut._0;
             const _rhs$2 = _LetMut._2;
             const _rest$2 = _LetMut._3;
-            _M0FP44chen12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs$2);
-            const uses$2 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs$2);
-            const node$2 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 1, _M0FP44chen12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _rhs$2), [], uses$2, parent);
-            _M0MPC15array5Array4pushGsE(node$2.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _binder.name));
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs$2);
+            const uses$2 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs$2);
+            const node$2 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 1, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _rhs$2), [], uses$2, parent);
+            _M0MPC15array5Array4pushGsE(node$2.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _binder.name));
             _tmp = _rest$2;
             continue _L;
           }
@@ -173171,10 +173171,10 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _name = _LetFn._0;
             const _local_fn = _LetFn._1;
             const _rest$3 = _LetFn._2;
-            const uses$3 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _local_fn.body);
-            _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(ctx.closure_captures, uses$3);
-            const node$3 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP44chen12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _local_fn.body), [], uses$3, parent);
-            _M0MPC15array5Array4pushGsE(node$3.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _name.name));
+            const uses$3 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _local_fn.body);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(ctx.closure_captures, uses$3);
+            const node$3 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13loc__from__to(whole$2, _local_fn.body), [], uses$3, parent);
+            _M0MPC15array5Array4pushGsE(node$3.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _name.name));
             _tmp = _rest$3;
             continue _L;
           }
@@ -173183,7 +173183,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _bindings = _LetAnd._0;
             const _rest$4 = _LetAnd._1;
             const uses$4 = [];
-            const node$4 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$4, parent);
+            const node$4 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 0, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$4, parent);
             let _tmp$5 = _bindings;
             while (true) {
               const _p$3 = _tmp$5;
@@ -173193,8 +173193,8 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._2.body, node$4.uses);
-                _M0MPC15array5Array4pushGsE(node$4.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$5._0.name));
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._2.body, node$4.uses);
+                _M0MPC15array5Array4pushGsE(node$4.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$5._0.name));
                 _tmp$5 = _p$6;
                 continue;
               }
@@ -173207,14 +173207,14 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _var_ = _Assign._0;
             const _rhs$3 = _Assign._1;
             const _augmented_by = _Assign._2;
-            _M0FP44chen12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs$3);
-            const uses$5 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs$3);
-            const target = _M0FP44chen12moon_2dslice3src15parser__adapter11var__id__of(ctx, _var_);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _rhs$3);
+            const uses$5 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _rhs$3);
+            const target = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11var__id__of(ctx, _var_);
             if (_augmented_by === undefined) {
             } else {
-              _M0FP44chen12moon_2dslice3src15parser__adapter17push__unique__var(uses$5, target);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter17push__unique__var(uses$5, target);
             }
-            const node$5 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$5, parent);
+            const node$5 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$5, parent);
             _M0MPC15array5Array4pushGsE(node$5.defs, target);
             return;
           }
@@ -173222,11 +173222,11 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _Mutate = whole$2;
             const _base = _Mutate._0;
             const _value = _Mutate._2;
-            const node$6 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [], parent);
-            const base_uses = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _base);
-            _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(node$6.defs, base_uses);
-            _M0FP44chen12moon_2dslice3src15parser__adapter18push__unique__vars(node$6.uses, base_uses);
-            _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _value, node$6.uses);
+            const node$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [], parent);
+            const base_uses = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _base);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(node$6.defs, base_uses);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18push__unique__vars(node$6.uses, base_uses);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _value, node$6.uses);
             return;
           }
           case 8: {
@@ -173234,7 +173234,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _base$2 = _ArraySet._0;
             const _idx = _ArraySet._1;
             const _value$2 = _ArraySet._2;
-            _M0FP44chen12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole$2, _base$2, _idx, _value$2, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole$2, _base$2, _idx, _value$2, parent);
             return;
           }
           case 9: {
@@ -173242,7 +173242,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _base$3 = _ArrayAugmentedSet._1;
             const _idx$2 = _ArrayAugmentedSet._2;
             const _value$3 = _ArrayAugmentedSet._3;
-            _M0FP44chen12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole$2, _base$3, _idx$2, _value$3, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__element__write(ctx, whole$2, _base$3, _idx$2, _value$3, parent);
             return;
           }
           case 33: {
@@ -173257,7 +173257,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
           case 19: {
             const _Ident = whole$2;
             const _id = _Ident._0;
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [_M0FP44chen12moon_2dslice3src15parser__adapter11var__id__of(ctx, _id)], parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [_M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11var__id__of(ctx, _id)], parent);
             return;
           }
           case 10: {
@@ -173273,8 +173273,8 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _Apply = whole$2;
             const _callee = _Apply._0;
             const _call_args = _Apply._1;
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, whole$2);
-            const uses$6 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _callee);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, whole$2);
+            const uses$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _callee);
             let _tmp$6 = _call_args;
             while (true) {
               const _p$3 = _tmp$6;
@@ -173284,20 +173284,20 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5.value, uses$6);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5.value, uses$6);
                 _tmp$6 = _p$6;
                 continue;
               }
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 10, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$6, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 10, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$6, parent);
             return;
           }
           case 35: {
             const _DotApply = whole$2;
             const _receiver = _DotApply._0;
             const _call_args$2 = _DotApply._2;
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, whole$2);
-            const uses$7 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _receiver);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, whole$2);
+            const uses$7 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _receiver);
             let _tmp$7 = _call_args$2;
             while (true) {
               const _p$3 = _tmp$7;
@@ -173307,12 +173307,12 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5.value, uses$7);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5.value, uses$7);
                 _tmp$7 = _p$6;
                 continue;
               }
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 10, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$7, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 10, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$7, parent);
             return;
           }
           case 45: {
@@ -173323,10 +173323,10 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             } else {
               const _Some = _return_value;
               const _value$4 = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _value$4, uses$8);
-              _M0FP44chen12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _value$4);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _value$4, uses$8);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter22record__call__in__expr(ctx, _value$4);
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 7, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$8, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 7, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$8, parent);
             return;
           }
           case 52: {
@@ -173337,9 +173337,9 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             } else {
               const _Some = _arg;
               const _value$4 = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _value$4, uses$9);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _value$4, uses$9);
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 8, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$9, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 8, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$9, parent);
             return;
           }
           case 53: {
@@ -173355,12 +173355,12 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5, uses$10);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5, uses$10);
                 _tmp$8 = _p$6;
                 continue;
               }
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 9, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$10, parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 9, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$10, parent);
             return;
           }
           case 20: {
@@ -173368,16 +173368,16 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _cond = _If._0;
             const _ifso = _If._1;
             const _ifnot = _If._2;
-            const loc = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond);
-            const head = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 3, loc, [], _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _cond), parent);
-            _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, 3, _ifso);
+            const loc = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond);
+            const head = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 3, loc, [], _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _cond), parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, 3, _ifso);
             if (_ifnot === undefined) {
               return;
             } else {
               const _Some = _ifnot;
               const _branch = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, 3, _branch);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, 3, _branch);
               return;
             }
           }
@@ -173386,16 +173386,16 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _cond$2 = _Guard._0;
             const _otherwise = _Guard._1;
             const _rest$5 = _Guard._2;
-            const loc$2 = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond$2);
-            const head$2 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 3, loc$2, [], _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _cond$2), parent);
-            _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$2, 3, _rest$5);
+            const loc$2 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond$2);
+            const head$2 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 3, loc$2, [], _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _cond$2), parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$2, 3, _rest$5);
             if (_otherwise === undefined) {
               return;
             } else {
               const _Some = _otherwise;
               const _branch = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$2, 3, _branch);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$2, 3, _branch);
               return;
             }
           }
@@ -173404,16 +173404,16 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _loop_cond = _While._0;
             const _loop_body = _While._1;
             const _while_else = _While._2;
-            const loc$3 = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _loop_cond);
-            const head$3 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 4, loc$3, [], _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _loop_cond), parent);
-            _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$3, 4, _loop_body);
+            const loc$3 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _loop_cond);
+            const head$3 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 4, loc$3, [], _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _loop_cond), parent);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$3, 4, _loop_body);
             if (_while_else === undefined) {
               return;
             } else {
               const _Some = _while_else;
               const _branch = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$3, 4, _branch);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$3, 4, _branch);
               return;
             }
           }
@@ -173424,7 +173424,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _continue_block = _For._2;
             const _loop_body$2 = _For._3;
             const _for_else = _For._4;
-            const loc$4 = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            const loc$4 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
             let _tmp$9 = _binders;
             while (true) {
               const _p$3 = _tmp$9;
@@ -173434,33 +173434,33 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                const _p$7 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _p$5._1);
-                _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _p$5._1);
-                const _p$8 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(_p$5._1), [], _p$7, parent);
-                _M0MPC15array5Array4pushGsE(_p$8.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$5._0.name));
+                const _p$7 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _p$5._1);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _p$5._1);
+                const _p$8 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 2, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(_p$5._1), [], _p$7, parent);
+                _M0MPC15array5Array4pushGsE(_p$8.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$5._0.name));
                 _tmp$9 = _p$6;
                 continue;
               }
             }
-            const head$4 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 5, loc$4, [], [], parent);
+            const head$4 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 5, loc$4, [], [], parent);
             if (_condition === undefined) {
             } else {
               const _Some = _condition;
               const _cond$3 = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond$3);
-              _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _cond$3, head$4.uses);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _cond$3);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _cond$3, head$4.uses);
             }
             const mark = ctx.env.length;
-            const region = _M0FP44chen12moon_2dslice3src15parser__adapter13begin__region(ctx, head$4, 5);
-            _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, _loop_body$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter19emit__loop__updates(ctx, region, head$4, _continue_block);
-            _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark);
+            const region = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13begin__region(ctx, head$4, 5);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, _loop_body$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter19emit__loop__updates(ctx, region, head$4, _continue_block);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark);
             if (_for_else === undefined) {
               return;
             } else {
               const _Some = _for_else;
               const _branch = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$4, 5, _branch);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$4, 5, _branch);
               return;
             }
           }
@@ -173472,9 +173472,9 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _continue_block$2 = _ForEach._3;
             const _loop_body$3 = _ForEach._4;
             const _else_block = _ForEach._5;
-            const loc$5 = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _iterated);
-            const uses$11 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _iterated);
+            const loc$5 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _iterated);
+            const uses$11 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _iterated);
             let _tmp$10 = _init;
             while (true) {
               const _p$3 = _tmp$10;
@@ -173484,7 +173484,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._1, uses$11);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._1, uses$11);
                 _tmp$10 = _p$6;
                 continue;
               }
@@ -173498,12 +173498,12 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._1, uses$11);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5._1, uses$11);
                 _tmp$11 = _p$6;
                 continue;
               }
             }
-            const head$5 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 5, loc$5, [], uses$11, parent);
+            const head$5 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 5, loc$5, [], uses$11, parent);
             const mark$2 = ctx.env.length;
             const bound$2 = [];
             const pattern_exprs$2 = [];
@@ -173516,7 +173516,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$4 = _p$3;
                 const _p$5 = _p$4._0;
                 const _p$6 = _p$4._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$5, bound$2, pattern_exprs$2);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$5, bound$2, pattern_exprs$2);
                 _tmp$12 = _p$6;
                 continue;
               }
@@ -173527,7 +173527,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
               const _p$4 = _tmp$13;
               if (_p$4 < _p$3) {
                 const _p$5 = pattern_exprs$2[_p$4];
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5, head$5.uses);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$5, head$5.uses);
                 _tmp$13 = _p$4 + 1 | 0;
                 continue;
               } else {
@@ -173540,15 +173540,15 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
               const _p$5 = _tmp$14;
               if (_p$5 < _p$4) {
                 const _p$6 = bound$2[_p$5];
-                _M0MPC15array5Array4pushGsE(head$5.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$6));
+                _M0MPC15array5Array4pushGsE(head$5.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$6));
                 _tmp$14 = _p$5 + 1 | 0;
                 continue;
               } else {
                 break;
               }
             }
-            const region$2 = _M0FP44chen12moon_2dslice3src15parser__adapter13begin__region(ctx, head$5, 5);
-            _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region$2, _loop_body$3);
+            const region$2 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13begin__region(ctx, head$5, 5);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region$2, _loop_body$3);
             let _tmp$15 = _continue_block$2;
             while (true) {
               const _p$5 = _tmp$15;
@@ -173558,18 +173558,18 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$6 = _p$5;
                 const _p$7 = _p$6._0;
                 const _p$8 = _p$6._1;
-                _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$7._1, region$2.uses);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$7._1, region$2.uses);
                 _tmp$15 = _p$8;
                 continue;
               }
             }
-            _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark$2);
             if (_else_block === undefined) {
               return;
             } else {
               const _Some = _else_block;
               const _branch = _Some;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$5, 5, _branch);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head$5, 5, _branch);
               return;
             }
           }
@@ -173577,9 +173577,9 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _Match = whole$2;
             const _scrutinee = _Match._0;
             const _cases = _Match._1;
-            const loc$6 = _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _scrutinee);
-            const uses$12 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _scrutinee);
+            const loc$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _scrutinee);
+            const uses$12 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _scrutinee);
             let _tmp$16 = _cases;
             while (true) {
               const _p$5 = _tmp$16;
@@ -173594,13 +173594,13 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 } else {
                   const _p$10 = _p$9;
                   const _p$11 = _p$10;
-                  _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$11, uses$12);
+                  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$11, uses$12);
                 }
                 _tmp$16 = _p$8;
                 continue;
               }
             }
-            const head$6 = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 6, loc$6, [], uses$12, parent);
+            const head$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 6, loc$6, [], uses$12, parent);
             let _tmp$17 = _cases;
             while (true) {
               const _p$5 = _tmp$17;
@@ -173611,17 +173611,17 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 const _p$7 = _p$6._0;
                 const _p$8 = _p$6._1;
                 const _p$9 = ctx.env.length;
-                const _p$10 = _M0FP44chen12moon_2dslice3src15parser__adapter13begin__region(ctx, head$6, 6);
+                const _p$10 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13begin__region(ctx, head$6, 6);
                 const _p$11 = [];
                 const _p$12 = [];
-                _M0FP44chen12moon_2dslice3src15parser__adapter16collect__pattern(_p$7.pattern, _p$11, _p$12);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$7.pattern, _p$11, _p$12);
                 const _p$13 = _p$12.length;
                 let _tmp$18 = 0;
                 while (true) {
                   const _p$14 = _tmp$18;
                   if (_p$14 < _p$13) {
                     const _p$15 = _p$12[_p$14];
-                    _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$15, _p$10.uses);
+                    _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$15, _p$10.uses);
                     _tmp$18 = _p$14 + 1 | 0;
                     continue;
                   } else {
@@ -173634,7 +173634,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                   const _p$15 = _tmp$19;
                   if (_p$15 < _p$14) {
                     const _p$16 = _p$11[_p$15];
-                    _M0MPC15array5Array4pushGsE(_p$10.defs, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$16));
+                    _M0MPC15array5Array4pushGsE(_p$10.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$16));
                     _tmp$19 = _p$15 + 1 | 0;
                     continue;
                   } else {
@@ -173646,10 +173646,10 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
                 } else {
                   const _p$16 = _p$15;
                   const _p$17 = _p$16;
-                  _M0FP44chen12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$17, _p$10.uses);
+                  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$17, _p$10.uses);
                 }
-                _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx, _p$10, _p$7.body);
-                _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, _p$9);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, _p$10, _p$7.body);
+                _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, _p$9);
                 _tmp$17 = _p$8;
                 continue;
               }
@@ -173659,8 +173659,8 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _Defer = whole$2;
             const _deferred = _Defer._0;
             const _rest$6 = _Defer._1;
-            const uses$13 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _deferred);
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$13, parent);
+            const uses$13 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _deferred);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$13, parent);
             _tmp = _rest$6;
             continue _L;
           }
@@ -173668,35 +173668,35 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, whole, 
             const _ErrDefer = whole$2;
             const _deferred$2 = _ErrDefer._0;
             const _rest$7 = _ErrDefer._1;
-            const uses$14 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, _deferred$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$14, parent);
+            const uses$14 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _deferred$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$14, parent);
             _tmp = _rest$7;
             continue _L;
           }
           default: {
-            const uses$15 = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, whole$2);
-            _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$15, parent);
+            const uses$15 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, whole$2);
+            _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses$15, parent);
             return;
           }
         }
       }
-      const uses = _M0FP44chen12moon_2dslice3src15parser__adapter8uses__of(ctx, whole$2);
-      _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses, parent);
+      const uses = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, whole$2);
+      _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], uses, parent);
       return;
     }
-    _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP44chen12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [], parent);
+    _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2), [], [], parent);
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, kind, body) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__branch(ctx, head, kind, body) {
   const mark = ctx.env.length;
-  const region = _M0FP44chen12moon_2dslice3src15parser__adapter13begin__region(ctx, head, kind);
-  _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, body);
-  _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark);
+  const region = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13begin__region(ctx, head, kind);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, body);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, mark);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, body) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, region, body) {
   const start = ctx.nodes.length;
-  _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, body, region.id);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, body, region.id);
   let i = start;
   while (true) {
     if (i < ctx.nodes.length) {
@@ -173716,7 +173716,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter18emit__into__region(ctx,
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ctx, name, params, body, fn_loc) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__function__body(ctx, name, params, body, fn_loc) {
   _M0MPC15array5Array3setGsE(ctx.current_function, 0, name);
   const outer_mark = ctx.env.length;
   const param_ids = [];
@@ -173737,25 +173737,25 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ct
           case 1: {
             const _p$5 = _p$3;
             const _p$6 = _p$5._0;
-            _M0MPC15array5Array4pushGsE(param_ids, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$6.name));
+            _M0MPC15array5Array4pushGsE(param_ids, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$6.name));
             break;
           }
           case 2: {
             const _p$7 = _p$3;
             const _p$8 = _p$7._0;
-            _M0MPC15array5Array4pushGsE(param_ids, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$8.name));
+            _M0MPC15array5Array4pushGsE(param_ids, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$8.name));
             break;
           }
           case 3: {
             const _p$9 = _p$3;
             const _p$10 = _p$9._0;
-            _M0MPC15array5Array4pushGsE(param_ids, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$10.name));
+            _M0MPC15array5Array4pushGsE(param_ids, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$10.name));
             break;
           }
           case 4: {
             const _p$11 = _p$3;
             const _p$12 = _p$11._0;
-            _M0MPC15array5Array4pushGsE(param_ids, _M0FP44chen12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$12.name));
+            _M0MPC15array5Array4pushGsE(param_ids, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$12.name));
             break;
           }
         }
@@ -173764,16 +173764,16 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ct
       }
     }
   }
-  const entry = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, fn_loc, param_ids, [], undefined);
+  const entry = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, fn_loc, param_ids, [], undefined);
   const capture_mark = ctx.closure_captures.length;
-  _M0FP44chen12moon_2dslice3src15parser__adapter10emit__expr(ctx, body, undefined);
-  _M0FP44chen12moon_2dslice3src15parser__adapter12pop__env__to(ctx, outer_mark);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, body, undefined);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, outer_mark);
   const exit_uses = [];
   let capture = capture_mark;
   while (true) {
     if (capture < ctx.closure_captures.length) {
       const variable = _M0MPC15array5Array2atGsE(ctx.closure_captures, capture);
-      if (!_M0MPC15array5Array8containsGRP44chen12moon_2dslice3src4core5VarIdE(exit_uses, variable)) {
+      if (!_M0MPC15array5Array8containsGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(exit_uses, variable)) {
         _M0MPC15array5Array4pushGsE(exit_uses, variable);
       }
       capture = capture + 1 | 0;
@@ -173782,12 +173782,12 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ct
       break;
     }
   }
-  _M0MPC15array5Array8truncateGRP44chen12moon_2dslice3src4core5VarIdE(ctx.closure_captures, capture_mark);
-  const exit = _M0FP44chen12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, fn_loc, [], exit_uses, undefined);
-  _M0MPC15array5Array4pushGsE(ctx.functions, new _M0TP44chen12moon_2dslice3src4core12FunctionInfo(name, entry.id, exit.id));
+  _M0MPC15array5Array8truncateGRP410NaIWaniubi12moon_2dslice3src4core5VarIdE(ctx.closure_captures, capture_mark);
+  const exit = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 11, fn_loc, [], exit_uses, undefined);
+  _M0MPC15array5Array4pushGsE(ctx.functions, new _M0TP410NaIWaniubi12moon_2dslice3src4core12FunctionInfo(name, entry.id, exit.id));
   _M0MPC15array5Array3setGsE(ctx.current_function, 0, "");
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter14emit__function(ctx, fun_decl, body) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter14emit__function(ctx, fun_decl, body) {
   const decl_loc = fun_decl.loc;
   const body_loc = _M0MP311moonbitlang6parser6syntax4Expr3loc(body);
   const _tmp = decl_loc.start.lnum;
@@ -173795,17 +173795,17 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter14emit__function(ctx, fun
   const _tmp$2 = (_p.cnum - _p.bol | 0) + 1 | 0;
   const _tmp$3 = body_loc.end.lnum;
   const _p$2 = body_loc.end;
-  const fn_loc = new _M0TP44chen12moon_2dslice3src4core3Loc(_tmp, _tmp$2, _tmp$3, (_p$2.cnum - _p$2.bol | 0) + 1 | 0);
-  _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ctx, fun_decl.name.name, fun_decl.decl_params, body, fn_loc);
+  const fn_loc = new _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(_tmp, _tmp$2, _tmp$3, (_p$2.cnum - _p$2.bol | 0) + 1 | 0);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__function__body(ctx, fun_decl.name.name, fun_decl.decl_params, body, fn_loc);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter12emit__method(ctx, name, params, body, start_line, start_col) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__method(ctx, name, params, body, start_line, start_col) {
   const body_loc = _M0MP311moonbitlang6parser6syntax4Expr3loc(body);
   const _tmp = body_loc.end.lnum;
   const _p = body_loc.end;
-  const fn_loc = new _M0TP44chen12moon_2dslice3src4core3Loc(start_line, start_col, _tmp, (_p.cnum - _p.bol | 0) + 1 | 0);
-  _M0FP44chen12moon_2dslice3src15parser__adapter20emit__function__body(ctx, name, params, body, fn_loc);
+  const fn_loc = new _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(start_line, start_col, _tmp, (_p.cnum - _p.bol | 0) + 1 | 0);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter20emit__function__body(ctx, name, params, body, fn_loc);
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, name) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13parse__source(source, name) {
   const _bind$2 = _M0FP211moonbitlang6parser13parse__string(source, name, undefined);
   const _impls = _bind$2._0;
   const _reports = _bind$2._1;
@@ -173818,7 +173818,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, n
   const _bind$9 = [1];
   const _bind$10 = [""];
   const _bind$11 = [];
-  const ctx = new _M0TP44chen12moon_2dslice3src15parser__adapter7Adapter(_bind$3, _bind$4, _bind$5, _bind$6, _bind$8, _bind$9, _bind$10, _bind$11);
+  const ctx = new _M0TP410NaIWaniubi12moon_2dslice3src15parser__adapter7Adapter(_bind$3, _bind$4, _bind$5, _bind$6, _bind$8, _bind$9, _bind$10, _bind$11);
   const errors = [];
   const _p = _reports.length;
   let _tmp = 0;
@@ -173860,7 +173860,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, n
             case 0: {
               const _p$9 = _p$8;
               const _p$10 = _p$9._0;
-              _M0FP44chen12moon_2dslice3src15parser__adapter14emit__function(ctx, _p$7, _p$10);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter14emit__function(ctx, _p$7, _p$10);
               break;
             }
             case 1: {
@@ -173882,7 +173882,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, n
               const _tmp$3 = _p$12.name;
               const _tmp$4 = _p$15.start.lnum;
               const _p$18 = _p$15.start;
-              _M0FP44chen12moon_2dslice3src15parser__adapter12emit__method(ctx, _tmp$3, _p$13, _p$17, _tmp$4, (_p$18.cnum - _p$18.bol | 0) + 1 | 0);
+              _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__method(ctx, _tmp$3, _p$13, _p$17, _tmp$4, (_p$18.cnum - _p$18.bol | 0) + 1 | 0);
               break;
             }
             case 1: {
@@ -173900,7 +173900,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, n
           const _tmp$5 = _p$20.name;
           const _tmp$6 = _p$23.start.lnum;
           const _p$24 = _p$23.start;
-          _M0FP44chen12moon_2dslice3src15parser__adapter12emit__method(ctx, _tmp$5, _p$21, _p$22, _tmp$6, (_p$24.cnum - _p$24.bol | 0) + 1 | 0);
+          _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12emit__method(ctx, _tmp$5, _p$21, _p$22, _tmp$6, (_p$24.cnum - _p$24.bol | 0) + 1 | 0);
           break;
         }
       }
@@ -173908,9 +173908,9 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, n
       continue;
     }
   }
-  return new _M0TP44chen12moon_2dslice3src4core7Program(_bind$3, _bind$4, _bind$5, errors);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core7Program(_bind$3, _bind$4, _bind$5, errors);
 }
-function _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Apply(self, func, args, loc) {
+function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Apply(self, func, args, loc) {
   if (func.$tag === 19) {
     const _Ident = func;
     const _id = _Ident._0;
@@ -173924,12 +173924,12 @@ function _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbi
       const _tmp$3 = (_p.cnum - _p.bol | 0) + 1 | 0;
       const _tmp$4 = loc.end.lnum;
       const _p$2 = loc.end;
-      _M0MPC15array5Array4pushGsE(_tmp, { _0: _name, _1: new _M0TP44chen12moon_2dslice3src4core3Loc(_tmp$2, _tmp$3, _tmp$4, (_p$2.cnum - _p$2.bol | 0) + 1 | 0) });
+      _M0MPC15array5Array4pushGsE(_tmp, { _0: _name, _1: new _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(_tmp$2, _tmp$3, _tmp$4, (_p$2.cnum - _p$2.bol | 0) + 1 | 0) });
     }
   }
-  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP44chen12moon_2dslice3src15parser__adapter13CallCollectorE(self, func, args, loc);
+  _M0IP311moonbitlang6parser6syntax15IterVisitorBaseP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__ApplyGRP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorE(self, func, args, loc);
 }
-function _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Method(env, type_name, method_name, loc) {
+function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter13CallCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Method(env, type_name, method_name, loc) {
   const _tmp = env.names;
   const _tmp$2 = method_name.name;
   const _tmp$3 = method_name.loc.start.lnum;
@@ -173937,9 +173937,9 @@ function _M0IP44chen12moon_2dslice3src15parser__adapter13CallCollectorP311moonbi
   const _tmp$4 = (_p.cnum - _p.bol | 0) + 1 | 0;
   const _tmp$5 = method_name.loc.end.lnum;
   const _p$2 = method_name.loc.end;
-  _M0MPC15array5Array4pushGsE(_tmp, { _0: _tmp$2, _1: new _M0TP44chen12moon_2dslice3src4core3Loc(_tmp$3, _tmp$4, _tmp$5, (_p$2.cnum - _p$2.bol | 0) + 1 | 0) });
+  _M0MPC15array5Array4pushGsE(_tmp, { _0: _tmp$2, _1: new _M0TP410NaIWaniubi12moon_2dslice3src4core3Loc(_tmp$3, _tmp$4, _tmp$5, (_p$2.cnum - _p$2.bol | 0) + 1 | 0) });
 }
-function _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Ident(self, id, loc) {
+function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor18visit__Expr__Ident(self, id, loc) {
   const _bind$2 = id.name;
   if (_bind$2.$tag === 0) {
     const _Ident = _bind$2;
@@ -173953,7 +173953,7 @@ function _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitl
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env) {
   const current = _env._1;
   const out = _env._0;
   if (!(current.val === "")) {
@@ -173964,7 +173964,7 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identi
     return;
   }
 }
-function _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identifiers(text, out) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiers(text, out) {
   const current = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   const _env = { _0: out, _1: current };
   const _it = _M0MPC16string6String4iter(text);
@@ -173984,15 +173984,15 @@ function _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identi
         if (is_part && !(current.val === "")) {
           _M0IPB13StringBuilderPB6Logger11write__char(current, _ch);
         } else {
-          _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
+          _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
         }
       }
       continue;
     }
   }
-  _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
 }
-function _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Interp(self, elems, loc) {
+function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Interp(self, elems, loc) {
   let _tmp = elems;
   while (true) {
     const _p = _tmp;
@@ -174009,13 +174009,13 @@ function _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitl
         case 1: {
           const _p$5 = _p$3;
           const _p$6 = _p$5._0;
-          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP44chen12moon_2dslice3src15parser__adapter11IdCollectorE(self, _p$6);
+          _M0IP016_24default__implP311moonbitlang6parser6syntax11IterVisitor11visit__ExprGRP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorE(self, _p$6);
           break;
         }
         default: {
           const _p$7 = _p$3;
           const _p$8 = _p$7._0;
-          _M0FP44chen12moon_2dslice3src15parser__adapter28collect__source__identifiers(_p$8.source, self.names);
+          _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiers(_p$8.source, self.names);
         }
       }
       _tmp = _p$4;
@@ -174023,31 +174023,31 @@ function _M0IP44chen12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitl
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src3pdg10kind__rank(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3pdg10kind__rank(kind) {
   if (kind === 0) {
     return 0;
   } else {
     return 1;
   }
 }
-function _M0FP44chen12moon_2dslice3src3pdg9cmp__edge(a, b) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3pdg9cmp__edge(a, b) {
   if (a.from !== b.from) {
     return a.from < b.from ? -1 : 1;
   }
   if (a.to !== b.to) {
     return a.to < b.to ? -1 : 1;
   }
-  const ra = _M0FP44chen12moon_2dslice3src3pdg10kind__rank(a.kind);
-  const rb = _M0FP44chen12moon_2dslice3src3pdg10kind__rank(b.kind);
+  const ra = _M0FP410NaIWaniubi12moon_2dslice3src3pdg10kind__rank(a.kind);
+  const rb = _M0FP410NaIWaniubi12moon_2dslice3src3pdg10kind__rank(b.kind);
   if (ra !== rb) {
     return ra < rb ? -1 : 1;
   }
   return 0;
 }
-function _M0FP44chen12moon_2dslice3src3pdg9edge__key(edge) {
-  return { _0: edge.from, _1: edge.to, _2: _M0FP44chen12moon_2dslice3src3pdg10kind__rank(edge.kind) };
+function _M0FP410NaIWaniubi12moon_2dslice3src3pdg9edge__key(edge) {
+  return { _0: edge.from, _1: edge.to, _2: _M0FP410NaIWaniubi12moon_2dslice3src3pdg10kind__rank(edge.kind) };
 }
-function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3pdg5build(defuse, cdg) {
   const collected = [];
   const _bind$2 = defuse.reaching;
   const _bind$3 = _bind$2.length;
@@ -174059,7 +174059,7 @@ function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
       const _def_id = _foreach_element._0;
       const _use_id = _foreach_element._1;
       if (_def_id !== _use_id) {
-        _M0MPC15array5Array4pushGsE(collected, new _M0TP44chen12moon_2dslice3src4core7PdgEdge(_def_id, _use_id, 0));
+        _M0MPC15array5Array4pushGsE(collected, new _M0TP410NaIWaniubi12moon_2dslice3src4core7PdgEdge(_def_id, _use_id, 0));
       }
       _tmp = _ + 1 | 0;
       continue;
@@ -174077,7 +174077,7 @@ function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
       const _controller = _foreach_element._0;
       const _controlled = _foreach_element._1;
       if (_controller !== _controlled) {
-        _M0MPC15array5Array4pushGsE(collected, new _M0TP44chen12moon_2dslice3src4core7PdgEdge(_controller, _controlled, 1));
+        _M0MPC15array5Array4pushGsE(collected, new _M0TP410NaIWaniubi12moon_2dslice3src4core7PdgEdge(_controller, _controlled, 1));
       }
       _tmp$2 = _ + 1 | 0;
       continue;
@@ -174094,7 +174094,7 @@ function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
     const _ = _tmp$3;
     if (_ < _bind$7) {
       const edge = collected[_];
-      const key = _M0FP44chen12moon_2dslice3src3pdg9edge__key(edge);
+      const key = _M0FP410NaIWaniubi12moon_2dslice3src3pdg9edge__key(edge);
       if (!_M0MPC13set3Set8containsGUiiiEE(seen, key)) {
         _M0MPC13set3Set3addGUiiiEE(seen, key);
         _M0MPC15array5Array4pushGsE(edges, edge);
@@ -174105,10 +174105,10 @@ function _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg) {
       break;
     }
   }
-  _M0MPC15array5Array8sort__byGUiiEE(edges, _M0FP44chen12moon_2dslice3src3pdg9cmp__edge);
-  return new _M0TP44chen12moon_2dslice3src4core3Pdg(edges);
+  _M0MPC15array5Array8sort__byGUiiEE(edges, _M0FP410NaIWaniubi12moon_2dslice3src3pdg9cmp__edge);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core3Pdg(edges);
 }
-function _M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, forward) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5slice9adjacency(pdg, forward) {
   const _bind$2 = [];
   const adj = _M0MPB3Map3MapGiRPB5ArrayGiEE(new _M0TPB9ArrayViewGUiRPB5ArrayGiEEE(_bind$2, 0, 0), undefined);
   const _bind$3 = pdg.edges;
@@ -174136,7 +174136,7 @@ function _M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, forward) {
   }
   return adj;
 }
-function _M0FP44chen12moon_2dslice3src5slice9reachable(adj, target) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5slice9reachable(adj, target) {
   const _bind$2 = [];
   const seen = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
   _M0MPC13set3Set3addGiE(seen, target);
@@ -174178,7 +174178,7 @@ function _M0FP44chen12moon_2dslice3src5slice9reachable(adj, target) {
   _M0MPC15array5Array4sortGiE(nodes);
   return nodes;
 }
-function _M0FP44chen12moon_2dslice3src5slice9lines__of(program, nodes) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5slice9lines__of(program, nodes) {
   const _bind$2 = [];
   const line_of = _M0MPB3Map3MapGiiE(new _M0TPB9ArrayViewGUiiEE(_bind$2, 0, 0), undefined);
   const _bind$3 = program.nodes;
@@ -174225,31 +174225,31 @@ function _M0FP44chen12moon_2dslice3src5slice9lines__of(program, nodes) {
   _M0MPC15array5Array4sortGiE(lines);
   return lines;
 }
-function _M0FP44chen12moon_2dslice3src5slice8backward(pdg, target, program) {
-  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, false), target);
+function _M0FP410NaIWaniubi12moon_2dslice3src5slice8backward(pdg, target, program) {
+  const nodes = _M0FP410NaIWaniubi12moon_2dslice3src5slice9reachable(_M0FP410NaIWaniubi12moon_2dslice3src5slice9adjacency(pdg, false), target);
   let lines;
   if (program === undefined) {
     lines = [];
   } else {
     const _Some = program;
     const _prog = _Some;
-    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
+    lines = _M0FP410NaIWaniubi12moon_2dslice3src5slice9lines__of(_prog, nodes);
   }
-  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core11SliceResult(nodes, lines);
 }
-function _M0FP44chen12moon_2dslice3src5slice7forward(pdg, target, program) {
-  const nodes = _M0FP44chen12moon_2dslice3src5slice9reachable(_M0FP44chen12moon_2dslice3src5slice9adjacency(pdg, true), target);
+function _M0FP410NaIWaniubi12moon_2dslice3src5slice7forward(pdg, target, program) {
+  const nodes = _M0FP410NaIWaniubi12moon_2dslice3src5slice9reachable(_M0FP410NaIWaniubi12moon_2dslice3src5slice9adjacency(pdg, true), target);
   let lines;
   if (program === undefined) {
     lines = [];
   } else {
     const _Some = program;
     const _prog = _Some;
-    lines = _M0FP44chen12moon_2dslice3src5slice9lines__of(_prog, nodes);
+    lines = _M0FP410NaIWaniubi12moon_2dslice3src5slice9lines__of(_prog, nodes);
   }
-  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, lines);
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core11SliceResult(nodes, lines);
 }
-function _M0FP44chen12moon_2dslice3src5query12node__by__id(program, id) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query12node__by__id(program, id) {
   const _bind$2 = program.nodes;
   const _bind$3 = _bind$2.length;
   let _tmp = 0;
@@ -174268,9 +174268,9 @@ function _M0FP44chen12moon_2dslice3src5query12node__by__id(program, id) {
   }
   return undefined;
 }
-function _M0FP44chen12moon_2dslice3src5query11node__table(program) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query11node__table(program) {
   const _bind$2 = [];
-  const table = _M0MPB3Map3MapGiRP44chen12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP44chen12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
+  const table = _M0MPB3Map3MapGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(new _M0TPB9ArrayViewGUiRP410NaIWaniubi12moon_2dslice3src4core5SNodeEE(_bind$2, 0, 0), undefined);
   const _bind$3 = program.nodes;
   const _bind$4 = _bind$3.length;
   let _tmp = 0;
@@ -174278,8 +174278,8 @@ function _M0FP44chen12moon_2dslice3src5query11node__table(program) {
     const _ = _tmp;
     if (_ < _bind$4) {
       const node = _bind$3[_];
-      if (!_M0MPB3Map8containsGiRP44chen12moon_2dslice3src4core5SNodeE(table, node.id)) {
-        _M0MPB3Map3setGiRP44chen12moon_2dslice3src4core5SNodeE(table, node.id, node);
+      if (!_M0MPB3Map8containsGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(table, node.id)) {
+        _M0MPB3Map3setGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(table, node.id, node);
       }
       _tmp = _ + 1 | 0;
       continue;
@@ -174289,7 +174289,7 @@ function _M0FP44chen12moon_2dslice3src5query11node__table(program) {
   }
   return table;
 }
-function _M0FP44chen12moon_2dslice3src5query13is__synthetic(program, node) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query13is__synthetic(program, node) {
   const _bind$2 = program.functions;
   const _bind$3 = _bind$2.length;
   let _tmp = 0;
@@ -174308,8 +174308,8 @@ function _M0FP44chen12moon_2dslice3src5query13is__synthetic(program, node) {
   }
   return false;
 }
-function _M0FP44chen12moon_2dslice3src5query10is__region(program, node) {
-  const control = _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 3) || (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 4) || (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 5) || _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 6)));
+function _M0FP410NaIWaniubi12moon_2dslice3src5query10is__region(program, node) {
+  const control = _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 3) || (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 4) || (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 5) || _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 6)));
   if (!control || (node.uses.length !== 0 || node.children.length === 0)) {
     return false;
   }
@@ -174319,17 +174319,17 @@ function _M0FP44chen12moon_2dslice3src5query10is__region(program, node) {
   } else {
     const _Some = _bind$2;
     const _pid = _Some;
-    const _bind$3 = _M0FP44chen12moon_2dslice3src5query12node__by__id(program, _pid);
+    const _bind$3 = _M0FP410NaIWaniubi12moon_2dslice3src5query12node__by__id(program, _pid);
     if (_bind$3 === undefined) {
       return false;
     } else {
       const _Some$2 = _bind$3;
       const _parent = _Some$2;
-      return _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_parent.kind, node.kind) && _M0IP44chen12moon_2dslice3src4core3LocPB2Eq5equal(_parent.loc, node.loc);
+      return _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_parent.kind, node.kind) && _M0IP410NaIWaniubi12moon_2dslice3src4core3LocPB2Eq5equal(_parent.loc, node.loc);
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src5query19is__statement__kind(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query19is__statement__kind(kind) {
   switch (kind) {
     case 0: {
       return true;
@@ -174357,11 +174357,11 @@ function _M0FP44chen12moon_2dslice3src5query19is__statement__kind(kind) {
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src5query12node__exists(program, id) {
-  const _bind$2 = _M0FP44chen12moon_2dslice3src5query12node__by__id(program, id);
+function _M0FP410NaIWaniubi12moon_2dslice3src5query12node__exists(program, id) {
+  const _bind$2 = _M0FP410NaIWaniubi12moon_2dslice3src5query12node__by__id(program, id);
   return !(_bind$2 === undefined);
 }
-function _M0FP44chen12moon_2dslice3src5query21statement__candidates(program, line) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query21statement__candidates(program, line) {
   const statement = [];
   const control = [];
   const other = [];
@@ -174373,13 +174373,13 @@ function _M0FP44chen12moon_2dslice3src5query21statement__candidates(program, lin
     if (_ < _bind$3) {
       const node = _bind$2[_];
       _L: {
-        if (node.loc.start_line !== line || (_M0FP44chen12moon_2dslice3src5query13is__synthetic(program, node) || _M0FP44chen12moon_2dslice3src5query10is__region(program, node))) {
+        if (node.loc.start_line !== line || (_M0FP410NaIWaniubi12moon_2dslice3src5query13is__synthetic(program, node) || _M0FP410NaIWaniubi12moon_2dslice3src5query10is__region(program, node))) {
           break _L;
         }
-        if (_M0FP44chen12moon_2dslice3src5query19is__statement__kind(node.kind)) {
+        if (_M0FP410NaIWaniubi12moon_2dslice3src5query19is__statement__kind(node.kind)) {
           _M0MPC15array5Array4pushGiE(statement, node.id);
         } else {
-          if (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 3) || (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 4) || (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 5) || _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 6)))) {
+          if (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 3) || (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 4) || (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 5) || _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 6)))) {
             _M0MPC15array5Array4pushGiE(control, node.id);
           } else {
             _M0MPC15array5Array4pushGiE(other, node.id);
@@ -174438,8 +174438,8 @@ function _M0FP44chen12moon_2dslice3src5query21statement__candidates(program, lin
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src5query12target__node(program, line) {
-  const candidates = _M0FP44chen12moon_2dslice3src5query21statement__candidates(program, line);
+function _M0FP410NaIWaniubi12moon_2dslice3src5query12target__node(program, line) {
+  const candidates = _M0FP410NaIWaniubi12moon_2dslice3src5query21statement__candidates(program, line);
   if (candidates.length > 0) {
     return _M0MPC15array5Array2atGiE(candidates, 0);
   }
@@ -174455,7 +174455,7 @@ function _M0FP44chen12moon_2dslice3src5query12target__node(program, line) {
         if (node.loc.start_line !== line) {
           break _L;
         }
-        if (_M0FP44chen12moon_2dslice3src5query13is__synthetic(program, node) || _M0FP44chen12moon_2dslice3src5query10is__region(program, node)) {
+        if (_M0FP410NaIWaniubi12moon_2dslice3src5query13is__synthetic(program, node) || _M0FP410NaIWaniubi12moon_2dslice3src5query10is__region(program, node)) {
           _M0MPC15array5Array4pushGiE(fallback, node.id);
         }
         break _L;
@@ -174468,8 +174468,8 @@ function _M0FP44chen12moon_2dslice3src5query12target__node(program, line) {
   }
   return fallback.length > 0 ? _M0MPC15array5Array2atGiE(fallback, 0) : undefined;
 }
-function _M0FP44chen12moon_2dslice3src5query14visible__lines(program, nodes) {
-  const table = _M0FP44chen12moon_2dslice3src5query11node__table(program);
+function _M0FP410NaIWaniubi12moon_2dslice3src5query14visible__lines(program, nodes) {
+  const table = _M0FP410NaIWaniubi12moon_2dslice3src5query11node__table(program);
   const out = [];
   const _bind$2 = nodes.length;
   let _tmp = 0;
@@ -174477,12 +174477,12 @@ function _M0FP44chen12moon_2dslice3src5query14visible__lines(program, nodes) {
     const _ = _tmp;
     if (_ < _bind$2) {
       const id = nodes[_];
-      const _bind$3 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(table, id);
+      const _bind$3 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(table, id);
       if (_bind$3 === undefined) {
       } else {
         const _Some = _bind$3;
         const _node = _Some;
-        if (!_M0FP44chen12moon_2dslice3src5query13is__synthetic(program, _node)) {
+        if (!_M0FP410NaIWaniubi12moon_2dslice3src5query13is__synthetic(program, _node)) {
           const line = _node.loc.start_line;
           if (!_M0MPC15array5Array8containsGiE(out, line)) {
             _M0MPC15array5Array4pushGiE(out, line);
@@ -174498,7 +174498,7 @@ function _M0FP44chen12moon_2dslice3src5query14visible__lines(program, nodes) {
   _M0MPC15array5Array4sortGiE(out);
   return out;
 }
-function _M0FP44chen12moon_2dslice3src5query15function__named(program, name) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query15function__named(program, name) {
   const _bind$2 = program.functions;
   const _bind$3 = _bind$2.length;
   let _tmp = 0;
@@ -174517,15 +174517,15 @@ function _M0FP44chen12moon_2dslice3src5query15function__named(program, name) {
   }
   return undefined;
 }
-function _M0FP44chen12moon_2dslice3src5query16call__site__node(program, caller, callee_name, line, nodes) {
-  const table = _M0FP44chen12moon_2dslice3src5query11node__table(program);
+function _M0FP410NaIWaniubi12moon_2dslice3src5query16call__site__node(program, caller, callee_name, line, nodes) {
+  const table = _M0FP410NaIWaniubi12moon_2dslice3src5query11node__table(program);
   const _bind$2 = nodes.length;
   let _tmp = 0;
   while (true) {
     const _ = _tmp;
     if (_ < _bind$2) {
       const id = nodes[_];
-      const _bind$3 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(table, id);
+      const _bind$3 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(table, id);
       if (_bind$3 === undefined) {
       } else {
         const _Some = _bind$3;
@@ -174561,7 +174561,7 @@ function _M0FP44chen12moon_2dslice3src5query16call__site__node(program, caller, 
     const _ = _tmp$2;
     if (_ < _bind$3) {
       const id = nodes[_];
-      const _bind$4 = _M0MPB3Map3getGiRP44chen12moon_2dslice3src4core5SNodeE(table, id);
+      const _bind$4 = _M0MPB3Map3getGiRP410NaIWaniubi12moon_2dslice3src4core5SNodeE(table, id);
       if (_bind$4 === undefined) {
       } else {
         const _Some = _bind$4;
@@ -174578,7 +174578,7 @@ function _M0FP44chen12moon_2dslice3src5query16call__site__node(program, caller, 
   }
   return undefined;
 }
-function _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, callee) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query12return__cone(program, pdg, callee) {
   const out = [];
   const _bind$2 = program.nodes;
   const _bind$3 = _bind$2.length;
@@ -174587,8 +174587,8 @@ function _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, callee)
     const _ = _tmp;
     if (_ < _bind$3) {
       const node = _bind$2[_];
-      if (node.id > callee.entry && (node.id < callee.exit && _M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 7))) {
-        const slice = _M0FP44chen12moon_2dslice3src5slice8backward(pdg, node.id, program);
+      if (node.id > callee.entry && (node.id < callee.exit && _M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(node.kind, 7))) {
+        const slice = _M0FP410NaIWaniubi12moon_2dslice3src5slice8backward(pdg, node.id, program);
         const _bind$4 = slice.nodes;
         const _bind$5 = _bind$4.length;
         let _tmp$2 = 0;
@@ -174614,7 +174614,7 @@ function _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, callee)
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result) {
+function _M0FP410NaIWaniubi12moon_2dslice3src5query13expand__calls(program, pdg, result) {
   const nodes = [];
   const _bind$2 = result.nodes;
   const _bind$3 = _bind$2.length;
@@ -174646,8 +174646,8 @@ function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result
         const _ = _tmp$2;
         if (_ < _bind$5) {
           const call = _bind$4[_];
-          const caller = _M0FP44chen12moon_2dslice3src5query15function__named(program, call.caller);
-          const callee = _M0FP44chen12moon_2dslice3src5query15function__named(program, call.callee);
+          const caller = _M0FP410NaIWaniubi12moon_2dslice3src5query15function__named(program, call.caller);
+          const callee = _M0FP410NaIWaniubi12moon_2dslice3src5query15function__named(program, call.callee);
           if (caller === undefined) {
           } else {
             const _Some = caller;
@@ -174656,12 +174656,12 @@ function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result
             } else {
               const _Some$2 = callee;
               const _ef = _Some$2;
-              const _bind$6 = _M0FP44chen12moon_2dslice3src5query16call__site__node(program, _cf, call.callee, call.line, nodes);
+              const _bind$6 = _M0FP410NaIWaniubi12moon_2dslice3src5query16call__site__node(program, _cf, call.callee, call.line, nodes);
               if (_bind$6 === undefined) {
               } else {
                 const _Some$3 = _bind$6;
                 const _node = _Some$3;
-                if (_M0IP44chen12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_node.kind, 10)) {
+                if (_M0IP410NaIWaniubi12moon_2dslice3src4core9SNodeKindPB2Eq5equal(_node.kind, 10)) {
                   let i = _ef.entry + 1 | 0;
                   while (true) {
                     if (i < _ef.exit) {
@@ -174676,7 +174676,7 @@ function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result
                     }
                   }
                 } else {
-                  const cone = _M0FP44chen12moon_2dslice3src5query12return__cone(program, pdg, _ef);
+                  const cone = _M0FP410NaIWaniubi12moon_2dslice3src5query12return__cone(program, pdg, _ef);
                   if (cone.length === 0) {
                     let i = _ef.entry + 1 | 0;
                     while (true) {
@@ -174725,9 +174725,9 @@ function _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result
     }
   }
   _M0MPC15array5Array4sortGiE(nodes);
-  return new _M0TP44chen12moon_2dslice3src4core11SliceResult(nodes, _M0FP44chen12moon_2dslice3src5query14visible__lines(program, nodes));
+  return new _M0TP410NaIWaniubi12moon_2dslice3src4core11SliceResult(nodes, _M0FP410NaIWaniubi12moon_2dslice3src5query14visible__lines(program, nodes));
 }
-function _M0FP44chen12moon_2dslice3src6report10join__ints(xs) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report10join__ints(xs) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   let first = true;
   const _bind$2 = xs.length;
@@ -174749,7 +174749,7 @@ function _M0FP44chen12moon_2dslice3src6report10join__ints(xs) {
   }
   return out.val;
 }
-function _M0FP44chen12moon_2dslice3src6report12json__string(s) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report12json__string(s) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   const _it = _M0MPC16string6String4iter(s);
   while (true) {
@@ -174815,7 +174815,7 @@ function _M0FP44chen12moon_2dslice3src6report12json__string(s) {
   }
   return `\"${out.val}\"`;
 }
-function _M0FP44chen12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node) {
   const errors = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   let first = true;
   const _bind$2 = program.errors;
@@ -174828,7 +174828,7 @@ function _M0FP44chen12moon_2dslice3src6report16to__result__json(program, result,
       if (!first) {
         _M0IPB13StringBuilderPB6Logger11write__char(errors, 44);
       }
-      _M0IPB13StringBuilderPB6Logger13write__string(errors, _M0FP44chen12moon_2dslice3src6report12json__string(e));
+      _M0IPB13StringBuilderPB6Logger13write__string(errors, _M0FP410NaIWaniubi12moon_2dslice3src6report12json__string(e));
       first = false;
       _tmp = _ + 1 | 0;
       continue;
@@ -174836,16 +174836,16 @@ function _M0FP44chen12moon_2dslice3src6report16to__result__json(program, result,
       break;
     }
   }
-  return `{\"target\":{\"line\":${_M0MPC13int3Int18to__string_2einner(target_line, 10)},\"node\":${_M0MPC13int3Int18to__string_2einner(target_node, 10)}},\"nodes\":[${_M0FP44chen12moon_2dslice3src6report10join__ints(result.nodes)}],\"lines\":[${_M0FP44chen12moon_2dslice3src6report10join__ints(result.lines)}],\"errors\":[${errors.val}]}`;
+  return `{\"target\":{\"line\":${_M0MPC13int3Int18to__string_2einner(target_line, 10)},\"node\":${_M0MPC13int3Int18to__string_2einner(target_node, 10)}},\"nodes\":[${_M0FP410NaIWaniubi12moon_2dslice3src6report10join__ints(result.nodes)}],\"lines\":[${_M0FP410NaIWaniubi12moon_2dslice3src6report10join__ints(result.lines)}],\"errors\":[${errors.val}]}`;
 }
-function _M0FP44chen12moon_2dslice3src6report11edge__label(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report11edge__label(kind) {
   if (kind === 0) {
     return "data";
   } else {
     return "control";
   }
 }
-function _M0FP44chen12moon_2dslice3src6report9is__synth(program, id) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report9is__synth(program, id) {
   const _bind$2 = program.functions;
   const _bind$3 = _bind$2.length;
   let _tmp = 0;
@@ -174864,7 +174864,7 @@ function _M0FP44chen12moon_2dslice3src6report9is__synth(program, id) {
   }
   return false;
 }
-function _M0FP44chen12moon_2dslice3src6report7to__dot(pdg) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report7to__dot(pdg) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   _M0IPB13StringBuilderPB6Logger13write__string(out, "digraph pdg {\n  rankdir=LR;\n");
   const _bind$2 = pdg.edges;
@@ -174879,7 +174879,7 @@ function _M0FP44chen12moon_2dslice3src6report7to__dot(pdg) {
       _M0IPB13StringBuilderPB6Logger13write__string(out, " -> n");
       _M0IPB13StringBuilderPB6Logger13write__string(out, _M0MPC13int3Int18to__string_2einner(edge.to, 10));
       _M0IPB13StringBuilderPB6Logger13write__string(out, " [label=\"");
-      _M0IPB13StringBuilderPB6Logger13write__string(out, _M0FP44chen12moon_2dslice3src6report11edge__label(edge.kind));
+      _M0IPB13StringBuilderPB6Logger13write__string(out, _M0FP410NaIWaniubi12moon_2dslice3src6report11edge__label(edge.kind));
       _M0IPB13StringBuilderPB6Logger13write__string(out, "\"];\n");
       _tmp = _ + 1 | 0;
       continue;
@@ -174890,7 +174890,7 @@ function _M0FP44chen12moon_2dslice3src6report7to__dot(pdg) {
   _M0IPB13StringBuilderPB6Logger13write__string(out, "}\n");
   return out.val;
 }
-function _M0FP44chen12moon_2dslice3src6report12escape__html(s) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(s) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   const _it = _M0MPC16string6String4iter(s);
   while (true) {
@@ -174930,7 +174930,7 @@ function _M0FP44chen12moon_2dslice3src6report12escape__html(s) {
   }
   return out.val;
 }
-function _M0FP44chen12moon_2dslice3src6report15svg__kind__name(kind) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report15svg__kind__name(kind) {
   switch (kind) {
     case 0: {
       return "let";
@@ -174970,7 +174970,7 @@ function _M0FP44chen12moon_2dslice3src6report15svg__kind__name(kind) {
     }
   }
 }
-function _M0FP44chen12moon_2dslice3src6report7to__svg(program, pdg, result, target_node) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report7to__svg(program, pdg, result, target_node) {
   const n = program.nodes.length;
   if (n === 0) {
     return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"360\" height=\"80\"><rect width=\"100%\" height=\"100%\" fill=\"#0f1115\"/><text x=\"16\" y=\"42\" fill=\"#d7dae0\" font-family=\"monospace\">empty program</text></svg>";
@@ -175190,7 +175190,7 @@ function _M0FP44chen12moon_2dslice3src6report7to__svg(program, pdg, result, targ
       const fill = node.id === target_node ? "#ff9800" : hit ? "#2e7d32" : "#2b2f3a";
       const stroke = node.id === target_node ? "#ffb74d" : hit ? "#81c784" : "#4b5563";
       const label = `n${_M0MPC13int3Int18to__string_2einner(node.id, 10)} L${_M0MPC13int3Int18to__string_2einner(node.loc.start_line, 10)}`;
-      svg = `${svg}<g><rect x=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(xs, i), 10)}\" y=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(ys, i), 10)}\" width=\"90\" height=\"36\" rx=\"6\" fill=\"${fill}\" stroke=\"${stroke}\"/><text x=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(xs, i) + 45 | 0, 10)}\" y=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(ys, i) + 23 | 0, 10)}\" text-anchor=\"middle\" fill=\"#eef2f7\" font-size=\"12\" font-family=\"monospace\">${label}</text><title>${_M0FP44chen12moon_2dslice3src6report12escape__html(_M0FP44chen12moon_2dslice3src6report15svg__kind__name(node.kind))} · line ${_M0MPC13int3Int18to__string_2einner(node.loc.start_line, 10)} · defs ${_M0MPC13int3Int18to__string_2einner(node.defs.length, 10)} · uses ${_M0MPC13int3Int18to__string_2einner(node.uses.length, 10)}</title></g>`;
+      svg = `${svg}<g><rect x=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(xs, i), 10)}\" y=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(ys, i), 10)}\" width=\"90\" height=\"36\" rx=\"6\" fill=\"${fill}\" stroke=\"${stroke}\"/><text x=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(xs, i) + 45 | 0, 10)}\" y=\"${_M0MPC13int3Int18to__string_2einner(_M0MPC15array5Array2atGiE(ys, i) + 23 | 0, 10)}\" text-anchor=\"middle\" fill=\"#eef2f7\" font-size=\"12\" font-family=\"monospace\">${label}</text><title>${_M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(_M0FP410NaIWaniubi12moon_2dslice3src6report15svg__kind__name(node.kind))} · line ${_M0MPC13int3Int18to__string_2einner(node.loc.start_line, 10)} · defs ${_M0MPC13int3Int18to__string_2einner(node.defs.length, 10)} · uses ${_M0MPC13int3Int18to__string_2einner(node.uses.length, 10)}</title></g>`;
       i = i + 1 | 0;
       continue;
     } else {
@@ -175201,7 +175201,7 @@ function _M0FP44chen12moon_2dslice3src6report7to__svg(program, pdg, result, targ
   svg = `${svg}</svg>`;
   return svg;
 }
-function _M0FP44chen12moon_2dslice3src6report10vars__text(vars) {
+function _M0FP410NaIWaniubi12moon_2dslice3src6report10vars__text(vars) {
   let out = "";
   let first = true;
   const _bind$2 = vars.length;
@@ -175213,7 +175213,7 @@ function _M0FP44chen12moon_2dslice3src6report10vars__text(vars) {
       if (!first) {
         out = `${out}, `;
       }
-      out = `${out}${_M0FP44chen12moon_2dslice3src6report12escape__html(v.name)}#${_M0MPC13int3Int18to__string_2einner(v.scope, 10)}`;
+      out = `${out}${_M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(v.name)}#${_M0MPC13int3Int18to__string_2einner(v.scope, 10)}`;
       first = false;
       _tmp = _ + 1 | 0;
       continue;
@@ -175223,8 +175223,8 @@ function _M0FP44chen12moon_2dslice3src6report10vars__text(vars) {
   }
   return out;
 }
-function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, result, target_line, target_node) {
-  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP44chen12moon_2dslice3src6report8to__htmlN6recordS51284), (line) => _M0MPC16string10StringView9to__owned(line)));
+function _M0FP410NaIWaniubi12moon_2dslice3src6report8to__html(source, program, pdg, result, target_line, target_node) {
+  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51284), (line) => _M0MPC16string10StringView9to__owned(line)));
   const _bind$2 = [];
   const hit_lines = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
   const _bind$3 = result.lines;
@@ -175259,7 +175259,7 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
       _M0IPB13StringBuilderPB6Logger11write__char(body, 32);
       _M0IPB13StringBuilderPB6Logger13write__string(body, _M0MPC13int3Int18to__string_2einner(n, 10));
       _M0IPB13StringBuilderPB6Logger13write__string(body, "  ");
-      _M0IPB13StringBuilderPB6Logger13write__string(body, _M0FP44chen12moon_2dslice3src6report12escape__html(line));
+      _M0IPB13StringBuilderPB6Logger13write__string(body, _M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(line));
       _M0IPB13StringBuilderPB6Logger13write__string(body, "</span>\n");
       n = n + 1 | 0;
       _tmp$2 = _ + 1 | 0;
@@ -175277,7 +175277,7 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
     if (_ < _bind$7) {
       const e = _bind$6[_];
       _M0IPB13StringBuilderPB6Logger13write__string(errs, "<li>");
-      _M0IPB13StringBuilderPB6Logger13write__string(errs, _M0FP44chen12moon_2dslice3src6report12escape__html(e));
+      _M0IPB13StringBuilderPB6Logger13write__string(errs, _M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(e));
       _M0IPB13StringBuilderPB6Logger13write__string(errs, "</li>");
       _tmp$3 = _ + 1 | 0;
       continue;
@@ -175288,7 +175288,7 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
   if (errs.val === "") {
     _M0IPB13StringBuilderPB6Logger13write__string(errs, "<li>none</li>");
   }
-  const svg = _M0FP44chen12moon_2dslice3src6report7to__svg(program, pdg, result, target_node);
+  const svg = _M0FP410NaIWaniubi12moon_2dslice3src6report7to__svg(program, pdg, result, target_node);
   const rows = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   const _bind$8 = [];
   const text_by_id = _M0MPB3Map3MapGisE(new _M0TPB9ArrayViewGUisEE(_bind$8, 0, 0), undefined);
@@ -175299,7 +175299,7 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
     const _ = _tmp$4;
     if (_ < _bind$10) {
       const node = _bind$9[_];
-      _M0MPB3Map3setGisE(text_by_id, node.id, _M0FP44chen12moon_2dslice3src6report15svg__kind__name(node.kind));
+      _M0MPB3Map3setGisE(text_by_id, node.id, _M0FP410NaIWaniubi12moon_2dslice3src6report15svg__kind__name(node.kind));
       _tmp$4 = _ + 1 | 0;
       continue;
     } else {
@@ -175333,8 +175333,8 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
     const _ = _tmp$6;
     if (_ < _bind$17) {
       const node = _bind$16[_];
-      _M0MPB3Map3setGisE(defs_by_id, node.id, _M0FP44chen12moon_2dslice3src6report10vars__text(node.defs));
-      _M0MPB3Map3setGisE(uses_by_id, node.id, _M0FP44chen12moon_2dslice3src6report10vars__text(node.uses));
+      _M0MPB3Map3setGisE(defs_by_id, node.id, _M0FP410NaIWaniubi12moon_2dslice3src6report10vars__text(node.defs));
+      _M0MPB3Map3setGisE(uses_by_id, node.id, _M0FP410NaIWaniubi12moon_2dslice3src6report10vars__text(node.uses));
       _tmp$6 = _ + 1 | 0;
       continue;
     } else {
@@ -175353,7 +175353,7 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
       } else {
         const _Some = _bind$20;
         const _kind_text = _Some;
-        if (!_M0FP44chen12moon_2dslice3src6report9is__synth(program, id)) {
+        if (!_M0FP410NaIWaniubi12moon_2dslice3src6report9is__synth(program, id)) {
           const target = id === target_node ? " class=\"target\"" : "";
           _M0IPB13StringBuilderPB6Logger13write__string(rows, "<tr");
           _M0IPB13StringBuilderPB6Logger13write__string(rows, target);
@@ -175402,9 +175402,9 @@ function _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, res
     }
   }
   const metrics = `nodes ${_M0MPC13int3Int18to__string_2einner(program.nodes.length, 10)} · edges ${_M0MPC13int3Int18to__string_2einner(pdg.edges.length, 10)} · slice nodes ${_M0MPC13int3Int18to__string_2einner(result.nodes.length, 10)} · slice lines ${_M0MPC13int3Int18to__string_2einner(result.lines.length, 10)} · target n${_M0MPC13int3Int18to__string_2einner(target_node, 10)} on line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}`;
-  return `<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.7.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}</h1>\n<p class=\"metrics\">${metrics}</p>\n<div class=\"graph\">${svg}</div>\n<h2>Source</h2>\n<pre>${body.val}</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>${rows.val}</tbody></table>\n<h2>Errors</h2>\n<ul>${errs.val}</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>${_M0FP44chen12moon_2dslice3src6report12escape__html(_M0FP44chen12moon_2dslice3src6report7to__dot(pdg))}</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">${_M0FP44chen12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node)}</script>\n</body>\n</html>\n`;
+  return `<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.7.1\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}</h1>\n<p class=\"metrics\">${metrics}</p>\n<div class=\"graph\">${svg}</div>\n<h2>Source</h2>\n<pre>${body.val}</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>${rows.val}</tbody></table>\n<h2>Errors</h2>\n<ul>${errs.val}</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>${_M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(_M0FP410NaIWaniubi12moon_2dslice3src6report7to__dot(pdg))}</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">${_M0FP410NaIWaniubi12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node)}</script>\n</body>\n</html>\n`;
 }
-function _M0FP44chen12moon_2dslice3src3web19escape__error__text(s) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3web19escape__error__text(s) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
   const _it = _M0MPC16string6String4iter(s);
   while (true) {
@@ -175444,10 +175444,10 @@ function _M0FP44chen12moon_2dslice3src3web19escape__error__text(s) {
   }
   return out.val;
 }
-function _M0FP44chen12moon_2dslice3src3web11error__html(message) {
-  return `<!doctype html><html><body style=\"margin:0;padding:2rem;background:#0f1115;color:#ffb4a2;font-family:ui-monospace,monospace\"><h2>moon-slice</h2><p>${_M0FP44chen12moon_2dslice3src3web19escape__error__text(message)}</p></body></html>`;
+function _M0FP410NaIWaniubi12moon_2dslice3src3web11error__html(message) {
+  return `<!doctype html><html><body style=\"margin:0;padding:2rem;background:#0f1115;color:#ffb4a2;font-family:ui-monospace,monospace\"><h2>moon-slice</h2><p>${_M0FP410NaIWaniubi12moon_2dslice3src3web19escape__error__text(message)}</p></body></html>`;
 }
-function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
+function _M0FP410NaIWaniubi12moon_2dslice3src3web12join__source(parts) {
   let source = "";
   let i = 3;
   while (true) {
@@ -175465,10 +175465,10 @@ function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
   return source;
 }
 (() => {
-  const input = _M0FP44chen12moon_2dslice3src3web11read__input();
-  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP44chen12moon_2dslice3src3web7_2amainN6recordS51370), (p) => _M0MPC16string10StringView9to__owned(p)));
+  const input = _M0FP410NaIWaniubi12moon_2dslice3src3web11read__input();
+  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51370), (p) => _M0MPC16string10StringView9to__owned(p)));
   if (parts.length < 4) {
-    _M0FP44chen12moon_2dslice3src3web13write__output(_M0FP44chen12moon_2dslice3src3web11error__html("bad input"));
+    _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output(_M0FP410NaIWaniubi12moon_2dslice3src3web11error__html("bad input"));
     return;
   }
   const direction = _M0MPC15array5Array2atGsE(parts, 0);
@@ -175491,12 +175491,12 @@ function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
     line = 0;
   }
   const node_field = _M0MPC15array5Array2atGsE(parts, 2);
-  const source = _M0FP44chen12moon_2dslice3src3web12join__source(parts);
-  const program = _M0FP44chen12moon_2dslice3src15parser__adapter13parse__source(source, "playground.mbt");
-  const cfg = _M0FP44chen12moon_2dslice3src3cfg5build(program);
-  const defuse = _M0FP44chen12moon_2dslice3src6defuse7analyze(program, cfg);
-  const cdg = _M0FP44chen12moon_2dslice3src3cdg5build(program, cfg);
-  const pdg = _M0FP44chen12moon_2dslice3src3pdg5build(defuse, cdg);
+  const source = _M0FP410NaIWaniubi12moon_2dslice3src3web12join__source(parts);
+  const program = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter13parse__source(source, "playground.mbt");
+  const cfg = _M0FP410NaIWaniubi12moon_2dslice3src3cfg5build(program);
+  const defuse = _M0FP410NaIWaniubi12moon_2dslice3src6defuse7analyze(program, cfg);
+  const cdg = _M0FP410NaIWaniubi12moon_2dslice3src3cdg5build(program, cfg);
+  const pdg = _M0FP410NaIWaniubi12moon_2dslice3src3pdg5build(defuse, cdg);
   const line32 = Number(BigInt.asIntN(32, BigInt.asUintN(64, BigInt(line)))) | 0;
   let requested;
   if (node_field === "") {
@@ -175523,11 +175523,11 @@ function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
   }
   let target;
   if (requested === undefined) {
-    target = _M0FP44chen12moon_2dslice3src5query12target__node(program, line32);
+    target = _M0FP410NaIWaniubi12moon_2dslice3src5query12target__node(program, line32);
   } else {
     const _Some = requested;
     const _id = _Some;
-    const _bind$2 = _M0FP44chen12moon_2dslice3src5query12node__exists(program, _id);
+    const _bind$2 = _M0FP410NaIWaniubi12moon_2dslice3src5query12node__exists(program, _id);
     if (_bind$2 === true) {
       target = _id;
     } else {
@@ -175539,7 +175539,7 @@ function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
       const _string_builder = _M0MPB13StringBuilder21StringBuilder_2einner(28);
       _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "no statement starts at line ");
       _M0MPB13StringBuilder13write__objectGiE(_string_builder, line);
-      _M0FP44chen12moon_2dslice3src3web13write__output(_M0FP44chen12moon_2dslice3src3web11error__html(_string_builder.val));
+      _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output(_M0FP410NaIWaniubi12moon_2dslice3src3web11error__html(_string_builder.val));
       return;
     } else {
       const _Some = requested;
@@ -175547,17 +175547,17 @@ function _M0FP44chen12moon_2dslice3src3web12join__source(parts) {
       const _string_builder = _M0MPB13StringBuilder21StringBuilder_2einner(16);
       _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "no node with id ");
       _M0MPB13StringBuilder13write__objectGiE(_string_builder, _id);
-      _M0FP44chen12moon_2dslice3src3web13write__output(_M0FP44chen12moon_2dslice3src3web11error__html(_string_builder.val));
+      _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output(_M0FP410NaIWaniubi12moon_2dslice3src3web11error__html(_string_builder.val));
       return;
     }
   } else {
     const _Some = target;
     const _node = _Some;
-    const result = direction === "forward" ? _M0FP44chen12moon_2dslice3src5slice7forward(pdg, _node, program) : _M0FP44chen12moon_2dslice3src5slice8backward(pdg, _node, program);
-    const result$2 = new _M0TP44chen12moon_2dslice3src4core11SliceResult(result.nodes, _M0FP44chen12moon_2dslice3src5query14visible__lines(program, result.nodes));
-    const result$3 = direction === "interprocedural" ? _M0FP44chen12moon_2dslice3src5query13expand__calls(program, pdg, result$2) : result$2;
-    const html = _M0FP44chen12moon_2dslice3src6report8to__html(source, program, pdg, result$3, line32, _node);
-    _M0FP44chen12moon_2dslice3src3web13write__output(html);
+    const result = direction === "forward" ? _M0FP410NaIWaniubi12moon_2dslice3src5slice7forward(pdg, _node, program) : _M0FP410NaIWaniubi12moon_2dslice3src5slice8backward(pdg, _node, program);
+    const result$2 = new _M0TP410NaIWaniubi12moon_2dslice3src4core11SliceResult(result.nodes, _M0FP410NaIWaniubi12moon_2dslice3src5query14visible__lines(program, result.nodes));
+    const result$3 = direction === "interprocedural" ? _M0FP410NaIWaniubi12moon_2dslice3src5query13expand__calls(program, pdg, result$2) : result$2;
+    const html = _M0FP410NaIWaniubi12moon_2dslice3src6report8to__html(source, program, pdg, result$3, line32, _node);
+    _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output(html);
     return;
   }
 })();

@@ -1,5 +1,5 @@
 import {
-  "chen/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/core",
   "moonbitlang/parser",
   "moonbitlang/parser/syntax",
   "moonbitlang/core/list",

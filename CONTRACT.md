@@ -94,11 +94,11 @@ pub fn to_sarif_findings(findings : Array[SarifFinding], suppressed : Int,
                          version : String, files : Int, parse_failures : Int) -> String
 ```
 
-`@core` is `chen/moon-slice/src/core`:
+`@core` is `NaIWaniubi/moon-slice/src/core`:
 
 ```text
 import {
-  "chen/moon-slice/src/core" @core,
+  "NaIWaniubi/moon-slice/src/core" @core,
 }
 ```
 

@@ -1,8 +1,8 @@
 import {
-  "chen/moon-slice/src/core",
-  "chen/moon-slice/src/slice",
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/slice",
 }
 
 import {
-  "chen/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/core",
 } for "test"

@@ -9,9 +9,9 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "chen/moon-slice"
+name = "NaIWaniubi/moon-slice"
 
-version = "0.7.0"
+version = "0.7.1"
 
 readme = "README.mbt.md"
 
