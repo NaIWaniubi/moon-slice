@@ -47,6 +47,14 @@ fn usage() -> Unit {
     "  --dir D     (dead, unused) scan every .mbt file under D. Mutually\n" +
     "              exclusive with --file; parse failures are reported, not fatal.\n" +
     "\n" +
+    "Suppressing a finding: put `// moon-slice: ignore` on the line, or on its\n" +
+    "own line above it to cover the next line of code. Name the rules to narrow\n" +
+    "it: `// moon-slice: ignore[dead-store, unused-function]`. The three rule\n" +
+    "names are dead-store, unreachable-code and unused-function; anything else\n" +
+    "leaves the directive inert. Suppressed findings still count in the\n" +
+    "`suppressed` number (with the ones a baseline hides) and are written by\n" +
+    "--write-baseline, so a baseline stays a full picture.\n" +
+    "\n" +
     "Exit codes: 0 success, 1 findings with --fail-on-findings, 2 usage error,\n" +
     "unreadable input, parse error or write failure. When a line holds several\n" +
     "statements, `dump --line N` lists\n" +
@@ -75,7 +83,7 @@ fn prescan_json(argv : Array[String]) -> Bool {
 let json_mode : Array[Bool] = [false]
 
 ///|
-let tool_version : String = "0.7.1"
+let tool_version : String = "0.7.2"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise
@@ -338,6 +346,31 @@ fn parse_baseline(text : String) -> Set[String] {
 }
 
 ///|
+/// Drops the nodes whose line carries a matching `// moon-slice: ignore`
+/// directive. The rule follows the node: a dead store and an unreachable
+/// statement are different findings even when they share a line.
+fn filter_suppressions(
+  program : @core.Program,
+  ids : Array[Int32],
+  dead : Array[Int32],
+  directives : @suppress.Directives,
+) -> Array[Int32] {
+  let out : Array[Int32] = []
+  for id in ids {
+    match @query.node_by_id(program, id) {
+      None => out.push(id)
+      Some(node) => {
+        let rule = if dead.contains(id) { "dead-store" } else { "unreachable-code" }
+        if !@suppress.suppresses(directives, node.loc.start_line, rule) {
+          out.push(id)
+        }
+      }
+    }
+  }
+  out
+}
+
+///|
 fn filter_baseline(
   program : @core.Program,
   ids : Array[Int32],
@@ -502,11 +535,13 @@ fn run_dead_dir(
   let all : Array[@report.SarifFinding] = []
   let errors : Array[String] = []
   let mut scanned = 0
+  let mut inline_suppressed = 0
   for path in paths {
     let maybe_source = read_scan_file(path, errors)
     match maybe_source {
       None => ()
       Some(source) => {
+        let directives = @suppress.parse(source)
         let (program, cfg, defuse, _) = analyze(source, path, false)
         if program.errors.length() > 0 {
           errors.push(
@@ -525,16 +560,21 @@ fn run_dead_dir(
               None => ()
               Some(node) => {
                 let is_dead = dead.contains(id)
-                all.push(@report.SarifFinding::{
-                  file: normalize_path(path),
-                  line: node.loc.start_line,
-                  rule: if is_dead { "dead-store" } else { "unreachable-code" },
-                  message: if is_dead {
-                    @report.sarif_dead_message(node)
-                  } else {
-                    "unreachable code: no execution path reaches this statement"
-                  },
-                })
+                let rule = if is_dead { "dead-store" } else { "unreachable-code" }
+                if @suppress.suppresses(directives, node.loc.start_line, rule) {
+                  inline_suppressed = inline_suppressed + 1
+                } else {
+                  all.push(@report.SarifFinding::{
+                    file: normalize_path(path),
+                    line: node.loc.start_line,
+                    rule,
+                    message: if is_dead {
+                      @report.sarif_dead_message(node)
+                    } else {
+                      "unreachable code: no execution path reaches this statement"
+                    },
+                  })
+                }
               }
             }
           }
@@ -568,7 +608,7 @@ fn run_dead_dir(
     return
   }
   let kept : Array[@report.SarifFinding] = []
-  let mut suppressed = 0
+  let mut suppressed = inline_suppressed
   for finding in all {
     if baseline.contains(baseline_key(finding.file, finding.line)) {
       suppressed = suppressed + 1
@@ -733,13 +773,16 @@ fn run_unused_dir(
   paths.sort_by(fn(a, b) { a.lexical_compare(b) })
   let errors : Array[String] = []
   let groups : Array[(String, Array[@liveness.FileFacts])] = []
+  let directives_by_file : Map[String, @suppress.Directives] = Map([])
   let mut scanned = 0
   for path in paths {
     match read_scan_file(path, errors) {
       None => ()
       Some(source) => {
         scanned = scanned + 1
-        add_facts(groups, @liveness.collect(normalize_path(path), source))
+        let normalized = normalize_path(path)
+        directives_by_file.set(normalized, @suppress.parse(source))
+        add_facts(groups, @liveness.collect(normalized, source))
       }
     }
   }
@@ -762,7 +805,17 @@ fn run_unused_dir(
   let unused : Array[@liveness.UnusedFn] = []
   let mut suppressed = 0
   for item in all {
+    let directives = match directives_by_file.get(item.path) {
+      Some(found) => found
+      None => @suppress.empty()
+    }
     if baseline.contains(baseline_key(item.path, item.line)) {
+      suppressed = suppressed + 1
+    } else if @suppress.suppresses(
+      directives,
+      item.line,
+      "unused-function",
+    ) {
       suppressed = suppressed + 1
     } else {
       unused.push(item)
@@ -1399,7 +1452,13 @@ fn main {
       } else {
         parse_baseline(read_source(baseline_path))
       }
-      let kept = filter_baseline(program, all, file, baseline)
+      let filtered = filter_baseline(program, all, file, baseline)
+      let kept = filter_suppressions(
+        program,
+        filtered,
+        dead,
+        @suppress.parse(source),
+      )
       let suppressed = all.length() - kept.length()
       let result = @core.SliceResult::{
         nodes: kept,

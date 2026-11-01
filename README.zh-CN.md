@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 294 个测试
+./dev.sh test                  # 315 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.1
+moon add NaIWaniubi/moon-slice@0.7.2
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -161,6 +161,27 @@ action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就
 在 `moonbitlang/core`（1452 文件）上命中 4 个，全部是官方自己命名为
 `unused_function` / `suppress_unused_v128_import_on_*` 的函数。细节与由此在
 moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
+
+### 就地抑制
+
+已经判定过的告警可以在原地关掉；相比基线文件，它跟着代码走，行号变了也不会失效。
+
+```moonbit
+let unused = compute() // moon-slice: ignore dead-store
+
+// moon-slice: ignore[unused-function]
+fn helper() -> Unit { ... }
+```
+
+- 写在有代码的行上，就作用于该行；单独占一行时，作用于下一行代码（中间的空行和
+  注释会跳过）。
+- 只写 `ignore` 覆盖全部规则；写规则名则只关掉那几条：`dead-store`、
+  `unreachable-code`、`unused-function`。任何其他写法（包括拼错）都让这条指令
+  失效——写错名字不该整行静音。
+- 指令必须是行尾最后的内容，所以字符串字面量里的 `"// moon-slice: ignore"`
+  不算指令。
+- 被抑制的告警仍然计入 `suppressed`（与基线隐藏的合并计数），也仍然会被
+  `--write-baseline` 记录，基线因此保持完整。
 
 ## 跨文件切片与 callers
 
@@ -267,7 +288,7 @@ moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
 
 ## 工程
 
-- 294 个测试；库代码行覆盖率约 89%
+- 315 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

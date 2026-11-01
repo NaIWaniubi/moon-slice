@@ -6,6 +6,7 @@
 - 参赛者：陈勇润（GitHub：NaIWaniubi）
 - 联系方式：见报名表（邮箱 / 手机）
 - GitHub 仓库链接：https://github.com/NaIWaniubi/moon-slice
+- 发布地址：https://mooncakes.io/docs/NaIWaniubi/moon-slice
 - 项目方向：MoonBit 程序分析基础库 / 开发者工具
 - 是否为移植项目：否（原创项目，算法参考公开论文）
 
@@ -22,11 +23,12 @@ moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一
 - 向后/向前切片，输出节点集合与源码行号；一行多语句时列出候选并用 `--node` 精确选择；
 - 包级过程间切片：`slice --dir D --file F --line N --interprocedural` 跨文件展开被调函数（裸调用展开整个函数体，有返回值的调用只展开返回值 cone）；
 - 死代码：`dead`（无使用赋值 + 不可达语句）与 `unused`（整包无人调用的私有函数，尊重 `#warnings("-unused_value")` 标注）；
+- 就地抑制：`// moon-slice: ignore[rule]` 写在告警所在行或其上一行，随代码移动，比按行号记录更耐改；
 - 反向查询：`callers --dir D --name F` 列出包内全部调用点及所属函数，支持限定调用 `T::f(x)`；
 - 改动影响分析：`review --diff` 对 git diff 的每个新增行做向前切片，汇总受影响行与函数；
 - CI 集成：SARIF 2.1.0（`dead-store` / `unreachable-code` / `unused-function`）、基线抑制 `--baseline`、门禁 `--fail-on-findings`、GitHub composite action；
 - 报告与演示：JSON / DOT / 内联 SVG / 自包含 HTML；浏览器 playground 支持点行切片、示例预设与分享链接；
-- 质量证据：294 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码 0 误报；1987 文件包级存活分析 0 误报；
+- 质量证据：315 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码 0 误报；1987 文件包级存活分析 0 误报；
 - 工程化：零警告构建；GitHub Actions CI 覆盖 check / build / test / CLI smoke / playground presets / action 自测；Apache-2.0；`moon package` 打包验证。
 
 ## 移植或参考说明

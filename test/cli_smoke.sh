@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.1" version
+expect_eq "moon-slice 0.7.2" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -433,5 +433,84 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   if(JSON.stringify(r.affected)!==JSON.stringify([3,4])) throw new Error("bad affected lines");
 });'
 rm -f "$tmp_review_src"
+
+
+# In-source suppressions: a directive hides the finding on its line, a bare one
+# hides every rule, and a named one hides only that rule. The `suppressed`
+# counter proves the finding was seen and dropped, not that it never existed.
+supp_dir="$(mktemp -d)"
+cat > "$supp_dir/plain.mbt" <<'MBT'
+fn compute() -> Int {
+  let a = 1
+  let b = 2
+  a
+}
+MBT
+cat > "$supp_dir/trailing.mbt" <<'MBT'
+fn compute() -> Int {
+  let a = 1
+  let b = 2 // moon-slice: ignore dead-store
+  a
+}
+MBT
+cat > "$supp_dir/standalone.mbt" <<'MBT'
+fn compute() -> Int {
+  let a = 1
+  // moon-slice: ignore
+  let b = 2
+  a
+}
+MBT
+expect_eq "3" dead --file "$supp_dir/plain.mbt"
+expect_eq "{\"nodes\":[],\"lines\":[],\"errors\":[],\"suppressed\":1}" dead --file "$supp_dir/trailing.mbt" --json
+expect_eq "{\"nodes\":[],\"lines\":[],\"errors\":[],\"suppressed\":1}" dead --file "$supp_dir/standalone.mbt" --json
+
+# A directive that names the wrong rule changes nothing: unreachable code stays
+# visible when only dead-store is named.
+cat > "$supp_dir/wrong_rule.mbt" <<'MBT'
+fn broken() -> Int {
+  return 1
+  println("never") // moon-slice: ignore dead-store
+}
+MBT
+expect_eq "3" dead --file "$supp_dir/wrong_rule.mbt"
+
+cat > "$supp_dir/right_rule.mbt" <<'MBT'
+fn broken() -> Int {
+  return 1
+  println("never") // moon-slice: ignore unreachable-code
+}
+MBT
+expect_eq "{\"nodes\":[],\"lines\":[],\"errors\":[],\"suppressed\":1}" dead --file "$supp_dir/right_rule.mbt" --json
+
+# An unknown rule name is inert rather than a silent blanket ignore.
+cat > "$supp_dir/typo.mbt" <<'MBT'
+fn compute() -> Int {
+  let a = 1
+  let b = 2 // moon-slice: ignore dead_stores
+  a
+}
+MBT
+expect_eq "3" dead --file "$supp_dir/typo.mbt"
+
+# Package mode: the declaration is suppressed, the other private function is not.
+cat > "$supp_dir/pkg.mbt" <<'MBT'
+fn helper() -> Int {
+  1
+}
+
+// moon-slice: ignore[unused-function]
+fn orphan() -> Int {
+  2
+}
+
+fn main {
+  println(helper())
+}
+MBT
+supp_pkg="$(run unused --dir "$supp_dir" --json)"
+printf '%s' "$supp_pkg" | grep -Fq '"suppressed":1'
+
+rm -rf "$supp_dir"
 
 printf 'cli smoke ok\n'

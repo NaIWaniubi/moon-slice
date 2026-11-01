@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-01 (v0.7.1; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-01 (v0.7.2; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
@@ -438,8 +438,9 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.1.zip` (1,161,277 bytes, 140 files)
-- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.1`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.2.zip` (1,173,362 bytes, 144 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.2`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] in-source suppressions: `// moon-slice: ignore[rule]`, 21 unit tests plus CLI smoke cases for the single-file and package forms
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
 - [x] registration submitted by the author ahead of the deadline; the guide's remaining expectation is a repository that stays current, which is what every commit after it keeps true

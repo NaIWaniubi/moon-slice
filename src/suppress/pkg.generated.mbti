@@ -1,0 +1,27 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/suppress"
+
+// Values
+pub fn count(Directives) -> Int32
+
+pub fn empty() -> Directives
+
+pub fn parse(String) -> Directives
+
+pub fn suppresses(Directives, Int32, String) -> Bool
+
+// Errors
+
+// Types and methods
+pub(all) struct Directive {
+  line : Int32
+  rules : Array[String]
+}
+
+pub(all) struct Directives {
+  items : Array[Directive]
+}
+
+// Type aliases
+
+// Traits

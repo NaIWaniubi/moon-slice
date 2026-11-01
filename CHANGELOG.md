@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.7.2 — 2026-11-01
+
+Findings can now be silenced where they are written, which is the one thing a
+baseline could not do: a baseline is keyed on line numbers and goes stale as
+soon as the code above it moves.
+
+- **`// moon-slice: ignore` directives.** A trailing directive covers its own
+  line; a directive alone on a line covers the next line of code, skipping blank
+  lines and comments. Naming rules narrows the effect —
+  `// moon-slice: ignore[dead-store, unreachable-code]` — and bare `ignore`
+  covers every rule, including ones added later.
+- **A wrong name is inert, not a blank cheque.** Only `dead-store`,
+  `unreachable-code` and `unused-function` are accepted; any other spelling,
+  including `dead_stores`, leaves the directive with no effect, so a typo cannot
+  silence a line. The directive also has to be the last thing on the line, which
+  keeps `"// moon-slice: ignore"` inside a string literal from being read as one.
+- **Suppressed is still counted and still recorded.** `suppressed` now counts
+  inline suppressions together with baseline hits, and `--write-baseline` still
+  writes every finding, so the baseline stays a full picture rather than
+  silently inheriting the suppressions.
+- **`src/suppress`** is a pure parser over source text: `parse` → directives,
+  `suppresses` → bool. 21 tests cover the trailing/standalone forms, skip rules,
+  bracket and space-separated lists, deduplication, CRLF, unknown names,
+  unterminated and empty brackets, string-literal lookalikes, directives at end
+  of file, and `empty()`.
+- **315 tests**, plus CLI smoke cases for the single-file and package forms.
+
 ## 0.7.1 — 2026-11-01
 
 Release hygiene: the version, the tag, the repository and the registry now name

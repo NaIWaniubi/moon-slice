@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.1-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.2-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (294 tests, including a
+All layers are implemented and covered by `moon test` (315 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -42,6 +42,7 @@ frozen; the CLI is usable.
 | Slicing | `src/slice` | implemented — backward/forward BFS |
 | Query helpers | `src/query` | implemented — line → node, dead/unreachable, data-flow paths |
 | Liveness | `src/liveness` | implemented — private functions nothing calls |
+| Suppressions | `src/suppress` | implemented — `// moon-slice: ignore` directives |
 | Package scope | `src/interproc` | implemented — cross-file expansion and callers |
 | Report | `src/report` | implemented — JSON, DOT, SARIF, inline SVG, HTML |
 | CLI | `cmd/main` | implemented — `slice` (file or package), `graph`, `callgraph`, `dead`, `unused`, `callers`, `review`, `path`, `html`, debug dumps |
@@ -63,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.1
+moon add NaIWaniubi/moon-slice@0.7.2
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -428,6 +429,31 @@ nothing; on `moonbitlang/core` (1452 files) it finds four functions, every one o
 them named `unused_function` / `suppress_unused_v128_import_on_*` by the library
 itself. Details and the two false-positive classes this found in moon-slice are
 in [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
+
+### Suppressing a finding
+
+A finding you have already judged can be silenced in place; unlike a baseline it
+moves with the code when lines shift.
+
+```moonbit
+let unused = compute() // moon-slice: ignore dead-store
+
+// moon-slice: ignore[unused-function]
+fn helper() -> Unit { ... }
+```
+
+- On a line with code, the directive covers that line. On its own line, it
+  covers the next line of code — blank lines and comments in between are
+  skipped.
+- Bare `ignore` covers every rule; naming rules narrows it to those three:
+  `dead-store`, `unreachable-code`, `unused-function`. Any other spelling,
+  including a typo, leaves the directive inert, because a wrong name must never
+  silence a line by accident.
+- The directive has to be the last thing on the line, so `"// moon-slice:
+  ignore"` inside a string literal is not a directive.
+- Suppressed findings still count in `suppressed` (together with the ones a
+  baseline hides) and are still recorded by `--write-baseline`, so a baseline
+  stays a full picture of what the analysis sees.
 
 ## Slicing across a package
 

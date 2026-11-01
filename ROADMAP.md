@@ -12,17 +12,22 @@ deliberately missing and in what order it makes sense to add it.
   (`T::f(x)`).
 - **Click-to-slice playground** with per-example, per-direction checks in CI.
 
+## Shipped in 0.7.1 / 0.7.2
+
+- **Published to mooncakes.io** as `NaIWaniubi/moon-slice`, so `moon add` is an
+  install path next to cloning.
+- **Suppressions inside the source**: `// moon-slice: ignore[dead-store]` on the
+  finding's line, or on its own line above it. Suppressed findings still count
+  in `suppressed` and still reach `--write-baseline`.
+
 ## Next
 
 1. **Receiver calls.** `x.f()` is not followed: the receiver's type is unknown, so
    attributing it would invent a call. Real type resolution would close the last
    gap in the call graph and let `unused` see methods as well.
-2. **A format for suppressions inside source.** Baselines are per line and
-   survive edits poorly. A comment form (`// moon-slice: ignore dead-store`) is
-   cheaper for reviewers and travels with the code.
-3. **Editor integration.** The JSON contract is stable enough for a minimal
+2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
-4. **A path rule in SARIF.** `dead-store`, `unreachable-code` and
+3. **A path rule in SARIF.** `dead-store`, `unreachable-code` and
    `unused-function` are reported today; `path --from A --to B` has no rule yet.
 
 ## Considered, not planned
@@ -33,6 +38,3 @@ deliberately missing and in what order it makes sense to add it.
 - **Byte-for-byte reproducible JS bundles across platforms.** MoonBit's JS
   backend numbers internal symbols per build platform; CI verifies behaviour
   instead, and that trade-off is documented in `DELIVERY.md`.
-- **Publishing to mooncakes.** The module is publishable (`moon publish`), but
-  release credentials belong to the maintainer account; the repository stays the
-  install path until then.
