@@ -559,12 +559,12 @@ cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.7.3
+- uses: NaIWaniubi/moon-slice@v0.7.6
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.7.3
+- uses: NaIWaniubi/moon-slice@v0.7.6
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
