@@ -21,6 +21,7 @@ pub(all) struct CallFacts {
 pub(all) struct MethodDecl {
   owner : String
   name : String
+  line : Int32
 }
 
 pub(all) struct ReceiverCall {

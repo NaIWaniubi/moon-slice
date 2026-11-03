@@ -22,12 +22,16 @@ deliberately missing and in what order it makes sense to add it.
 - **Receiver calls in `callers`** when the receiver's type is written in the
   source (parameter, annotated `let`, `self`) and the package declares that
   method on that type.
+- **Receiver edges in slicing and liveness** (0.7.4): the interprocedural
+  expansion pulls in `T::f`'s body, and `unused` treats inherent methods as
+  candidates while leaving trait impls alone.
 
 ## Next
 
-1. **Receiver edges beyond `callers`.** The slice expander and `unused` still
-   ignore `x.f()`. Doing that safely needs more than annotations: a return-type
-   environment, and a rule for methods reached through a trait.
+1. **Types beyond annotations.** A return type (`fn make() -> P`), a field
+   access and a constructor all name a type the source already states; reading
+   them would resolve receivers this pass leaves unresolved today. It needs a
+   typed expression environment, and the same owner check keeps it honest.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
 3. **A path rule in SARIF.** `dead-store`, `unreachable-code` and

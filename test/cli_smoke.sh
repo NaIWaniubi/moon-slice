@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.3" version
+expect_eq "moon-slice 0.7.4" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -552,5 +552,64 @@ rc_self="$(run callers --dir "$rc_dir" --name wrap)"
 printf '%s' "$rc_self" | grep -Fq "b.mbt:2: norm"
 
 rm -rf "$rc_dir"
+
+# Methods are liveness candidates when they are inherent (`impl T with fn m`),
+# and never when they belong to a trait impl; a leading underscore and any
+# mention at a call site keep a declaration alive.
+ml_dir="$(mktemp -d)"
+cat > "$ml_dir/a.mbt" <<'MBT'
+struct P {
+  v : Int
+}
+
+impl P with unreferenced(self : P) -> Int {
+  self.v
+}
+
+fn call(p : P) -> Int {
+  p.used()
+}
+
+impl P with used(self : P) -> Int {
+  self.v
+}
+
+impl Show for P with show(self : P) -> String {
+  "p"
+}
+
+fn _marker() -> Int {
+  1
+}
+MBT
+ml_out="$(run unused --dir "$ml_dir")"
+printf '%s\n' "$ml_out" | grep -Fq ":5: unreferenced"
+printf '%s\n' "$ml_out" | grep -Fq ":9: call"
+for hidden in used show _marker; do
+  if printf '%s' "$ml_out" | grep -Fq " $hidden"; then
+    printf 'FAIL: %s should not be reported\n  %s\n' "$hidden" "$ml_out" >&2
+    exit 1
+  fi
+done
+rm -rf "$ml_dir"
+
+# A receiver call expands into the method body when the type is written down.
+rx_dir="$(mktemp -d)"
+cat > "$rx_dir/a.mbt" <<'MBT'
+struct P {
+  v : Int
+}
+
+impl P with norm(self : P) -> Int {
+  self.v + 1
+}
+
+fn use(p : P) -> Int {
+  p.norm()
+}
+MBT
+rx_out="$(run slice --dir "$rx_dir" --file "$rx_dir/a.mbt" --line 10 --interprocedural)"
+printf '%s' "$rx_out" | grep -Fq "6,10"
+rm -rf "$rx_dir"
 
 printf 'cli smoke ok\n'

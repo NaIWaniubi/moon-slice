@@ -111,11 +111,42 @@ test "a declaration without a body is not a candidate" {
 }
 
 ///|
-test "impl methods are not candidates" {
+test "an inherent impl method nobody references is reported" {
+  // `impl T with fn m` cannot be reached by trait dispatch, so an unmentioned
+  // one is as dead as an unused free function.
   let pkg = facts([
     ("a.mbt", "struct T {\n  v : Int\n}\n\nimpl T with bump(self : T) -> Int {\n  self.v + 1\n}\n"),
   ])
+  assert_eq(names(@liveness.unused_functions(pkg)), ["bump"])
+}
+
+///|
+test "a trait impl method is never reported" {
+  // `impl Show for T` is reached through the trait, where the call site names
+  // the trait, not the method.
+  let pkg = facts([
+    ("a.mbt", "struct T {\n  v : Int\n}\n\nimpl Show for T with show(self : T) -> String {\n  \"t\"\n}\n"),
+  ])
   assert_eq(@liveness.unused_functions(pkg).length(), 0)
+}
+
+///|
+test "a method called through a receiver keeps its declaration alive" {
+  let pkg = facts([
+    ("a.mbt", "struct T {\n  v : Int\n}\n\nimpl T with bump(self : T) -> Int {\n  self.v + 1\n}\n"),
+    ("b.mbt", "fn use(t : T) -> Int {\n  t.bump()\n}\n"),
+  ])
+  // `use` itself is unreferenced; `bump` is the one that must stay alive.
+  assert_false(names(@liveness.unused_functions(pkg)).contains("bump"))
+}
+
+///|
+test "a method called as T::m keeps its declaration alive" {
+  let pkg = facts([
+    ("a.mbt", "struct T {\n  v : Int\n}\n\nimpl T with bump(self : T) -> Int {\n  self.v + 1\n}\n"),
+    ("b.mbt", "fn use(t : T) -> Int {\n  T::bump(t)\n}\n"),
+  ])
+  assert_false(names(@liveness.unused_functions(pkg)).contains("bump"))
 }
 
 ///|
@@ -128,11 +159,11 @@ test "findings come back in file and line order" {
 }
 
 ///|
-test "a method declared as Type::name is not a candidate" {
+test "a method declared as Type::name is reported when nothing references it" {
   let pkg = facts([
     ("a.mbt", "enum D {\n  End\n}\n\nfn D::describe(self : D) -> Int {\n  1\n}\n"),
   ])
-  assert_eq(@liveness.unused_functions(pkg).length(), 0)
+  assert_eq(names(@liveness.unused_functions(pkg)), ["describe"])
 }
 
 ///|
@@ -173,13 +204,31 @@ test "a call from an impl body keeps a free function alive" {
   let pkg = facts([
     ("a.mbt", "fn helper() -> Int {\n  1\n}\n\nstruct T {\n  v : Int\n}\n\nimpl T with bump(self : T) -> Int {\n  helper()\n}\n"),
   ])
-  assert_eq(@liveness.unused_functions(pkg).length(), 0)
+  // `bump` itself is unreferenced and now a candidate; the point here is that
+  // `helper`, called from its body, is not.
+  assert_false(names(@liveness.unused_functions(pkg)).contains("helper"))
 }
 
 ///|
 test "an explicit unused_value opt-out is honoured" {
   let pkg = facts([
     ("a.mbt", "#warnings(\"-unused_value\")\nfn keep_import_alive() -> Unit {\n  ignore(1)\n}\n"),
+  ])
+  assert_eq(@liveness.unused_functions(pkg).length(), 0)
+}
+
+///|
+test "a leading underscore marks a binding the author keeps on purpose" {
+  let pkg = facts([
+    ("a.mbt", "fn _keep_alive() -> Int {\n  1\n}\n\nfn orphan() -> Int {\n  2\n}\n"),
+  ])
+  assert_eq(names(@liveness.unused_functions(pkg)), ["orphan"])
+}
+
+///|
+test "an underscore-prefixed method is not reported either" {
+  let pkg = facts([
+    ("a.mbt", "enum D {\n  End\n}\n\nfn D::_use_debug(self : D) -> Int {\n  1\n}\n"),
   ])
   assert_eq(@liveness.unused_functions(pkg).length(), 0)
 }

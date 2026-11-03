@@ -83,11 +83,7 @@ fn file_index_of(index : PackageIndex, path : String) -> Int {
 /// Where `name` is defined: `(file index, entry, exit)`. The file the call
 /// appears in is searched first, so a local definition always wins over a
 /// same-named one elsewhere — the same choice the single-file expansion makes.
-fn find_callee(
-  index : PackageIndex,
-  from : Int,
-  name : String,
-) -> (Int, @core.FunctionInfo)? {
+fn search_order(index : PackageIndex, from : Int) -> Array[Int] {
   let dir = package_dir(index.files[from].path)
   let order : Array[Int] = [from]
   let mut i = 0
@@ -104,13 +100,87 @@ fn find_callee(
     }
     i = i + 1
   }
-  for candidate in order {
+  order
+}
+
+///|
+fn find_callee(
+  index : PackageIndex,
+  from : Int,
+  name : String,
+) -> (Int, @core.FunctionInfo)? {
+  for candidate in search_order(index, from) {
     match @query.function_named(index.files[candidate].program, name) {
       Some(info) => return Some((candidate, info))
       None => ()
     }
   }
   None
+}
+
+///|
+/// The function whose boundary starts at `line`. Two types may declare the same
+/// method name in one file, so the declaration line is what makes the lookup
+/// belong to one of them.
+fn function_at_line(program : @core.Program, line : Int32) -> @core.FunctionInfo? {
+  for info in program.functions {
+    match @query.node_by_id(program, info.entry) {
+      Some(node) =>
+        if node.loc.start_line == line {
+          return Some(info)
+        }
+      None => ()
+    }
+  }
+  None
+}
+
+///|
+/// Where `owner::name` is declared, in the same preference order as
+/// `find_callee`: this file, then this directory, then the rest of the package.
+fn find_method(
+  index : PackageIndex,
+  from : Int,
+  owner : String,
+  name : String,
+) -> (Int, @core.FunctionInfo)? {
+  for candidate in search_order(index, from) {
+    let file = index.files[candidate]
+    let mut line : Int32 = -1
+    for decl in file.methods {
+      if decl.owner == owner && decl.name == name {
+        line = decl.line
+      }
+    }
+    if line >= 0 {
+      match function_at_line(file.program, line) {
+        Some(info) => return Some((candidate, info))
+        None => ()
+      }
+      // A multi-line signature can move the boundary off the name's line; fall
+      // back to the name, which is what the qualified-call path already does.
+      match @query.function_named(file.program, name) {
+        Some(info) => return Some((candidate, info))
+        None => ()
+      }
+    }
+  }
+  None
+}
+
+///|
+fn call_lines_in(program : @core.Program, nodes : Array[Int32]) -> Set[Int32] {
+  let lines : Set[Int32] = Set([])
+  for id in nodes {
+    match @query.node_by_id(program, id) {
+      Some(node) =>
+        if node.kind == @core.SNodeKind::Call {
+          lines.add(node.loc.start_line)
+        }
+      None => ()
+    }
+  }
+  lines
 }
 
 ///|
@@ -153,6 +223,14 @@ pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult)
   let sets : Array[Array[Int32]] = []
   for file in index.files {
     sets.push(if file.path == target { result.nodes.copy() } else { [] })
+  }
+  // A receiver call only becomes an edge when this package declares that method
+  // on the receiver's type; otherwise it may belong to a dependency.
+  let declared : Set[String] = Set([])
+  for file in index.files {
+    for decl in file.methods {
+      declared.add(decl.owner + "::" + decl.name)
+    }
   }
   let mut changed = true
   let mut rounds = 0
@@ -206,6 +284,29 @@ pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult)
                     }
                   }
               }
+          }
+        }
+        // `p.norm()` where `p : Point` and the package declares `Point::norm`.
+        // The whole body is pulled in: the IR does not say whether the result
+        // is used, and a side-effecting call must not be under-approximated.
+        if file.receivers.length() > 0 {
+          let call_lines = call_lines_in(file.program, nodes)
+          for receiver in file.receivers {
+            if call_lines.contains(receiver.line) &&
+              declared.contains(receiver.receiver_type + "::" + receiver.method_name) {
+              match find_method(
+                index,
+                i,
+                receiver.receiver_type,
+                receiver.method_name,
+              ) {
+                None => ()
+                Some((callee_file, info)) =>
+                  if add_whole_body(sets[callee_file], info) {
+                    changed = true
+                  }
+              }
+            }
           }
         }
       }

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.3-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.4-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (338 tests, including a
+All layers are implemented and covered by `moon test` (347 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.3
+moon add NaIWaniubi/moon-slice@0.7.4
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -419,17 +419,22 @@ simpler version:
 
 - **entry points stay silent**: `main` and `init` are called by the runtime;
 - **`pub` functions are the API**, so they are never reported;
-- **methods are out of scope** — `impl T with fn m` and `fn T::m(self)` are
-  reached through dot syntax or trait dispatch, which this pass does not model;
+- **inherent methods are candidates, trait methods are not** — `impl T with
+  fn m` and `fn T::m(self)` can only be reached by name, so an unreferenced one
+  is dead; `impl Show for T` is reached through the trait, where the call site
+  never names the method, so those are never reported;
+- **a leading underscore is the author saying "kept on purpose"**, which is how
+  `moonbitlang/x` keeps a `derive(Debug)` import alive;
 - **a name mentioned anywhere in the package suppresses the finding**, including
-  comments and interpolation text, so the report only contains names that occur
-  exactly once: at their own definition.
+  comments, interpolation text and dot calls, so the report only contains names
+  that occur exactly once: at their own definition.
 
-On `moonbitlang/async` (368 files) and `moonbitlang/x` (166 files) it reports
-nothing; on `moonbitlang/core` (1452 files) it finds four functions, every one of
-them named `unused_function` / `suppress_unused_v128_import_on_*` by the library
-itself. Details and the two false-positive classes this found in moon-slice are
-in [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
+Re-measured with methods included, on 2158 files of upstream code: nothing on
+`moonbitlang/async` (362), `moonbitlang/x` (116), `moonbitlang/core` (1471) or
+`moonbit-community/prettyprinter` (8); on `moonbitlang/parser` (201) it finds ten
+private helpers in the unreleased `untyped_cst` package, each of which occurs
+exactly once in its own package. Details and the false-positive classes found on
+the way are in [docs/CASE_STUDY.md](docs/CASE_STUDY.md).
 
 ### Suppressing a finding
 
@@ -505,8 +510,11 @@ named `norm`; the rule that keeps the call graph honest is pinned by tests. A
 receiver with no annotation (`let p = make(); p.norm()`), a chained receiver
 (`a.b.f()`), and a name annotated with two different types are all left
 unresolved on purpose — a missing edge beats an invented one. Interprocedural
-slicing still expands only direct calls, so `x.f()` shifts `callers` without
-widening a slice.
+slicing follows those edges too: `slice --dir D --interprocedural` on a selected
+`p.norm()` pulls in the body of `Point::norm` from whichever file declares it.
+The whole body is included rather than the return-value cone, because the IR does
+not say whether the result is used and a side-effecting call must not be
+under-approximated.
 
 Slicing itself: [docs/CASE_STUDY.md](docs/CASE_STUDY.md) records the package-scope
 run on moon-slice's own `main.mbt` → `review.mbt` call.

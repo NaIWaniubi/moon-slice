@@ -23,6 +23,7 @@ pub(all) struct FnDecl {
   exported : Bool
   has_body : Bool
   is_method : Bool
+  dispatchable : Bool
 }
 
 pub(all) struct UnusedFn {

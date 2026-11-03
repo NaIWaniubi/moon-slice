@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 338 个测试
+./dev.sh test                  # 347 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.3
+moon add NaIWaniubi/moon-slice@0.7.4
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -152,15 +152,19 @@ action 会从 pin 住的 tag 现场构建二进制，workflow 里写的版本就
 
 - **入口点不报**：`main` 和 `init` 由运行时调用；
 - **`pub` 是 API**，永不报告；
-- **方法不在范围内**：`impl T with fn m` 与 `fn T::m(self)` 走点号或 trait 派发，
-  本 pass 不建模；
-- **名字只要在包内出现过就不再报告**（包括注释、属性、插值文本），因此留下的
-  只有“整个包里只出现一次”的名字——也就是它的定义本身。
+- **固有方法在范围内，trait 方法不在**：`impl T with fn m` 与 `fn T::m(self)` 只能
+  按名字调用，没人引用就是死的；`impl Show for T` 由 trait 派发调用，调用点里根本
+  不出现方法名，所以永不报告；
+- **前导下划线表示“故意留着”**——`moonbitlang/x` 就是用这种方式让
+  `derive(Debug)` 的 import 保持存活；
+- **名字只要在包内出现过就不再报告**（包括注释、属性、插值文本、点号调用），因此
+  留下的只有“整个包里只出现一次”的名字——也就是它的定义本身。
 
-在 `moonbitlang/async`（368 文件）与 `moonbitlang/x`（166 文件）上零命中；
-在 `moonbitlang/core`（1452 文件）上命中 4 个，全部是官方自己命名为
-`unused_function` / `suppress_unused_v128_import_on_*` 的函数。细节与由此在
-moon-slice 自身发现的两类误报见 `docs/CASE_STUDY.md`。
+把方法纳入后重新校准，2158 个上游文件里：`moonbitlang/async`（362）、
+`moonbitlang/x`（116）、`moonbitlang/core`（1471）、`moonbit-community/prettyprinter`
+（8）全部零命中；`moonbitlang/parser`（201）命中 10 个，全部是未发布的
+`untyped_cst` 包里只出现一次的私有辅助函数。细节与过程中发现的两类误报见
+`docs/CASE_STUDY.md`。
 
 ### 就地抑制
 
@@ -224,8 +228,10 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
 只有当接收者类型**在同包里声明了同名方法**时才算一条边，所以 `p.norm()` 不会被算到
 无关的自由函数 `norm` 头上——这条规则有测试守着。没有标注的接收者
 （`let p = make(); p.norm()`）、链式接收者（`a.b.f()`）、同名变量被标注成两种类型，
-都刻意不解析：漏一条边好过凭空造一条。过程间切片目前仍只展开直接调用，`x.f()` 只
-影响 `callers`，不会让切片变宽。
+都刻意不解析：漏一条边好过凭空造一条。过程间切片也会跟进这些边：
+`slice --dir D --interprocedural` 选中一行 `p.norm()` 时，会从声明 `Point::norm` 的
+文件里把函数体拉进来。这里取整个函数体而不是返回值 cone，因为 IR 不记录返回值是否
+被使用，带副作用的调用不能被低估。
 
 ## 浏览器 playground（点行即切片）
 
@@ -299,7 +305,7 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
 
 ## 工程
 
-- 338 个测试；库代码行覆盖率约 89%
+- 347 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

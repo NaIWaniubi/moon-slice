@@ -32,6 +32,11 @@ pub(all) struct FnDecl {
   /// are reached through dot syntax or trait dispatch, so this pass does not
   /// treat them as candidates.
   is_method : Bool
+  /// A method reached through a trait: `impl Show for T` can be called by
+  /// dispatch with no syntactic reference at all, so it is never a finding.
+  /// Inherent methods (`impl T with fn m`) have no such caller and do become
+  /// candidates.
+  dispatchable : Bool
 }
 
 ///|
@@ -164,6 +169,7 @@ pub fn collect(path : String, source : String) -> FileFacts {
             exported: is_exported(decl.vis),
             has_body,
             is_method,
+            dispatchable: false,
           })
         }
         match body {
@@ -172,12 +178,27 @@ pub fn collect(path : String, source : String) -> FileFacts {
           _ => ()
         }
       }
-      // Method bodies are not candidates for the report, but the free
-      // functions they call are references, so their bodies are still walked.
-      @syntax.Impl::TopImpl(body=body, ..) =>
+      // `impl T with fn m` is an inherent method: the only way to reach it is
+      // `T::m(...)` or `x.m()`, both of which mention the name, so an
+      // unreferenced one really is dead. `impl Trait for T` is different — a
+      // trait call names the trait, not the method — so those stay out.
+      @syntax.Impl::TopImpl(self_ty~, method_name~, vis~, body~, ..) =>
         match body {
-          @syntax.DeclBody::DeclBody(expr~) =>
+          @syntax.DeclBody::DeclBody(expr~) => {
+            let dispatchable = match self_ty {
+              Some(_) => true
+              None => false
+            }
+            decls.push(FnDecl::{
+              name: method_name.name,
+              line: method_name.loc.start.lnum,
+              exported: is_exported(vis),
+              has_body: true,
+              is_method: true,
+              dispatchable,
+            })
             @syntax.IterVisitor::visit_Expr(collector, expr)
+          }
           _ => ()
         }
       @syntax.Impl::TopView(body=body, ..) =>
@@ -265,11 +286,18 @@ pub fn unused_functions(facts : Array[FileFacts]) -> Array[UnusedFn] {
   }
   for file in facts {
     for decl in file.decls {
-      if decl.exported || !decl.has_body || decl.is_method {
+      if decl.exported || !decl.has_body || decl.dispatchable {
         continue
       }
       // `main` and `init` are entry points: the runtime calls them.
       if decl.name == "main" || decl.name == "init" {
+        continue
+      }
+      // A leading underscore is the language's own way of saying "bound on
+      // purpose, never read" — `moonbitlang/x` uses it for a method that only
+      // keeps a `derive(Debug)` import alive. Reporting those would be noise
+      // about the author's intent, not about dead code.
+      if decl.name.has_prefix("_") {
         continue
       }
       if referenced.contains(decl.name) {

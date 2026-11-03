@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.7.4 — 2026-11-04
+
+The receiver edges from 0.7.3 now reach the analysis, not just the query.
+
+- **Interprocedural slicing follows `x.f()`.** When the slice selects a receiver
+  call whose type is written in the source and whose method is declared in the
+  package, `slice --dir D --interprocedural` pulls in that method's body from
+  whichever file declares it. The whole body is included rather than the
+  return-value cone: the IR does not record whether the call's result is used,
+  and a side-effecting call must not be under-approximated.
+- **`unused` sees inherent methods.** `impl T with fn m` and `fn T::m(self)` can
+  only be reached by name, so an unreferenced one is reported like any private
+  function. `impl Trait for T` stays out: the call site names the trait, never
+  the method, so dispatching to it leaves no syntactic trace.
+- **A leading underscore is honoured** as the language's "kept on purpose"
+  marker, which is how `moonbitlang/x` keeps a `derive(Debug)` import alive.
+- **Re-calibrated with methods included**, on 2158 upstream files: 0 findings on
+  `moonbitlang/async` (362), `moonbitlang/x` (116), `moonbitlang/core` (1471) and
+  `moonbit-community/prettyprinter` (8); 10 on `moonbitlang/parser` (201), all
+  private helpers in the unreleased `untyped_cst` package that occur exactly
+  once in their own package.
+- **347 tests**, plus CLI smoke cases for method liveness and receiver expansion.
+
 ## 0.7.3 — 2026-11-01
 
 The call graph can now see `x.f()` — but only where the source says what `x` is.

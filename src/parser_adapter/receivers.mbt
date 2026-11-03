@@ -35,6 +35,9 @@ pub(all) struct ReceiverCall {
 pub(all) struct MethodDecl {
   owner : String
   name : String
+  /// Line of the declaration, so a caller can find the body it belongs to when
+  /// two types in one file declare a method with the same name.
+  line : Int32
 }
 
 ///|
@@ -250,6 +253,7 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
             methods.push(MethodDecl::{
               owner: type_name_of_decl(type_name),
               name: decl.name.name,
+              line: decl.name.loc.start.lnum,
             })
           None => ()
         }
@@ -264,7 +268,12 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
           None => Some(type_name_of_decl(trait_))
         }
         match owner {
-          Some(owner) => methods.push(MethodDecl::{ owner, name: method_name.name })
+          Some(owner) =>
+            methods.push(MethodDecl::{
+              owner,
+              name: method_name.name,
+              line: method_name.loc.start.lnum,
+            })
           None => ()
         }
         match body {

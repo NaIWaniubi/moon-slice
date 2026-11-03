@@ -182,3 +182,39 @@ test "qualified and receiver calls to the same name are listed together" {
   assert_eq(sites[0].line, 2)
   assert_eq(sites[1].line, 5)
 }
+
+///|
+test "a receiver call expands into the method body across files" {
+  let a = "fn use(p : Point) -> Int {\n  p.norm()\n}\n"
+  let b = "impl Point with fn norm(self) -> Int {\n  let v = 42\n  v\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let result = @interproc.expand(index, "pkg/a.mbt", slice_of(index.files[0], 2))
+  assert_eq(lines_of(result, "pkg/b.mbt"), [2, 3])
+}
+
+///|
+test "a receiver call to an undeclared method expands nothing" {
+  let a = "fn use(p : Point) -> Int {\n  p.norm()\n}\n"
+  let b = "fn norm() -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let result = @interproc.expand(index, "pkg/a.mbt", slice_of(index.files[0], 2))
+  assert_eq(lines_of(result, "pkg/b.mbt"), [])
+}
+
+///|
+test "self.helper() inside an impl expands within the same file" {
+  let a =
+    "impl Point with fn norm(self) -> Int {\n  self.helper()\n}\nfn Point::helper(self) -> Int {\n  7\n}\n"
+  let index = index_of([("pkg/a.mbt", a)])
+  let result = @interproc.expand(index, "pkg/a.mbt", slice_of(index.files[0], 2))
+  assert_eq(lines_of(result, "pkg/a.mbt"), [2, 5])
+}
+
+///|
+test "an unannotated receiver expands nothing even when the method exists" {
+  let a = "fn use() -> Int {\n  let p = make()\n  p.norm()\n}\n"
+  let b = "impl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let result = @interproc.expand(index, "pkg/a.mbt", slice_of(index.files[0], 3))
+  assert_eq(lines_of(result, "pkg/b.mbt"), [])
+}

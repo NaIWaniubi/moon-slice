@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-01 (v0.7.3; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-04 (v0.7.4; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 338, passed: 338, failed: 0` |
+| `./dev.sh test` | `Total tests: 347, passed: 347, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -51,7 +51,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | `node web/playground_e2e.mjs .` | passes on 3 consecutive runs (gutter, status and escaping) |
 | `./dev.sh build --target native --release cmd/main && node bench/bench.mjs --sizes 500,8000,32000 --reps 3` | see `bench/README.md`; 32k statements: `slice` 1.55 s, `dead` 0.80 s, `graph` 0.74 s |
 
-## 0.7.1 – 0.7.3 — registry, suppressions, receiver calls (2026-11-01)
+## 0.7.1 – 0.7.4 — registry, suppressions, receiver calls, method liveness
 
 **Publishing.** `moon publish` returned `Server status: 200 OK` for
 `NaIWaniubi/moon-slice@0.7.1` and again for `@0.7.2`. The registry rejects a
@@ -93,6 +93,11 @@ written in the source and the package declares that method on that type.
 | `let p = make(); p.norm()` (no annotation) | no site — nothing inferred |
 | `p.norm()` with only a free `fn norm()` declared | no site — owner check |
 | `callers --dir .mooncakes/moonbitlang/parser/syntax --name loc` | three `self.loc()` sites across two files |
+| `slice --dir D --interprocedural` on `p.norm()` | `a.mbt: 6,10` — the method body on line 6 is pulled in |
+| `unused --dir` on 2158 upstream files | 0 on async (362), x (116), core (1471), prettyprinter (8); 10 on parser (201), all private helpers in the unreleased `untyped_cst` package |
+| inherent method nobody references | reported |
+| `impl Show for T with show` | never reported |
+| `fn _marker()` | never reported |
 
 ## 0.7.0 package-scope analysis (2026-10-30)
 
@@ -481,9 +486,10 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.3.zip` (1,182,221 bytes, 146 files)
-- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.3`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
-- [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 5 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.4.zip` (1,189,953 bytes, 146 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.4`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 9 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
+- [x] receiver edges in the interprocedural expansion, and inherent methods as liveness candidates (trait impls and `_` names excluded), re-calibrated on 2158 upstream files
 - [x] in-source suppressions: `// moon-slice: ignore[rule]`, 21 unit tests plus CLI smoke cases for the single-file and package forms
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
