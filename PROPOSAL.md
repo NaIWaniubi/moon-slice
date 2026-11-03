@@ -26,9 +26,9 @@ moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一
 - 就地抑制：`// moon-slice: ignore[rule]` 写在告警所在行或其上一行，随代码移动，比按行号记录更耐改；
 - 反向查询：`callers --dir D --name F` 列出包内全部调用点及所属函数，含限定调用 `T::f(x)`；
 - 改动影响分析：`review --diff` 对 git diff 的每个新增行做向前切片，汇总受影响行与函数；
-- CI 集成：SARIF 2.1.0（`dead-store` / `unreachable-code` / `unused-function`）、基线抑制 `--baseline`、门禁 `--fail-on-findings`、GitHub composite action；
+- CI 集成：SARIF 2.1.0（`dead-store` / `unreachable-code` / `unused-function` / `data-flow-path`）、基线抑制 `--baseline`、门禁 `--fail-on-findings`、GitHub composite action；
 - 报告与演示：JSON / DOT / 内联 SVG / 自包含 HTML；浏览器 playground 支持点行切片、示例预设与分享链接；
-- 质量证据：347 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码切片 0 误报；2158 文件上游代码存活分析 10 处命中且全部为真实死代码；
+- 质量证据：349 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码切片 0 误报；2158 文件上游代码存活分析 10 处命中且全部为真实死代码；
 - 工程化：零警告构建；GitHub Actions CI 覆盖 check / build / test / CLI smoke / playground presets / action 自测；Apache-2.0；`moon package` 打包验证。
 
 ## 移植或参考说明

@@ -607,7 +607,7 @@ pub fn to_html(
     target_node.to_string() +
     " on line " +
     target_line.to_string()
-  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.7.4\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
+  "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.7.5\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line " +
   target_line.to_string() +
   "</h1>\n<p class=\"metrics\">" +
   metrics +
@@ -766,6 +766,78 @@ pub fn to_sarif(
 }
 
 ///|
+/// A data-flow path as one SARIF result: the first located node is the result
+/// location and every later node a `relatedLocation`, so a code-scanning viewer
+/// can step the traversal instead of seeing one line out of context.
+pub fn to_sarif_path(
+  file : String,
+  program : @core.Program,
+  path : Array[Int32],
+  from_name : String,
+  to_name : String,
+  version : String,
+) -> String {
+  let uri = sarif_uri(file)
+  let lines : Array[Int32] = []
+  for id in path {
+    match sarif_node(program, id) {
+      Some(node) => lines.push(node.loc.start_line)
+      None => ()
+    }
+  }
+  let out = StringBuilder()
+  out.write_string(sarif_head(version, true))
+  if lines.length() > 0 {
+    out.write_string(
+      "{\"ruleId\":\"data-flow-path\",\"ruleIndex\":3,\"level\":\"note\",\"message\":{\"text\":",
+    )
+    out.write_string(
+      json_string(
+        "data flow from `" +
+        from_name +
+        "` to `" +
+        to_name +
+        "` through " +
+        lines.length().to_string() +
+        " statements",
+      ),
+    )
+    out.write_string("},\"locations\":[{\"physicalLocation\":{\"artifactLocation\":{\"uri\":")
+    out.write_string(json_string(uri))
+    out.write_string("},\"region\":{\"startLine\":")
+    out.write_string(lines[0].to_string())
+    out.write_string("}}}],\"relatedLocations\":[")
+    let mut first = true
+    let mut i = 1
+    while i < lines.length() {
+      if !first {
+        out.write_char(',')
+      }
+      first = false
+      out.write_string("{\"id\":")
+      out.write_string(i.to_string())
+      out.write_string(",\"message\":{\"text\":")
+      out.write_string(json_string("step " + i.to_string()))
+      out.write_string("},\"physicalLocation\":{\"artifactLocation\":{\"uri\":")
+      out.write_string(json_string(uri))
+      out.write_string("},\"region\":{\"startLine\":")
+      out.write_string(lines[i].to_string())
+      out.write_string("}}}")
+      i = i + 1
+    }
+    out.write_string("],\"partialFingerprints\":{\"moonSlice/v1\":")
+    out.write_string(
+      json_string(uri + ":" + lines[0].to_string() + ":data-flow-path"),
+    )
+    out.write_string("}}")
+  }
+  out.write_string(
+    "],\"properties\":{\"suppressed\":0,\"files\":1,\"parseFailures\":0}}]}",
+  )
+  out.to_string()
+}
+
+///|
 /// A finding already reduced to the fields SARIF needs. `file` is a URI path
 /// (forward slashes); `rule` is `dead-store` or `unreachable-code`.
 pub(all) struct SarifFinding {
@@ -781,8 +853,27 @@ fn sarif_rule_index(rule : String) -> String {
   match rule {
     "dead-store" => "0"
     "unreachable-code" => "1"
-    _ => "2"
+    "unused-function" => "2"
+    _ => "3"
   }
+}
+
+///|
+/// Everything up to and including `"results":[`, so both result shapes share one
+/// run header and one rule table.
+fn sarif_head(version : String, execution_successful : Bool) -> String {
+  let out = StringBuilder()
+  out.write_string(
+    "{\"$schema\":\"https://json.schemastore.org/sarif-2.1.0.json\",\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"moon-slice\",\"informationUri\":\"https://github.com/NaIWaniubi/moon-slice\",\"version\":",
+  )
+  out.write_string(json_string(version))
+  out.write_string(
+    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unused-function\",\"name\":\"UnusedFunction\",\"shortDescription\":{\"text\":\"A private function nothing in its package references\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"data-flow-path\",\"name\":\"DataFlowPath\",\"shortDescription\":{\"text\":\"A path along which one value reaches another\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#data-flow-paths\"}]}},",
+  )
+  out.write_string("\"invocations\":[{\"executionSuccessful\":")
+  out.write_string(if execution_successful { "true" } else { "false" })
+  out.write_string("}],\"results\":[")
+  out.to_string()
 }
 
 ///|
@@ -797,16 +888,7 @@ pub fn to_sarif_findings(
   parse_failures : Int,
 ) -> String {
   let out = StringBuilder()
-  out.write_string(
-    "{\"$schema\":\"https://json.schemastore.org/sarif-2.1.0.json\",\"version\":\"2.1.0\",\"runs\":[{\"tool\":{\"driver\":{\"name\":\"moon-slice\",\"informationUri\":\"https://github.com/NaIWaniubi/moon-slice\",\"version\":",
-  )
-  out.write_string(json_string(version))
-  out.write_string(
-    ",\"rules\":[{\"id\":\"dead-store\",\"name\":\"DeadStore\",\"shortDescription\":{\"text\":\"A value is assigned but never read\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unreachable-code\",\"name\":\"UnreachableCode\",\"shortDescription\":{\"text\":\"A statement no execution path can reach\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"},{\"id\":\"unused-function\",\"name\":\"UnusedFunction\",\"shortDescription\":{\"text\":\"A private function nothing in its package references\"},\"helpUri\":\"https://github.com/NaIWaniubi/moon-slice#dead-code\"}]}},",
-  )
-  out.write_string("\"invocations\":[{\"executionSuccessful\":")
-  out.write_string(if parse_failures == 0 { "true" } else { "false" })
-  out.write_string("}],\"results\":[")
+  out.write_string(sarif_head(version, parse_failures == 0))
   let mut first = true
   for finding in findings {
     if !first {

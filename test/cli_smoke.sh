@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.4" version
+expect_eq "moon-slice 0.7.5" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -611,5 +611,19 @@ MBT
 rx_out="$(run slice --dir "$rx_dir" --file "$rx_dir/a.mbt" --line 10 --interprocedural)"
 printf '%s' "$rx_out" | grep -Fq "6,10"
 rm -rf "$rx_dir"
+
+# `path --format sarif` reports the flow as one result with related locations.
+path_sarif="$(run path --file examples/01_let.mbt --from a --to c --format sarif)"
+printf '%s' "$path_sarif" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  const r=j.runs[0].results;
+  if(r.length!==1) throw new Error("results != 1");
+  if(r[0].ruleId!=="data-flow-path") throw new Error("bad rule");
+  if(r[0].ruleIndex!==3) throw new Error("bad rule index");
+  if(r[0].locations[0].physicalLocation.region.startLine!==4) throw new Error("bad start line");
+  const rel=r[0].relatedLocations.map(x=>x.physicalLocation.region.startLine);
+  if(JSON.stringify(rel)!==JSON.stringify([5,6,8])) throw new Error("bad related lines: "+JSON.stringify(rel));
+});'
 
 printf 'cli smoke ok\n'

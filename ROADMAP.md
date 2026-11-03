@@ -25,6 +25,8 @@ deliberately missing and in what order it makes sense to add it.
 - **Receiver edges in slicing and liveness** (0.7.4): the interprocedural
   expansion pulls in `T::f`'s body, and `unused` treats inherent methods as
   candidates while leaving trait impls alone.
+- **The path rule in SARIF** (0.7.5): `path --format sarif` reports the flow as
+  one result with the later statements as related locations.
 
 ## Next
 
@@ -34,8 +36,8 @@ deliberately missing and in what order it makes sense to add it.
    typed expression environment, and the same owner check keeps it honest.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
-3. **A path rule in SARIF.** `dead-store`, `unreachable-code` and
-   `unused-function` are reported today; `path --from A --to B` has no rule yet.
+   The blocker is stdio: MoonBit's standard libraries expose file reads but no
+   byte-level stdin, so this needs either an FFI shim or a socket transport.
 
 ## Considered, not planned
 

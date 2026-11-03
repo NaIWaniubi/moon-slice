@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-11-04 (v0.7.4) with the legacy MoonBit reporter:
+Measured on 2026-11-04 (v0.7.5) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze
@@ -22,18 +22,18 @@ the numbers below use.
 | `src/parser_adapter/receivers.mbt` | 98/111 |
 | `src/pdg/pdg.mbt` | 31/32 |
 | `src/query/query.mbt` | 289/308 |
-| `src/report/report.mbt` | 453/506 |
+| `src/report/report.mbt` | 502/559 |
 | `src/suppress/suppress.mbt` | 82/83 |
-| `cmd/main/main.mbt` | 22/824 |
+| `cmd/main/main.mbt` | 22/827 |
 | `cmd/main/review.mbt` | 71/155 |
-| **Total** | **2312/3455** |
+| **Total** | **2361/3511** |
 
-Library packages only (excluding `cmd/`): **2219/2476 = 89.6%**.
+Library packages only (excluding `cmd/`): **2268/2529 = 89.7%**.
 
 `cmd/` is not executed by `moon test`; the CLI is covered by
-[test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON modes, malformed
-input, in-source suppressions, receiver-call queries and expansion, method
-liveness, and the failure exit codes) and by the end-to-end corpus. The lowest
-library numbers are the parser adapter and its receiver pass, whose remaining
-branches are mostly unsupported-AST fallbacks exercised for crash-safety by
-`src/defuse/pipeline_robust_test.mbt`.
+[test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON and SARIF modes,
+malformed input, in-source suppressions, receiver-call queries and expansion,
+method liveness, path SARIF, and the failure exit codes) and by the
+end-to-end corpus. The lowest library numbers are the parser adapter and its
+receiver pass, whose remaining branches are mostly unsupported-AST fallbacks
+exercised for crash-safety by `src/defuse/pipeline_robust_test.mbt`.

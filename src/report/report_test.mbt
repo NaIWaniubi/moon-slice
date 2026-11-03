@@ -245,10 +245,10 @@ test "sarif classifies dead stores and unreachable code" {
     [1, 2],
     [1],
     1,
-    "0.7.4",
+    "0.7.5",
   )
   assert_true(sarif.contains("\"version\":\"2.1.0\""))
-  assert_true(sarif.contains("\"version\":\"0.7.4\""))
+  assert_true(sarif.contains("\"version\":\"0.7.5\""))
   // Windows separators become URI separators.
   assert_true(sarif.contains("\"uri\":\"src/sample.mbt\""))
   assert_true(sarif.contains("\"ruleId\":\"dead-store\""))
@@ -295,4 +295,30 @@ test "sarif findings merge files and expose scan counts" {
   assert_true(sarif.contains("\"files\":7"))
   assert_true(sarif.contains("\"parseFailures\":1"))
   assert_true(sarif.contains("\"executionSuccessful\":false"))
+}
+
+///|
+test "a data-flow path is one SARIF result with related locations" {
+  let sarif = @report.to_sarif_path(
+    "pkg/a.mbt",
+    sample_program(),
+    [1, 2],
+    "a",
+    "c",
+    "9.9.9",
+  )
+  assert_true(sarif.contains("\"ruleId\":\"data-flow-path\""))
+  assert_true(sarif.contains("\"ruleIndex\":3"))
+  assert_true(sarif.contains("\"level\":\"note\""))
+  assert_true(sarif.contains("data flow from `a` to `c` through 2 statements"))
+  assert_true(sarif.contains("\"relatedLocations\":[{\"id\":1"))
+  assert_true(sarif.contains("\"partialFingerprints\""))
+  assert_true(sarif.contains("\"version\":\"9.9.9\""))
+}
+
+///|
+test "an empty path still produces a well-formed SARIF run" {
+  let sarif = @report.to_sarif_path("pkg/a.mbt", sample_program(), [], "a", "c", "9.9.9")
+  assert_true(sarif.contains("\"results\":[]"))
+  assert_true(sarif.contains("\"parseFailures\":0"))
 }

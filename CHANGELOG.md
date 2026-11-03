@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.5 — 2026-11-04
+
+The last command without a SARIF shape now has one.
+
+- **`path --format sarif`** emits a single `data-flow-path` result: the first
+  located statement is the result location, every later one a
+  `relatedLocation`, and the message names both ends and the step count. That
+  closes the fourth rule in the table (`dead-store`, `unreachable-code`,
+  `unused-function`, `data-flow-path`).
+- The run header and rule table are now built by one helper (`sarif_head`), so
+  every SARIF document this tool emits carries the same four rules and the same
+  `invocations` record.
+- **349 tests**, plus a CLI smoke case that parses the emitted document and
+  checks the rule index and the related lines.
+
 ## 0.7.4 — 2026-11-04
 
 The receiver edges from 0.7.3 now reach the analysis, not just the query.

@@ -32,6 +32,8 @@ pub fn to_sarif(String, @core.Program, Array[Int32], Array[Int32], Int32, String
 
 pub fn to_sarif_findings(Array[SarifFinding], Int32, String, Int32, Int32) -> String
 
+pub fn to_sarif_path(String, @core.Program, Array[Int32], String, String, String) -> String
+
 pub fn to_scan_json(Array[SarifFinding], Int32, Int32, Array[String]) -> String
 
 pub fn to_svg(@core.Program, @core.Pdg, @core.SliceResult, Int32) -> String

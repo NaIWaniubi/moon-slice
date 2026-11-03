@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 347 个测试
+./dev.sh test                  # 349 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.4
+moon add NaIWaniubi/moon-slice@0.7.5
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -305,7 +305,7 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
 
 ## 工程
 
-- 347 个测试；库代码行覆盖率约 89%
+- 349 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

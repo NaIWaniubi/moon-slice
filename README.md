@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.4-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.5-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (347 tests, including a
+All layers are implemented and covered by `moon test` (349 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.4
+moon add NaIWaniubi/moon-slice@0.7.5
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -340,7 +340,12 @@ flow in one line.
 # n1 L4 -> n5 L7
 ./dev.sh run cmd/main -- path --file examples/07_return.mbt --from base --to total
 # n1 L4 -> n3 L6 -> n4 L7
+./dev.sh run cmd/main -- path --file examples/01_let.mbt --from a --to c --format sarif
 ```
+
+With `--format sarif` the flow becomes one `data-flow-path` result: the first
+statement is the result location and every later one a `relatedLocation`, so a
+code-scanning view can step the traversal instead of showing a single line.
 
 ## Precision
 
@@ -529,6 +534,7 @@ Both compose with SARIF, a baseline and a gate:
 # Upload findings to GitHub code scanning.
 ./dev.sh run cmd/main -- dead   --dir . --format sarif --out dead.sarif
 ./dev.sh run cmd/main -- unused --dir . --format sarif --out unused.sarif
+./dev.sh run cmd/main -- path --file F --from a --to b --format sarif --out flow.sarif
 
 # Record today's findings, then fail only on new ones.
 ./dev.sh run cmd/main -- dead   --dir . --write-baseline .moon-slice-baseline

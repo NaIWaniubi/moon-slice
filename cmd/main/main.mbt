@@ -26,7 +26,7 @@ fn usage() -> Unit {
     "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
     "  unused --dir D [--json] [--format sarif] [--out FILE]  private functions\n" +
     "        [--fail-on-findings]                     nothing calls anymore\n" +
-    "  path  --file F --from VAR --to VAR [--json]\n" +
+    "  path  --file F --from VAR --to VAR [--json] [--format sarif]\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
@@ -38,7 +38,9 @@ fn usage() -> Unit {
     "              over-approximations. Works with slice/graph/dead/html.\n" +
     "  --json      machine-readable output; failures become\n" +
     "              {\"error\":{\"code\":..,\"message\":..}} and still exit 2.\n" +
-    "  --format sarif   (dead, unused) SARIF 2.1.0 for code-scanning uploads.\n" +
+    "  --format sarif   (dead, unused, path) SARIF 2.1.0 for code-scanning\n" +
+    "              uploads; `path` reports the flow as one result with the later\n" +
+    "              statements as relatedLocations.\n" +
     "  --baseline FILE  (dead only) hide findings listed in FILE. The file is\n" +
     "              the output of a previous --write-baseline run.\n" +
     "  --write-baseline FILE  record the current findings and exit.\n" +
@@ -83,7 +85,7 @@ fn prescan_json(argv : Array[String]) -> Bool {
 let json_mode : Array[Bool] = [false]
 
 ///|
-let tool_version : String = "0.7.4"
+let tool_version : String = "0.7.5"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise
@@ -1174,8 +1176,14 @@ fn main {
       if format != "dot" && format != "json" && format != "sarif" {
         fail_code("bad_format", "unsupported --format \{format} (use dot, json, or sarif)")
       }
-      if format == "sarif" && command != "dead" && command != "unused" {
-        fail_code("bad_format", "--format sarif is only supported by dead and unused")
+      if format == "sarif" &&
+        command != "dead" &&
+        command != "unused" &&
+        command != "path" {
+        fail_code(
+          "bad_format",
+          "--format sarif is only supported by dead, unused and path",
+        )
       }
       i = i + 2
     } else if arg == "--baseline" {
@@ -1531,7 +1539,18 @@ fn main {
             nodes: path,
             lines: @query.lines_of(program, path),
           }
-          if json {
+          if format == "sarif" {
+            println(
+              @report.to_sarif_path(
+                file,
+                program,
+                path,
+                from_var,
+                to_var,
+                tool_version,
+              ),
+            )
+          } else if json {
             println(@report.to_json(program, result))
           } else {
             let mut line_out = ""
