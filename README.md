@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.5-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.6-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (349 tests, including a
+All layers are implemented and covered by `moon test` (357 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.5
+moon add NaIWaniubi/moon-slice@0.7.6
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -505,16 +505,21 @@ The mirror question has its own command:
 ```moonbit
 fn use_point(p : Point) -> Int { p.norm() }   // parameter annotation
 let q : Point = ...      ; q.norm()           // annotated let / let mut
+let r = make_point()     ; r.norm()           // declared return type
+let s = Point::{ x: 1 }  ; s.norm()           // record literal names its type
+let t = q                ; t.norm()           // alias of a known binding
 impl Point { fn m(self) { self.norm() } }     // self in an impl
 fn Point::m(self) { self.norm() }             // self in a qualified method
 ```
 
 A dot call becomes an edge only when the receiver's type declares that method in
 the same package, so `p.norm()` is never credited to an unrelated free function
-named `norm`; the rule that keeps the call graph honest is pinned by tests. A
-receiver with no annotation (`let p = make(); p.norm()`), a chained receiver
-(`a.b.f()`), and a name annotated with two different types are all left
-unresolved on purpose — a missing edge beats an invented one. Interprocedural
+named `norm`; the rule that keeps the call graph honest is pinned by tests.
+Nothing is guessed: a call to a function this file does not declare, a bare
+record literal (`{ x: 1 }` could be any type with that field), a chained
+receiver (`a.b.f()`), a local that shadows a declared function, and a name bound
+with two different types all stay unresolved — a missing edge beats an invented
+one. Interprocedural
 slicing follows those edges too: `slice --dir D --interprocedural` on a selected
 `p.norm()` pulls in the body of `Point::norm` from whichever file declares it.
 The whole body is included rather than the return-value cone, because the IR does

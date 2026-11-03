@@ -28,12 +28,15 @@ deliberately missing and in what order it makes sense to add it.
 - **The path rule in SARIF** (0.7.5): `path --format sarif` reports the flow as
   one result with the later statements as related locations.
 
+- **Type evidence beyond annotations** (0.7.6): declared return types, record
+  literals that name their type, aliases and method results all resolve a
+  receiver, with shadowing checked so a local never borrows a signature.
+
 ## Next
 
-1. **Types beyond annotations.** A return type (`fn make() -> P`), a field
-   access and a constructor all name a type the source already states; reading
-   them would resolve receivers this pass leaves unresolved today. It needs a
-   typed expression environment, and the same owner check keeps it honest.
+1. **Fields and pattern bindings.** `let p = holder.point` and `let Some(p) =
+   opt` both name a type the source states; they need a member/pattern type
+   environment on top of the expression one.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
    The blocker is stdio: MoonBit's standard libraries expose file reads but no

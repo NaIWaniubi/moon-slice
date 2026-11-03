@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.7.6 — 2026-11-04
+
+Receiver types are now read from every place the source states one, not just
+annotations.
+
+- **Declared return types.** `let p = make_point()` is typed when `fn
+  make_point() -> Point` is declared in the same file, including a qualified
+  constructor (`let p = Point::new()`). Types are only taken from signatures
+  this file declares; anything imported stays unresolved.
+- **Record literals that name their type.** `let p = Point::{ x: 1 }` states
+  `Point`; a bare `{ x: 1 }` could be any type with that field and stays
+  unresolved.
+- **Aliases and method results.** `let q = p` keeps `p`'s type, and
+  `let b = a.to_b()` is typed through `fn A::to_b(self) -> B`.
+- **Shadowing blocks the shortcut.** A local binding (parameter, `let`,
+  `let fn`) with the same name as a declared function means the call is on the
+  local value, so the signature is not applied.
+- On `moonbitlang/parser`'s `syntax` package `callers --name loc` now resolves
+  four `self.loc()` sites, up from three.
+- **357 tests**, including the negative cases above.
+
 ## 0.7.5 — 2026-11-04
 
 The last command without a SARIF shape now has one.

@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 349 个测试
+./dev.sh test                  # 357 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.5
+moon add NaIWaniubi/moon-slice@0.7.6
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -221,14 +221,17 @@ fn helper() -> Unit { ... }
 ```moonbit
 fn use_point(p : Point) -> Int { p.norm() }   // 参数标注
 let q : Point = ...      ; q.norm()           // 标注过的 let / let mut
+let r = make_point()     ; r.norm()           // 声明的返回类型
+let s = Point::{ x: 1 }  ; s.norm()           // 记录字面量自带类型名
+let t = q                ; t.norm()           // 已知绑定的别名
 impl Point { fn m(self) { self.norm() } }     // impl 里的 self
 fn Point::m(self) { self.norm() }             // 限定方法里的 self
 ```
 
 只有当接收者类型**在同包里声明了同名方法**时才算一条边，所以 `p.norm()` 不会被算到
-无关的自由函数 `norm` 头上——这条规则有测试守着。没有标注的接收者
-（`let p = make(); p.norm()`）、链式接收者（`a.b.f()`）、同名变量被标注成两种类型，
-都刻意不解析：漏一条边好过凭空造一条。过程间切片也会跟进这些边：
+无关的自由函数 `norm` 头上——这条规则有测试守着。这里一律不猜：本文件没有声明的
+函数调用、裸记录字面量、链式接收者（`a.b.f()`）、遮蔽了同名函数的本地绑定、同一名字
+被绑成两种类型，全都保持不解析——漏一条边好过凭空造一条。过程间切片也会跟进这些边：
 `slice --dir D --interprocedural` 选中一行 `p.norm()` 时，会从声明 `Point::norm` 的
 文件里把函数体拉进来。这里取整个函数体而不是返回值 cone，因为 IR 不记录返回值是否
 被使用，带副作用的调用不能被低估。
@@ -305,7 +308,7 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
 
 ## 工程
 
-- 349 个测试；库代码行覆盖率约 89%
+- 357 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

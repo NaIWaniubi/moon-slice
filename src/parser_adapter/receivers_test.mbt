@@ -42,9 +42,9 @@ test "a binding without an annotation is not resolved" {
 }
 
 ///|
-test "a type inferred from a constructor is not resolved" {
-  // Tempting and unsound to guess: `make()` could return a trait object.
-  assert_eq(calls_of("fn f() {\n  let p = Point::{ x: 1 }\n  p.norm()\n}\n"), [])
+test "a record literal without a type name stays unresolved" {
+  // `{ x: 1 }` can be any type with that field; only `Point::{ x: 1 }` names one.
+  assert_eq(calls_of("fn f() {\n  let p = { x : 1 }\n  p.norm()\n}\n"), [])
 }
 
 ///|
@@ -132,4 +132,63 @@ test "every receiver call keeps its line and caller" {
     call.caller + "@" + call.line.to_string() + ":" + call.method_name
   })
   assert_eq(described, ["a@2:one", "b@7:two"])
+}
+
+///|
+test "a binding typed by a declared return type resolves its receiver" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nfn make_point() -> Point {\n  Point::{ x: 1 }\n}\n\nfn use() {\n  let p = make_point()\n  p.norm()\n}\n"
+  assert_true(calls_of(source).contains("Point::norm"))
+}
+
+///|
+test "a qualified constructor resolves through its declared return type" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nfn Point::new() -> Point {\n  Point::{ x: 1 }\n}\n\nfn use() {\n  let p = Point::new()\n  p.norm()\n}\n"
+  assert_true(calls_of(source).contains("Point::norm"))
+}
+
+///|
+test "a record literal that names its type resolves" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nfn use() {\n  let p = Point::{ x: 1 }\n  p.norm()\n}\n"
+  assert_true(calls_of(source).contains("Point::norm"))
+}
+
+///|
+test "an alias of a known binding keeps the type" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nfn use(q : Point) {\n  let p = q\n  p.norm()\n}\n"
+  assert_true(calls_of(source).contains("Point::norm"))
+}
+
+///|
+test "a local shadowing a declared function blocks the inference" {
+  // `make_point` here is a value, not the function above; typing its result
+  // from the function signature would invent an edge.
+  let source =
+    "struct Point {\n  x : Int\n}\n\nfn make_point() -> Point {\n  Point::{ x: 1 }\n}\n\nfn use(make_point : Unit -> Unit) {\n  let p = make_point()\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a call to a function this file does not declare stays unresolved" {
+  let source = "fn use() {\n  let p = unknown_maker()\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a method's declared return type resolves the next receiver" {
+  let source =
+    "struct A {\n  v : Int\n}\n\nstruct B {\n  w : Int\n}\n\nfn A::to_b(self : A) -> B {\n  B::{ w: self.v }\n}\n\nfn use(a : A) {\n  let b = a.to_b()\n  b.other()\n}\n"
+  assert_true(calls_of(source).contains("B::other"))
+}
+
+///|
+test "an unknown return type keeps the binding unresolved" {
+  let source =
+    "fn use() {\n  let x = make()\n  x.norm()\n}\n\nfn make() -> Unknown {\n  1\n}\n"
+  // `Unknown` is stated, so the type is known even though nothing declares it;
+  // interproc's owner check is what stops the edge, not this pass.
+  assert_eq(calls_of(source), ["Unknown::norm"])
 }

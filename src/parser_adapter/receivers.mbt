@@ -3,19 +3,22 @@
 // The call collector deliberately ignores `DotApply`: with no type for the
 // receiver, attributing `x.f()` to a free function named `f` invents an edge.
 // This pass adds the part that can be answered honestly — the receiver's type
-// is read from an annotation the author already wrote:
+// is read from something the author already wrote:
 //
-//   fn g(x : Point) { x.norm() }        // parameter type
-//   let p : Point = ...; p.norm()       // annotated let
-//   let mut p : Point = ...; p.norm()   // annotated let mut
+//   fn g(x : Point) { x.norm() }          // parameter type
+//   let p : Point = ...; p.norm()         // annotated let
+//   let mut p : Point = ...; p.norm()     // annotated let mut
+//   let p = Point::new(); p.norm()        // declared return type
+//   let p = { x : 1 }; p.norm()           // record literal names its type
+//   let q = p; q.norm()                   // alias of a known binding
 //   impl Point { fn m(self) { self.norm() } }   // self in an impl
 //   fn Point::m(self) { self.norm() }           // self in a qualified method
 //
-// Nothing is inferred from a return type, a field access or a constructor: a
-// binding without an annotation is simply not resolved. When one name is bound
-// with two different annotated types in the same body, the name is dropped —
-// a wrong edge is worse than a missing one, and the docs promise no invented
-// edges.
+// Nothing is guessed: a call to a function this file does not declare has no
+// type here, a name shadowed by a local binding is never resolved through the
+// file-level signature, and when one name is bound with two different types the
+// name is dropped. A wrong edge is worse than a missing one, and the docs
+// promise no invented edges.
 
 ///|
 /// One resolved receiver call.
@@ -79,11 +82,40 @@ fn type_name_of_decl(name : @syntax.TypeName) -> String {
 }
 
 ///|
+/// The declared result types in one file. A function that is not in these maps
+/// has no type this pass can state, so its callers stay unresolved.
+priv struct Signatures {
+  returns : Map[String, String]
+  method_returns : Map[String, String]
+}
+
+///|
+fn note_signature(
+  signatures : Signatures,
+  owner : String?,
+  name : String,
+  ret : @syntax.Type?,
+) -> Unit {
+  match optional_type_name(ret) {
+    None => ()
+    Some(result) =>
+      match owner {
+        None => signatures.returns.set(name, result)
+        Some(owner) => signatures.method_returns.set(owner + "::" + name, result)
+      }
+  }
+}
+
+///|
 /// The annotations seen for one body. A name annotated twice with different
 /// types is marked conflicting and never resolved.
 priv struct Annotations {
   types : Map[String, String]
   conflicts : Set[String]
+  signatures : Signatures
+  /// Names bound inside this body (parameters included). A file-level function
+  /// of the same name is shadowed here, so it must not type a call.
+  shadowed : Set[String]
 }
 
 ///|
@@ -102,16 +134,95 @@ fn note_annotation(annotations : Annotations, name : String, ty : String?) -> Un
 }
 
 ///|
+/// The type of a receiver expression this body already knows: a plain name with
+/// one annotation (conflicting names are dropped).
+fn receiver_type_of(annotations : Annotations, expr : @syntax.Expr) -> String? {
+  match expr {
+    Ident(id~, ..) =>
+      match id.name {
+        Ident(name~) =>
+          if annotations.conflicts.contains(name) {
+            None
+          } else {
+            annotations.types.get(name)
+          }
+        Dot(..) => None
+      }
+    _ => None
+  }
+}
+
+///|
+/// The type of an expression the source itself states: a call to a function
+/// declared in this file, a record literal, a constructor, or a binding already
+/// resolved in this body.
+fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> String? {
+  match expr {
+    Apply(func~, ..) =>
+      match func {
+        Ident(id~, ..) =>
+          match id.name {
+            Ident(name~) =>
+              if annotations.shadowed.contains(name) {
+                None
+              } else {
+                annotations.signatures.returns.get(name)
+              }
+            Dot(..) => None
+          }
+        Method(type_name~, method_name~, ..) => {
+          let owner = type_name_of_decl(type_name)
+          annotations.signatures.method_returns.get(
+            owner + "::" + method_name.name,
+          )
+        }
+        _ => None
+      }
+    Record(type_name=Some(type_name), ..) => Some(type_name_of_decl(type_name))
+    // `a.to_b()` names a method whose result type this file declares.
+    DotApply(self~, method_name~, ..) =>
+      match receiver_type_of(annotations, self) {
+        Some(owner) =>
+          annotations.signatures.method_returns.get(
+            owner + "::" + method_name.name,
+          )
+        None => None
+      }
+    // `(expr : T)` states the type directly.
+    Constraint(ty~, ..) => type_expr_name(ty)
+    Ident(id~, ..) =>
+      match id.name {
+        Ident(name~) =>
+          if annotations.conflicts.contains(name) {
+            None
+          } else {
+            annotations.types.get(name)
+          }
+        Dot(..) => None
+      }
+    _ => None
+  }
+}
+
+///|
 fn note_parameter(annotations : Annotations, param : @syntax.Parameter) -> Unit {
   match param {
-    Positional(binder~, ty~) =>
+    Positional(binder~, ty~) => {
+      annotations.shadowed.add(binder.name)
       note_annotation(annotations, binder.name, optional_type_name(ty))
-    Labelled(binder~, ty~) =>
+    }
+    Labelled(binder~, ty~) => {
+      annotations.shadowed.add(binder.name)
       note_annotation(annotations, binder.name, optional_type_name(ty))
-    Optional(binder~, ty~, ..) =>
+    }
+    Optional(binder~, ty~, ..) => {
+      annotations.shadowed.add(binder.name)
       note_annotation(annotations, binder.name, optional_type_name(ty))
-    QuestionOptional(binder~, ty~) =>
+    }
+    QuestionOptional(binder~, ty~) => {
+      annotations.shadowed.add(binder.name)
       note_annotation(annotations, binder.name, optional_type_name(ty))
+    }
     DiscardPositional(..) => ()
   }
 }
@@ -120,8 +231,8 @@ fn note_parameter(annotations : Annotations, param : @syntax.Parameter) -> Unit 
 extend Annotations with @syntax.IterVisitor::{base}
 
 ///|
-/// `let x : T = ...` arrives as a `Constraint` pattern; `let mut x : T = ...`
-/// carries its type on the node itself.
+/// `let x : T = ...` arrives as a `Constraint` pattern; `let x = expr` has no
+/// annotation, so the type is read from `expr` when the source states one.
 impl @syntax.IterVisitor for Annotations with fn visit_Expr_Let(
   env,
   pattern~,
@@ -132,9 +243,16 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_Let(
   match pattern {
     Constraint(pat~, ty~, ..) =>
       match pat {
-        Var(binder) => note_annotation(env, binder.name, type_expr_name(ty))
+        Var(binder) => {
+          env.shadowed.add(binder.name)
+          note_annotation(env, binder.name, type_expr_name(ty))
+        }
         _ => ()
       }
+    Var(binder) => {
+      env.shadowed.add(binder.name)
+      note_annotation(env, binder.name, infer_expr(env, expr))
+    }
     _ => ()
   }
   @syntax.IterVisitor::visit_Expr_Let(env.base(), pattern~, expr~, body~, loc~)
@@ -149,8 +267,24 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_LetMut(
   body~,
   loc~,
 ) {
-  note_annotation(env, binder.name, optional_type_name(ty))
+  env.shadowed.add(binder.name)
+  match optional_type_name(ty) {
+    Some(_) as found => note_annotation(env, binder.name, found)
+    None => note_annotation(env, binder.name, infer_expr(env, expr))
+  }
   @syntax.IterVisitor::visit_Expr_LetMut(env.base(), binder~, ty~, expr~, body~, loc~)
+}
+
+///|
+impl @syntax.IterVisitor for Annotations with fn visit_Expr_LetFn(
+  env,
+  name~,
+  func~,
+  body~,
+  loc~,
+) {
+  env.shadowed.add(name.name)
+  @syntax.IterVisitor::visit_Expr_LetFn(env.base(), name~, func~, body~, loc~)
 }
 
 ///|
@@ -173,27 +307,17 @@ impl @syntax.IterVisitor for ReceiverCollector with fn visit_Expr_DotApply(
   return_self~,
   loc~,
 ) {
-  match self {
-    // Only a plain identifier has an annotation to look up. `a.b.f()` and
-    // `f().g()` need real type inference, so they stay unresolved.
-    Ident(id~, ..) =>
-      match id.name {
-        Ident(name~) =>
-          if !env.annotations.conflicts.contains(name) {
-            match env.annotations.types.get(name) {
-              Some(receiver_type) =>
-                env.calls.push(ReceiverCall::{
-                  line: loc.start.lnum,
-                  receiver_type,
-                  method_name: method_name.name,
-                  caller: env.caller,
-                })
-              None => ()
-            }
-          }
-        Dot(..) => ()
-      }
-    _ => ()
+  // Only a plain identifier has an annotation to look up. `a.b.f()` and
+  // `f().g()` need a full typed environment, so they stay unresolved.
+  match receiver_type_of(env.annotations, self) {
+    Some(receiver_type) =>
+      env.calls.push(ReceiverCall::{
+        line: loc.start.lnum,
+        receiver_type,
+        method_name: method_name.name,
+        caller: env.caller,
+      })
+    None => ()
   }
   @syntax.IterVisitor::visit_Expr_DotApply(
     env.base(),
@@ -208,12 +332,18 @@ impl @syntax.IterVisitor for ReceiverCollector with fn visit_Expr_DotApply(
 ///|
 fn collect_body(
   out : Array[ReceiverCall],
+  signatures : Signatures,
   caller : String,
   params : @syntax.Parameters?,
   self_type : String?,
   body : @syntax.Expr,
 ) -> Unit {
-  let annotations : Annotations = { types: Map([]), conflicts: Set([]) }
+  let annotations : Annotations = {
+    types: Map([]),
+    conflicts: Set([]),
+    signatures,
+    shadowed: Set([]),
+  }
   match params {
     Some(params) => params.each(fn(param) { note_parameter(annotations, param) })
     None => ()
@@ -238,8 +368,33 @@ fn collect_body(
 /// edge; that check lives in `interproc`, where the whole package is visible.
 pub fn call_facts(source : String, name : String) -> CallFacts {
   let (impls, _) = @parser.parse_string(source, name~)
-  let receivers : Array[ReceiverCall] = []
+  let receiver_calls : Array[ReceiverCall] = []
   let methods : Array[MethodDecl] = []
+  let signatures : Signatures = { returns: Map([]), method_returns: Map([]) }
+
+  // First pass: the result types this file declares, so a `let` anywhere in it
+  // can be typed regardless of declaration order.
+  impls.each(fn(impl_) {
+    match impl_ {
+      TopFuncDef(fun_decl=decl, ..) => {
+        let owner = match decl.type_name {
+          Some(type_name) => Some(type_name_of_decl(type_name))
+          None => None
+        }
+        note_signature(signatures, owner, decl.name.name, decl.return_type)
+      }
+      TopImpl(self_ty~, trait_~, method_name~, ret_ty~, ..) => {
+        let owner = match optional_type_name(self_ty) {
+          Some(found) => Some(found)
+          None => Some(type_name_of_decl(trait_))
+        }
+        note_signature(signatures, owner, method_name.name, ret_ty)
+      }
+      _ => ()
+    }
+  })
+
+  // Second pass: the bodies themselves.
   impls.each(fn(impl_) {
     match impl_ {
       TopFuncDef(fun_decl=decl, decl_body=DeclBody(expr=body), ..) => {
@@ -257,7 +412,14 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
             })
           None => ()
         }
-        collect_body(receivers, decl.name.name, decl.decl_params, self_type, body)
+        collect_body(
+          receiver_calls,
+          signatures,
+          decl.name.name,
+          decl.decl_params,
+          self_type,
+          body,
+        )
       }
       TopImpl(self_ty~, trait_~, method_name~, params~, body~, ..) => {
         // `impl Point with fn m(...)` puts the type in `trait_` and leaves
@@ -278,14 +440,28 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
         }
         match body {
           DeclBody(expr=body) =>
-            collect_body(receivers, method_name.name, Some(params), owner, body)
+            collect_body(
+              receiver_calls,
+              signatures,
+              method_name.name,
+              Some(params),
+              owner,
+              body,
+            )
           _ => ()
         }
       }
       TopView(view_func_name~, parameters~, body~, ..) =>
-        collect_body(receivers, view_func_name.name, Some(parameters), None, body)
+        collect_body(
+          receiver_calls,
+          signatures,
+          view_func_name.name,
+          Some(parameters),
+          None,
+          body,
+        )
       _ => ()
     }
   })
-  CallFacts::{ receivers, methods }
+  CallFacts::{ receivers: receiver_calls, methods }
 }

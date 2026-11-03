@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.5" version
+expect_eq "moon-slice 0.7.6" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -551,6 +551,19 @@ fi
 rc_self="$(run callers --dir "$rc_dir" --name wrap)"
 printf '%s' "$rc_self" | grep -Fq "b.mbt:2: norm"
 
+# A binding typed by a declared return type resolves too.
+cat > "$rc_dir/c.mbt" <<'MBT'
+fn make_point() -> Point {
+  Point::{ x : 1 }
+}
+
+fn via_return() -> Int {
+  let p = make_point()
+  p.norm()
+}
+MBT
+rc_inferred="$(run callers --dir "$rc_dir" --name norm)"
+printf '%s' "$rc_inferred" | grep -Fq "c.mbt:7: via_return"
 rm -rf "$rc_dir"
 
 # Methods are liveness candidates when they are inherent (`impl T with fn m`),
