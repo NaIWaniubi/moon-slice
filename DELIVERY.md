@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-04 (v0.7.7; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-04 (v0.7.8; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
@@ -8,7 +8,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 363, passed: 363, failed: 0` |
+| `./dev.sh test` | `Total tests: 370, passed: 370, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
@@ -488,8 +488,8 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.7.zip` (1,196,789 bytes, 146 files)
-- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.7`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.7.8.zip` (1,199,534 bytes, 146 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.7.8`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
 - [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 9 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
 - [x] receiver edges in the interprocedural expansion, and inherent methods as liveness candidates (trait impls and `_` names excluded), re-calibrated on 2158 upstream files
 - [x] in-source suppressions: `// moon-slice: ignore[rule]`, 21 unit tests plus CLI smoke cases for the single-file and package forms

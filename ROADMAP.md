@@ -33,12 +33,14 @@ deliberately missing and in what order it makes sense to add it.
   receiver, with shadowing checked so a local never borrows a signature.
 - **Field access** (0.7.7): `p.inner.norm()` and `let q = p.inner` carry the
   declared field type, through chains whose every link is written down.
+- **`let` pattern payloads** (0.7.8): `let Ok(p) = e` types `p` from the enum
+  declaration, with `Option` / `Result` built in and generic parameters
+  substituted from the scrutinee.
 
 ## Next
 
-1. **Pattern bindings.** `let Some(p) = opt` and `match e { Ok(p) => ... }` name
-   a payload type the source states; they need the enum declaration read
-   alongside the pattern, which is a different lookup from the expression one.
+1. **`match` arm payloads.** The same lookup as 0.7.8, but scoped per case; the
+   visitor needs to enter a case with bindings that end with its body.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
    The blocker is stdio: MoonBit's standard libraries expose file reads but no

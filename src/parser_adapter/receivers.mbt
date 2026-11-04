@@ -11,14 +11,40 @@
 //   let p = Point::new(); p.norm()        // declared return type
 //   let p = { x : 1 }; p.norm()           // record literal names its type
 //   let q = p; q.norm()                   // alias of a known binding
+//   let u = holder.point; u.norm()        // declared field type
+//   let Ok(p) = e; p.norm()               // enum payload of a `let` pattern
 //   impl Point { fn m(self) { self.norm() } }   // self in an impl
 //   fn Point::m(self) { self.norm() }           // self in a qualified method
 //
 // Nothing is guessed: a call to a function this file does not declare has no
-// type here, a name shadowed by a local binding is never resolved through the
-// file-level signature, and when one name is bound with two different types the
-// name is dropped. A wrong edge is worse than a missing one, and the docs
-// promise no invented edges.
+// type here, a field typed by a type parameter stays unresolved, a name
+// shadowed by a local binding is never resolved through the file-level
+// signature, and when one name is bound with two different types the name is
+// dropped. A wrong edge is worse than a missing one, and the docs promise no
+// invented edges.
+
+///|
+/// A type as this pass can state it: a short name plus one level of arguments,
+/// which is what `Box[Point]` needs to substitute `T` in `enum Box[T] { Wrap(T) }`.
+priv struct Ty {
+  name : String
+  args : Array[String]
+}
+
+///|
+fn same_ty(a : Ty, b : Ty) -> Bool {
+  if a.name != b.name || a.args.length() != b.args.length() {
+    return false
+  }
+  let mut i = 0
+  while i < a.args.length() {
+    if a.args[i] != b.args[i] {
+      return false
+    }
+    i = i + 1
+  }
+  true
+}
 
 ///|
 /// One resolved receiver call.
@@ -61,34 +87,54 @@ fn short_type_name(name : @syntax.LongIdent) -> String {
 }
 
 ///|
-fn type_expr_name(ty : @syntax.Type) -> String? {
-  match ty {
-    Name(constr_id~, ..) => Some(short_type_name(constr_id.id))
-    _ => None
-  }
-}
-
-///|
-fn optional_type_name(ty : @syntax.Type?) -> String? {
-  match ty {
-    Some(inner) => type_expr_name(inner)
-    None => None
-  }
-}
-
-///|
 fn type_name_of_decl(name : @syntax.TypeName) -> String {
   short_type_name(name.name)
 }
 
 ///|
-/// The declared result types in one file. A function that is not in these maps
-/// has no type this pass can state, so its callers stay unresolved.
+fn type_ty(ty : @syntax.Type) -> Ty? {
+  match ty {
+    Name(constr_id~, tys~, ..) => {
+      let args : Array[String] = []
+      tys.each(fn(arg) {
+        match type_ty(arg) {
+          Some(inner) => args.push(inner.name)
+          // A type argument this pass cannot name is recorded as empty, so a
+          // substitution through it resolves to nothing instead of guessing.
+          None => args.push("")
+        }
+      })
+      Some(Ty::{ name: short_type_name(constr_id.id), args })
+    }
+    _ => None
+  }
+}
+
+///|
+fn optional_ty(ty : @syntax.Type?) -> Ty? {
+  match ty {
+    Some(inner) => type_ty(inner)
+    None => None
+  }
+}
+
+///|
+/// The variants of one enum, so a `let Ok(p) = e` can type `p`.
+priv struct EnumInfo {
+  params : Array[String]
+  /// Variant name -> payload type names, in source order. A payload may be one
+  /// of `params`, which is what substitution resolves against the scrutinee.
+  variants : Map[String, Array[String]]
+}
+
+///|
+/// The declared types in one file: result types, field types, enums.
 priv struct Signatures {
-  returns : Map[String, String]
-  method_returns : Map[String, String]
+  returns : Map[String, Ty]
+  method_returns : Map[String, Ty]
   /// `Owner::field` -> the field's declared type.
-  fields : Map[String, String]
+  fields : Map[String, Ty]
+  enums : Map[String, EnumInfo]
 }
 
 ///|
@@ -98,7 +144,7 @@ fn note_signature(
   name : String,
   ret : @syntax.Type?,
 ) -> Unit {
-  match optional_type_name(ret) {
+  match optional_ty(ret) {
     None => ()
     Some(result) =>
       match owner {
@@ -109,10 +155,27 @@ fn note_signature(
 }
 
 ///|
+/// `Option` and `Result` are prelude types: their declarations are not in the
+/// file being analysed, but every MoonBit program uses them. Their payloads are
+/// type parameters, so the substitution below resolves `Option[Point]`.
+fn builtin_enums() -> Map[String, EnumInfo] {
+  let option_variants : Map[String, Array[String]] = Map([])
+  option_variants.set("None", [])
+  option_variants.set("Some", ["T"])
+  let result_variants : Map[String, Array[String]] = Map([])
+  result_variants.set("Ok", ["T"])
+  result_variants.set("Err", ["E"])
+  let enums : Map[String, EnumInfo] = Map([])
+  enums.set("Option", EnumInfo::{ params: ["T"], variants: option_variants })
+  enums.set("Result", EnumInfo::{ params: ["T", "E"], variants: result_variants })
+  enums
+}
+
+///|
 /// The annotations seen for one body. A name annotated twice with different
 /// types is marked conflicting and never resolved.
 priv struct Annotations {
-  types : Map[String, String]
+  types : Map[String, Ty]
   conflicts : Set[String]
   signatures : Signatures
   /// Names bound inside this body (parameters included). A file-level function
@@ -121,14 +184,14 @@ priv struct Annotations {
 }
 
 ///|
-fn note_annotation(annotations : Annotations, name : String, ty : String?) -> Unit {
+fn note_annotation(annotations : Annotations, name : String, ty : Ty?) -> Unit {
   match ty {
     None => ()
     Some(found) =>
       match annotations.types.get(name) {
         None => annotations.types.set(name, found)
         Some(existing) =>
-          if existing != found {
+          if !same_ty(existing, found) {
             annotations.conflicts.add(name)
           }
       }
@@ -137,8 +200,9 @@ fn note_annotation(annotations : Annotations, name : String, ty : String?) -> Un
 
 ///|
 /// The type of a receiver expression this body already knows: a plain name with
-/// one annotation (conflicting names are dropped).
-fn receiver_type_of(annotations : Annotations, expr : @syntax.Expr) -> String? {
+/// one annotation (conflicting names are dropped), or a field access whose
+/// every link is written down.
+fn receiver_ty_of(annotations : Annotations, expr : @syntax.Expr) -> Ty? {
   match expr {
     Ident(id~, ..) =>
       match id.name {
@@ -150,14 +214,12 @@ fn receiver_type_of(annotations : Annotations, expr : @syntax.Expr) -> String? {
           }
         Dot(..) => None
       }
-    // `p.inner` has the type the struct declares for that field, so a chain
-    // resolves as long as every link is written down.
     Field(record~, accessor~, ..) =>
       match accessor {
         Label(label) =>
-          match receiver_type_of(annotations, record) {
+          match receiver_ty_of(annotations, record) {
             Some(owner) =>
-              annotations.signatures.fields.get(owner + "::" + label.name)
+              annotations.signatures.fields.get(owner.name + "::" + label.name)
             None => None
           }
         _ => None
@@ -168,9 +230,9 @@ fn receiver_type_of(annotations : Annotations, expr : @syntax.Expr) -> String? {
 
 ///|
 /// The type of an expression the source itself states: a call to a function
-/// declared in this file, a record literal, a constructor, or a binding already
+/// declared in this file, a field, a record literal, or a binding already
 /// resolved in this body.
-fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> String? {
+fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> Ty? {
   match expr {
     Apply(func~, ..) =>
       match func {
@@ -192,20 +254,19 @@ fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> String? {
         }
         _ => None
       }
-    Record(type_name=Some(type_name), ..) => Some(type_name_of_decl(type_name))
-    // `p.inner` / `holder.point`: the field's declared type.
-    Field(..) => receiver_type_of(annotations, expr)
-    // `a.to_b()` names a method whose result type this file declares.
+    Record(type_name=Some(type_name), ..) =>
+      Some(Ty::{ name: type_name_of_decl(type_name), args: [] })
+    Field(..) => receiver_ty_of(annotations, expr)
     DotApply(self~, method_name~, ..) =>
-      match receiver_type_of(annotations, self) {
+      match receiver_ty_of(annotations, self) {
         Some(owner) =>
           annotations.signatures.method_returns.get(
-            owner + "::" + method_name.name,
+            owner.name + "::" + method_name.name,
           )
         None => None
       }
     // `(expr : T)` states the type directly.
-    Constraint(ty~, ..) => type_expr_name(ty)
+    Constraint(ty~, ..) => type_ty(ty)
     Ident(id~, ..) =>
       match id.name {
         Ident(name~) =>
@@ -221,25 +282,97 @@ fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> String? {
 }
 
 ///|
+/// Substitute the enum's parameters with the scrutinee's arguments: for
+/// `Box[Point]`, the payload `T` becomes `Point`.
+fn substitute_payload(
+  info : EnumInfo,
+  payload : String,
+  args : Array[String],
+) -> Ty? {
+  let mut i = 0
+  while i < info.params.length() {
+    if info.params[i] == payload {
+      if i < args.length() && args[i] != "" {
+        return Some(Ty::{ name: args[i], args: [] })
+      }
+      return None
+    }
+    i = i + 1
+  }
+  Some(Ty::{ name: payload, args: [] })
+}
+
+///|
 fn note_parameter(annotations : Annotations, param : @syntax.Parameter) -> Unit {
   match param {
     Positional(binder~, ty~) => {
       annotations.shadowed.add(binder.name)
-      note_annotation(annotations, binder.name, optional_type_name(ty))
+      note_annotation(annotations, binder.name, optional_ty(ty))
     }
     Labelled(binder~, ty~) => {
       annotations.shadowed.add(binder.name)
-      note_annotation(annotations, binder.name, optional_type_name(ty))
+      note_annotation(annotations, binder.name, optional_ty(ty))
     }
     Optional(binder~, ty~, ..) => {
       annotations.shadowed.add(binder.name)
-      note_annotation(annotations, binder.name, optional_type_name(ty))
+      note_annotation(annotations, binder.name, optional_ty(ty))
     }
     QuestionOptional(binder~, ty~) => {
       annotations.shadowed.add(binder.name)
-      note_annotation(annotations, binder.name, optional_type_name(ty))
+      note_annotation(annotations, binder.name, optional_ty(ty))
     }
     DiscardPositional(..) => ()
+  }
+}
+
+///|
+/// Bind the payload variables of `let Ok(p) = e`: the scrutinee names the enum,
+/// the variant names the payloads, and the enum's parameters are substituted.
+fn note_pattern_bindings(
+  annotations : Annotations,
+  pattern : @syntax.Pattern,
+  scrutinee : @syntax.Expr,
+) -> Unit {
+  let constr = match pattern {
+    Constr(constr~, ..) => constr
+    _ => return
+  }
+  let raw_args = match pattern {
+    Constr(args~, ..) => args
+    _ => return
+  }
+  let args = match raw_args {
+    Some(args) => args.to_array()
+    None => return
+  }
+  let value = match infer_expr(annotations, scrutinee) {
+    Some(value) => value
+    None => return
+  }
+  let info = match annotations.signatures.enums.get(value.name) {
+    Some(info) => info
+    None => return
+  }
+  let payloads = match info.variants.get(constr.name.name) {
+    Some(payloads) => payloads
+    None => return
+  }
+  let mut i = 0
+  while i < args.length() {
+    match args[i].pat {
+      Var(binder) => {
+        annotations.shadowed.add(binder.name)
+        if i < payloads.length() {
+          note_annotation(
+            annotations,
+            binder.name,
+            substitute_payload(info, payloads[i], value.args),
+          )
+        }
+      }
+      _ => ()
+    }
+    i = i + 1
   }
 }
 
@@ -261,7 +394,7 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_Let(
       match pat {
         Var(binder) => {
           env.shadowed.add(binder.name)
-          note_annotation(env, binder.name, type_expr_name(ty))
+          note_annotation(env, binder.name, type_ty(ty))
         }
         _ => ()
       }
@@ -269,7 +402,7 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_Let(
       env.shadowed.add(binder.name)
       note_annotation(env, binder.name, infer_expr(env, expr))
     }
-    _ => ()
+    _ => note_pattern_bindings(env, pattern, expr)
   }
   @syntax.IterVisitor::visit_Expr_Let(env.base(), pattern~, expr~, body~, loc~)
 }
@@ -284,7 +417,7 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_LetMut(
   loc~,
 ) {
   env.shadowed.add(binder.name)
-  match optional_type_name(ty) {
+  match optional_ty(ty) {
     Some(_) as found => note_annotation(env, binder.name, found)
     None => note_annotation(env, binder.name, infer_expr(env, expr))
   }
@@ -323,13 +456,13 @@ impl @syntax.IterVisitor for ReceiverCollector with fn visit_Expr_DotApply(
   return_self~,
   loc~,
 ) {
-  // Only a plain identifier has an annotation to look up. `a.b.f()` and
-  // `f().g()` need a full typed environment, so they stay unresolved.
-  match receiver_type_of(env.annotations, self) {
-    Some(receiver_type) =>
+  // Only a plain identifier or a field chain has an annotation to look up.
+  // `f().g()` needs a full typed environment, so it stays unresolved.
+  match receiver_ty_of(env.annotations, self) {
+    Some(receiver) =>
       env.calls.push(ReceiverCall::{
         line: loc.start.lnum,
-        receiver_type,
+        receiver_type: receiver.name,
         method_name: method_name.name,
         caller: env.caller,
       })
@@ -365,7 +498,7 @@ fn collect_body(
     None => ()
   }
   match self_type {
-    Some(owner) => annotations.types.set("self", owner)
+    Some(owner) => annotations.types.set("self", Ty::{ name: owner, args: [] })
     None => ()
   }
   @syntax.IterVisitor::visit_Expr(annotations, body)
@@ -390,10 +523,11 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
     returns: Map([]),
     method_returns: Map([]),
     fields: Map([]),
+    enums: builtin_enums(),
   }
 
-  // First pass: the result types this file declares, so a `let` anywhere in it
-  // can be typed regardless of declaration order.
+  // First pass: the result types, fields and enums this file declares, so a
+  // `let` anywhere in it can be typed regardless of declaration order.
   impls.each(fn(impl_) {
     match impl_ {
       TopFuncDef(fun_decl=decl, ..) => {
@@ -404,13 +538,12 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
         note_signature(signatures, owner, decl.name.name, decl.return_type)
       }
       TopImpl(self_ty~, trait_~, method_name~, ret_ty~, ..) => {
-        let owner = match optional_type_name(self_ty) {
-          Some(found) => Some(found)
+        let owner = match optional_ty(self_ty) {
+          Some(found) => Some(found.name)
           None => Some(type_name_of_decl(trait_))
         }
         note_signature(signatures, owner, method_name.name, ret_ty)
       }
-      // `struct T { f : U }`: the field types this file declares.
       TopTypeDef(decl) =>
         match decl.components {
           @syntax.TypeDesc::Record(fields~, ..) => {
@@ -424,9 +557,9 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
               }
             })
             fields.each(fn(field) {
-              match type_expr_name(field.ty) {
+              match type_ty(field.ty) {
                 Some(field_type) =>
-                  if !params.contains(field_type) {
+                  if !params.contains(field_type.name) {
                     signatures.fields.set(
                       decl.tycon + "::" + field.name.label,
                       field_type,
@@ -435,6 +568,34 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
                 None => ()
               }
             })
+          }
+          @syntax.TypeDesc::Variant(constructors) => {
+            let params : Array[String] = []
+            decl.params.each(fn(param) {
+              match param.name {
+                Some(name) => params.push(name)
+                None => ()
+              }
+            })
+            let variants : Map[String, Array[String]] = Map([])
+            constructors.each(fn(constr) {
+              let payloads : Array[String] = []
+              match constr.args {
+                Some(args) =>
+                  args.each(fn(arg) {
+                    match type_ty(arg.ty) {
+                      Some(payload) => payloads.push(payload.name)
+                      // A payload that is not a named type leaves the variant
+                      // with fewer entries than it has arguments, so those
+                      // positions resolve to nothing.
+                      None => ()
+                    }
+                  })
+                None => ()
+              }
+              variants.set(constr.name.name, payloads)
+            })
+            signatures.enums.set(decl.tycon, EnumInfo::{ params, variants })
           }
           _ => ()
         }
@@ -473,8 +634,8 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
         // `impl Point with fn m(...)` puts the type in `trait_` and leaves
         // `self_ty` empty; `impl Show for Point` does the opposite. Either way
         // the methods belong to the concrete type.
-        let owner = match optional_type_name(self_ty) {
-          Some(name) => Some(name)
+        let owner = match optional_ty(self_ty) {
+          Some(name) => Some(name.name)
           None => Some(type_name_of_decl(trait_))
         }
         match owner {

@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.7" version
+expect_eq "moon-slice 0.7.8" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -576,6 +576,20 @@ fn via_field(h : Holder) -> Int {
 MBT
 rc_field="$(run callers --dir "$rc_dir" --name norm)"
 printf '%s' "$rc_field" | grep -Fq "d.mbt:6: via_field"
+
+# A `let` pattern binds the enum payload type.
+cat > "$rc_dir/e.mbt" <<'MBT'
+enum MaybeP {
+  Just(Point)
+}
+
+fn via_pattern(m : MaybeP) -> Int {
+  let Just(p) = m
+  p.norm()
+}
+MBT
+rc_pattern="$(run callers --dir "$rc_dir" --name norm)"
+printf '%s' "$rc_pattern" | grep -Fq "e.mbt:7: via_pattern"
 printf '%s' "$rc_inferred" | grep -Fq "c.mbt:7: via_return"
 rm -rf "$rc_dir"
 

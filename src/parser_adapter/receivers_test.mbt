@@ -235,3 +235,53 @@ test "a tuple index access is left unresolved" {
     "fn use(p : (Q, Q)) {\n  p.0.norm()\n}\n"
   assert_eq(calls_of(source), [])
 }
+
+///|
+test "a let pattern binds the payload type of a local enum" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum E {\n  Ok(Point)\n  Err(Int)\n}\n\nfn use(e : E) {\n  let Ok(p) = e\n  p.norm()\n}\n"
+  assert_true(calls_of(source).contains("Point::norm"))
+}
+
+///|
+test "a generic enum substitutes its parameter from the scrutinee" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum Box[T] {\n  Wrap(T)\n}\n\nfn use(b : Box[Point]) {\n  let Wrap(p) = b\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "Option payload resolves through the prelude declaration" {
+  let source = "fn use(o : Option[Point]) {\n  let Some(p) = o\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "Result payload resolves the Ok side" {
+  let source =
+    "fn use(r : Result[Point, Int]) {\n  let Ok(p) = r\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "an Option without arguments resolves to nothing" {
+  // `Option` alone does not say what the payload is.
+  let source = "fn use(o : Option) {\n  let Some(p) = o\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a variant the enum does not declare resolves to nothing" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum E {\n  Ok(Point)\n}\n\nfn use(e : E) {\n  let Missing(p) = e\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a match arm does not bind payload types yet" {
+  // Documented limit: `match` needs a per-case scope, which this pass does not
+  // build. `let` patterns are covered.
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum E {\n  Ok(Point)\n}\n\nfn use(e : E) {\n  match e {\n    Ok(p) => p.norm()\n  }\n}\n"
+  assert_eq(calls_of(source), [])
+}

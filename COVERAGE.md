@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-11-04 (v0.7.7) with the legacy MoonBit reporter:
+Measured on 2026-11-04 (v0.7.8) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze
@@ -19,21 +19,21 @@ the numbers below use.
 | `src/interproc/interproc.mbt` | 143/162 |
 | `src/liveness/liveness.mbt` | 121/138 |
 | `src/parser_adapter/parser_adapter.mbt` | 420/525 |
-| `src/parser_adapter/receivers.mbt` | 185/220 |
+| `src/parser_adapter/receivers.mbt` | 253/300 |
 | `src/pdg/pdg.mbt` | 31/32 |
 | `src/query/query.mbt` | 289/308 |
 | `src/report/report.mbt` | 502/559 |
 | `src/suppress/suppress.mbt` | 82/83 |
 | `cmd/main/main.mbt` | 22/827 |
 | `cmd/main/review.mbt` | 71/155 |
-| **Total** | **2448/3620** |
+| **Total** | **2516/3700** |
 
-Library packages only (excluding `cmd/`): **2355/2638 = 89.3%**.
+Library packages only (excluding `cmd/`): **2423/2718 = 89.1%**.
 
 `cmd/` is not executed by `moon test`; the CLI is covered by
 [test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON and SARIF modes,
 malformed input, in-source suppressions, receiver-call queries, type inference
-through annotations/returns/records/fields and expansion, method liveness, path
+through annotations/returns/records/fields/patterns and expansion, method liveness, path
 SARIF, and the failure exit codes) and by the end-to-end corpus. The lowest
 library numbers are the parser adapter and its receiver pass, whose remaining
 branches are mostly unsupported-AST fallbacks exercised for crash-safety by

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/ci.yml)
 [![Pages](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml/badge.svg)](https://github.com/NaIWaniubi/moon-slice/actions/workflows/pages.yml)
-[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.7-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
+[![mooncakes](https://img.shields.io/badge/mooncakes-NaIWaniubi%2Fmoon--slice%200.7.8-2f6f4e)](https://mooncakes.io/docs/NaIWaniubi/moon-slice)
 
 [中文文档](README.zh-CN.md) · [Real-world validation](docs/CASE_STUDY.md) · [Acceptance checklist](ACCEPTANCE.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md)
 
@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (363 tests, including a
+All layers are implemented and covered by `moon test` (370 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.7
+moon add NaIWaniubi/moon-slice@0.7.8
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -509,6 +509,7 @@ let r = make_point()     ; r.norm()           // declared return type
 let s = Point::{ x: 1 }  ; s.norm()           // record literal names its type
 let t = q                ; t.norm()           // alias of a known binding
 let u = holder.point     ; u.norm()           // declared field type
+let Ok(v) = result       ; v.norm()           // enum payload of a let pattern
 impl Point { fn m(self) { self.norm() } }     // self in an impl
 fn Point::m(self) { self.norm() }             // self in a qualified method
 ```
@@ -518,9 +519,10 @@ the same package, so `p.norm()` is never credited to an unrelated free function
 named `norm`; the rule that keeps the call graph honest is pinned by tests.
 Nothing is guessed: a call to a function this file does not declare, a bare
 record literal (`{ x: 1 }` could be any type with that field), a field typed by
-a type parameter (`struct Box[T] { v : T }` says nothing about `b.v`), a local
-that shadows a declared function, and a name bound with two different types all
-stay unresolved — a missing edge beats an invented one. Chains work when every
+a type parameter (`struct Box[T] { v : T }` says nothing about `b.v`), a `match`
+arm (it needs a per-case scope, which this pass does not build), a local that
+shadows a declared function, and a name bound with two different types all stay
+unresolved — a missing edge beats an invented one. Chains work when every
 link is written down: `p.q.r.norm()` resolves through two field declarations. Interprocedural
 slicing follows those edges too: `slice --dir D --interprocedural` on a selected
 `p.norm()` pulls in the body of `Point::norm` from whichever file declares it.
@@ -561,12 +563,12 @@ cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.7.7
+- uses: NaIWaniubi/moon-slice@v0.7.8
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.7.7
+- uses: NaIWaniubi/moon-slice@v0.7.8
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

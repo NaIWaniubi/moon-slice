@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.7.8 — 2026-11-04
+
+A `let` pattern now binds its payload type.
+
+- **`let Ok(p) = result; p.norm()`** resolves when the enum is declared in the
+  same file (`enum E { Ok(Point) }`) or is one of the prelude's `Option` /
+  `Result`. A generic enum substitutes its parameter from the scrutinee:
+  `let Wrap(p) = b` with `b : Box[Point]` types `p` as `Point`.
+- **The scrutinee has to be typed**, and by the same evidence as everything
+  else: an annotation, a declared return type, a field, an alias. `Option` with
+  no arguments, an undeclared variant, and a payload the pass cannot name all
+  resolve to nothing.
+- **`match` arms are still out of scope** — they need a per-case scope, which
+  this pass does not build. `let` patterns cover the common destructuring form;
+  the limit is pinned by a test rather than left implicit.
+- **370 tests**, including seven pattern cases with their negatives, plus a CLI
+  smoke case.
+
 ## 0.7.7 — 2026-11-04
 
 Field accesses now carry their declared type.
