@@ -245,10 +245,10 @@ test "sarif classifies dead stores and unreachable code" {
     [1, 2],
     [1],
     1,
-    "0.7.6",
+    "0.7.7",
   )
   assert_true(sarif.contains("\"version\":\"2.1.0\""))
-  assert_true(sarif.contains("\"version\":\"0.7.6\""))
+  assert_true(sarif.contains("\"version\":\"0.7.7\""))
   // Windows separators become URI separators.
   assert_true(sarif.contains("\"uri\":\"src/sample.mbt\""))
   assert_true(sarif.contains("\"ruleId\":\"dead-store\""))

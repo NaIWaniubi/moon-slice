@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.7 — 2026-11-04
+
+Field accesses now carry their declared type.
+
+- **`p.inner.norm()` resolves** when the struct declares `inner : Q` and `Q`
+  declares `norm`. The lookup walks as many links as the source spells out:
+  `p.q.r.norm()` goes through two field declarations.
+- **`let q = p.inner; q.norm()`** is typed the same way, so a field read followed
+  by a method call no longer loses the type.
+- **A field typed by a type parameter stays unresolved** — `struct Box[T] { v :
+  T }` says nothing about `b.v`, and pretending otherwise would invent an edge.
+  Tuple-index access (`p.0`) and undeclared fields are likewise left alone.
+- **363 tests**, including six field cases with their negatives, plus a CLI
+  smoke case that checks the reported caller.
+
 ## 0.7.6 — 2026-11-04
 
 Receiver types are now read from every place the source states one, not just

@@ -11,7 +11,7 @@
 
 name = "NaIWaniubi/moon-slice"
 
-version = "0.7.6"
+version = "0.7.7"
 
 readme = "README.mbt.md"
 

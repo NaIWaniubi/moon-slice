@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.6" version
+expect_eq "moon-slice 0.7.7" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -563,6 +563,19 @@ fn via_return() -> Int {
 }
 MBT
 rc_inferred="$(run callers --dir "$rc_dir" --name norm)"
+
+# A field access carries its declared type into the receiver lookup.
+cat > "$rc_dir/d.mbt" <<'MBT'
+struct Holder {
+  p : Point
+}
+
+fn via_field(h : Holder) -> Int {
+  h.p.norm()
+}
+MBT
+rc_field="$(run callers --dir "$rc_dir" --name norm)"
+printf '%s' "$rc_field" | grep -Fq "d.mbt:6: via_field"
 printf '%s' "$rc_inferred" | grep -Fq "c.mbt:7: via_return"
 rm -rf "$rc_dir"
 

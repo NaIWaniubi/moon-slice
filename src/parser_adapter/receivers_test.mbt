@@ -192,3 +192,46 @@ test "an unknown return type keeps the binding unresolved" {
   // interproc's owner check is what stops the edge, not this pass.
   assert_eq(calls_of(source), ["Unknown::norm"])
 }
+
+///|
+test "a field access carries the declared field type" {
+  let source =
+    "struct Q {\n  w : Int\n}\n\nstruct P {\n  inner : Q\n}\n\nfn use(p : P) {\n  p.inner.norm()\n}\n"
+  assert_eq(calls_of(source), ["Q::norm"])
+}
+
+///|
+test "a binding from a field access is typed" {
+  let source =
+    "struct Q {\n  w : Int\n}\n\nstruct P {\n  inner : Q\n}\n\nfn use(p : P) {\n  let q = p.inner\n  q.norm()\n}\n"
+  assert_eq(calls_of(source), ["Q::norm"])
+}
+
+///|
+test "a chain of fields resolves when every link is declared" {
+  let source =
+    "struct R {\n  v : Int\n}\n\nstruct Q {\n  r : R\n}\n\nstruct P {\n  q : Q\n}\n\nfn use(p : P) {\n  p.q.r.norm()\n}\n"
+  assert_eq(calls_of(source), ["R::norm"])
+}
+
+///|
+test "an undeclared field stops the chain" {
+  let source =
+    "struct P {\n  inner : Q\n}\n\nfn use(p : P) {\n  p.missing.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a field typed by a type parameter resolves to nothing" {
+  // `struct Box[T] { v : T }` says nothing about what `b.v` is.
+  let source =
+    "struct Box[T] {\n  v : T\n}\n\nfn use(b : Box[Int]) {\n  b.v.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}
+
+///|
+test "a tuple index access is left unresolved" {
+  let source =
+    "fn use(p : (Q, Q)) {\n  p.0.norm()\n}\n"
+  assert_eq(calls_of(source), [])
+}

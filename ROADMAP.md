@@ -31,12 +31,14 @@ deliberately missing and in what order it makes sense to add it.
 - **Type evidence beyond annotations** (0.7.6): declared return types, record
   literals that name their type, aliases and method results all resolve a
   receiver, with shadowing checked so a local never borrows a signature.
+- **Field access** (0.7.7): `p.inner.norm()` and `let q = p.inner` carry the
+  declared field type, through chains whose every link is written down.
 
 ## Next
 
-1. **Fields and pattern bindings.** `let p = holder.point` and `let Some(p) =
-   opt` both name a type the source states; they need a member/pattern type
-   environment on top of the expression one.
+1. **Pattern bindings.** `let Some(p) = opt` and `match e { Ok(p) => ... }` name
+   a payload type the source states; they need the enum declaration read
+   alongside the pattern, which is a different lookup from the expression one.
 2. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
    The blocker is stdio: MoonBit's standard libraries expose file reads but no

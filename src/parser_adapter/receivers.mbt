@@ -87,6 +87,8 @@ fn type_name_of_decl(name : @syntax.TypeName) -> String {
 priv struct Signatures {
   returns : Map[String, String]
   method_returns : Map[String, String]
+  /// `Owner::field` -> the field's declared type.
+  fields : Map[String, String]
 }
 
 ///|
@@ -148,6 +150,18 @@ fn receiver_type_of(annotations : Annotations, expr : @syntax.Expr) -> String? {
           }
         Dot(..) => None
       }
+    // `p.inner` has the type the struct declares for that field, so a chain
+    // resolves as long as every link is written down.
+    Field(record~, accessor~, ..) =>
+      match accessor {
+        Label(label) =>
+          match receiver_type_of(annotations, record) {
+            Some(owner) =>
+              annotations.signatures.fields.get(owner + "::" + label.name)
+            None => None
+          }
+        _ => None
+      }
     _ => None
   }
 }
@@ -179,6 +193,8 @@ fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> String? {
         _ => None
       }
     Record(type_name=Some(type_name), ..) => Some(type_name_of_decl(type_name))
+    // `p.inner` / `holder.point`: the field's declared type.
+    Field(..) => receiver_type_of(annotations, expr)
     // `a.to_b()` names a method whose result type this file declares.
     DotApply(self~, method_name~, ..) =>
       match receiver_type_of(annotations, self) {
@@ -370,7 +386,11 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
   let (impls, _) = @parser.parse_string(source, name~)
   let receiver_calls : Array[ReceiverCall] = []
   let methods : Array[MethodDecl] = []
-  let signatures : Signatures = { returns: Map([]), method_returns: Map([]) }
+  let signatures : Signatures = {
+    returns: Map([]),
+    method_returns: Map([]),
+    fields: Map([]),
+  }
 
   // First pass: the result types this file declares, so a `let` anywhere in it
   // can be typed regardless of declaration order.
@@ -390,6 +410,34 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
         }
         note_signature(signatures, owner, method_name.name, ret_ty)
       }
+      // `struct T { f : U }`: the field types this file declares.
+      TopTypeDef(decl) =>
+        match decl.components {
+          @syntax.TypeDesc::Record(fields~, ..) => {
+            // A field declared as a type parameter has no concrete type here:
+            // `struct Box[T] { v : T }` says nothing about `b.v`.
+            let params : Set[String] = Set([])
+            decl.params.each(fn(param) {
+              match param.name {
+                Some(name) => params.add(name)
+                None => ()
+              }
+            })
+            fields.each(fn(field) {
+              match type_expr_name(field.ty) {
+                Some(field_type) =>
+                  if !params.contains(field_type) {
+                    signatures.fields.set(
+                      decl.tycon + "::" + field.name.label,
+                      field_type,
+                    )
+                  }
+                None => ()
+              }
+            })
+          }
+          _ => ()
+        }
       _ => ()
     }
   })
