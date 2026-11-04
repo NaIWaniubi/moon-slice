@@ -65,7 +65,7 @@ namespace moved off the old account name and the shipped bundle was rebuilt
 | Consumer run in a clean module | `backward-lines=[4]` / `line=1..4` — the parameter, both bindings, the target |
 | Registry page | <https://mooncakes.io/docs/NaIWaniubi/moon-slice> lists 0.7.2 as latest |
 | Package | `1,173,362 bytes`, `144 files` |
-| CI `41706454914` | success: check, native release build, 357 tests, corpus, CLI smoke (suppression, receiver, method and SARIF cases), both bundle smokes, playground presets; the `action` job runs both gates |
+| CI `41776931030` | success: check, native release build, 370 tests, corpus, CLI smoke (suppression, receiver, pattern, method and SARIF cases), both bundle smokes, playground presets; the `action` job runs both gates |
 | Pages `41284590228` | success |
 | Live bundle | contains `moon-slice 0.7.2` |
 | `node web/live_e2e.mjs` | `live e2e ok: ... lines 4,5,6,7,8 · target line 7` |
@@ -462,7 +462,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] Apache-2.0 LICENSE
 - [x] README with quickstart, architecture, supported subset, limitations
 - [x] 10-example corpus + `testdata/expected.json` + verifier
-- [x] 357 tests, including 10 end-to-end corpus tests, a path-based precision
+- [x] 370 tests, including 10 end-to-end corpus tests, a path-based precision
   oracle, a seeded property suite, real-repository regressions, review, and
   path/unreachable tests
 - [x] zero compiler warnings
