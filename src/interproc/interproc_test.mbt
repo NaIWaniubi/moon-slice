@@ -218,3 +218,24 @@ test "an unannotated receiver expands nothing even when the method exists" {
   let result = @interproc.expand(index, "pkg/a.mbt", slice_of(index.files[0], 3))
   assert_eq(lines_of(result, "pkg/b.mbt"), [])
 }
+
+///|
+test "an enum declared in a sibling file types a match arm" {
+  let a = "fn use(m : MaybeP) -> Int {\n  match m {\n    Just(p) => p.norm()\n  }\n}\n"
+  let b = "struct Point {\n  x : Int\n}\n\nenum MaybeP {\n  Just(Point)\n}\n\nimpl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let sites = @interproc.callers(index, "norm")
+  assert_eq(sites.length(), 1)
+  assert_eq(sites[0].path, "pkg/a.mbt")
+  assert_eq(sites[0].line, 3)
+}
+
+///|
+test "a struct field declared in a sibling file types a receiver chain" {
+  let a = "fn use(h : Holder) -> Int {\n  h.p.norm()\n}\n"
+  let b = "struct Point {\n  x : Int\n}\n\nstruct Holder {\n  p : Point\n}\n\nimpl Point with fn norm(self) -> Int {\n  1\n}\n"
+  let index = index_of([("pkg/a.mbt", a), ("pkg/b.mbt", b)])
+  let sites = @interproc.callers(index, "norm")
+  assert_eq(sites.length(), 1)
+  assert_eq(sites[0].line, 2)
+}

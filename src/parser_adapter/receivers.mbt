@@ -77,6 +77,46 @@ pub(all) struct CallFacts {
 }
 
 ///|
+/// One enum as a declaration table stores it: payloads reduced to names, which
+/// is all a sibling file needs to bind a pattern variable.
+pub(all) struct EnumDecl {
+  params : Array[String]
+  variants : Map[String, Array[String]]
+}
+
+///|
+/// The declared types of one file, in a form another file can merge. Types are
+/// short names: a package shares one namespace for its own types.
+pub(all) struct DeclTable {
+  returns : Map[String, String]
+  method_returns : Map[String, String]
+  fields : Map[String, String]
+  enums : Map[String, EnumDecl]
+}
+
+///|
+pub fn empty_decls() -> DeclTable {
+  DeclTable::{
+    returns: Map([]),
+    method_returns: Map([]),
+    fields: Map([]),
+    enums: Map([]),
+  }
+}
+
+///|
+/// Merge `from` into `into`; a later file wins on a name clash, which is what
+/// the package's own scan order gives.
+pub fn merge_decls(into : DeclTable, from : DeclTable) -> Unit {
+  from.returns.to_array().each(fn(pair) { into.returns.set(pair.0, pair.1) })
+  from.method_returns.to_array().each(fn(pair) {
+    into.method_returns.set(pair.0, pair.1)
+  })
+  from.fields.to_array().each(fn(pair) { into.fields.set(pair.0, pair.1) })
+  from.enums.to_array().each(fn(pair) { into.enums.set(pair.0, pair.1) })
+}
+
+///|
 fn short_type_name(name : @syntax.LongIdent) -> String {
   match name {
     Ident(name~) => name
@@ -122,9 +162,9 @@ fn optional_ty(ty : @syntax.Type?) -> Ty? {
 /// The variants of one enum, so a `let Ok(p) = e` can type `p`.
 priv struct EnumInfo {
   params : Array[String]
-  /// Variant name -> payload type names, in source order. A payload may be one
-  /// of `params`, which is what substitution resolves against the scrutinee.
-  variants : Map[String, Array[String]]
+  /// Variant name -> payload types, in source order. A payload may name one of
+  /// `params`, which is what substitution resolves against the scrutinee.
+  variants : Map[String, Array[Ty]]
 }
 
 ///|
@@ -159,12 +199,13 @@ fn note_signature(
 /// file being analysed, but every MoonBit program uses them. Their payloads are
 /// type parameters, so the substitution below resolves `Option[Point]`.
 fn builtin_enums() -> Map[String, EnumInfo] {
-  let option_variants : Map[String, Array[String]] = Map([])
+  let param = fn(name : String) { Ty::{ name, args: [] } }
+  let option_variants : Map[String, Array[Ty]] = Map([])
   option_variants.set("None", [])
-  option_variants.set("Some", ["T"])
-  let result_variants : Map[String, Array[String]] = Map([])
-  result_variants.set("Ok", ["T"])
-  result_variants.set("Err", ["E"])
+  option_variants.set("Some", [param("T")])
+  let result_variants : Map[String, Array[Ty]] = Map([])
+  result_variants.set("Ok", [param("T")])
+  result_variants.set("Err", [param("E")])
   let enums : Map[String, EnumInfo] = Map([])
   enums.set("Option", EnumInfo::{ params: ["T"], variants: option_variants })
   enums.set("Result", EnumInfo::{ params: ["T", "E"], variants: result_variants })
@@ -286,12 +327,12 @@ fn infer_expr(annotations : Annotations, expr : @syntax.Expr) -> Ty? {
 /// `Box[Point]`, the payload `T` becomes `Point`.
 fn substitute_payload(
   info : EnumInfo,
-  payload : String,
+  payload : Ty,
   args : Array[String],
 ) -> Ty? {
   let mut i = 0
   while i < info.params.length() {
-    if info.params[i] == payload {
+    if info.params[i] == payload.name {
       if i < args.length() && args[i] != "" {
         return Some(Ty::{ name: args[i], args: [] })
       }
@@ -299,7 +340,7 @@ fn substitute_payload(
     }
     i = i + 1
   }
-  Some(Ty::{ name: payload, args: [] })
+  Some(payload)
 }
 
 ///|
@@ -326,53 +367,60 @@ fn note_parameter(annotations : Annotations, param : @syntax.Parameter) -> Unit 
 }
 
 ///|
-/// Bind the payload variables of `let Ok(p) = e`: the scrutinee names the enum,
-/// the variant names the payloads, and the enum's parameters are substituted.
-fn note_pattern_bindings(
+/// Bind the variables a pattern introduces, given the type the value has:
+/// `Ok(p)` binds `p` to the variant's payload, `x` binds the value itself,
+/// `p as x` binds both, `A | B` binds what each side introduces.
+fn bind_pattern(
   annotations : Annotations,
   pattern : @syntax.Pattern,
-  scrutinee : @syntax.Expr,
+  ty : Ty?,
 ) -> Unit {
-  let constr = match pattern {
-    Constr(constr~, ..) => constr
-    _ => return
-  }
-  let raw_args = match pattern {
-    Constr(args~, ..) => args
-    _ => return
-  }
-  let args = match raw_args {
-    Some(args) => args.to_array()
-    None => return
-  }
-  let value = match infer_expr(annotations, scrutinee) {
-    Some(value) => value
-    None => return
-  }
-  let info = match annotations.signatures.enums.get(value.name) {
-    Some(info) => info
-    None => return
-  }
-  let payloads = match info.variants.get(constr.name.name) {
-    Some(payloads) => payloads
-    None => return
-  }
-  let mut i = 0
-  while i < args.length() {
-    match args[i].pat {
-      Var(binder) => {
-        annotations.shadowed.add(binder.name)
-        if i < payloads.length() {
-          note_annotation(
-            annotations,
-            binder.name,
-            substitute_payload(info, payloads[i], value.args),
-          )
-        }
-      }
-      _ => ()
+  match pattern {
+    Var(binder) => {
+      annotations.shadowed.add(binder.name)
+      note_annotation(annotations, binder.name, ty)
     }
-    i = i + 1
+    Constraint(pat~, ty~, ..) =>
+      bind_pattern(annotations, pat, type_ty(ty))
+    Alias(pat~, alias_~, ..) => {
+      annotations.shadowed.add(alias_.name)
+      note_annotation(annotations, alias_.name, ty)
+      bind_pattern(annotations, pat, ty)
+    }
+    Or(pat1~, pat2~, ..) => {
+      bind_pattern(annotations, pat1, ty)
+      bind_pattern(annotations, pat2, ty)
+    }
+    Constr(constr~, args~, ..) =>
+      match ty {
+        None => ()
+        Some(value) =>
+          match annotations.signatures.enums.get(value.name) {
+            None => ()
+            Some(info) =>
+              match info.variants.get(constr.name.name) {
+                None => ()
+                Some(payloads) =>
+                  match args {
+                    None => ()
+                    Some(args) => {
+                      let list = args.to_array()
+                      let mut i = 0
+                      while i < list.length() {
+                        let payload = if i < payloads.length() {
+                          substitute_payload(info, payloads[i], value.args)
+                        } else {
+                          None
+                        }
+                        bind_pattern(annotations, list[i].pat, payload)
+                        i = i + 1
+                      }
+                    }
+                  }
+              }
+          }
+      }
+    _ => ()
   }
 }
 
@@ -402,7 +450,7 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_Let(
       env.shadowed.add(binder.name)
       note_annotation(env, binder.name, infer_expr(env, expr))
     }
-    _ => note_pattern_bindings(env, pattern, expr)
+    _ => bind_pattern(env, pattern, infer_expr(env, expr))
   }
   @syntax.IterVisitor::visit_Expr_Let(env.base(), pattern~, expr~, body~, loc~)
 }
@@ -434,6 +482,31 @@ impl @syntax.IterVisitor for Annotations with fn visit_Expr_LetFn(
 ) {
   env.shadowed.add(name.name)
   @syntax.IterVisitor::visit_Expr_LetFn(env.base(), name~, func~, body~, loc~)
+}
+
+///|
+/// `match e { Ok(p) => ... }`: every case pattern gets the scrutinee's type, and
+/// the case body sees the bindings. Cases are walked one at a time so a binding
+/// added by one arm cannot change how the next is read.
+impl @syntax.IterVisitor for Annotations with fn visit_Expr_Match(
+  env,
+  expr~,
+  cases~,
+  match_loc~,
+  loc~,
+) {
+  ignore(match_loc)
+  ignore(loc)
+  let scrutinee = infer_expr(env, expr)
+  @syntax.IterVisitor::visit_Expr(env.base(), expr)
+  cases.each(fn(arm) {
+    bind_pattern(env, arm.pattern, scrutinee)
+    match arm.guard_ {
+      Some(guard_) => @syntax.IterVisitor::visit_Expr(env.base(), guard_)
+      None => ()
+    }
+    @syntax.IterVisitor::visit_Expr(env.base(), arm.body)
+  })
 }
 
 ///|
@@ -512,22 +585,10 @@ fn collect_body(
 }
 
 ///|
-/// Scan one file for receiver calls and for the methods it declares. The callee
-/// still has to be declared by the package before a receiver call becomes an
-/// edge; that check lives in `interproc`, where the whole package is visible.
-pub fn call_facts(source : String, name : String) -> CallFacts {
-  let (impls, _) = @parser.parse_string(source, name~)
-  let receiver_calls : Array[ReceiverCall] = []
-  let methods : Array[MethodDecl] = []
-  let signatures : Signatures = {
-    returns: Map([]),
-    method_returns: Map([]),
-    fields: Map([]),
-    enums: builtin_enums(),
-  }
-
-  // First pass: the result types, fields and enums this file declares, so a
-  // `let` anywhere in it can be typed regardless of declaration order.
+/// Record the declarations one file contributes into `signatures`: result
+/// types, field types and enums. Kept separate from resolution so a package can
+/// merge every file's declarations before resolving any body.
+fn scan_declarations(impls : Array[@syntax.Impl], signatures : Signatures) -> Unit {
   impls.each(fn(impl_) {
     match impl_ {
       TopFuncDef(fun_decl=decl, ..) => {
@@ -577,14 +638,14 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
                 None => ()
               }
             })
-            let variants : Map[String, Array[String]] = Map([])
+            let variants : Map[String, Array[Ty]] = Map([])
             constructors.each(fn(constr) {
-              let payloads : Array[String] = []
+              let payloads : Array[Ty] = []
               match constr.args {
                 Some(args) =>
                   args.each(fn(arg) {
                     match type_ty(arg.ty) {
-                      Some(payload) => payloads.push(payload.name)
+                      Some(payload) => payloads.push(payload)
                       // A payload that is not a named type leaves the variant
                       // with fewer entries than it has arguments, so those
                       // positions resolve to nothing.
@@ -603,6 +664,91 @@ pub fn call_facts(source : String, name : String) -> CallFacts {
     }
   })
 
+}
+
+///|
+fn signatures_with(extra : DeclTable) -> Signatures {
+  let signatures : Signatures = {
+    returns: Map([]),
+    method_returns: Map([]),
+    fields: Map([]),
+    enums: builtin_enums(),
+  }
+  extra.returns.to_array().each(fn(pair) {
+    signatures.returns.set(pair.0, Ty::{ name: pair.1, args: [] })
+  })
+  extra.method_returns.to_array().each(fn(pair) {
+    signatures.method_returns.set(pair.0, Ty::{ name: pair.1, args: [] })
+  })
+  extra.fields.to_array().each(fn(pair) {
+    signatures.fields.set(pair.0, Ty::{ name: pair.1, args: [] })
+  })
+  extra.enums.to_array().each(fn(pair) {
+    let variants : Map[String, Array[Ty]] = Map([])
+    pair.1.variants.to_array().each(fn(entry) {
+      variants.set(entry.0, entry.1.map(fn(name) { Ty::{ name, args: [] } }))
+    })
+    signatures.enums.set(
+      pair.0,
+      EnumInfo::{ params: pair.1.params, variants },
+    )
+  })
+  signatures
+}
+
+///|
+fn to_decl_table(signatures : Signatures) -> DeclTable {
+  let table = empty_decls()
+  signatures.returns.to_array().each(fn(pair) {
+    table.returns.set(pair.0, pair.1.name)
+  })
+  signatures.method_returns.to_array().each(fn(pair) {
+    table.method_returns.set(pair.0, pair.1.name)
+  })
+  signatures.fields.to_array().each(fn(pair) {
+    table.fields.set(pair.0, pair.1.name)
+  })
+  signatures.enums.to_array().each(fn(pair) {
+    let variants : Map[String, Array[String]] = Map([])
+    pair.1.variants.to_array().each(fn(entry) {
+      variants.set(entry.0, entry.1.map(fn(ty) { ty.name }))
+    })
+    table.enums.set(pair.0, EnumDecl::{ params: pair.1.params, variants })
+  })
+  table
+}
+
+///|
+/// The declarations of one file, for a caller that is about to resolve a whole
+/// package. `Option` and `Result` are added on the resolving side, so they are
+/// not repeated here.
+pub fn declared_types(source : String, name : String) -> DeclTable {
+  let (impls, _) = @parser.parse_string(source, name~)
+  let signatures : Signatures = {
+    returns: Map([]),
+    method_returns: Map([]),
+    fields: Map([]),
+    enums: Map([]),
+  }
+  scan_declarations(impls.to_array(), signatures)
+  to_decl_table(signatures)
+}
+
+///|
+/// Scan one file for receiver calls and for the methods it declares. The callee
+/// still has to be declared by the package before a receiver call becomes an
+/// edge; that check lives in `interproc`, where the whole package is visible.
+pub fn call_facts(
+  source : String,
+  name : String,
+  extra? : DeclTable = empty_decls(),
+) -> CallFacts {
+  let (impls, _) = @parser.parse_string(source, name~)
+  let receiver_calls : Array[ReceiverCall] = []
+  let methods : Array[MethodDecl] = []
+  let signatures = signatures_with(extra)
+
+  scan_declarations(impls.to_array(), signatures)
   // Second pass: the bodies themselves.
   impls.each(fn(impl_) {
     match impl_ {

@@ -40,6 +40,7 @@ pub(all) struct PackageFile {
   pdg : @core.Pdg
   receivers : Array[@parser_adapter.ReceiverCall]
   methods : Array[@parser_adapter.MethodDecl]
+  source : String
 }
 
 pub(all) struct PackageIndex {

@@ -6,7 +6,13 @@ import {
 }
 
 // Values
-pub fn call_facts(String, String) -> CallFacts
+pub fn call_facts(String, String, extra? : DeclTable) -> CallFacts
+
+pub fn declared_types(String, String) -> DeclTable
+
+pub fn empty_decls() -> DeclTable
+
+pub fn merge_decls(DeclTable, DeclTable) -> Unit
 
 pub fn parse_source(String, String) -> @core.Program
 
@@ -16,6 +22,18 @@ pub fn parse_source(String, String) -> @core.Program
 pub(all) struct CallFacts {
   receivers : Array[ReceiverCall]
   methods : Array[MethodDecl]
+}
+
+pub(all) struct DeclTable {
+  returns : Map[String, String]
+  method_returns : Map[String, String]
+  fields : Map[String, String]
+  enums : Map[String, EnumDecl]
+}
+
+pub(all) struct EnumDecl {
+  params : Array[String]
+  variants : Map[String, Array[String]]
 }
 
 pub(all) struct MethodDecl {

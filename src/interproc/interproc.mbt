@@ -18,6 +18,9 @@ pub(all) struct PackageFile {
   receivers : Array[@parser_adapter.ReceiverCall]
   /// Methods this file declares, so a dot call can be matched to a real owner.
   methods : Array[@parser_adapter.MethodDecl]
+  /// Kept so `index` can resolve receiver calls again once every file's
+  /// declarations are known: a struct or enum may live in a sibling file.
+  source : String
 }
 
 ///|
@@ -58,12 +61,45 @@ pub fn build_file(
   // A second parse, kept separate so `parse_source` stays the single place
   // that lowers the AST into the node IR.
   let facts = @parser_adapter.call_facts(source, path)
-  Some(PackageFile::{ path, program, pdg, receivers: facts.receivers, methods: facts.methods })
+  Some(PackageFile::{
+    path,
+    program,
+    pdg,
+    receivers: facts.receivers,
+    methods: facts.methods,
+    source,
+  })
 }
 
 ///|
 pub fn index(files : Array[PackageFile]) -> PackageIndex {
-  PackageIndex::{ files, }
+  // Receiver resolution needs the package's declarations, not just this file's:
+  // a struct's fields or an enum's variants are often declared next door. Merge
+  // first, then resolve every file again against the merged table.
+  let merged : @parser_adapter.DeclTable = @parser_adapter.empty_decls()
+  for file in files {
+    @parser_adapter.merge_decls(
+      merged,
+      @parser_adapter.declared_types(file.source, file.path),
+    )
+  }
+  let updated : Array[PackageFile] = []
+  for file in files {
+    let facts = @parser_adapter.call_facts(
+      file.source,
+      file.path,
+      extra=merged,
+    )
+    updated.push(PackageFile::{
+      path: file.path,
+      program: file.program,
+      pdg: file.pdg,
+      receivers: facts.receivers,
+      methods: file.methods,
+      source: file.source,
+    })
+  }
+  PackageIndex::{ files: updated }
 }
 
 ///|

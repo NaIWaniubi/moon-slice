@@ -278,10 +278,37 @@ test "a variant the enum does not declare resolves to nothing" {
 }
 
 ///|
-test "a match arm does not bind payload types yet" {
-  // Documented limit: `match` needs a per-case scope, which this pass does not
-  // build. `let` patterns are covered.
+test "a match arm binds the payload type of its pattern" {
   let source =
     "struct Point {\n  x : Int\n}\n\nenum E {\n  Ok(Point)\n}\n\nfn use(e : E) {\n  match e {\n    Ok(p) => p.norm()\n  }\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "each match arm gets its own payload type" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nstruct Failure {\n  code : Int\n}\n\nenum R {\n  Ok(Point)\n  Err(Failure)\n}\n\nfn use(r : R) {\n  match r {\n    Ok(p) => p.norm()\n    Err(f) => f.describe()\n  }\n}\n"
+  assert_eq(calls_of(source), ["Point::norm", "Failure::describe"])
+}
+
+///|
+test "an Option match arm resolves through the prelude declaration" {
+  let source =
+    "fn use(o : Option[Point]) {\n  match o {\n    Some(p) => p.norm()\n    None => ()\n  }\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "a nested pattern substitutes through both enums" {
+  // `Wrap` carries `Option[Point]`, so the inner `Some(p)` types `p` as Point.
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum W {\n  Wrap(Option[Point])\n}\n\nfn use(w : W) {\n  let Wrap(Some(p)) = w\n  p.norm()\n}\n"
+  assert_eq(calls_of(source), ["Point::norm"])
+}
+
+///|
+test "a match on an untyped value binds nothing" {
+  let source =
+    "struct Point {\n  x : Int\n}\n\nenum E {\n  Ok(Point)\n}\n\nfn use() {\n  match unknown() {\n    Ok(p) => p.norm()\n  }\n}\n"
   assert_eq(calls_of(source), [])
 }

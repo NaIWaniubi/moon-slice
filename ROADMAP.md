@@ -36,12 +36,13 @@ deliberately missing and in what order it makes sense to add it.
 - **`let` pattern payloads** (0.7.8): `let Ok(p) = e` types `p` from the enum
   declaration, with `Option` / `Result` built in and generic parameters
   substituted from the scrutinee.
+- **`match` arm payloads and package-scoped declarations** (0.7.9): every case
+  binds its pattern against the scrutinee's type, and all files' declarations
+  are merged before resolution, so a type declared next door still counts.
 
 ## Next
 
-1. **`match` arm payloads.** The same lookup as 0.7.8, but scoped per case; the
-   visitor needs to enter a case with bindings that end with its body.
-2. **Editor integration.** The JSON contract is stable enough for a minimal
+1. **Editor integration.** The JSON contract is stable enough for a minimal
    LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
    The blocker is stdio: MoonBit's standard libraries expose file reads but no
    byte-level stdin, so this needs either an FFI shim or a socket transport.

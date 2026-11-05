@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.8" version
+expect_eq "moon-slice 0.7.9" version
 expect_contains "Commands:" help
 
 # Core slicing
@@ -590,6 +590,17 @@ fn via_pattern(m : MaybeP) -> Int {
 MBT
 rc_pattern="$(run callers --dir "$rc_dir" --name norm)"
 printf '%s' "$rc_pattern" | grep -Fq "e.mbt:7: via_pattern"
+
+# A `match` arm binds its payload type too.
+cat > "$rc_dir/f.mbt" <<'MBT'
+fn via_match(m : MaybeP) -> Int {
+  match m {
+    Just(p) => p.norm()
+  }
+}
+MBT
+rc_match="$(run callers --dir "$rc_dir" --name norm)"
+printf '%s' "$rc_match" | grep -Fq "f.mbt:3: via_match"
 printf '%s' "$rc_inferred" | grep -Fq "c.mbt:7: via_return"
 rm -rf "$rc_dir"
 

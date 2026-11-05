@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.7.9 — 2026-11-04
+
+`match` arms bind their payload types, and declarations are shared across the
+package.
+
+- **`match e { Ok(p) => p.norm() }`** binds `p` the same way `let Ok(p) = e`
+  does: the scrutinee names the enum, the variant names the payloads, and a
+  generic parameter is substituted from the scrutinee's arguments. Cases are
+  walked one at a time, with guards and bodies visited in their own context.
+- **Nested patterns substitute through both enums.** `Wrap(Option[Point])`
+  matched as `let Wrap(Some(p)) = w` types `p` as `Point`, because payload types
+  now keep their type arguments.
+- **Declarations are package-scoped.** `index` merges every file's result types,
+  field types and enum variants before resolving any file, so a struct or enum
+  declared in `types.mbt` types a receiver in `logic.mbt`. This also fixes the
+  0.7.6/0.7.7 evidence, which was per-file only.
+- **376 tests**, including five match cases and two cross-file cases.
+
 ## 0.7.8 — 2026-11-04
 
 A `let` pattern now binds its payload type.
