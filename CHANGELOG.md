@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.8.1 — 2026-11-06
+
+Portability fixes for the LSP, found by CI rather than by the local toolchain.
+
+- **The Json type is never named.** CI's newer core reports `@builtin.Json` as
+  undefined while the local one resolves it; the server only needs the value
+  `@json.parse` returns, so the handler pattern-matches on it instead of
+  annotating a parameter.
+- **The client accepts `lsp.exe` on Linux too.** MoonBit names the native
+  artifact with the extension on every platform, so the suffix-less guess missed
+  it; both names are now tried.
+- No library or CLI behaviour changes: 376 unit tests, the CLI smoke, the bundle
+  smokes and the LSP client all pass on Linux and Windows.
+
 ## 0.8.0 — 2026-11-06
 
 The analysis now runs inside the editor.
