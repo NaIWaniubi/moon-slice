@@ -1,9 +1,9 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-06 (v0.10.1; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-06 (v0.10.2; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
-## 0.10.1 — incremental package scans (2026-11-06)
+## 0.10.1 – 0.10.2 — incremental package scans (2026-11-06)
 
 Everything in this section was run against the release binary built from this
 tree.
@@ -13,6 +13,7 @@ tree.
 | `./dev.sh check` | 0 errors, 0 warnings |
 | `./dev.sh test` | `Total tests: 381, passed: 381, failed: 0` |
 | `node test/lsp_client.mjs` | `lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit` |
+| `main.exe version` | `moon-slice 0.10.2`; the HTML report's generator meta says the same, and `test/cli_smoke.sh` now takes the expected version from `moon.mod` |
 | `node bench/scan.mjs --dir ~/.moon/lib/core/builtin --reps 5` | 217 files: cold 2.0–2.8 s, warm 0.20–0.23 s (~10x); the log lines are `217 re-read, 0 cached` then `0 re-read, 217 cached` |
 | `node bench/scan.mjs --files 1200 --reps 7` | 1200 generated files: cold 1.08 s, warm 0.26 s (4.2x) |
 | `dead --dir src --fail-on-findings` | 0 findings, exit 0 |
@@ -515,7 +516,7 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.10.1.zip` (1,229,343 bytes, 156 files)
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.10.2.zip` (1,229,989 bytes, 156 files)
 - [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.10.1`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
 - [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 9 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
 - [x] receiver edges in the interprocedural expansion, and inherent methods as liveness candidates (trait impls and `_` names excluded), re-calibrated on 2158 upstream files

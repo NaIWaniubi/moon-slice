@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.10.2 — 2026-11-06
+
+The version the tools print is the version in the manifest.
+
+- **`version`, SARIF and the HTML report say 0.10.2.** 0.10.1 bumped the
+  manifest but left `tool_version` at 0.10.0 and nothing checked it, so the
+  binary's own line and every SARIF `tool.driver.version` repeated the previous
+  release's number.
+- **The CLI smoke test reads the expected version from `moon.mod`**, so the next
+  release fails locally instead of after publishing. The LSP client already
+  compares `serverInfo.version` with the manifest.
+- No analysis changes: 381 tests, the same findings, the same cold and warm scan
+  numbers.
+
 ## 0.10.1 — 2026-11-06
 
 Saving a file no longer re-parses the package around it.
