@@ -204,6 +204,91 @@ async fn publish(uri : String) -> Unit {
 }
 
 ///|
+/// Length of one 0-based line, without its line terminator.
+fn line_length(source : String, line0 : Int) -> Int {
+  let lines = source.split("\n").to_array()
+  if line0 < 0 || line0 >= lines.length() {
+    return 0
+  }
+  let mut text = lines[line0].to_owned()
+  if text.has_suffix("\r") {
+    text = text[: text.length() - 1].to_owned()
+  }
+  text.length()
+}
+
+///|
+/// Hover: the backward slice for the line under the cursor, as Markdown.
+fn hover_result(uri : String, line0 : Int) -> String {
+  let source = match documents.get(uri) {
+    Some(text) => text
+    None => ""
+  }
+  let program = @parser_adapter.parse_source(source, uri)
+  if program.errors.length() > 0 {
+    return "null"
+  }
+  match @query.target_node(program, line0 + 1) {
+    None => "null"
+    Some(node) => {
+      let cfg = @cfg.build(program)
+      let defuse = @defuse.analyze(program, cfg)
+      let cdg = @cdg.build(program, cfg)
+      let pdg = @pdg.build(defuse, cdg)
+      let result = @slice.backward(pdg, node, program=program)
+      let lines = @query.visible_lines(program, result.nodes)
+      let text = StringBuilder()
+      text.write_string("**backward slice** — ")
+      text.write_string(result.nodes.length().to_string())
+      text.write_string(" statement(s) reach this line\n\nlines: ")
+      let mut first = true
+      for line in lines {
+        if !first {
+          text.write_string(", ")
+        }
+        first = false
+        text.write_string(line.to_string())
+      }
+      "{\"contents\":{\"kind\":\"markdown\",\"value\":" +
+      json_string(text.to_string()) +
+      "},\"range\":{\"start\":{\"line\":" +
+      line0.to_string() +
+      ",\"character\":0},\"end\":{\"line\":" +
+      line0.to_string() +
+      ",\"character\":0}}}"
+    }
+  }
+}
+
+///|
+/// A quick fix that appends `// moon-slice: ignore[rule]` to the line, which is
+/// the same directive the CLI honours.
+fn code_actions_result(uri : String, line0 : Int, rule : String) -> String {
+  let source = match documents.get(uri) {
+    Some(text) => text
+    None => ""
+  }
+  let column = line_length(source, line0)
+  let insert = " // moon-slice: ignore[" + rule + "]"
+  let title = "Suppress with // moon-slice: ignore[" + rule + "]"
+  "[{\"title\":" +
+  json_string(title) +
+  ",\"kind\":\"quickfix\",\"edit\":{\"changes\":{" +
+  json_string(uri) +
+  ":[{\"range\":{\"start\":{\"line\":" +
+  line0.to_string() +
+  ",\"character\":" +
+  column.to_string() +
+  "},\"end\":{\"line\":" +
+  line0.to_string() +
+  ",\"character\":" +
+  column.to_string() +
+  "}},\"newText\":" +
+  json_string(insert) +
+  "}]}}}]"
+}
+
+///|
 /// Returns `false` when the editor asked the server to exit.
 ///
 /// The Json type is never named here: it is reached through pattern matching on
@@ -230,10 +315,75 @@ async fn handle_message(text : String) -> Bool {
     "initialize" =>
       send_response(
         id,
-        "{\"capabilities\":{\"textDocumentSync\":1,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":0}}",
+        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":0}}",
       )
     "initialized" => ()
     "shutdown" => send_response(id, "null")
+    "textDocument/hover" => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match (params.get("textDocument"), params.get("position")) {
+            (Some(Object(document)), Some(Object(position))) =>
+              match (document.get("uri"), position.get("line")) {
+                (Some(String(uri)), Some(Number(value, ..))) =>
+                  send_response(id, hover_result(uri, value.to_int()))
+                _ => send_response(id, "null")
+              }
+            _ => send_response(id, "null")
+          }
+        _ => send_response(id, "null")
+      }
+    }
+    "textDocument/codeAction" => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match (params.get("textDocument"), params.get("context")) {
+            (Some(Object(document)), Some(Object(context))) =>
+              match (document.get("uri"), context.get("diagnostics")) {
+                (Some(String(uri)), Some(Array(items))) => {
+                  let mut rule = ""
+                  let mut line0 = 0
+                  for item in items {
+                    match item {
+                      Object(diagnostic) =>
+                        if rule == "" {
+                          match diagnostic.get("code") {
+                            Some(String(code)) =>
+                              if code == "dead-store" || code == "unreachable-code" {
+                                rule = code
+                                match diagnostic.get("range") {
+                                  Some(Object(range)) =>
+                                    match range.get("start") {
+                                      Some(Object(start)) =>
+                                        match start.get("line") {
+                                          Some(Number(value, ..)) =>
+                                            line0 = value.to_int()
+                                          _ => ()
+                                        }
+                                      _ => ()
+                                    }
+                                  _ => ()
+                                }
+                              }
+                            _ => ()
+                          }
+                        }
+                      _ => ()
+                    }
+                  }
+                  if rule == "" {
+                    send_response(id, "[]")
+                  } else {
+                    send_response(id, code_actions_result(uri, line0, rule))
+                  }
+                }
+                _ => send_response(id, "[]")
+              }
+            _ => send_response(id, "[]")
+          }
+        _ => send_response(id, "[]")
+      }
+    }
     "exit" => return false
     "textDocument/didOpen" => {
       match object.get("params") {

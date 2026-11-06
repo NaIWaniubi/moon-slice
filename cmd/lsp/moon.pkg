@@ -4,11 +4,14 @@ import {
   "moonbitlang/core/builtin",
   "moonbitlang/core/encoding/utf8",
   "moonbitlang/core/json",
+  "NaIWaniubi/moon-slice/src/cdg",
   "NaIWaniubi/moon-slice/src/cfg",
   "NaIWaniubi/moon-slice/src/defuse",
   "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/pdg",
   "NaIWaniubi/moon-slice/src/query",
   "NaIWaniubi/moon-slice/src/report",
+  "NaIWaniubi/moon-slice/src/slice",
 }
 
 pkgtype(kind: "executable")

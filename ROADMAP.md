@@ -44,13 +44,16 @@ deliberately missing and in what order it makes sense to add it.
   dead stores and unreachable code as diagnostics; `moonbitlang/async` supplies
   the byte-level stdin the standard library does not.
 
+- **Hover and quick fixes** (0.9.0): hover answers with the backward slice for
+  the line, and the code action appends the same suppression directive the CLI
+  honours.
+
 ## Next
 
-1. **Hover and code actions.** The server already has the buffer and the PDG; a
-   hover could show the backward slice for the line under the cursor, and a code
-   action could insert `// moon-slice: ignore[...]` for a diagnostic.
-2. **Package-wide diagnostics.** Today the server is single-file by design; a
+1. **Package-wide diagnostics.** Today the server is single-file by design; a
    workspace scan would need incremental parsing to stay responsive.
+2. **Forward slice on demand.** Hover answers "where did this come from"; a
+   command could answer "what does this affect" with the same pipeline.
 
 ## Considered, not planned
 

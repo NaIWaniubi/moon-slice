@@ -20,6 +20,8 @@ to stdout. Editors start it themselves.
 | --- | --- |
 | `textDocumentSync` | `1` (full text) — every change replaces the buffer |
 | Diagnostics | `dead-store`, `unreachable-code` and parser failures |
+| `textDocument/hover` | the backward slice for the line under the cursor |
+| `textDocument/codeAction` | quick fix appending `// moon-slice: ignore[rule]` |
 | `shutdown` / `exit` | handled, so a client can close cleanly |
 
 Diagnostics are recomputed from the buffer the client sends, so unsaved edits are

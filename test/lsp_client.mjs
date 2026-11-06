@@ -1,5 +1,5 @@
-// A tiny LSP client: proves the server speaks the protocol and publishes the
-// right diagnostics for a buffer, without needing an editor.
+// A tiny LSP client: proves the server speaks the protocol, publishes the right
+// diagnostics, and answers hover and code actions, without needing an editor.
 //
 // Usage: node test/lsp_client.mjs [path-to-lsp-binary]
 import { spawn } from 'node:child_process';
@@ -83,9 +83,12 @@ try {
   send({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { capabilities: {} } });
   const init = await next();
   if (init.id !== 1) throw new Error('initialize: wrong id');
-  if (init.result?.capabilities?.textDocumentSync !== 1) {
+  const caps = init.result?.capabilities ?? {};
+  if (caps.textDocumentSync !== 1) {
     throw new Error(`initialize: unexpected capabilities ${JSON.stringify(init.result)}`);
   }
+  if (caps.hoverProvider !== true) throw new Error('initialize: no hoverProvider');
+  if (caps.codeActionProvider !== true) throw new Error('initialize: no codeActionProvider');
 
   send({ jsonrpc: '2.0', method: 'initialized', params: {} });
   send({
@@ -99,6 +102,43 @@ try {
     throw new Error(`didOpen: expected line 2 (0-based), got ${first[0].range.start.line}`);
   }
   if (first[0].code !== 'dead-store') throw new Error(`didOpen: unexpected code ${first[0].code}`);
+
+  // Hover on the dead line: the backward slice should name the statement count.
+  send({
+    jsonrpc: '2.0',
+    id: 3,
+    method: 'textDocument/hover',
+    params: { textDocument: { uri }, position: { line: 2, character: 4 } },
+  });
+  const hover = await next();
+  if (hover.id !== 3) throw new Error('hover: wrong id');
+  const hoverText = hover.result?.contents?.value ?? '';
+  if (!hoverText.includes('backward slice')) {
+    throw new Error(`hover: unexpected contents ${JSON.stringify(hover.result)}`);
+  }
+  if (!hoverText.includes('lines:')) throw new Error(`hover: no line list in ${hoverText}`);
+
+  // Code action: the quick fix appends the same directive the CLI honours.
+  send({
+    jsonrpc: '2.0',
+    id: 4,
+    method: 'textDocument/codeAction',
+    params: {
+      textDocument: { uri },
+      range: first[0].range,
+      context: { diagnostics: first },
+    },
+  });
+  const actions = await next();
+  if (actions.id !== 4) throw new Error('codeAction: wrong id');
+  const action = actions.result?.[0];
+  if (!action) throw new Error('codeAction: no action returned');
+  const edit = action.edit?.changes?.[uri]?.[0];
+  if (!edit) throw new Error('codeAction: no edit returned');
+  if (!edit.newText.includes('moon-slice: ignore[dead-store]')) {
+    throw new Error(`codeAction: unexpected newText ${edit.newText}`);
+  }
+  if (edit.range.start.line !== 2) throw new Error('codeAction: edit on the wrong line');
 
   send({
     jsonrpc: '2.0',
@@ -115,7 +155,7 @@ try {
   send({ jsonrpc: '2.0', method: 'exit' });
   const code = await new Promise((resolve) => child.on('exit', resolve));
   if (code !== 0) throw new Error(`exit code ${code}`);
-  console.log('lsp client ok: initialize, diagnostics, change, shutdown, exit');
+  console.log('lsp client ok: initialize, diagnostics, hover, code action, change, shutdown, exit');
 } catch (error) {
   console.error(`lsp client FAILED: ${error.message}`);
   child.kill();

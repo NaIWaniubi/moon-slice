@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.9.0 — 2026-11-06
+
+The Language Server does more than underline findings.
+
+- **Hover shows the backward slice.** Ask for hover on any line and the server
+  runs the same pipeline as `slice` — CFG, def-use, CDG, PDG, backward BFS — and
+  answers with the statement count and the line list in Markdown. It is the
+  first editor surface for the analysis itself, not just for the warnings.
+- **A quick fix suppresses a finding.** `textDocument/codeAction` on a
+  diagnostic returns one action that appends `// moon-slice: ignore[rule]` at
+  the end of the line, which is exactly what the CLI and CI honour, so the
+  editor and the gate agree by construction.
+- **The client test covers both.** `test/lsp_client.mjs` now asserts the
+  `hoverProvider` / `codeActionProvider` capabilities, that hover mentions the
+  slice, and that the code action's edit carries the directive on the right
+  line — before it checks that a clean rewrite clears the diagnostics.
+- 376 unit tests unchanged; the new coverage is end-to-end, on Linux and
+  Windows.
+
 ## 0.8.1 — 2026-11-06
 
 Portability fixes for the LSP, found by CI rather than by the local toolchain.
