@@ -5,11 +5,20 @@
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
-const suffix = process.platform === 'win32' ? '.exe' : '';
-const bin =
-  process.argv[2] ?? `_build/native/release/build/cmd/lsp/lsp${suffix}`;
-if (!existsSync(bin)) {
-  console.error(`lsp client: no binary at ${bin}; build it with \`moon build --target native --release cmd/lsp\``);
+// MoonBit names the native artifact `lsp.exe` on every platform; accept the
+// suffix-less name too so a future toolchain that drops it keeps working.
+const candidates = process.argv[2]
+  ? [process.argv[2]]
+  : [
+      '_build/native/release/build/cmd/lsp/lsp.exe',
+      '_build/native/release/build/cmd/lsp/lsp',
+    ];
+const bin = candidates.find((path) => existsSync(path));
+if (!bin) {
+  console.error(
+    `lsp client: no binary at ${candidates.join(' or ')}; ` +
+      'build it with `moon build --target native --release cmd/lsp`',
+  );
   process.exit(2);
 }
 
