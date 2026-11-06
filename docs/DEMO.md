@@ -223,4 +223,4 @@ node web/presets.mjs
 
 Expected: 0 errors, `Total tests: 338, passed: 338, failed: 0`,
 `corpus ok: 10 examples, headers and expected.json agree`, `cli smoke ok`,
-`web smoke ok: 7006 bytes`, `playground presets ok`.
+`web smoke ok: 7007 bytes`, `playground presets ok`.

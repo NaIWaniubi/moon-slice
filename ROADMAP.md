@@ -47,13 +47,15 @@ deliberately missing and in what order it makes sense to add it.
 - **Hover and quick fixes** (0.9.0): hover answers with the backward slice for
   the line, and the code action appends the same suppression directive the CLI
   honours.
+- **Both directions and the whole package** (0.10.0): hover also returns the
+  forward slice, and the server analyses sibling files on open/save so
+  `unused-function` reaches the editor.
 
 ## Next
 
-1. **Package-wide diagnostics.** Today the server is single-file by design; a
-   workspace scan would need incremental parsing to stay responsive.
-2. **Forward slice on demand.** Hover answers "where did this come from"; a
-   command could answer "what does this affect" with the same pipeline.
+1. **Incremental re-analysis.** The package scan re-reads every file on each
+   save. Caching by modification time would keep it cheap on large packages
+   without changing what it reports.
 
 ## Considered, not planned
 

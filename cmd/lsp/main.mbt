@@ -156,36 +156,32 @@ fn findings_for(source : String, uri : String) -> Array[Finding] {
 }
 
 ///|
+fn finding_entry(finding : Finding) -> String {
+  let line = if finding.line > 0 { finding.line - 1 } else { 0 }
+  "{\"range\":{\"start\":{\"line\":" +
+  line.to_string() +
+  ",\"character\":" +
+  finding.start_col.to_string() +
+  "},\"end\":{\"line\":" +
+  line.to_string() +
+  ",\"character\":" +
+  finding.end_col.to_string() +
+  "}},\"severity\":" +
+  (if finding.rule == "parse-error" { "1" } else { "2" }) +
+  ",\"source\":\"moon-slice\",\"code\":" +
+  json_string(finding.rule) +
+  ",\"message\":" +
+  json_string(finding.message) +
+  "}"
+}
+
+///|
 fn diagnostics_json(source : String, uri : String) -> String {
-  let out = StringBuilder()
-  let findings = findings_for(source, uri)
-  out.write_string("[")
-  let mut first = true
-  for finding in findings {
-    if !first {
-      out.write_char(',')
-    }
-    first = false
-    let line = if finding.line > 0 { finding.line - 1 } else { 0 }
-    out.write_string("{\"range\":{\"start\":{\"line\":")
-    out.write_string(line.to_string())
-    out.write_string(",\"character\":")
-    out.write_string(finding.start_col.to_string())
-    out.write_string("},\"end\":{\"line\":")
-    out.write_string(line.to_string())
-    out.write_string(",\"character\":")
-    out.write_string(finding.end_col.to_string())
-    out.write_string("}},\"severity\":")
-    // A parser failure is an error; a dead store is a warning.
-    out.write_string(if finding.rule == "parse-error" { "1" } else { "2" })
-    out.write_string(",\"source\":\"moon-slice\",\"code\":")
-    out.write_string(json_string(finding.rule))
-    out.write_string(",\"message\":")
-    out.write_string(json_string(finding.message))
-    out.write_string("}")
+  let entries : Array[String] = []
+  for finding in findings_for(source, uri) {
+    entries.push(finding_entry(finding))
   }
-  out.write_string("]")
-  out.to_string()
+  entries_json(entries)
 }
 
 ///|
@@ -219,6 +215,18 @@ fn line_length(source : String, line0 : Int) -> Int {
 
 ///|
 /// Hover: the backward slice for the line under the cursor, as Markdown.
+///|
+fn append_lines(text : StringBuilder, lines : Array[Int32]) -> Unit {
+  let mut first = true
+  for line in lines {
+    if !first {
+      text.write_string(", ")
+    }
+    first = false
+    text.write_string(line.to_string())
+  }
+}
+
 fn hover_result(uri : String, line0 : Int) -> String {
   let source = match documents.get(uri) {
     Some(text) => text
@@ -235,20 +243,17 @@ fn hover_result(uri : String, line0 : Int) -> String {
       let defuse = @defuse.analyze(program, cfg)
       let cdg = @cdg.build(program, cfg)
       let pdg = @pdg.build(defuse, cdg)
-      let result = @slice.backward(pdg, node, program=program)
-      let lines = @query.visible_lines(program, result.nodes)
+      let backward = @slice.backward(pdg, node, program=program)
+      let forward = @slice.forward(pdg, node, program=program)
       let text = StringBuilder()
       text.write_string("**backward slice** — ")
-      text.write_string(result.nodes.length().to_string())
+      text.write_string(backward.nodes.length().to_string())
       text.write_string(" statement(s) reach this line\n\nlines: ")
-      let mut first = true
-      for line in lines {
-        if !first {
-          text.write_string(", ")
-        }
-        first = false
-        text.write_string(line.to_string())
-      }
+      append_lines(text, @query.visible_lines(program, backward.nodes))
+      text.write_string("\n\n**forward slice** — ")
+      text.write_string(forward.nodes.length().to_string())
+      text.write_string(" statement(s) this line affects\n\nlines: ")
+      append_lines(text, @query.visible_lines(program, forward.nodes))
       "{\"contents\":{\"kind\":\"markdown\",\"value\":" +
       json_string(text.to_string()) +
       "},\"range\":{\"start\":{\"line\":" +
@@ -394,6 +399,7 @@ async fn handle_message(text : String) -> Bool {
                 (Some(String(uri)), Some(String(source))) => {
                   documents.set(uri, source)
                   publish(uri)
+                  publish_package(uri)
                 }
                 _ => ()
               }
@@ -431,6 +437,20 @@ async fn handle_message(text : String) -> Bool {
         _ => ()
       }
     }
+    "textDocument/didSave" => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match params.get("textDocument") {
+            Some(Object(document)) =>
+              match document.get("uri") {
+                Some(String(uri)) => publish_package(uri)
+                _ => ()
+              }
+            _ => ()
+          }
+        _ => ()
+      }
+    }
     "textDocument/didClose" => {
       match object.get("params") {
         Some(Object(params)) =>
@@ -460,6 +480,165 @@ async fn handle_message(text : String) -> Bool {
     }
   }
   true
+}
+
+///|
+/// `file:///c:/dir/a.mbt` -> `c:/dir/a.mbt`; `%20` becomes a space. Only the
+/// forms editors actually send are handled; anything else returns `None`.
+fn uri_to_path(uri : String) -> String? {
+  if !uri.has_prefix("file://") {
+    return None
+  }
+  let mut path = uri[7:].to_owned()
+  match path.get_char(2) {
+    Some(':') => path = path[1:].to_owned()
+    _ => ()
+  }
+  Some(path.replace_all(old="%20", new=" "))
+}
+
+///|
+fn path_to_uri(path : String) -> String {
+  let out = StringBuilder()
+  for ch in path.iter() {
+    if ch == '\\' {
+      out.write_char('/')
+    } else {
+      out.write_char(ch)
+    }
+  }
+  let normalized = out.to_string()
+  if normalized.has_prefix("/") {
+    "file://" + normalized
+  } else {
+    "file:///" + normalized
+  }
+}
+
+///|
+fn parent_dir(path : String) -> String {
+  let mut last = -1
+  let mut i = 0
+  for ch in path.iter() {
+    if ch == '/' || ch == '\\' {
+      last = i
+    }
+    i = i + 1
+  }
+  if last <= 0 {
+    "."
+  } else {
+    path[:last].to_owned()
+  }
+}
+
+///|
+async fn read_text(path : String) -> String? {
+  let data = @fs.read_file(path) catch {
+    _ => return None
+  }
+  Some(@utf8.decode_lossy(data.binary()))
+}
+
+///|
+fn unused_entry(item : @liveness.UnusedFn) -> String {
+  let line = if item.line > 0 { item.line - 1 } else { 0 }
+  "{\"range\":{\"start\":{\"line\":" +
+  line.to_string() +
+  ",\"character\":0},\"end\":{\"line\":" +
+  line.to_string() +
+  ",\"character\":0}},\"severity\":2,\"source\":\"moon-slice\",\"code\":\"unused-function\",\"message\":" +
+  json_string(
+    "private function `" + item.name + "` is never referenced in its package",
+  ) +
+  "}"
+}
+
+///|
+fn entries_json(entries : Array[String]) -> String {
+  let out = StringBuilder()
+  out.write_string("[")
+  let mut first = true
+  for entry in entries {
+    if !first {
+      out.write_char(',')
+    }
+    first = false
+    out.write_string(entry)
+  }
+  out.write_string("]")
+  out.to_string()
+}
+
+///|
+/// Package-wide pass: every `.mbt` file next to the edited one is analysed as
+/// one package, so `unused-function` works across files. The buffer is used for
+/// the file the editor has open; everything else is read from disk.
+async fn publish_package(anchor_uri : String) -> Unit {
+  let anchor = match uri_to_path(anchor_uri) {
+    Some(path) => path
+    None => return
+  }
+  let directory = parent_dir(anchor)
+  let names = @fs.readdir(directory) catch {
+    _ => return
+  }
+  let facts : Array[@liveness.FileFacts] = []
+  let paths : Array[String] = []
+  for name in names {
+    if name.has_suffix(".mbt") {
+      let full = directory + "/" + name
+      match read_text(full) {
+        Some(text) => {
+          facts.push(@liveness.collect(full, text))
+          paths.push(full)
+        }
+        None => ()
+      }
+    }
+  }
+  let findings = @liveness.unused_functions(facts)
+  let by_file : Map[String, Array[@liveness.UnusedFn]] = Map([])
+  for item in findings {
+    let list = match by_file.get(item.path) {
+      Some(list) => list
+      None => {
+        let fresh : Array[@liveness.UnusedFn] = []
+        by_file.set(item.path, fresh)
+        fresh
+      }
+    }
+    list.push(item)
+  }
+  for full in paths {
+    let uri = path_to_uri(full)
+    let entries : Array[String] = []
+    if uri == anchor_uri {
+      let source = match documents.get(uri) {
+        Some(text) => text
+        None => ""
+      }
+      for finding in findings_for(source, uri) {
+        entries.push(
+          finding_entry(finding),
+        )
+      }
+    }
+    match by_file.get(full) {
+      Some(items) =>
+        for item in items {
+          entries.push(unused_entry(item))
+        }
+      None => ()
+    }
+    send(
+      "{\"jsonrpc\":\"2.0\",\"method\":\"textDocument/publishDiagnostics\",\"params\":{\"uri\":" +
+      json_string(uri) +
+      ",\"diagnostics\":" +
+      entries_json(entries) +
+      "}}",
+    )
+  }
 }
 
 ///|

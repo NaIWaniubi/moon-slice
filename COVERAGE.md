@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-11-06 (v0.9.0) with the legacy MoonBit reporter:
+Measured on 2026-11-06 (v0.10.0) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze
@@ -26,7 +26,7 @@ the numbers below use.
 | `src/suppress/suppress.mbt` | 82/83 |
 | `cmd/main/main.mbt` | 22/827 |
 | `cmd/main/review.mbt` | 71/155 |
-| **Total** | **2618/4130** |
+| **Total** | **2618/4230** |
 
 Library packages only (excluding `cmd/`): **2525/2822 = 89.5%**.
 

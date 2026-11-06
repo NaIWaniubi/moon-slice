@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.10.0 — 2026-11-06
+
+The editor surface now covers both directions and the whole package.
+
+- **Hover answers both questions.** One hover returns the backward slice (where
+  this line's value came from) and the forward slice (what this line affects),
+  each with its statement count and line list, from the same PDG.
+- **Package-wide diagnostics.** Opening or saving a file analyses every `.mbt`
+  file next to it as one package, so `unused-function` is reported for sibling
+  files too — the editor sees the same findings as `unused --dir`. The open
+  buffer is used for the file being edited; everything else is read from disk,
+  and the package scan refreshes on open/save rather than on every keystroke.
+- **The client test proves it.** It creates a temporary package with an unused
+  private function in a sibling file, opens only the other file through LSP, and
+  asserts the `unused-function` diagnostic arrives for the file it never opened.
+- 376 unit tests unchanged; the new coverage is end-to-end on Linux and Windows.
+
 ## 0.9.0 — 2026-11-06
 
 The Language Server does more than underline findings.

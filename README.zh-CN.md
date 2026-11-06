@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.9.0
+moon add NaIWaniubi/moon-slice@0.10.0
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -118,12 +118,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.9.0
+- uses: NaIWaniubi/moon-slice@v0.10.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.9.0
+- uses: NaIWaniubi/moon-slice@v0.10.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
@@ -321,8 +321,9 @@ node test/lsp_client.mjs
 # lsp client ok: initialize, diagnostics, change, shutdown, exit
 ```
 
-全量文本同步，发布 `dead-store`、`unreachable-code` 与解析失败；改一次缓冲就重算一次。
-光标悬停显示该行的向后切片，quick fix 直接插入 `// moon-slice: ignore[rule]`——
+全量文本同步，发布 `dead-store`、`unreachable-code`、解析失败，打开/保存时对整个包
+额外发布 `unused-function`；改一次缓冲就重算单文件那部分。光标悬停同时给出两个方向：
+这行的值从哪来、改动会影响谁。quick fix 直接插入 `// moon-slice: ignore[rule]`——
 和 CLI 认的是同一条指令。
 VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式见 `docs/LSP.md`。它刻意只做
 单文件——回答"这一行是不是死的"，而不是整包调用图（那是 CLI 的活）。

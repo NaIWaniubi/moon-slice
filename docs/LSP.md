@@ -19,8 +19,8 @@ to stdout. Editors start it themselves.
 | Capability | Behaviour |
 | --- | --- |
 | `textDocumentSync` | `1` (full text) — every change replaces the buffer |
-| Diagnostics | `dead-store`, `unreachable-code` and parser failures |
-| `textDocument/hover` | the backward slice for the line under the cursor |
+| Diagnostics | `dead-store`, `unreachable-code`, parser failures; `unused-function` for the whole package on open/save |
+| `textDocument/hover` | both slices for the line: backward (where it came from) and forward (what it affects) |
 | `textDocument/codeAction` | quick fix appending `// moon-slice: ignore[rule]` |
 | `shutdown` / `exit` | handled, so a client can close cleanly |
 

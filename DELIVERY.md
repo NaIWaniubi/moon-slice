@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-06 (v0.9.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-06 (v0.10.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## Verification run in this session
@@ -11,7 +11,7 @@ Live playground: https://NaIWaniubi.github.io/moon-slice/
 | `./dev.sh test` | `Total tests: 376, passed: 376, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
-| `node web/smoke.mjs` | `web smoke ok: 7006 bytes` (JS engine, full HTML report) |
+| `node web/smoke.mjs` | `web smoke ok: 7007 bytes` (JS engine, full HTML report) |
 | `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6960 bytes, second=rendered 6998 bytes, markerPreserved=true` |
 | `./dev.sh run cmd/main -- graph --file <missing>` | exit 2, `error: failed to read ...` |
 | `./dev.sh run cmd/main -- slice --file F --line 7 --direction sideways` | exit 2, `error: unsupported --direction ...` |
@@ -488,12 +488,12 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.9.0.zip` (1,215,614 bytes, 151 files)
-- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.9.0`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.10.0.zip` (1,217,759 bytes, 151 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.10.0`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
 - [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 9 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
 - [x] receiver edges in the interprocedural expansion, and inherent methods as liveness candidates (trait impls and `_` names excluded), re-calibrated on 2158 upstream files
 - [x] in-source suppressions: `// moon-slice: ignore[rule]`, 21 unit tests plus CLI smoke cases for the single-file and package forms
-- [x] editor integration: `cmd/lsp` speaks LSP over stdio, publishes dead-store / unreachable-code diagnostics, answers hover with the backward slice and offers a suppression quick fix; `test/lsp_client.mjs` drives the real binary in CI
+- [x] editor integration: `cmd/lsp` speaks LSP over stdio, publishes dead-store / unreachable-code / package-wide unused-function diagnostics, answers hover with both slices and offers a suppression quick fix; `test/lsp_client.mjs` drives the real binary in CI
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
 - [x] registration submitted by the author ahead of the deadline; the guide's remaining expectation is a repository that stays current, which is what every commit after it keeps true
