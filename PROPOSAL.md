@@ -1,46 +1,45 @@
 # moon-slice 项目申报书
 
-## 基本信息
+## 1 项目名称
 
-- 项目名称：moon-slice — MoonBit 程序切片与依赖图工作台
-- 参赛者：陈勇润（GitHub：NaIWaniubi）
-- 联系方式：见报名表（邮箱 / 手机）
-- GitHub 仓库链接：https://github.com/NaIWaniubi/moon-slice
-- 项目方向：MoonBit 程序分析基础库 / 开发者工具
-- 是否为移植项目：否（原创项目，算法参考公开论文）
+moon-slice — MoonBit 程序切片与依赖图工作台
 
-## 项目简介
+## 2 项目简介
 
-moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一个 `.mbt` 文件（或整个包）与目标语句，它基于 MoonBit 官方 parser 构建控制流图、定义-使用链、控制依赖图与程序依赖图，输出向后切片（这个值从哪来）、向前切片（改这里会影响谁）、死代码与无人调用的私有函数、以及调用点查询，并给出 JSON / DOT / SARIF / 自包含 HTML 报告与浏览器 playground。
+moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一个 `.mbt` 文件（或整个包）与目标语句，它基于 MoonBit 官方 parser 构建控制流图、定义-使用链、控制依赖图与程序依赖图，输出向后切片（这个值从哪来）、向前切片（改这里会影响谁）、死代码与无人调用的私有函数、调用点查询，并给出 JSON / DOT / SARIF / 自包含 HTML 报告与浏览器 playground。
 
-项目面向在 MoonBit 中做重构、调试、代码审查与 CI 质量门禁的库作者和团队：把"这次改动影响了什么""哪段代码已经死了"变成可复现的命令行输出和可上传的 SARIF。已发布到 mooncakes.io（https://mooncakes.io/docs/NaIWaniubi/moon-slice），`moon add` 即可安装；11 月新增：整包扫描按 mtime 增量（217 文件包热扫描 0.2 s）、`unused` 线性化。
+项目面向在 MoonBit 中做重构、调试、代码审查与 CI 质量门禁的库作者和团队：把"这次改动影响了什么""哪段代码已经死了"变成可复现的命令行输出和可上传的 SARIF。已发布到 mooncakes.io（https://mooncakes.io/docs/NaIWaniubi/moon-slice），`moon add` 即可安装；11 月新增整包扫描按 mtime 增量（217 文件包热扫描 0.2 s）与 `unused` 线性化。
 
-## 核心功能范围
+## 3 项目方向与通用性
 
-- MoonBit 官方 parser 适配与语句级 IR（`SNode` / `VarId` / `Loc`），覆盖自由函数、`impl` 方法与 `view` 方法体；
-- CFG（顺序、分支、循环、跳转）、reaching definitions、控制依赖（结构化与后支配两种）、PDG；
-- 向后/向前切片，输出节点集合与源码行号；一行多语句时列出候选并用 `--node` 精确选择；
-- 包级过程间切片：`slice --dir D --file F --line N --interprocedural` 跨文件展开被调函数（裸调用展开整个函数体，有返回值的调用只展开返回值 cone；类型有标注的 `p.f()` 也会展开到 `T::f` 的函数体）；
-- 死代码：`dead`（无使用赋值 + 不可达语句）与 `unused`（整包无人调用的私有函数与固有方法；trait 方法与 `_` 前缀除外，尊重 `#warnings("-unused_value")`）；
-- 就地抑制：`// moon-slice: ignore[rule]` 写在告警所在行或其上一行，随代码移动，比按行号记录更耐改；
-- 反向查询：`callers --dir D --name F` 列出包内全部调用点及所属函数，含限定调用 `T::f(x)`；
-- 改动影响分析：`review --diff` 对 git diff 的每个新增行做向前切片，汇总受影响行与函数；
-- CI 集成：SARIF 2.1.0（`dead-store` / `unreachable-code` / `unused-function` / `data-flow-path`）、基线抑制 `--baseline`、门禁 `--fail-on-findings`、GitHub composite action；
-- 报告与演示：JSON / DOT / 内联 SVG / 自包含 HTML；浏览器 playground 支持点行切片、示例预设与分享链接；
-- 编辑器集成：`moon-slice-lsp` 通过 LSP over stdio 发布死存储、不可达与整包 unused 诊断，hover 同时给出该行向后的切片与向前的影响，quick fix 插入抑制指令；CI 用真实客户端验证；
-- 质量证据：381 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码切片 0 误报；2158 文件上游代码存活分析 10 处命中且全部为真实死代码；
-- 工程化：零警告构建；GitHub Actions CI 覆盖 check / build / test / CLI smoke / playground presets / action 自测；Apache-2.0；`moon package` 打包验证。
+- 方向：开发者工具 —— LSP、CLI 与开发体验。
+- 通用性：不绑定业务域，任意 MoonBit 包都是输入；只依赖官方 parser 的 AST，不要求被分析代码使用特定框架；输出为标准 JSON、SARIF 2.1.0、DOT 与自包含 HTML，可直接接 CI、代码扫描与文档；分析全在本地完成，无网络依赖。
 
-## 移植或参考说明
+## 4 预期使用场景
 
-- 原项目名称：无（原创项目，未移植任何现有代码）
-- 参考实现：算法参考 Weiser《Program Slicing》(1981)、Ferrante–Ottenstein–Warren《The Program Dependence Graph and Its Use in Optimization》(1987)
-- 依赖库：`moonbitlang/parser` 0.4.6、`moonbitlang/x` 0.5.1（均为 Apache-2.0）
-- 本项目许可证：Apache-2.0
+1. **重构前评估影响面**：`review --diff` 对 git diff 的每个新增行做向前切片，输出「改了 1 行 → 影响 2 行」及受影响函数，替代人工通读。
+2. **CI 质量门禁**：`dead --dir` / `unused --dir` 配 `--fail-on-findings` 与基线抑制，结果以 SARIF 上传 GitHub code scanning，PR 上直接看到新增死代码。
+3. **编辑器内边写边查**：`moon-slice-lsp` 发布死存储 / 不可达 / 整包 unused 诊断，hover 同时给出向后切片与向前影响，quick fix 插入 `// moon-slice: ignore[...]`。
+4. **读陌生代码**：选中一行问「这个值从哪来」，切片列出构成它的语句行号，比全文搜索可靠。
 
-与已有切片工具相比，本项目做以下取舍：
+## 5 拟实现的核心功能
 
-- 只做静态切片，不做动态切片与符号执行；无法判定的分支按保守方向超近似（宁可多给一行，不漏一行）；
-- 过程间展开不做实参到形参的位置映射——MoonBit 有默认参数与具名参数，位置映射会漏掉真实依赖，改为整返回值 cone；
-- 方法派发（`x.f()`）只在类型由源码写明时解析（参数 / let、返回类型、具名记录、字段、别名、let/match payload、self；声明跨文件合并），且同包必须声明该类型方法；过程间切片跟进此边，取整个函数体以免低估副作用；
-- 直接复用官方 parser 的 AST；解析失败按文件报告，不猜测结果。
+- 语句级 IR 与 CFG、reaching definitions、控制依赖（结构化 + 后支配）、PDG；
+- 向后 / 向前切片，输出节点集合与源码行号，一行多语句用 `--node` 精确选择；
+- 包级过程间切片：跨文件展开被调函数（裸调用整函数体、返回值调用只展开返回 cone、`p.f()` 展开到 `T::f`）；
+- 死代码 `dead`（无使用赋值 + 不可达）与 `unused`（整包无人调用的私有函数与固有方法）；
+- 就地抑制、SARIF 2.1.0、基线、门禁、GitHub composite action；
+- LSP（诊断 / 双向 hover / quick fix）与浏览器 playground；
+- 质量证据：381 个测试、585 文件 / 98,384 行真实代码 0 误报、2158 文件上游存活分析 10 处真实死代码。
+
+## 6 原创性
+
+原创项目，未移植任何现有代码。算法参考 Weiser《Program Slicing》(1981) 与 Ferrante–Ottenstein–Warren《The Program Dependence Graph and Its Use in Optimization》(1987) 的公开论文，实现为独立代码。
+
+## 7 移植或参考说明
+
+不适用（非移植项目）。依赖 `moonbitlang/parser` 0.4.6 与 `moonbitlang/x` 0.5.1，均为 Apache-2.0；本项目 Apache-2.0，第三方清单见 `THIRD_PARTY.md`。
+
+## 8 GitHub 仓库链接
+
+https://github.com/NaIWaniubi/moon-slice —— 60+ commits（无空提交与拆分提交），CI 与 Pages 均为绿色，最新发布 `NaIWaniubi/moon-slice@0.10.2`。

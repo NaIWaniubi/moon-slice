@@ -19,9 +19,9 @@ SOURCE = os.path.join(ROOT, 'PROPOSAL.md')
 TARGET = os.path.join(ROOT, 'submission', 'PROPOSAL.docx')
 
 BODY_FONT = 'Microsoft YaHei'
-BODY_PT = 9.0
-TITLE_PT = 17
-HEADING_PT = 11.5
+BODY_PT = 9.6
+TITLE_PT = 18
+HEADING_PT = 12.2
 
 
 def set_font(run, name=BODY_FONT, size=BODY_PT, bold=None):
