@@ -494,7 +494,7 @@ Findings from an independent audit, all fixed with regression coverage:
   path/unreachable tests
 - [x] zero compiler warnings
 - [x] CLI smoke test with every command, JSON mode and malformed input
-- [x] library line coverage 89.2% (see COVERAGE.md; legacy reporter)
+- [x] library line coverage 89.5% (see COVERAGE.md; legacy reporter)
 - [x] inline-SVG HTML report + `docs/report.png`
 - [x] browser playground (`web/index.html`, prebuilt JS engine, smoke test)
 - [x] GitHub Pages workflow for `web/`
@@ -515,12 +515,13 @@ Findings from an independent audit, all fixed with regression coverage:
 - [x] contribution guide, roadmap, and issue forms
 - [x] acceptance checklist mapping every guide item (`ACCEPTANCE.md`)
 - [x] third-party license inventory (`THIRD_PARTY.md`)
-- [x] `moon package` produces `NaIWaniubi-moon-slice-0.10.0.zip` (1,217,759 bytes, 151 files)
-- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.10.0`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
+- [x] `moon package` produces `NaIWaniubi-moon-slice-0.10.1.zip` (1,229,343 bytes, 156 files)
+- [x] `moon publish` to mooncakes.io — `NaIWaniubi/moon-slice@0.10.1`, `Server status: 200 OK`; consumed from a clean module via `moon add` (see `PUBLISHING.md`)
 - [x] receiver calls in `callers` (`x.f()` when the type is written in the source and the package declares the method): 18 + 9 tests, a CLI smoke case, and a real run on `moonbitlang/parser/syntax`
 - [x] receiver edges in the interprocedural expansion, and inherent methods as liveness candidates (trait impls and `_` names excluded), re-calibrated on 2158 upstream files
 - [x] in-source suppressions: `// moon-slice: ignore[rule]`, 21 unit tests plus CLI smoke cases for the single-file and package forms
 - [x] editor integration: `cmd/lsp` speaks LSP over stdio, publishes dead-store / unreachable-code / package-wide unused-function diagnostics, answers hover with both slices and offers a suppression quick fix; `test/lsp_client.mjs` drives the real binary in CI
+- [x] incremental package scans: a file whose mtime and size are unchanged is neither read nor parsed again (217-file package: 2.0–2.8 s cold, 0.20–0.23 s warm), with the client test asserting the hit and the invalidation
 - [x] live playground verified at https://NaIWaniubi.github.io/moon-slice/
 - [x] author filled in `PROPOSAL.md` (name + school; email/phone deliberately stay out of the public repository)
 - [x] registration submitted by the author ahead of the deadline; the guide's remaining expectation is a repository that stays current, which is what every commit after it keeps true

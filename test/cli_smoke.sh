@@ -63,8 +63,10 @@ expect_json_error() {
   fi
 }
 
-# Version and help
-expect_eq "moon-slice 0.10.0" version
+# Version and help. The expected version comes from moon.mod, so a
+# release that bumps one and forgets the other fails here.
+manifest_version="$(sed -n 's/^version = "\(.*\)"$/\1/p' moon.mod | head -1)"
+expect_eq "moon-slice $manifest_version" version
 expect_contains "Commands:" help
 
 # Core slicing
