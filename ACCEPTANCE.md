@@ -1,18 +1,18 @@
 # 验收对照表
 
 按「2026 MoonBit 国产基础软件开源大赛-10 月黑客松」验收指南逐条对照。所有
-命令都在仓库根目录执行；当前版本 `v0.10.0`，`master` 已有 50+ 个提交。
+命令都在仓库根目录执行；当前版本 `v0.10.1`，`master` 已有 60+ 个提交。
 
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，50+ commits，tag `v0.10.0` |
-| 3 | 源代码结构清晰，核心功能可完成 | 通过 | 13 个库包（core / parser_adapter / cfg / defuse / cdg / pdg / slice / query / liveness / interproc / suppress / report / web）+ CLI + LSP 服务；见下方命令 |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，60+ commits，tag `v0.10.1` |
+| 3 | 源代码结构清晰，核心功能可完成 | 通过 | 14 个库包（core / parser_adapter / cfg / defuse / cdg / pdg / slice / query / liveness / interproc / suppress / report / scan / web）+ CLI + LSP 服务；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
-| 7 | 完整测试覆盖核心路径 | 通过 | 376 个测试 + corpus + CLI smoke + web smoke |
-| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.10.0` 已上线（`Server status: 200 OK`），见第 8 节 |
+| 7 | 完整测试覆盖核心路径 | 通过 | 381 个测试 + corpus + CLI smoke + web smoke |
+| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.10.1` 已上线（`Server status: 200 OK`），见第 8 节 |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
 ## 1. MoonBit 为主要实现语言
@@ -113,7 +113,7 @@ node web/smoke.mjs
 
 ```bash
 ./dev.sh test
-# Total tests: 376, passed: 376, failed: 0.
+# Total tests: 381, passed: 381, failed: 0.
 ```
 
 覆盖层次：
@@ -124,13 +124,13 @@ node web/smoke.mjs
   结构不变量、切片闭包、行投影、过程间超集
 - 端到端：10 个 corpus 示例的精确行集合
 - CLI：`test/cli_smoke.sh`（所有命令、JSON/SARIF、基线、就地抑制、门禁退出码、错误路径）
-- LSP：`test/lsp_client.mjs`（真实客户端驱动：握手、诊断行号、hover 双向切片、quick fix 指令、改缓冲区后诊断清零、跨文件 unused 诊断、退出码）
+- LSP：`test/lsp_client.mjs`（真实客户端驱动：握手与 `serverInfo.version`、诊断行号、hover 双向切片、quick fix 指令、改缓冲区后诊断清零、跨文件 unused 诊断、二次保存 0 重读、改磁盘文件后重读 1 个、退出码）
 - 浏览器：`web/smoke.mjs` 与真实 Chrome 的 `web/playground_e2e.mjs`
 
 ## 8. mooncakes.io
 
 **已发布**：`NaIWaniubi/moon-slice@0.7.0`（2026-10-31）、`@0.7.1`（2026-11-01，
-仓库、清单、注册表三者对齐）、`@0.7.2`（就地抑制）、`@0.7.3`（接收者调用）、`@0.7.4`（切片跟进接收者调用 + 方法存活）、`@0.7.5`（`data-flow-path` SARIF 规则）、`@0.7.6`（更广的接收者类型证据）、`@0.7.7`（字段类型）、`@0.7.8`（`let` 模式 payload）、`@0.7.9`（`match` 分支 + 跨文件声明合并）、`@0.8.0`（LSP 服务）、`@0.8.1`（跨版本修正）、`@0.9.0`（hover 切片 + quick fix）、`@0.10.0`（双向切片 + 整包诊断）。
+仓库、清单、注册表三者对齐）、`@0.7.2`（就地抑制）、`@0.7.3`（接收者调用）、`@0.7.4`（切片跟进接收者调用 + 方法存活）、`@0.7.5`（`data-flow-path` SARIF 规则）、`@0.7.6`（更广的接收者类型证据）、`@0.7.7`（字段类型）、`@0.7.8`（`let` 模式 payload）、`@0.7.9`（`match` 分支 + 跨文件声明合并）、`@0.8.0`（LSP 服务）、`@0.8.1`（跨版本修正）、`@0.9.0`（hover 切片 + quick fix）、`@0.10.0`（双向切片 + 整包诊断）、`@0.10.1`（增量整包扫描）。
 
 ```bash
 moon publish
@@ -144,18 +144,18 @@ moon publish
 发布产物与消费验证（在空模块里只依赖已发布版本，不读工作区源码）：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.10.0
-# Downloading NaIWaniubi/moon-slice@0.10.0
+moon add NaIWaniubi/moon-slice@0.10.1
+# Downloading NaIWaniubi/moon-slice@0.10.1
 moon run cmd/main
-# backward-lines=[4]
-# line=1
+# lines=4
 # line=2
 # line=3
 # line=4
+# line=5
 ```
 
-打包结果：`_build/publish/NaIWaniubi-moon-slice-0.10.0.zip`（1,217,759 字节，
-151 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
+打包结果：`_build/publish/NaIWaniubi-moon-slice-0.10.1.zip`（1,229,343 字节，
+156 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
 才上传。
 
 发布细节、命名空间不匹配时的改名步骤、以及 CI 发布选项见 `PUBLISHING.md`。

@@ -13,6 +13,7 @@ import {
   "NaIWaniubi/moon-slice/src/pdg",
   "NaIWaniubi/moon-slice/src/query",
   "NaIWaniubi/moon-slice/src/report",
+  "NaIWaniubi/moon-slice/src/scan",
   "NaIWaniubi/moon-slice/src/slice",
 }
 

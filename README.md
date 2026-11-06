@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (376 tests, including a
+All layers are implemented and covered by `moon test` (381 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -633,17 +633,18 @@ in your editor while you type:
 ```bash
 ./dev.sh build --target native --release cmd/lsp
 node test/lsp_client.mjs
-# lsp client ok: initialize, diagnostics, change, shutdown, exit
+# lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit
 ```
 
 It uses full-text sync and publishes `dead-store`, `unreachable-code`, parser
 failures and — for the whole package on open/save — `unused-function` as
 diagnostics; editing the buffer recomputes the per-file ones. Hover on a line
 shows both slices: where the value came from and what it affects. A quick fix
-appends `// moon-slice: ignore[rule]`, the same directive the CLI honours. Setup for VS Code
-and Neovim, and the exact framing the client test exercises, are in
-[docs/LSP.md](docs/LSP.md). It is deliberately single-file: "is this line dead?"
-while typing, not a package-wide call graph — that is what the CLI is for.
+appends `// moon-slice: ignore[rule]`, the same directive the CLI honours. The
+package pass is incremental: a file whose modification time and size are
+unchanged is not read or parsed again, so a save costs one stat per untouched
+file. Setup for VS Code and Neovim, the exact framing the client test exercises,
+and the scan benchmark are in [docs/LSP.md](docs/LSP.md).
 
 ## Verifying the corpus
 

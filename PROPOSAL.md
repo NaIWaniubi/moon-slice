@@ -29,7 +29,7 @@ moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一
 - CI 集成：SARIF 2.1.0（`dead-store` / `unreachable-code` / `unused-function` / `data-flow-path`）、基线抑制 `--baseline`、门禁 `--fail-on-findings`、GitHub composite action；
 - 报告与演示：JSON / DOT / 内联 SVG / 自包含 HTML；浏览器 playground 支持点行切片、示例预设与分享链接；
 - 编辑器集成：`moon-slice-lsp` 通过 LSP over stdio 发布死存储、不可达与整包 unused 诊断，hover 同时给出该行向后的切片与向前的影响，quick fix 插入抑制指令；CI 用真实客户端验证；
-- 质量证据：376 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码切片 0 误报；2158 文件上游代码存活分析 10 处命中且全部为真实死代码；
+- 质量证据：381 个测试（含独立路径枚举预言器、种子化属性测试、真实仓库回归）；585 文件 / 98,384 行真实代码切片 0 误报；2158 文件上游代码存活分析 10 处命中且全部为真实死代码；
 - 工程化：零警告构建；GitHub Actions CI 覆盖 check / build / test / CLI smoke / playground presets / action 自测；Apache-2.0；`moon package` 打包验证。
 
 ## 移植或参考说明

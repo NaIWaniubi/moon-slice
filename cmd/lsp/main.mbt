@@ -11,6 +11,16 @@
 let documents : Map[String, String] = Map([])
 
 ///|
+/// The facts from each directory's last package scan, so saving a file only
+/// re-reads what changed.
+let scan_cache : @scan.Cache = @scan.Cache::new()
+
+///|
+/// Reported in `serverInfo`. Kept in step with `moon.mod` by the release
+/// checklist; the client test fails when the two disagree.
+let lsp_version : String = "0.10.1"
+
+///|
 fn hex_char(value : Int) -> Char {
   if value < 10 {
     ('0'.to_int() + value).unsafe_to_char()
@@ -320,7 +330,9 @@ async fn handle_message(text : String) -> Bool {
     "initialize" =>
       send_response(
         id,
-        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":0}}",
+        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":" +
+        json_string(lsp_version) +
+        "}}",
       )
     "initialized" => ()
     "shutdown" => send_response(id, "null")
@@ -398,8 +410,11 @@ async fn handle_message(text : String) -> Bool {
               match (document.get("uri"), document.get("text")) {
                 (Some(String(uri)), Some(String(source))) => {
                   documents.set(uri, source)
-                  publish(uri)
-                  publish_package(uri)
+                  // The package pass publishes the open file too; the
+                  // file-local pass only covers a directory it cannot list.
+                  if !publish_package(uri) {
+                    publish(uri)
+                  }
                 }
                 _ => ()
               }
@@ -443,7 +458,10 @@ async fn handle_message(text : String) -> Bool {
           match params.get("textDocument") {
             Some(Object(document)) =>
               match document.get("uri") {
-                Some(String(uri)) => publish_package(uri)
+                Some(String(uri)) =>
+                  if !publish_package(uri) {
+                    publish(uri)
+                  }
                 _ => ()
               }
             _ => ()
@@ -541,6 +559,27 @@ async fn read_text(path : String) -> String? {
 }
 
 ///|
+/// The file's identity on disk: modification time and size. `None` when the
+/// file cannot be stat'ed — it may have been removed between the directory
+/// listing and now, in which case there is nothing to cache anyway.
+async fn file_stamp(path : String) -> @scan.Stamp? {
+  let mtime = @fs.mtime(path) catch {
+    _ => return None
+  }
+  let size = @fs.file_size(path) catch {
+    _ => return None
+  }
+  Some(@scan.Stamp::new(mtime.0, mtime.1, size))
+}
+
+///|
+/// Diagnostics travel to the editor over stdout, so the scan's own account of
+/// itself goes to stderr, where it cannot corrupt the protocol stream.
+async fn log_line(text : String) -> Unit {
+  @stdio.stderr.write("moon-slice: " + text + "\n")
+}
+
+///|
 fn unused_entry(item : @liveness.UnusedFn) -> String {
   let line = if item.line > 0 { item.line - 1 } else { 0 }
   "{\"range\":{\"start\":{\"line\":" +
@@ -574,29 +613,73 @@ fn entries_json(entries : Array[String]) -> String {
 /// Package-wide pass: every `.mbt` file next to the edited one is analysed as
 /// one package, so `unused-function` works across files. The buffer is used for
 /// the file the editor has open; everything else is read from disk.
-async fn publish_package(anchor_uri : String) -> Unit {
+///
+/// A file whose stamp did not change since the last scan is neither read nor
+/// parsed again: `@scan` hands its facts back. The stderr line reports the
+/// split, and is what the client test asserts against.
+///
+/// Returns `false` when the pass could not run, so the caller can fall back to
+/// the file-local diagnostics.
+async fn publish_package(anchor_uri : String) -> Bool {
   let anchor = match uri_to_path(anchor_uri) {
     Some(path) => path
-    None => return
+    None => return false
   }
   let directory = parent_dir(anchor)
   let names = @fs.readdir(directory) catch {
-    _ => return
+    _ => return false
   }
+  let scan = scan_cache.begin(directory)
   let facts : Array[@liveness.FileFacts] = []
   let paths : Array[String] = []
-  for name in names {
-    if name.has_suffix(".mbt") {
-      let full = directory + "/" + name
-      match read_text(full) {
-        Some(text) => {
-          facts.push(@liveness.collect(full, text))
-          paths.push(full)
+  let mut re_read = 0
+  let mut reused = 0
+  // Stamps are independent of each other, and one round trip each is what the
+  // per-file cost was made of on a large package, so they are fetched a few at
+  // a time rather than one after another.
+  let mbt_names = names.filter(fn(name) { name.has_suffix(".mbt") })
+  let stamps : Array[@scan.Stamp?] = @async.all(
+    mbt_names.map(fn(name) { () => file_stamp(directory + "/" + name) }),
+    max_concurrent=32,
+  )
+  for index in 0..<mbt_names.length() {
+    let name = mbt_names[index]
+    let full = directory + "/" + name
+    let uri = path_to_uri(full)
+    let buffer = if uri == anchor_uri { documents.get(uri) } else { None }
+    let stamp = stamps[index]
+    let cached = match stamp {
+      Some(stamp) => scan.reuse(full, stamp, buffer)
+      None => None
+    }
+    match cached {
+      Some(file_facts) => {
+        facts.push(file_facts)
+        paths.push(full)
+        reused = reused + 1
+      }
+      None => {
+        let text = match buffer {
+          Some(text) => Some(text)
+          None => read_text(full)
         }
-        None => ()
+        match text {
+          None => ()
+          Some(text) => {
+            let file_facts = @liveness.collect(full, text)
+            match stamp {
+              Some(stamp) => scan.record(full, stamp, buffer, file_facts)
+              None => ()
+            }
+            facts.push(file_facts)
+            paths.push(full)
+            re_read = re_read + 1
+          }
+        }
       }
     }
   }
+  scan_cache.commit(scan)
   let findings = @liveness.unused_functions(facts)
   let by_file : Map[String, Array[@liveness.UnusedFn]] = Map([])
   for item in findings {
@@ -610,10 +693,12 @@ async fn publish_package(anchor_uri : String) -> Unit {
     }
     list.push(item)
   }
+  let mut anchor_published = false
   for full in paths {
     let uri = path_to_uri(full)
     let entries : Array[String] = []
     if uri == anchor_uri {
+      anchor_published = true
       let source = match documents.get(uri) {
         Some(text) => text
         None => ""
@@ -639,6 +724,40 @@ async fn publish_package(anchor_uri : String) -> Unit {
       "}}",
     )
   }
+  if !anchor_published {
+    // The open file is not among the listed files: a new unsaved buffer, or a
+    // URI that spells the path differently. It still gets its own diagnostics;
+    // leaving the previous ones in place would be worse.
+    let entries : Array[String] = []
+    let source = match documents.get(anchor_uri) {
+      Some(text) => text
+      None => ""
+    }
+    for finding in findings_for(source, anchor_uri) {
+      entries.push(finding_entry(finding))
+    }
+    send(
+      "{\"jsonrpc\":\"2.0\",\"method\":\"textDocument/publishDiagnostics\",\"params\":{\"uri\":" +
+      json_string(anchor_uri) +
+      ",\"diagnostics\":" +
+      entries_json(entries) +
+      "}}",
+    )
+  }
+  // Reported last, so the line means "the whole pass finished", which is what
+  // `bench/scan.mjs` measures.
+  log_line(
+    "package " +
+    directory +
+    ": " +
+    paths.length().to_string() +
+    " files, " +
+    re_read.to_string() +
+    " re-read, " +
+    reused.to_string() +
+    " cached",
+  )
+  true
 }
 
 ///|

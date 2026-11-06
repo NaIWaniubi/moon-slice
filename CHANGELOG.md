@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.10.1 — 2026-11-06
+
+Saving a file no longer re-parses the package around it.
+
+- **Incremental package scans.** Each file is remembered with its modification
+  time and size, and the open file's buffer text is part of its key, so an
+  unsaved edit can never be mistaken for an unchanged file; files that leave the
+  directory are dropped from the cache. On `moonbitlang/core/builtin` (217
+  files) a cold scan takes 2.0–2.8 s and a warm one 0.20–0.23 s — about 10x — and
+  a generated 1200-file package goes from 1.08 s to 0.26 s.
+- **Stamps are fetched concurrently.** Each one is a round trip through the
+  async runtime, so they are issued 32 at a time; that is most of the win on a
+  package with a thousand files.
+- **`unused` is no longer quadratic.** The lexical net that keeps a function
+  alive when its name appears in a comment or an attribute used to rescan every
+  file once per candidate; it now counts every word in the package in one pass.
+  The findings are unchanged — `moonbitlang/parser` still reports the same ten,
+  `moonbitlang/core` still reports none — but the editor's warm scan on
+  `core/builtin` dropped from 2.6 s to 0.2 s.
+- **The scan reports itself.** One stderr line per pass, `N files, R re-read,
+  C cached`; `bench/scan.mjs` turns those lines into the cold and warm numbers
+  above. stdout still carries only the protocol.
+- **`serverInfo.version`** is the version in `moon.mod`, and the client test
+  fails when the two disagree, so a release cannot ship a stale number.
+- **The client test covers the cache.** The first open reads both files of a
+  temporary package, a save re-reads none, a rewritten sibling is read again,
+  and the stale finding on it disappears.
+- 381 tests (five for the cache) and the end-to-end LSP client on Linux and
+  Windows.
+
 ## 0.10.0 — 2026-11-06
 
 The editor surface now covers both directions and the whole package.

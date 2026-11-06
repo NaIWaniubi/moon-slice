@@ -50,12 +50,17 @@ deliberately missing and in what order it makes sense to add it.
 - **Both directions and the whole package** (0.10.0): hover also returns the
   forward slice, and the server analyses sibling files on open/save so
   `unused-function` reaches the editor.
+- **Incremental package scans** (0.10.1): a file whose modification time and
+  size are unchanged is neither read nor parsed again, the open file's buffer
+  text is part of its cache key, and files that leave the directory are dropped
+  instead of accumulating. `bench/scan.mjs` reports cold and warm scans.
 
 ## Next
 
-1. **Incremental re-analysis.** The package scan re-reads every file on each
-   save. Caching by modification time would keep it cheap on large packages
-   without changing what it reports.
+Nothing is queued. An item belongs here only if it is measurable against the
+shipped surface: a false positive, a finding the analysis should have made, or a
+cost that shows up on a real package. `bench/` and the fixtures in `testdata/`
+are where that evidence comes from.
 
 ## Considered, not planned
 

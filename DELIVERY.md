@@ -1,14 +1,41 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-06 (v0.10.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-06 (v0.10.1; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
-## Verification run in this session
+## 0.10.1 — incremental package scans (2026-11-06)
+
+Everything in this section was run against the release binary built from this
+tree.
+
+| Check | Result |
+| --- | --- |
+| `./dev.sh check` | 0 errors, 0 warnings |
+| `./dev.sh test` | `Total tests: 381, passed: 381, failed: 0` |
+| `node test/lsp_client.mjs` | `lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit` |
+| `node bench/scan.mjs --dir ~/.moon/lib/core/builtin --reps 5` | 217 files: cold 2.0–2.8 s, warm 0.20–0.23 s (~10x); the log lines are `217 re-read, 0 cached` then `0 re-read, 217 cached` |
+| `node bench/scan.mjs --files 1200 --reps 7` | 1200 generated files: cold 1.08 s, warm 0.26 s (4.2x) |
+| `dead --dir src --fail-on-findings` | 0 findings, exit 0 |
+| `unused --dir src --fail-on-findings` | 0 findings, exit 0 |
+| `unused --dir .mooncakes/moonbitlang/parser` | the same 10 private helpers as 0.7.x — the word-count rewrite changed the cost, not the answers |
+| `unused --dir .mooncakes/moonbitlang/async` | 0 findings, 1.47 s (362 files) |
+| `unused --dir .mooncakes/moonbitlang/x` | 0 findings, 1.06 s (116 files) |
+| `unused --dir ~/.moon/lib/core` | 0 findings, 6.16 s (946 files) |
+| `unused --dir examples` | 10 findings (the intentional examples) |
+| `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
+| `bash test/cli_smoke.sh` | `cli smoke ok` |
+| `node web/smoke.mjs` | `web smoke ok: 7007 bytes` |
+| `node web/presets.mjs` | `playground presets ok` |
+| `node web/playground_e2e.mjs .` | `playground e2e ok: first=rendered 6961 bytes, second=rendered 6999 bytes, markerPreserved=true` |
+| `slice`/`dead`/`path`/`callgraph` on `examples/` and `bench/callgraph.mbt` | `4,5,6,7,8`; `7,10`; `6,7`; `4,5`; `n1 L4 -> n5 L7`; `n1 L4 -> n3 L6 -> n4 L7`; `twice -> inc`, `main_fn -> twice`; interprocedural `2,6,7,8,12` |
+| `MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze` + `report -f summary` | 2645/4316 total; library packages 2552/2851 = 89.5%; `src/scan/scan.mbt` is 74/74 (the reporter lists only files with uncovered lines) |
+
+## Verification matrix (through 0.10.0)
 
 | Command | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 376, passed: 376, failed: 0` |
+| `./dev.sh test` | `Total tests: 381, passed: 381, failed: 0` |
 | `bash testdata/verify_corpus.sh` | `corpus ok: 10 examples, headers and expected.json agree` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (all commands, JSON modes, malformed input, negative exit codes) |
 | `node web/smoke.mjs` | `web smoke ok: 7007 bytes` (JS engine, full HTML report) |

@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 376 个测试
+./dev.sh test                  # 381 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -318,20 +318,22 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
 ```bash
 ./dev.sh build --target native --release cmd/lsp
 node test/lsp_client.mjs
-# lsp client ok: initialize, diagnostics, change, shutdown, exit
+# lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit
 ```
 
 全量文本同步，发布 `dead-store`、`unreachable-code`、解析失败，打开/保存时对整个包
 额外发布 `unused-function`；改一次缓冲就重算单文件那部分。光标悬停同时给出两个方向：
 这行的值从哪来、改动会影响谁。quick fix 直接插入 `// moon-slice: ignore[rule]`——
-和 CLI 认的是同一条指令。
-VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式见 `docs/LSP.md`。它刻意只做
-单文件——回答"这一行是不是死的"，而不是整包调用图（那是 CLI 的活）。
+和 CLI 认的是同一条指令。整包那一遍是增量的：修改时间和大小都没变的文件不再读、不再
+解析，一次保存对未改动的文件只花一次 stat。
+VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式、扫描基准见 `docs/LSP.md`。
 
 ## 工程
 
-- 376 个测试；库代码行覆盖率约 89%
+- 381 个测试；库代码行覆盖率约 89%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）
+- 编辑器整包扫描：217 文件的真实包，冷扫描 2.0–2.8 s、热扫描 0.20–0.23 s
+  （约 10x，`bench/scan.mjs` 可复现）
 - 许可证：Apache-2.0

@@ -3,7 +3,7 @@
 //
 // Usage: node test/lsp_client.mjs [path-to-lsp-binary]
 import { spawn } from 'node:child_process';
-import { existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -25,7 +25,7 @@ if (!bin) {
   process.exit(2);
 }
 
-const child = spawn(bin, [], { stdio: ['pipe', 'pipe', 'inherit'] });
+const child = spawn(bin, [], { stdio: ['pipe', 'pipe', 'pipe'] });
 
 let buffer = Buffer.alloc(0);
 const messages = [];
@@ -58,6 +58,49 @@ const send = (message) => {
   child.stdin.write(`Content-Length: ${body.length}\r\n\r\n`);
   child.stdin.write(body);
 };
+
+// The server reports each package scan on stderr (stdout carries the protocol).
+// The line says how many files were read and how many came from the cache,
+// which is how this test observes that a second save does no work.
+let stderrPending = '';
+const logLines = [];
+const logWaiters = [];
+
+const flushLogs = () => {
+  for (let i = 0; i < logWaiters.length; i += 1) {
+    const waiter = logWaiters[i];
+    const index = logLines.findIndex((line) => waiter.pattern.test(line));
+    if (index >= 0) {
+      const [line] = logLines.splice(index, 1);
+      logWaiters.splice(i, 1);
+      i -= 1;
+      clearTimeout(waiter.timer);
+      waiter.resolve(line);
+    }
+  }
+};
+
+child.stderr.setEncoding('utf8');
+child.stderr.on('data', (chunk) => {
+  stderrPending += chunk;
+  let newline;
+  while ((newline = stderrPending.indexOf('\n')) >= 0) {
+    const line = stderrPending.slice(0, newline).trim();
+    stderrPending = stderrPending.slice(newline + 1);
+    if (line) logLines.push(line);
+  }
+  flushLogs();
+});
+
+const nextLog = (pattern) =>
+  new Promise((resolve, reject) => {
+    const timer = setTimeout(
+      () => reject(new Error(`no stderr line matching ${pattern}`)),
+      15000,
+    );
+    logWaiters.push({ pattern, resolve, reject, timer });
+    flushLogs();
+  });
 
 const next = () =>
   new Promise((resolve, reject) => {
@@ -101,6 +144,15 @@ try {
   }
   if (caps.hoverProvider !== true) throw new Error('initialize: no hoverProvider');
   if (caps.codeActionProvider !== true) throw new Error('initialize: no codeActionProvider');
+
+  // The version the server reports is the version in the manifest; a release
+  // that bumps one and forgets the other fails here rather than in the wild.
+  const manifest = readFileSync(new URL('../moon.mod', import.meta.url), 'utf8');
+  const declared = /^\s*version\s*=\s*"([^"]+)"/m.exec(manifest)?.[1];
+  const reported = init.result?.serverInfo?.version;
+  if (reported !== declared) {
+    throw new Error(`initialize: serverInfo.version is ${JSON.stringify(reported)}, moon.mod says ${declared}`);
+  }
 
   send({ jsonrpc: '2.0', method: 'initialized', params: {} });
   send({
@@ -161,14 +213,26 @@ try {
   if (second.length !== 0) throw new Error(`didChange: expected 0 diagnostics, got ${second.length}`);
 
   // Package-wide diagnostics: an unused private function in a sibling file is
-  // reported even though only the other file is open.
+  // reported even though only the other file is open. The scan line reports
+  // what it read, and both files are new on this first pass.
   const packageDir = mkdtempSync(join(tmpdir(), 'moon-slice-lsp-'));
+  const tag = packageDir.split(/[\\/]/).pop();
+  const scanLine = (files, reread, cached) =>
+    new RegExp(
+      `^moon-slice: package .*${tag}: ${files} files, ${reread} re-read, ${cached} cached$`,
+    );
   const mainSource =
     'fn helper() -> Int {\n  1\n}\n\nfn main {\n  println(helper())\n}\n';
   writeFileSync(join(packageDir, 'a.mbt'), mainSource);
   writeFileSync(join(packageDir, 'b.mbt'), 'fn orphan() -> Int {\n  2\n}\n');
   const aUri = pathToFileURL(join(packageDir, 'a.mbt')).href;
   const bUri = pathToFileURL(join(packageDir, 'b.mbt')).href;
+  const didSave = () =>
+    send({
+      jsonrpc: '2.0',
+      method: 'textDocument/didSave',
+      params: { textDocument: { uri: aUri } },
+    });
   send({
     jsonrpc: '2.0',
     method: 'textDocument/didOpen',
@@ -176,6 +240,7 @@ try {
       textDocument: { uri: aUri, languageId: 'moonbit', version: 1, text: mainSource },
     },
   });
+  await nextLog(scanLine(2, 2, 0));
   const sibling = await nextDiagnostics(bUri);
   if (sibling.length !== 1) throw new Error(`package: expected 1 sibling diagnostic, got ${sibling.length}`);
   if (sibling[0].code !== 'unused-function') {
@@ -183,6 +248,29 @@ try {
   }
   if (!sibling[0].message.includes('orphan')) {
     throw new Error(`package: message does not name the function: ${sibling[0].message}`);
+  }
+
+  // A save with nothing changed reuses both files: neither is read again.
+  didSave();
+  await nextLog(scanLine(2, 0, 2));
+  const unchanged = await nextDiagnostics(bUri);
+  if (unchanged.length !== 1) {
+    throw new Error(`package: the cached scan changed its mind (${unchanged.length} findings)`);
+  }
+
+  // Rewriting a sibling changes its stamp, so it is read again while the open
+  // file stays a hit — and the stale finding on the sibling disappears.
+  writeFileSync(
+    join(packageDir, 'b.mbt'),
+    'pub fn spare() -> Int {\n  3\n}\n\npub fn other() -> Int {\n  4\n}\n',
+  );
+  didSave();
+  await nextLog(scanLine(2, 1, 1));
+  const cleared = await nextDiagnostics(bUri);
+  if (cleared.length !== 0) {
+    throw new Error(
+      `package: expected the stale finding to clear, got ${JSON.stringify(cleared)}`,
+    );
   }
   rmSync(packageDir, { recursive: true, force: true });
 
@@ -193,9 +281,12 @@ try {
   send({ jsonrpc: '2.0', method: 'exit' });
   const code = await new Promise((resolve) => child.on('exit', resolve));
   if (code !== 0) throw new Error(`exit code ${code}`);
-  console.log('lsp client ok: initialize, diagnostics, hover, code action, change, package scan, shutdown, exit');
+  console.log(
+    'lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit',
+  );
 } catch (error) {
   console.error(`lsp client FAILED: ${error.message}`);
+  if (logLines.length > 0) console.error(`server stderr:\n${logLines.join('\n')}`);
   child.kill();
   process.exit(1);
 }

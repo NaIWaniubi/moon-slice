@@ -230,36 +230,40 @@ fn is_word_char(ch : Char) -> Bool {
 }
 
 ///|
-fn word_matches(current : StringBuilder, length : Int, word : String) -> Bool {
-  length > 0 && length == word.length() && current.to_string() == word
+fn bump_word(counts : Map[String, Int], word : String) -> Unit {
+  let next = match counts.get(word) {
+    Some(count) => count + 1
+    None => 1
+  }
+  counts.set(word, next)
 }
 
 ///|
-/// Count whole-word occurrences of `word`. Stops at two: the only question is
-/// "exactly one?".
-fn count_word(text : String, word : String) -> Int {
-  let mut count = 0
-  let current = StringBuilder()
-  let mut current_len = 0
-  for ch in text.iter() {
-    if is_word_char(ch) {
-      current.write_char(ch)
-      current_len = current_len + 1
-    } else {
-      if word_matches(current, current_len, word) {
-        count = count + 1
-        if count > 1 {
-          return count
-        }
+/// Whole-word occurrence counts for every word in the package, built in one
+/// pass. Asking the same question per candidate — rescanning every file for
+/// each name that no expression references — is correct but quadratic, and it
+/// was the dominant cost of `unused` and of the editor's package scan on real
+/// packages: a save over `moonbitlang/core` took seconds.
+fn word_counts(facts : Array[FileFacts]) -> Map[String, Int] {
+  let counts : Map[String, Int] = Map([])
+  for file in facts {
+    let current = StringBuilder()
+    let mut length = 0
+    for ch in file.source.iter() {
+      if is_word_char(ch) {
+        current.write_char(ch)
+        length = length + 1
+      } else if length > 0 {
+        bump_word(counts, current.to_string())
+        ignore(current.reset())
+        length = 0
       }
-      ignore(current.reset())
-      current_len = 0
+    }
+    if length > 0 {
+      bump_word(counts, current.to_string())
     }
   }
-  if word_matches(current, current_len, word) {
-    count = count + 1
-  }
-  count
+  counts
 }
 
 ///|
@@ -284,6 +288,7 @@ pub fn unused_functions(facts : Array[FileFacts]) -> Array[UnusedFn] {
   if parse_failures > 0 {
     return out
   }
+  let candidates : Array[(FileFacts, FnDecl)] = []
   for file in facts {
     for decl in file.decls {
       if decl.exported || !decl.has_body || decl.dispatchable {
@@ -303,19 +308,26 @@ pub fn unused_functions(facts : Array[FileFacts]) -> Array[UnusedFn] {
       if referenced.contains(decl.name) {
         continue
       }
-      // Lexical net: the name may be referenced where the AST walk does not
-      // look (an attribute, a comment, interpolation text). Exactly one
-      // occurrence means the definition itself is the only mention.
-      let mut occurrences = 0
-      for other in facts {
-        occurrences = occurrences + count_word(other.source, decl.name)
-        if occurrences > 1 {
-          break
-        }
-      }
-      if occurrences == 1 {
-        out.push(UnusedFn::{ path: file.path, name: decl.name, line: decl.line })
-      }
+      candidates.push((file, decl))
+    }
+  }
+  if candidates.length() == 0 {
+    return out
+  }
+  // Lexical net: the name may be referenced where the AST walk does not look
+  // (an attribute, a comment, interpolation text). Exactly one occurrence
+  // means the definition itself is the only mention. The counts are built once
+  // for the whole package rather than once per candidate.
+  let counts = word_counts(facts)
+  for candidate in candidates {
+    let file = candidate.0
+    let decl = candidate.1
+    let occurrences = match counts.get(decl.name) {
+      Some(count) => count
+      None => 0
+    }
+    if occurrences == 1 {
+      out.push(UnusedFn::{ path: file.path, name: decl.name, line: decl.line })
     }
   }
   out.sort_by(fn(a, b) {

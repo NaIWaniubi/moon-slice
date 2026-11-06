@@ -1,0 +1,39 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/scan"
+
+import {
+  "NaIWaniubi/moon-slice/src/liveness",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub struct Cache {
+  directories : Map[String, Map[String, Entry]]
+}
+pub fn Cache::begin(Self, String) -> Scan
+pub fn Cache::commit(Self, Scan) -> Unit
+pub fn Cache::new() -> Self
+
+type Entry
+
+pub struct Scan {
+  directory : String
+  previous : Map[String, Entry]
+  current : Map[String, Entry]
+}
+pub fn Scan::record(Self, String, Stamp, String?, @liveness.FileFacts) -> Unit
+pub fn Scan::reuse(Self, String, Stamp, String?) -> @liveness.FileFacts?
+
+pub(all) struct Stamp {
+  seconds : Int64
+  nanos : Int32
+  size : Int64
+}
+pub fn Stamp::new(Int64, Int32, Int64) -> Self
+
+// Type aliases
+
+// Traits
