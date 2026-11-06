@@ -11,7 +11,7 @@
 
 name = "NaIWaniubi/moon-slice"
 
-version = "0.7.9"
+version = "0.8.0"
 
 readme = "README.mbt.md"
 
@@ -26,6 +26,7 @@ preferred_target = "wasm"
 description = "Program slicing, dependency graphs, and data-flow paths for MoonBit"
 
 import {
+  "moonbitlang/async@0.22.4",
   "moonbitlang/parser@0.4.6",
   "moonbitlang/x@0.5.1",
 }

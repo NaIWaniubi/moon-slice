@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-11-04 (v0.7.9) with the legacy MoonBit reporter:
+Measured on 2026-11-06 (v0.8.0) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze
@@ -26,11 +26,14 @@ the numbers below use.
 | `src/suppress/suppress.mbt` | 82/83 |
 | `cmd/main/main.mbt` | 22/827 |
 | `cmd/main/review.mbt` | 71/155 |
-| **Total** | **2618/3804** |
+| **Total** | **2618/4017** |
 
 Library packages only (excluding `cmd/`): **2525/2822 = 89.5%**.
 
-`cmd/` is not executed by `moon test`; the CLI is covered by
+`cmd/lsp` is the editor server: it is exercised end to end by
+`test/lsp_client.mjs` (handshake, diagnostics on open, diagnostics cleared on
+change, clean exit), which CI runs after building the binary. `cmd/` is not
+executed by `moon test`; the CLI is covered by
 [test/cli_smoke.sh](test/cli_smoke.sh) (every command, JSON and SARIF modes,
 malformed input, in-source suppressions, receiver-call queries, type inference
 through annotations/returns/records/fields/patterns and expansion, method liveness, path

@@ -34,6 +34,15 @@ jobs:
       - name: CLI smoke
         run: bash test/cli_smoke.sh
 
+      # The editor server is a second binary: build it and drive it with a
+      # real LSP client over stdio, so the framing and the diagnostics are
+      # exercised end to end rather than by unit tests alone.
+      - name: Build the LSP server
+        run: ./dev.sh build --target native --release cmd/lsp
+
+      - name: LSP client smoke
+        run: node test/lsp_client.mjs
+
       # The committed bundle must still be a build of the current sources. Byte
       # equality is not checkable here: MoonBit's JS backend numbers internal
       # symbols in an order that differs between platforms, so a Windows-built

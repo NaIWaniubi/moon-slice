@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.8.0 — 2026-11-06
+
+The analysis now runs inside the editor.
+
+- **`cmd/lsp`: a real Language Server.** `moonbitlang/async`'s stdio reader is
+  the transport, so there is no hand-rolled buffer: `read_until` splits one
+  header line at a time, `read_exactly` reads the body, and `Content-Length`
+  framing stays exact for multi-byte UTF-8.
+- **Diagnostics while typing.** `initialize` advertises full-text sync; every
+  `didOpen` / `didChange` re-analyses the buffer and publishes `dead-store` and
+  `unreachable-code` with the node's real column range, and a parser failure
+  becomes one diagnostic per report instead of a guess.
+- **A client test, not a unit test.** `test/lsp_client.mjs` spawns the binary,
+  runs the handshake, asserts the diagnostic line and code, changes the buffer
+  and asserts the diagnostics disappear, then shuts down and checks the exit
+  status. CI builds the server and runs this client on every push.
+- **`moonbitlang/async` is now a dependency**, used only by the LSP binary; the
+  CLI stays synchronous.
+- **376 unit tests** are unchanged; the new coverage is end-to-end.
+
 ## 0.7.9 — 2026-11-04
 
 `match` arms bind their payload types, and declarations are shared across the

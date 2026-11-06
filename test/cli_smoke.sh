@@ -64,7 +64,7 @@ expect_json_error() {
 }
 
 # Version and help
-expect_eq "moon-slice 0.7.9" version
+expect_eq "moon-slice 0.8.0" version
 expect_contains "Commands:" help
 
 # Core slicing

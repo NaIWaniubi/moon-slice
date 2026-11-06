@@ -71,7 +71,7 @@ cd moon-slice
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.7.9
+moon add NaIWaniubi/moon-slice@0.8.0
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -118,12 +118,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.7.9
+- uses: NaIWaniubi/moon-slice@v0.8.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.7.9
+- uses: NaIWaniubi/moon-slice@v0.8.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
@@ -310,6 +310,20 @@ fn Point::m(self) { self.norm() }             // 限定方法里的 self
   通过参数或字段产生的副作用一律不报。
 - **行粒度**。同一行多条语句在行号视图里合并；`--json` 的 `nodes` 保留区别，
   `--node ID` 可精确指定。
+
+## 编辑器集成（LSP）
+
+`cmd/lsp` 是第二个可执行文件，走 LSP over stdio，边写代码边把死存储标出来：
+
+```bash
+./dev.sh build --target native --release cmd/lsp
+node test/lsp_client.mjs
+# lsp client ok: initialize, diagnostics, change, shutdown, exit
+```
+
+全量文本同步，发布 `dead-store`、`unreachable-code` 与解析失败；改一次缓冲就重算一次。
+VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式见 `docs/LSP.md`。它刻意只做
+单文件——回答"这一行是不是死的"，而不是整包调用图（那是 CLI 的活）。
 
 ## 工程
 

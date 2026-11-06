@@ -40,12 +40,17 @@ deliberately missing and in what order it makes sense to add it.
   binds its pattern against the scrutinee's type, and all files' declarations
   are merged before resolution, so a type declared next door still counts.
 
+- **Editor integration** (0.8.0): `cmd/lsp` speaks LSP over stdio and publishes
+  dead stores and unreachable code as diagnostics; `moonbitlang/async` supplies
+  the byte-level stdin the standard library does not.
+
 ## Next
 
-1. **Editor integration.** The JSON contract is stable enough for a minimal
-   LSP: didOpen/didChange → slice at cursor, publish the lines as diagnostics.
-   The blocker is stdio: MoonBit's standard libraries expose file reads but no
-   byte-level stdin, so this needs either an FFI shim or a socket transport.
+1. **Hover and code actions.** The server already has the buffer and the PDG; a
+   hover could show the backward slice for the line under the cursor, and a code
+   action could insert `// moon-slice: ignore[...]` for a diagnostic.
+2. **Package-wide diagnostics.** Today the server is single-file by design; a
+   workspace scan would need incremental parsing to stay responsive.
 
 ## Considered, not planned
 
