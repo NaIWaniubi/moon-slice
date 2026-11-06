@@ -1,8 +1,16 @@
 # 项目申报书附件
 
-`PROPOSAL.pdf` 由仓库根目录的 `PROPOSAL.md` 生成，A4 一页，直接上传到报名表的「项目申报书」附件字段。
+`PROPOSAL.md`（仓库根目录）是唯一内容源，生成两份等价的 A4 一页文件：
 
-重新生成（Git Bash）：
+| 文件 | 用途 | 大小 |
+| --- | --- | --- |
+| `PROPOSAL.pdf` | 报名表收 PDF 时上传 | ~233 KB |
+| `PROPOSAL.docx` | 报名表收 Word 时上传（Word 里打开仍是一页） | ~40 KB |
+
+两份文件的章节和文字完全一致：基本信息 → 项目简介 → 核心功能范围 → 移植或参考说明，
+字段名与官方样本对齐；联系方式写「见报名表」，邮箱和手机不进公开仓库。
+
+## 生成 PDF
 
 ```bash
 pandoc PROPOSAL.md --from=gfm --to=html5 --standalone \
@@ -19,8 +27,31 @@ pdf="$(cygpath -m "$PWD/submission/PROPOSAL.pdf")"
 ```
 
 `PROPOSAL.html` 是中间产物，不纳入版本控制；`proposal.css` 控制一页版式。
-改完版式后确认页数：
+
+## 生成 DOCX
+
+```bash
+python submission/build_docx.py
+```
+
+`build_docx.py` 逐行读 `PROPOSAL.md`：`# ` 是标题（17pt），`## ` 是二级标题（11.5pt，带下划线），
+`- ` 是悬挂缩进的条目，反引号片段用 Consolas。页面 A4、上下 9 mm / 左右 14 mm、正文 9pt
+微软雅黑，目标是**一页**。
+
+## 确认页数
+
+PDF：
 
 ```bash
 node -e "const s=require('fs').readFileSync('submission/PROPOSAL.pdf').toString('latin1');console.log((s.match(/\/Type\s*\/Page\b(?!s)/g)||[]).length,'page(s)')"
 ```
+
+DOCX（用本机 Word 导出 PDF 并读页数，打印 `1` 即合格）：
+
+```bash
+powershell -NoProfile -ExecutionPolicy Bypass -File submission/docx_pages.ps1 \
+  -Docx "$(cygpath -w "$PWD/submission/PROPOSAL.docx")" \
+  -Pdf "$(cygpath -w /tmp/proposal-check.pdf)"
+```
+
+改完版式或正文后，两份都要重新生成并各自确认页数为 `1`。
