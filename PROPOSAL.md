@@ -13,7 +13,7 @@
 
 moon-slice 是面向 MoonBit 的程序切片与依赖分析工作台。输入一个 `.mbt` 文件（或整个包）与目标语句，它基于 MoonBit 官方 parser 构建控制流图、定义-使用链、控制依赖图与程序依赖图，输出向后切片（这个值从哪来）、向前切片（改这里会影响谁）、死代码与无人调用的私有函数、以及调用点查询，并给出 JSON / DOT / SARIF / 自包含 HTML 报告与浏览器 playground。
 
-项目面向在 MoonBit 中做重构、调试、代码审查与 CI 质量门禁的库作者和团队：把"这次改动影响了什么""哪段代码已经死了"变成可复现的命令行输出和可上传的 SARIF，而不是靠通读代码。已发布到 mooncakes.io（https://mooncakes.io/docs/NaIWaniubi/moon-slice），`moon add NaIWaniubi/moon-slice` 即可安装。
+项目面向在 MoonBit 中做重构、调试、代码审查与 CI 质量门禁的库作者和团队：把"这次改动影响了什么""哪段代码已经死了"变成可复现的命令行输出和可上传的 SARIF。已发布到 mooncakes.io（https://mooncakes.io/docs/NaIWaniubi/moon-slice），`moon add` 即可安装；11 月新增：整包扫描按 mtime 增量（217 文件包热扫描 0.2 s）、`unused` 线性化。
 
 ## 核心功能范围
 
