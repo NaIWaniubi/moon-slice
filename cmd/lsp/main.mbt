@@ -204,39 +204,27 @@ async fn publish(uri : String) -> Unit {
 }
 
 ///|
-fn field(json : @builtin.Json, name : String) -> @builtin.Json? {
-  match json {
-    Object(map) => map.get(name)
-    _ => None
-  }
-}
-
-///|
-fn string_field(json : @builtin.Json, name : String) -> String? {
-  match field(json, name) {
-    None => None
-    Some(value) =>
-      match value {
-        String(text) => Some(text)
-        _ => None
-      }
-  }
-}
-
-///|
 /// Returns `false` when the editor asked the server to exit.
+///
+/// The Json type is never named here: it is reached through pattern matching on
+/// the value `@json.parse` returns, which keeps the file compiling across core
+/// versions that disagree about where the type is declared.
 async fn handle_message(text : String) -> Bool {
-  let json = @json.parse(text) catch {
+  let parsed = @json.parse(text) catch {
     _ => return true
   }
-  let method_name = match string_field(json, "method") {
-    Some(name) => name
-    None => return true
+  let object = match parsed {
+    Object(map) => map
+    _ => return true
+  }
+  let method_name = match object.get("method") {
+    Some(String(name)) => name
+    _ => return true
   }
   // A request carries an id; a notification does not and gets no response.
-  let id = match field(json, "id") {
-    None => ""
+  let id = match object.get("id") {
     Some(value) => value.stringify()
+    None => ""
   }
   match method_name {
     "initialize" =>
@@ -248,70 +236,66 @@ async fn handle_message(text : String) -> Bool {
     "shutdown" => send_response(id, "null")
     "exit" => return false
     "textDocument/didOpen" => {
-      match field(json, "params") {
-        None => ()
-        Some(params) =>
-          match field(params, "textDocument") {
-            None => ()
-            Some(document) =>
-              match (string_field(document, "uri"), string_field(document, "text")) {
-                (Some(uri), Some(source)) => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match params.get("textDocument") {
+            Some(Object(document)) =>
+              match (document.get("uri"), document.get("text")) {
+                (Some(String(uri)), Some(String(source))) => {
                   documents.set(uri, source)
                   publish(uri)
                 }
                 _ => ()
               }
+            _ => ()
           }
+        _ => ()
       }
     }
     "textDocument/didChange" => {
-      match field(json, "params") {
-        None => ()
-        Some(params) =>
-          match field(params, "textDocument") {
-            None => ()
-            Some(document) =>
-              match string_field(document, "uri") {
-                None => ()
-                Some(uri) =>
-                  match field(params, "contentChanges") {
-                    None => ()
-                    Some(changes) =>
-                      match changes {
-                        Array(items) =>
-                          match items.get(0) {
-                            None => ()
-                            Some(change) =>
-                              match string_field(change, "text") {
-                                None => ()
-                                Some(source) => {
-                                  documents.set(uri, source)
-                                  publish(uri)
-                                }
-                              }
+      match object.get("params") {
+        Some(Object(params)) =>
+          match params.get("textDocument") {
+            Some(Object(document)) =>
+              match document.get("uri") {
+                Some(String(uri)) =>
+                  match params.get("contentChanges") {
+                    Some(Array(items)) =>
+                      match items.get(0) {
+                        Some(Object(change)) =>
+                          match change.get("text") {
+                            Some(String(source)) => {
+                              documents.set(uri, source)
+                              publish(uri)
+                            }
+                            _ => ()
                           }
                         _ => ()
                       }
+                    _ => ()
                   }
+                _ => ()
               }
+            _ => ()
           }
+        _ => ()
       }
     }
     "textDocument/didClose" => {
-      match field(json, "params") {
-        None => ()
-        Some(params) =>
-          match field(params, "textDocument") {
-            None => ()
-            Some(document) =>
-              match string_field(document, "uri") {
-                None => ()
-                Some(uri) => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match params.get("textDocument") {
+            Some(Object(document)) =>
+              match document.get("uri") {
+                Some(String(uri)) => {
                   documents.remove(uri)
                   publish(uri)
                 }
+                _ => ()
               }
+            _ => ()
           }
+        _ => ()
       }
     }
     _ => {
