@@ -148,19 +148,6 @@ fn source_lines(source : String) -> Array[String] {
 }
 
 ///|
-fn joined_text(lines : Array[String]) -> String {
-  if lines.length() == 0 {
-    return ""
-  }
-  let out = StringBuilder()
-  for line in lines {
-    out.write_string(line)
-    out.write_char('\n')
-  }
-  out.to_string()
-}
-
-///|
 /// The 1-based byte column as a 0-based string offset, clamped to the text.
 fn col_offset(text : String, column : Int32) -> Int {
   let offset = if column < 1 { 0 } else { column - 1 }
@@ -182,84 +169,103 @@ fn line_suffix(text : String, column : Int32) -> String {
 }
 
 ///|
-/// Absolute byte offset of a (line, column) position in the canonical text
-/// (`lines.join("\n") + "\n"`).
-fn absolute_offset(
-  lines : Array[String],
-  line : Int32,
-  column : Int32,
-) -> Int {
-  let target = clamp(line, 1, lines.length() + 1)
-  let mut offset = 0
-  let mut i = 0
-  while i < target - 1 && i < lines.length() {
-    offset = offset + lines[i].length() + 1
+fn strip_carriage(line : String) -> String {
+  if line.has_suffix("\r") {
+    line[:line.length() - 1].to_owned()
+  } else {
+    line
+  }
+}
+
+///|
+/// The source with every edited range removed. Only bytes inside the planned
+/// ranges change: a CRLF file keeps CRLF, and a file without a final newline
+/// keeps that shape.
+pub fn apply_edits(source : String, edits : Array[Edit]) -> String {
+  // A part is followed by `\n` unless it is the last one; a trailing `\r`
+  // belongs to a CRLF terminator. Dropping a part drops its terminator too.
+  let parts : Array[String] = []
+  for raw in source.split("\n") {
+    parts.push(raw.to_owned())
+  }
+  let count = parts.length()
+  if count == 0 {
+    return source
+  }
+  let removed : Set[Int] = Set([])
+  let replaced : Map[Int, String] = Map([])
+  let spans : Map[Int, Array[(Int32, Int32)]] = Map([])
+  for edit in edits {
+    let start = clamp(edit.start_line, 1, count)
+    let end = clamp(edit.end_line, start, count)
+    if edit.end_col == 0 {
+      let mut line = start
+      while line <= end {
+        removed.add(line)
+        line = line + 1
+      }
+    } else if start == end {
+      let list = match spans.get(start) {
+        Some(found) => found
+        None => {
+          let fresh : Array[(Int32, Int32)] = []
+          spans.set(start, fresh)
+          fresh
+        }
+      }
+      list.push((edit.start_col, edit.end_col))
+    } else {
+      // A multi-line statement: the first and last line survive around it.
+      replaced.set(
+        start,
+        line_prefix(strip_carriage(parts[start - 1]), edit.start_col) +
+        line_suffix(strip_carriage(parts[end - 1]), edit.end_col),
+      )
+      let mut line = start + 1
+      while line <= end {
+        removed.add(line)
+        line = line + 1
+      }
+    }
+  }
+  for pair in spans.to_array() {
+    let line = pair.0
+    let sorted = pair.1.copy()
+    sorted.sort_by(fn(x, y) {
+      if x.0 > y.0 {
+        -1
+      } else if x.0 < y.0 {
+        1
+      } else {
+        0
+      }
+    })
+    let mut text = strip_carriage(parts[line - 1])
+    for span in sorted {
+      text = line_prefix(text, span.0) + line_suffix(text, span.1)
+    }
+    replaced.set(line, text)
+  }
+  let out = StringBuilder()
+  let mut i = 1
+  while i <= count {
+    let raw = parts[i - 1]
+    let had_carriage = raw.has_suffix("\r")
+    if !removed.contains(i) {
+      match replaced.get(i) {
+        Some(text) => out.write_string(text)
+        None => out.write_string(strip_carriage(raw))
+      }
+      if had_carriage {
+        out.write_char('\r')
+      }
+      if i < count {
+        out.write_char('\n')
+      }
+    }
     i = i + 1
   }
-  if target > lines.length() {
-    offset
-  } else {
-    offset + col_offset(lines[target - 1], column)
-  }
-}
-
-///|
-/// The absolute `[start, end)` byte range an edit removes.
-fn edit_range(lines : Array[String], edit : Edit) -> (Int, Int) {
-  let count = lines.length()
-  let start_line = clamp(edit.start_line, 1, count)
-  let start = absolute_offset(lines, start_line, edit.start_col)
-  if edit.end_col == 0 {
-    let end_line = clamp(edit.end_line, start_line, count)
-    let end = if end_line >= count {
-      joined_text(lines).length()
-    } else {
-      absolute_offset(lines, end_line + 1, 1)
-    }
-    (start, end)
-  } else {
-    let end_line = clamp(edit.end_line, start_line, count)
-    (start, absolute_offset(lines, end_line, edit.end_col))
-  }
-}
-
-///|
-/// The source with every edited range removed. For a precise edit the
-/// surrounding text of the line is kept, so two statements on one line do not
-/// take each other out. Line endings normalise to LF and the result ends with a
-/// newline; the CLI writes exactly this text under `--write`.
-pub fn apply_edits(source : String, edits : Array[Edit]) -> String {
-  let lines = source_lines(source)
-  let mut text = joined_text(lines)
-  // Right to left so earlier offsets stay valid.
-  let ranges : Array[(Int, Int)] = []
-  for edit in edits {
-    let (start, end) = edit_range(lines, edit)
-    ranges.push((start, end))
-  }
-  ranges.sort_by(fn(a, b) {
-    if a.0 > b.0 {
-      -1
-    } else if a.0 < b.0 {
-      1
-    } else if a.1 > b.1 {
-      -1
-    } else if a.1 < b.1 {
-      1
-    } else {
-      0
-    }
-  })
-  let mut ceiling = text.length()
-  for range in ranges {
-    let start = range.0
-    let end = if range.1 > ceiling { ceiling } else { range.1 }
-    if start < end && end <= ceiling {
-      text = text[:start].to_owned() + text[end:].to_owned()
-      ceiling = start
-    }
-  }
-  text
+  out.to_string()
 }
 
 ///|
@@ -834,6 +840,11 @@ priv struct FnBody {
   body : @syntax.Expr
   start_line : Int32
   end_line : Int32
+  /// Every name bound in the declaration: parameters, the function's own name,
+  /// `let`/`let mut` binders, closure parameters, loop and match binders. A
+  /// free call with one of these names is a value call, not the package
+  /// function of the same name.
+  shadowed : Set[String]
 }
 
 ///|
@@ -843,6 +854,7 @@ fn add_body(
   body : @syntax.Expr,
   start_line : Int32,
   end_line : Int32,
+  shadowed : Set[String],
 ) -> Unit {
   let list = match bodies.get(name) {
     Some(list) => list
@@ -852,7 +864,31 @@ fn add_body(
       fresh
     }
   }
-  list.push(FnBody::{ body, start_line, end_line })
+  list.push(FnBody::{ body, start_line, end_line, shadowed })
+}
+
+///|
+/// Collects every binder name of one declaration. Visiting the whole `Impl` is
+/// what reaches the parameters; the body walk then reaches `let` binders,
+/// closure parameters and pattern binders.
+priv struct BinderNames {
+  names : Set[String]
+}
+
+///|
+extend BinderNames with @syntax.IterVisitor::{ base }
+
+///|
+impl @syntax.IterVisitor for BinderNames with fn visit_Binder(self, binder) {
+  self.names.add(binder.name)
+  @syntax.IterVisitor::visit_Binder(self.base(), binder)
+}
+
+///|
+fn shadowed_names(item : @syntax.Impl) -> Set[String] {
+  let collector : BinderNames = { names: Set([]) }
+  @syntax.IterVisitor::visit_Impl(collector, item)
+  collector.names
 }
 
 ///|
@@ -873,6 +909,7 @@ fn collect_bodies(
                 expr,
                 decl.name.loc.start.lnum,
                 (expr : @syntax.Expr).loc().end.lnum,
+                shadowed_names(item),
               )
             _ => ()
           }
@@ -885,6 +922,7 @@ fn collect_bodies(
                 expr,
                 method_name.loc.start.lnum,
                 (expr : @syntax.Expr).loc().end.lnum,
+                shadowed_names(item),
               )
             _ => ()
           }
@@ -895,6 +933,7 @@ fn collect_bodies(
             body,
             view_func_name.loc.start.lnum,
             (body : @syntax.Expr).loc().end.lnum,
+            shadowed_names(item),
           )
         _ => ()
       }
@@ -904,9 +943,29 @@ fn collect_bodies(
 }
 
 ///|
+/// The binder names of one declaration. `None` means they could not be read
+/// (no body, or the name is declared more than once), which the audit treats
+/// as "any free call may be shadowed" — the safe reading.
+fn shadow_of(
+  bodies : Map[String, Array[FnBody]],
+  name : String,
+) -> Set[String]? {
+  match bodies.get(name) {
+    Some(list) =>
+      if list.length() == 1 {
+        Some(list[0].shadowed)
+      } else {
+        None
+      }
+    None => None
+  }
+}
+
+///|
 fn purity_index(
   facts : Array[@liveness.FileFacts],
   context : CallContext,
+  bodies : Map[String, Array[FnBody]],
 ) -> PurityIndex {
   let counts : Map[String, Int] = Map([])
   let free_counts : Map[String, Int] = Map([])
@@ -940,7 +999,6 @@ fn purity_index(
     sidefx_pure.set(summary.name, so_far && summary.effects.pure)
     summary_calls.set(summary.name, summary.effects.calls)
   }
-  let bodies = collect_bodies(facts)
   // Start optimistic for unique names that `@sidefx` calls pure, then turn off
   // anything whose calls cannot be proven, until nothing changes.
   let verified : Map[String, Bool] = Map([])
@@ -999,6 +1057,7 @@ fn purity_index(
                 name,
                 item.start_line,
                 item.end_line,
+                Some(item.shadowed),
               )
               if problems.length() > 0 {
                 ok = false
@@ -1064,6 +1123,10 @@ priv struct CallAudit {
   start_line : Int32
   end_line : Int32
   problems : Array[String]
+  /// Names bound by the audited declaration (parameters and locals). A free
+  /// call with one of these names runs a value, not the package function.
+  /// `None` means the binders could not be read, which is treated as shadowed.
+  shadowed : Set[String]?
   /// Dot calls seen, by method name. Resolution happens after the walk.
   dots : Map[String, Int]
 }
@@ -1076,6 +1139,17 @@ fn CallAudit::note(self : CallAudit, name : String) -> Unit {
   if !self.problems.contains(name) {
     self.problems.push(name)
   }
+}
+
+///|
+/// A free call is a package function only when no binder of the audited
+/// declaration shadows the name.
+fn CallAudit::free_call_ok(self : CallAudit, name : String) -> Bool {
+  let not_shadowed = match self.shadowed {
+    Some(names) => !names.contains(name)
+    None => false
+  }
+  not_shadowed && self.purity.is_pure_free(name)
 }
 
 ///|
@@ -1117,7 +1191,7 @@ impl @syntax.IterVisitor for CallAudit with fn visit_Expr_Apply(
     @syntax.Expr::Ident(id~, ..) =>
       match id.name {
         @syntax.LongIdent::Ident(name~) =>
-          if !env.purity.is_pure_free(name) {
+          if !env.free_call_ok(name) {
             env.note(name)
           }
         @syntax.LongIdent::Dot(pkg~, id~) =>
@@ -1134,7 +1208,7 @@ impl @syntax.IterVisitor for CallAudit with fn visit_Expr_Apply(
         @syntax.Expr::Ident(id~, ..) =>
           match id.name {
             @syntax.LongIdent::Ident(name~) =>
-              if !env.purity.is_pure_free(name) {
+              if !env.free_call_ok(name) {
                 env.note(name)
               }
             @syntax.LongIdent::Dot(pkg~, id~) =>
@@ -1199,6 +1273,7 @@ fn audit_calls(
   caller : String,
   start_line : Int32,
   end_line : Int32,
+  shadowed : Set[String]?,
 ) -> Array[String] {
   let audit : CallAudit = {
     purity,
@@ -1207,6 +1282,7 @@ fn audit_calls(
     start_line,
     end_line,
     problems: [],
+    shadowed,
     dots: Map([]),
   }
   @syntax.IterVisitor::visit_Expr(audit, expr)
@@ -1222,6 +1298,7 @@ fn audit_source(
   caller : String,
   start_line : Int32,
   end_line : Int32,
+  shadowed : Set[String]?,
 ) -> Array[String] {
   let sites = decl_sites(source, "<probe>")
   if sites.length() != 1 {
@@ -1229,7 +1306,10 @@ fn audit_source(
   }
   match sites[0].body {
     None => ["<unparsed initializer>"]
-    Some(body) => audit_calls(body, purity, context, caller, start_line, end_line)
+    Some(body) =>
+      audit_calls(
+        body, purity, context, caller, start_line, end_line, shadowed,
+      )
   }
 }
 
@@ -1262,6 +1342,7 @@ fn rhs_purity(
   caller : String,
   start_line : Int32,
   end_line : Int32,
+  shadowed : Set[String]?,
 ) -> String? {
   let probe = "fn " + PROBE_NAME + "() -> Unit {\n" + rhs + "\n}\n"
   match @sidefx.summarize_source(probe, PROBE_NAME) {
@@ -1271,7 +1352,7 @@ fn rhs_purity(
         Some(describe_impurity(effects))
       } else {
         let unresolved = audit_source(
-          probe, purity, context, caller, start_line, end_line,
+          probe, purity, context, caller, start_line, end_line, shadowed,
         )
         if unresolved.length() > 0 {
           Some(
@@ -1521,6 +1602,7 @@ fn binding_edit(
   directives : @suppress.Directives,
   purity : PurityIndex,
   context : CallContext,
+  bodies : Map[String, Array[FnBody]],
   proof : Array[String],
 ) -> Edit? {
   let location = site(file.path, node.loc.start_line)
@@ -1550,6 +1632,11 @@ fn binding_edit(
     Some(rhs) => rhs
   }
   let caller = enclosing_function(program, node)
+  let shadowed = if caller == "" {
+    Some(Set([]))
+  } else {
+    shadow_of(bodies, caller)
+  }
   match rhs_purity(
     rhs,
     purity,
@@ -1557,6 +1644,7 @@ fn binding_edit(
     caller,
     node.loc.start_line,
     node.loc.end_line,
+    shadowed,
   ) {
     Some(reason) => {
       proof.push(location + ": kept dead binding `" + label + "`: " + reason)
@@ -1594,6 +1682,7 @@ fn function_edit(
   directives : @suppress.Directives,
   purity : PurityIndex,
   context : CallContext,
+  bodies : Map[String, Array[FnBody]],
   proof : Array[String],
 ) -> Edit? {
   let location = site(item.path, item.line)
@@ -1652,6 +1741,7 @@ fn function_edit(
         item.name,
         declared.line,
         declared.end_line,
+        shadow_of(bodies, item.name),
       )
       if unresolved.length() > 0 {
         proof.push(
@@ -1878,6 +1968,7 @@ fn add_binding_edits(
   directives : @suppress.Directives,
   purity : PurityIndex,
   context : CallContext,
+  bodies : Map[String, Array[FnBody]],
   proof : Array[String],
   edits : Array[Edit],
 ) -> Unit {
@@ -1888,7 +1979,7 @@ fn add_binding_edits(
         if node.kind == @core.SNodeKind::Let ||
           node.kind == @core.SNodeKind::LetMut {
           match binding_edit(
-            program, node, file, directives, purity, context, proof,
+            program, node, file, directives, purity, context, bodies, proof,
           ) {
             Some(edit) => edits.push(edit)
             None => ()
@@ -1922,10 +2013,13 @@ pub fn plan_dead_bindings(
     facts.push(@liveness.collect(entry.path, entry.source))
   }
   let context = call_context(facts)
-  let purity = purity_index(facts, context)
+  let bodies = collect_bodies(facts)
+  let purity = purity_index(facts, context, bodies)
   let proof : Array[String] = []
   let edits : Array[Edit] = []
-  add_binding_edits(program, dead, file, directives, purity, context, proof, edits)
+  add_binding_edits(
+    program, dead, file, directives, purity, context, bodies, proof, edits,
+  )
   RemovalPlan::{ edits: normalize_edits(edits), proof }
 }
 
@@ -1935,6 +2029,7 @@ fn plan_one(
   reach : @roots.Reachability,
   purity : PurityIndex,
   context : CallContext,
+  bodies : Map[String, Array[FnBody]],
 ) -> RemovalPlan {
   let proof : Array[String] = []
   let program = @parser_adapter.parse_source(file.source, file.path)
@@ -1954,7 +2049,7 @@ fn plan_one(
   let sites = decl_sites(file.source, file.path)
   let edits : Array[Edit] = []
   add_binding_edits(
-    program, dead, file, directives, purity, context, proof, edits,
+    program, dead, file, directives, purity, context, bodies, proof, edits,
   )
   // A boundary is a call the package graph could not attribute: a receiver
   // whose type is unknown, a call into another package, a call through an
@@ -1986,7 +2081,7 @@ fn plan_one(
     for item in reach.unreachable_fns {
       if item.path == file.path {
         match function_edit(
-          item, sites, file, directives, purity, context, proof,
+          item, sites, file, directives, purity, context, bodies, proof,
         ) {
           Some(edit) => edits.push(edit)
           None => ()
@@ -2141,7 +2236,8 @@ fn plan_package_inner(
   }
   let reach = @roots.analyze(facts, entries~)
   let context = call_context(facts)
-  let purity = purity_index(facts, context)
+  let bodies = collect_bodies(facts)
+  let purity = purity_index(facts, context, bodies)
   proof.push(
     "analysed " +
     ordered.length().to_string() +
@@ -2159,7 +2255,7 @@ fn plan_package_inner(
       Some(path) => path == file.path
     }
     if wanted {
-      let one = plan_one(file, reach, purity, context)
+      let one = plan_one(file, reach, purity, context, bodies)
       for edit in one.edits {
         edits.push(edit)
       }

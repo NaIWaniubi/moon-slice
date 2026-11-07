@@ -940,6 +940,47 @@ MBT
 run fix --dir "$fix_dir/guarded" --write >/dev/null
 grep -Fq "fn suppressed() -> Int {" "$fix_dir/guarded/guarded.mbt"
 grep -Fq "pub fn api() -> Int {" "$fix_dir/guarded/guarded.mbt"
+# Scans must not descend into tool/workspace directories: a dead binding inside
+# .tower, .v2c, _build or .mooncakes is not part of the package under test.
+skip_dir="$(mktemp -d)"
+mkdir -p "$skip_dir/.tower" "$skip_dir/.v2c" "$skip_dir/_build" "$skip_dir/.mooncakes" "$skip_dir/pkg"
+for hidden in .tower .v2c _build .mooncakes; do
+  cat > "$skip_dir/$hidden/hidden.mbt" <<'MBT'
+fn keep() -> Int {
+  let unused = 1
+  7
+}
+
+fn main {
+  keep()
+}
+MBT
+done
+cat > "$skip_dir/pkg/visible.mbt" <<'MBT'
+fn keep() -> Int {
+  let unused = 1
+  7
+}
+
+fn main {
+  keep()
+}
+MBT
+skip_json="$(run fix --dir "$skip_dir" --json)"
+printf '%s' "$skip_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.edits.length!==1) throw new Error("expected 1 edit, got "+j.edits.length+": "+JSON.stringify(j.edits));
+  if(!j.edits[0].file.includes("pkg/visible.mbt")) throw new Error("wrong file: "+j.edits[0].file);
+});'
+run fix --dir "$skip_dir" --write >/dev/null
+for hidden in .tower .v2c _build .mooncakes; do
+  if ! grep -Fq "let unused = 1" "$skip_dir/$hidden/hidden.mbt"; then
+    printf 'FAIL: fix scanned %s\n' "$hidden" >&2
+    exit 1
+  fi
+done
+rm -rf "$skip_dir"
 rm -rf "$fix_dir"
 
 printf 'cli smoke ok\n'

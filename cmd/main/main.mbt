@@ -453,7 +453,9 @@ fn skip_scan_dir(name : String) -> Bool {
   name == "_build" ||
   name == "target" ||
   name == "node_modules" ||
-  name == ".mooncakes"
+  name == ".mooncakes" ||
+  name == ".tower" ||
+  name == ".v2c"
 }
 
 ///|
