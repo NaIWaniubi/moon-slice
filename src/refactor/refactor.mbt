@@ -748,21 +748,26 @@ fn make_span(
 ///|
 /// Which package functions are "known pure". A name declared more than once is
 /// never trusted: the summary cannot say which declaration a call means.
+///
+/// Purity is a fixed point, not a single `@sidefx` bit. `@sidefx` treats a call
+/// it cannot place as harmless, so a body with an external call (`@pkg.f`, a
+/// call through an expression) or a call to an undeclared name can look pure.
+/// For a removal that is not acceptable: a callee whose own summary contains an
+/// unknown or external call is impure, and so is every caller of it.
+///
+/// Each round checks two things for a still-pure name:
+///   * every entry of its `@sidefx` `calls` list names exactly one declaration
+///     of the package, and that declaration is still pure;
+///   * an AST audit of its body (the same receiver-typed audit used for edits)
+///     finds no unresolved call.
+/// Both only ever turn a name off, so the least fixed point terminates.
 priv struct PurityIndex {
-  counts : Map[String, Int]
   free_counts : Map[String, Int]
   pure : Map[String, Bool]
 }
 
 ///|
 fn PurityIndex::is_pure(self : PurityIndex, name : String) -> Bool {
-  let unique = match self.counts.get(name) {
-    Some(count) => count == 1
-    None => false
-  }
-  if !unique {
-    return false
-  }
   match self.pure.get(name) {
     Some(true) => true
     _ => false
@@ -824,7 +829,85 @@ fn CallContext::is_pure_method(
 }
 
 ///|
-fn purity_index(facts : Array[@liveness.FileFacts]) -> PurityIndex {
+/// One function body, with the line range its receiver calls are recorded at.
+priv struct FnBody {
+  body : @syntax.Expr
+  start_line : Int32
+  end_line : Int32
+}
+
+///|
+fn add_body(
+  bodies : Map[String, Array[FnBody]],
+  name : String,
+  body : @syntax.Expr,
+  start_line : Int32,
+  end_line : Int32,
+) -> Unit {
+  let list = match bodies.get(name) {
+    Some(list) => list
+    None => {
+      let fresh : Array[FnBody] = []
+      bodies.set(name, fresh)
+      fresh
+    }
+  }
+  list.push(FnBody::{ body, start_line, end_line })
+}
+
+///|
+fn collect_bodies(
+  facts : Array[@liveness.FileFacts],
+) -> Map[String, Array[FnBody]] {
+  let bodies : Map[String, Array[FnBody]] = Map([])
+  for file in facts {
+    let (items, _reports) = @parser.parse_string(file.source, name=file.path)
+    items.each(fn(item) {
+      match item {
+        @syntax.Impl::TopFuncDef(fun_decl=decl, decl_body=decl_body, ..) =>
+          match decl_body {
+            @syntax.DeclBody::DeclBody(expr~) =>
+              add_body(
+                bodies,
+                decl.name.name,
+                expr,
+                decl.name.loc.start.lnum,
+                (expr : @syntax.Expr).loc().end.lnum,
+              )
+            _ => ()
+          }
+        @syntax.Impl::TopImpl(method_name~, body~, ..) =>
+          match body {
+            @syntax.DeclBody::DeclBody(expr~) =>
+              add_body(
+                bodies,
+                method_name.name,
+                expr,
+                method_name.loc.start.lnum,
+                (expr : @syntax.Expr).loc().end.lnum,
+              )
+            _ => ()
+          }
+        @syntax.Impl::TopView(view_func_name~, body~, ..) =>
+          add_body(
+            bodies,
+            view_func_name.name,
+            body,
+            view_func_name.loc.start.lnum,
+            (body : @syntax.Expr).loc().end.lnum,
+          )
+        _ => ()
+      }
+    })
+  }
+  bodies
+}
+
+///|
+fn purity_index(
+  facts : Array[@liveness.FileFacts],
+  context : CallContext,
+) -> PurityIndex {
   let counts : Map[String, Int] = Map([])
   let free_counts : Map[String, Int] = Map([])
   let batch : Array[@sidefx.FnSource] = []
@@ -847,15 +930,92 @@ fn purity_index(facts : Array[@liveness.FileFacts]) -> PurityIndex {
       }
     }
   }
-  let pure : Map[String, Bool] = Map([])
+  let sidefx_pure : Map[String, Bool] = Map([])
+  let summary_calls : Map[String, Array[String]] = Map([])
   for summary in @sidefx.summarize_package(batch) {
-    let so_far = match pure.get(summary.name) {
+    let so_far = match sidefx_pure.get(summary.name) {
       Some(value) => value
       None => true
     }
-    pure.set(summary.name, so_far && summary.effects.pure)
+    sidefx_pure.set(summary.name, so_far && summary.effects.pure)
+    summary_calls.set(summary.name, summary.effects.calls)
   }
-  PurityIndex::{ counts, free_counts, pure }
+  let bodies = collect_bodies(facts)
+  // Start optimistic for unique names that `@sidefx` calls pure, then turn off
+  // anything whose calls cannot be proven, until nothing changes.
+  let verified : Map[String, Bool] = Map([])
+  for pair in counts.to_array() {
+    let name = pair.0
+    let unique = pair.1 == 1
+    let pure = match sidefx_pure.get(name) {
+      Some(true) => true
+      _ => false
+    }
+    verified.set(name, unique && pure)
+  }
+  let mut changed = true
+  while changed {
+    changed = false
+    let snapshot : Map[String, Bool] = Map([])
+    for pair in verified.to_array() {
+      snapshot.set(pair.0, pair.1)
+    }
+    let view = PurityIndex::{ free_counts, pure: snapshot }
+    for pair in snapshot.to_array() {
+      let name = pair.0
+      if !pair.1 {
+        continue
+      }
+      let mut ok = true
+      match summary_calls.get(name) {
+        Some(calls) =>
+          for call in calls {
+            let known = match counts.get(call) {
+              Some(count) => count == 1
+              None => false
+            }
+            if !known {
+              // An external or undeclared callee: `@sidefx` cannot see its
+              // effects, so this function is not provably pure.
+              ok = false
+            } else {
+              match snapshot.get(call) {
+                Some(true) => ()
+                _ => ok = false
+              }
+            }
+          }
+        None => ()
+      }
+      if ok {
+        match bodies.get(name) {
+          Some(list) =>
+            if list.length() == 1 {
+              let item = list[0]
+              let problems = audit_calls(
+                item.body,
+                view,
+                context,
+                name,
+                item.start_line,
+                item.end_line,
+              )
+              if problems.length() > 0 {
+                ok = false
+              }
+            } else {
+              ok = false
+            }
+          None => ok = false
+        }
+      }
+      if !ok {
+        verified.set(name, false)
+        changed = true
+      }
+    }
+  }
+  PurityIndex::{ free_counts, pure: verified }
 }
 
 ///|
@@ -1761,8 +1921,8 @@ pub fn plan_dead_bindings(
   for entry in package_files {
     facts.push(@liveness.collect(entry.path, entry.source))
   }
-  let purity = purity_index(facts)
   let context = call_context(facts)
+  let purity = purity_index(facts, context)
   let proof : Array[String] = []
   let edits : Array[Edit] = []
   add_binding_edits(program, dead, file, directives, purity, context, proof, edits)
@@ -1772,7 +1932,6 @@ pub fn plan_dead_bindings(
 ///|
 fn plan_one(
   file : SourceFile,
-  package_files : Array[SourceFile],
   reach : @roots.Reachability,
   purity : PurityIndex,
   context : CallContext,
@@ -1836,30 +1995,127 @@ fn plan_one(
     }
   }
   let normalized = normalize_edits(edits)
-  let problems = verify_inner(
-    file.path, file.source, normalized, reach, package_files,
-  )
-  if problems.length() > 0 {
-    for problem in problems {
-      proof.push(file.path + ": verification: " + problem)
-    }
-    proof.push(
-      file.path +
-      ": dropped all " +
-      normalized.length().to_string() +
-      " edit(s): the removal would leave new findings",
-    )
-    return RemovalPlan::{ edits: [], proof }
-  }
   if normalized.length() > 0 {
     proof.push(
       file.path +
       ": " +
       normalized.length().to_string() +
-      " edit(s) accepted after re-analysis",
+      " edit(s) proposed",
     )
   }
   RemovalPlan::{ edits: normalized, proof }
+}
+
+///|
+fn edits_of_file(edits : Array[Edit], path : String) -> Array[Edit] {
+  let out : Array[Edit] = []
+  for edit in edits {
+    if edit.file == path {
+      out.push(edit)
+    }
+  }
+  out
+}
+
+///|
+fn edited_files(
+  files : Array[SourceFile],
+  edits : Array[Edit],
+) -> Array[SourceFile] {
+  let out : Array[SourceFile] = []
+  for file in files {
+    let list = edits_of_file(edits, file.path)
+    if list.length() > 0 {
+      out.push(SourceFile::{
+        path: file.path,
+        source: apply_edits(file.source, list),
+      })
+    } else {
+      out.push(file)
+    }
+  }
+  out
+}
+
+///|
+/// Verify a whole package's merged plan at once. Per-file checks cannot see a
+/// cross-file interaction: two files may each lose their last mention of the
+/// same private function, so each edit is fine alone and the pair orphans the
+/// function. Applying every edit together and re-running `src/roots` over the
+/// whole package catches that; any problem rejects the entire plan.
+fn verify_plan(files : Array[SourceFile], edits : Array[Edit]) -> Array[String] {
+  let problems : Array[String] = []
+  if edits.length() == 0 {
+    return problems
+  }
+  let after_files = edited_files(files, edits)
+  let mut i = 0
+  while i < files.length() {
+    if edits_of_file(edits, files[i].path).length() > 0 {
+      let reparsed = @parser_adapter.parse_source(
+        after_files[i].source,
+        files[i].path,
+      )
+      if reparsed.errors.length() > 0 {
+        problems.push(
+          files[i].path +
+          ": the edited file would not parse (" +
+          reparsed.errors.length().to_string() +
+          " parser diagnostic(s))",
+        )
+      }
+    }
+    i = i + 1
+  }
+  if problems.length() > 0 {
+    return problems
+  }
+  let before = package_reachability(files)
+  let after = package_reachability(after_files)
+  let before_names : Set[String] = Set([])
+  for item in before.unreachable_fns {
+    before_names.add(item.name)
+  }
+  for item in after.unreachable_fns {
+    if !before_names.contains(item.name) {
+      problems.push(
+        "`" +
+        item.name +
+        "` at " +
+        site(item.path, item.line) +
+        " would become unreachable from every root",
+      )
+    }
+  }
+  i = 0
+  while i < files.length() {
+    let file_edits = edits_of_file(edits, files[i].path)
+    if file_edits.length() > 0 {
+      let deleted = removed_lines(file_edits)
+      let expected : Set[String] = Set([])
+      for pair in findings(files[i].source, files[i].path) {
+        let moved = shifted_line(pair.0, deleted)
+        if moved >= 0 {
+          expected.add(moved.to_string() + "|" + pair.1)
+        }
+      }
+      for pair in findings(after_files[i].source, files[i].path) {
+        let key = pair.0.to_string() + "|" + pair.1
+        if !expected.contains(key) {
+          problems.push(
+            files[i].path +
+            ": line " +
+            pair.0.to_string() +
+            ": a new " +
+            pair.1 +
+            " finding appears after the removal",
+          )
+        }
+      }
+    }
+    i = i + 1
+  }
+  problems
 }
 
 ///|
@@ -1884,8 +2140,8 @@ fn plan_package_inner(
     facts.push(@liveness.collect(file.path, file.source))
   }
   let reach = @roots.analyze(facts, entries~)
-  let purity = purity_index(facts)
   let context = call_context(facts)
+  let purity = purity_index(facts, context)
   proof.push(
     "analysed " +
     ordered.length().to_string() +
@@ -1903,7 +2159,7 @@ fn plan_package_inner(
       Some(path) => path == file.path
     }
     if wanted {
-      let one = plan_one(file, ordered, reach, purity, context)
+      let one = plan_one(file, reach, purity, context)
       for edit in one.edits {
         edits.push(edit)
       }
@@ -1912,7 +2168,26 @@ fn plan_package_inner(
       }
     }
   }
-  RemovalPlan::{ edits: normalize_edits(edits), proof }
+  let merged = normalize_edits(edits)
+  let problems = verify_plan(ordered, merged)
+  if problems.length() > 0 {
+    for problem in problems {
+      proof.push("package verification: " + problem)
+    }
+    proof.push(
+      "dropped all " +
+      merged.length().to_string() +
+      " edit(s): the merged package plan would leave new findings",
+    )
+    return RemovalPlan::{ edits: [], proof }
+  }
+  if merged.length() > 0 {
+    proof.push(
+      merged.length().to_string() +
+      " edit(s) accepted after package-wide re-analysis",
+    )
+  }
+  RemovalPlan::{ edits: merged, proof }
 }
 
 ///|

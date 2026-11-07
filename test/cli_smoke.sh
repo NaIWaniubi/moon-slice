@@ -679,6 +679,180 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   if(JSON.stringify(rel)!==JSON.stringify([5,6,8])) throw new Error("bad related lines: "+JSON.stringify(rel));
 });'
 
+# Package reachability and receiver-call coverage: the semantics wave exposed
+# on the CLI. One fixture: `main` -> `middle` -> `leaf`, an `orphan` nothing
+# reaches, and one dot call per resolution category.
+rw_dir="$(mktemp -d)"
+cat > "$rw_dir/a.mbt" <<'MBT'
+fn leaf() -> Int {
+  1
+}
+
+fn middle() -> Int {
+  leaf()
+}
+
+fn main {
+  println(middle())
+}
+
+fn orphan() -> Int {
+  0
+}
+MBT
+cat > "$rw_dir/cov.mbt" <<'MBT'
+struct Point {
+  x : Int
+}
+
+struct Circle {
+  r : Int
+}
+
+impl Point with norm(self : Point) -> Int {
+  self.x
+}
+
+impl Circle with norm(self : Circle) -> Int {
+  self.r
+}
+
+fn on_point(p : Point) -> Int {
+  p.norm()
+}
+
+fn on_circle(c : Circle) -> Int {
+  c.norm()
+}
+
+fn unknown() -> Int {
+  let v = pick()
+  v.norm()
+}
+
+fn ext(s : String) -> Int {
+  s.len()
+}
+
+fn wrong(p : Point) -> Int {
+  p.nope()
+}
+MBT
+
+# explain-live: the shortest chain, one line per frame, each with its site.
+expect_contains "a.mbt:9: main (root)" explain-live --dir "$rw_dir" --name leaf
+expect_contains "a.mbt:10: main -> middle" explain-live --dir "$rw_dir" --name leaf
+expect_contains "a.mbt:6: middle -> leaf" explain-live --dir "$rw_dir" --name leaf
+live_json="$(run explain-live --dir "$rw_dir" --name leaf --json)"
+printf '%s' "$live_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.name!=="leaf"||j.reachable!==true) throw new Error("bad header");
+  const names=j.steps.map(x=>x.function);
+  if(JSON.stringify(names)!==JSON.stringify(["main","middle","leaf"])) throw new Error("bad chain: "+names);
+  if(j.steps[0].line!==9||j.steps[1].line!==10||j.steps[2].line!==6) throw new Error("bad sites");
+  if(!j.steps[0].file.endsWith("a.mbt")) throw new Error("bad file");
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+});'
+
+# A dead function gets a reason and exit 2, never an invented chain.
+expect_fail "not reachable from any root" explain-live --dir "$rw_dir" --name orphan
+expect_json_error unreachable explain-live --dir "$rw_dir" --name orphan
+expect_json_error unknown_name explain-live --dir "$rw_dir" --name no_such_fn
+
+# explain-dead: the root set, the evidence, and the unresolved boundaries.
+expect_contains "entry point: main at" explain-dead --dir "$rw_dir" --name orphan
+expect_contains "no function in the package calls or mentions \`orphan\`" explain-dead --dir "$rw_dir" --name orphan
+expect_contains "call to \`println\`" explain-dead --dir "$rw_dir" --name orphan
+dead_json="$(run explain-dead --dir "$rw_dir" --name orphan --json)"
+printf '%s' "$dead_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.function!=="orphan") throw new Error("bad name");
+  if(!j.file.endsWith("a.mbt")||j.line!==13) throw new Error("bad site");
+  if(j.roots.length!==1||!j.roots[0].includes("entry point: main")) throw new Error("bad roots");
+  if(!j.evidence.some(e=>e.includes("no function in the package calls"))) throw new Error("bad evidence");
+  if(!j.boundaries.some(b=>b.includes("println"))) throw new Error("bad boundaries");
+  if(j.searched_files!==2) throw new Error("bad file count: "+j.searched_files);
+});'
+# A live function has no dead proof to give.
+expect_json_error reachable explain-dead --dir "$rw_dir" --name leaf
+
+# coverage: every dot call gets a verdict, and the three outcomes sum to total.
+expect_contains "total: 5" coverage --dir "$rw_dir"
+expect_contains "resolved: 2" coverage --dir "$rw_dir"
+expect_contains "ambiguous: 1" coverage --dir "$rw_dir"
+expect_contains "unresolved: 2" coverage --dir "$rw_dir"
+expect_contains "method_not_declared: 1" coverage --dir "$rw_dir"
+cov_json="$(run coverage --dir "$rw_dir" --json)"
+printf '%s' "$cov_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.total!==5||j.resolved!==2||j.ambiguous!==1||j.unresolved!==2) throw new Error("bad counters: "+JSON.stringify(j));
+  if(j.resolved+j.ambiguous+j.unresolved!==j.total) throw new Error("invariant broken");
+  if(j.by_reason.method_not_declared!==1||j.by_reason.external_package!==1) throw new Error("bad reasons: "+JSON.stringify(j.by_reason));
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+});'
+
+# The new commands keep the CLI contract: bad input exits 2, --json keeps the
+# {"error":{"code","message"}} shape.
+expect_fail "not a directory" coverage --dir "$rw_dir/does_not_exist"
+expect_json_error missing_dir explain-dead --name orphan
+expect_fail "is not used by coverage" coverage --dir "$rw_dir" --name leaf
+
+rm -rf "$rw_dir"
+
+# impact: the certificate reports the forward-slice union, one evidence path per
+# affected statement, and the same proof in text and JSON.
+expect_contains "affected statements: 5,7" impact --file examples/04_while.mbt --lines 7
+expect_contains '"affected_statements":[5,7]' impact --file examples/04_while.mbt --lines 7 --json
+expect_contains '"evidence":[{"node":5,"line":7,"path":[5]},{"node":7,"line":10,"path":[5,7]}]' impact --file examples/04_while.mbt --lines 7 --json
+expect_contains "evidence:" impact --file examples/04_while.mbt --lines 7
+expect_fail "is required for impact" impact --file examples/04_while.mbt
+tmp_empty_patch="$(mktemp)"
+expect_fail "the diff adds no .mbt line" impact --diff "$tmp_empty_patch"
+rm -f "$tmp_empty_patch"
+
+# impact --diff takes the changed lines from a unified patch, one certificate
+# per touched file.
+tmp_impact_patch="$(mktemp)"
+cat > "$tmp_impact_patch" <<'PATCH'
+--- a/examples/04_while.mbt
++++ b/examples/04_while.mbt
+@@ -7 +7 @@
+-    total = total + i // target
++    total = total + i // changed
+PATCH
+expect_contains '"files":1' impact --diff "$tmp_impact_patch" --json
+expect_contains '"certificate":{"changed_lines":[7]' impact --diff "$tmp_impact_patch" --json
+rm -f "$tmp_impact_patch"
+
+# Package scope: the change is in a private helper, but the proof names the
+# public entry that reaches it and the test that has to be run.
+impact_dir="$(mktemp -d)"
+cat > "$impact_dir/a.mbt" <<'MBT'
+pub fn api() -> Int {
+  helper()
+}
+MBT
+cat > "$impact_dir/b.mbt" <<'MBT'
+fn helper() -> Int {
+  let mut x = 1
+  x = x + 1
+  x
+}
+MBT
+cat > "$impact_dir/a_test.mbt" <<'MBT'
+test "api" {
+  assert_eq(api(), 2)
+}
+MBT
+impact_out="$(run impact --file "$impact_dir/b.mbt" --lines 3 --dir "$impact_dir" --json)"
+printf '%s' "$impact_out" | grep -Fq '"affected_functions":["helper"]'
+printf '%s' "$impact_out" | grep -Fq '"reachable_entries":["api (public api)","api (test call)"]'
+printf '%s' "$impact_out" | grep -Fq 'a_test.mbt:2: api'
+rm -rf "$impact_dir"
+
 # `fix`: plan the dead code that can be deleted safely. The default prints a
 # unified diff and must not touch the file; impure dead code is never removed;
 # --write applies the plan and a second run plans nothing (idempotency).
