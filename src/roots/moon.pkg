@@ -1,0 +1,12 @@
+warnings = "-79"
+
+import {
+  "NaIWaniubi/moon-slice/src/liveness",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "moonbitlang/parser",
+  "moonbitlang/parser/syntax",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/liveness",
+} for "test"

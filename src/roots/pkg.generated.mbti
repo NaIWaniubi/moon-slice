@@ -1,0 +1,90 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/roots"
+
+import {
+  "NaIWaniubi/moon-slice/src/liveness",
+  "moonbitlang/core/debug",
+  "moonbitlang/core/set",
+}
+
+// Values
+pub fn analyze(Array[@liveness.FileFacts], entries? : Array[String]) -> Reachability
+
+pub fn explain_dead(Array[@liveness.FileFacts], String, entries? : Array[String]) -> DeadExplanation?
+
+pub fn explain_live(Array[@liveness.FileFacts], String, entries? : Array[String]) -> LivePath?
+
+// Errors
+
+// Types and methods
+pub(all) struct CallEdge {
+  caller : String
+  callee : String
+  path : String
+  line : Int32
+} derive(Eq, @debug.Debug)
+
+pub(all) struct DeadExplanation {
+  function_name : String
+  path : String
+  line : Int32
+  root_summary : Array[String]
+  searched_files : Int32
+  searched_functions : Int32
+  evidence : Array[String]
+  boundaries : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct LivePath {
+  steps : Array[PathStep]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PathStep {
+  function_name : String
+  path : String
+  line : Int32
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Reachability {
+  roots : Array[Root]
+  reachable : @set.Set[String]
+  unreachable_fns : Array[UnreachableFn]
+  edges : Array[CallEdge]
+  files : Int32
+  functions : Int32
+  boundaries : Array[String]
+  parents : Map[String, String]
+  via : Map[String, PathStep]
+  sites : Map[String, PathStep]
+}
+pub fn Reachability::dead_reason(Self, String) -> DeadExplanation?
+pub fn Reachability::is_reachable(Self, String) -> Bool
+pub fn Reachability::live_path(Self, String) -> LivePath?
+pub fn Reachability::reachable_names(Self) -> Array[String]
+
+pub(all) struct Root {
+  name : String
+  path : String
+  line : Int32
+  kind : RootKind
+  site : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum RootKind {
+  PublicApi
+  EntryPoint
+  TestCall
+  TraitImpl
+  Explicit
+  TopLevel
+} derive(Eq, @debug.Debug)
+
+pub(all) struct UnreachableFn {
+  path : String
+  name : String
+  line : Int32
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
