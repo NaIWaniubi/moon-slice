@@ -224,8 +224,7 @@ fn line_length(source : String, line0 : Int) -> Int {
 }
 
 ///|
-/// Hover: the backward slice for the line under the cursor, as Markdown.
-///|
+/// One comma-separated line list, used by both slice paragraphs.
 fn append_lines(text : StringBuilder, lines : Array[Int32]) -> Unit {
   let mut first = true
   for line in lines {
@@ -237,10 +236,112 @@ fn append_lines(text : StringBuilder, lines : Array[Int32]) -> Unit {
   }
 }
 
-fn hover_result(uri : String, line0 : Int) -> String {
+///|
+/// The name of the private function declared on `line1` (1-based), if the line
+/// is a declaration. The file-local facts are enough for that question; the
+/// package graph is only consulted once a name is in hand.
+///
+/// Methods are included: `src/roots` models inherent methods and trait impls
+/// too, so the reachability claim it makes holds for them as well.
+fn private_decl_at(source : String, path : String, line1 : Int) -> String? {
+  let facts = @liveness.collect(path, source)
+  for decl in facts.decls {
+    if decl.line == line1 && !decl.exported && decl.has_body {
+      return Some(decl.name)
+    }
+  }
+  None
+}
+
+///|
+/// `reachable; shortest chain: \`main\` (a.mbt:5) → \`helper\` (a.mbt:6)`.
+fn live_chain_text(path : @roots.LivePath) -> String {
+  let text = StringBuilder()
+  let mut first = true
+  for step in path.steps {
+    if !first {
+      text.write_string(" → ")
+    }
+    first = false
+    text.write_string("`" + step.function_name + "`")
+    if step.path != "" {
+      text.write_string(" (" + step.path + ":" + step.line.to_string() + ")")
+    }
+  }
+  text.to_string()
+}
+
+///|
+/// The `explain_dead` evidence, rendered for a hover: the incoming-edge
+/// evidence first (why nothing reaches it), then the scope the search covered,
+/// so a reader can tell a real dead function from a hole in the analysis.
+fn dead_evidence_text(dead : @roots.DeadExplanation) -> String {
+  let text = StringBuilder()
+  text.write_string("**liveness** — unreachable: `")
+  text.write_string(dead.function_name)
+  text.write_string("` is not reached from any root\n\n")
+  for evidence in dead.evidence {
+    text.write_string("- ")
+    text.write_string(evidence)
+    text.write_string("\n")
+  }
+  text.write_string("\nsearched ")
+  text.write_string(dead.searched_files.to_string())
+  text.write_string(" file(s), ")
+  text.write_string(dead.searched_functions.to_string())
+  text.write_string(" declaration(s); ")
+  text.write_string(dead.root_summary.length().to_string())
+  text.write_string(" root(s)")
+  if dead.boundaries.length() > 0 {
+    text.write_string(", ")
+    text.write_string(dead.boundaries.length().to_string())
+    text.write_string(" unresolved call site(s)")
+  }
+  text.to_string()
+}
+
+///|
+/// The liveness paragraph for a declaration line, or `None` when the name is
+/// not part of the package graph (a virtual buffer, a file outside the
+/// directory). A claim is never invented for a name the graph did not see.
+fn liveness_section(reach : @roots.Reachability, name : String) -> String? {
+  match reach.dead_reason(name) {
+    Some(dead) => Some(dead_evidence_text(dead))
+    None =>
+      match reach.live_path(name) {
+        Some(live) =>
+          Some(
+            "**liveness** — reachable; shortest chain: " + live_chain_text(live),
+          )
+        None => None
+      }
+  }
+}
+
+///|
+fn package_contains_facts_path(pkg : PackageFacts, path : String) -> Bool {
+  pkg.paths.contains(path) || pkg.paths.contains("./" + path)
+}
+
+///|
+/// Hover: the backward and forward slices for the line under the cursor, plus a
+/// `liveness` paragraph when the line declares a private function. The
+/// paragraphs about slices are unchanged; the liveness one is added after them
+/// so an existing reader sees the same first lines.
+async fn hover_result(uri : String, line0 : Int) -> String {
+  // An editor normally opens the document before hovering, but a file only
+  // present on disk (a sibling in the package) still gets an answer.
   let source = match documents.get(uri) {
     Some(text) => text
-    None => ""
+    None =>
+      match uri_to_path(uri) {
+        Some(path) =>
+          match read_text(path) {
+            Some(text) => text
+            None => ""
+          }
+        None => ""
+      }
   }
   let program = @parser_adapter.parse_source(source, uri)
   if program.errors.length() > 0 {
@@ -264,6 +365,29 @@ fn hover_result(uri : String, line0 : Int) -> String {
       text.write_string(forward.nodes.length().to_string())
       text.write_string(" statement(s) this line affects\n\nlines: ")
       append_lines(text, @query.visible_lines(program, forward.nodes))
+      let path = match uri_to_path(uri) {
+        Some(path) => path
+        None => uri
+      }
+      match private_decl_at(source, path, line0 + 1) {
+        Some(name) =>
+          match collect_package(uri) {
+            Some(pkg) =>
+              // The graph only speaks for the files it read; a virtual buffer
+              // is not part of the package and gets no liveness claim.
+              if package_contains_facts_path(pkg, path) {
+                match liveness_section(@roots.analyze(pkg.facts), name) {
+                  Some(section) => {
+                    text.write_string("\n\n")
+                    text.write_string(section)
+                  }
+                  None => ()
+                }
+              }
+            None => ()
+          }
+        None => ()
+      }
       "{\"contents\":{\"kind\":\"markdown\",\"value\":" +
       json_string(text.to_string()) +
       "},\"range\":{\"start\":{\"line\":" +
@@ -342,8 +466,10 @@ async fn handle_message(text : String) -> Bool {
           match (params.get("textDocument"), params.get("position")) {
             (Some(Object(document)), Some(Object(position))) =>
               match (document.get("uri"), position.get("line")) {
-                (Some(String(uri)), Some(Number(value, ..))) =>
-                  send_response(id, hover_result(uri, value.to_int()))
+                (Some(String(uri)), Some(Number(value, ..))) => {
+                  let result = hover_result(uri, value.to_int())
+                  send_response(id, result)
+                }
                 _ => send_response(id, "null")
               }
             _ => send_response(id, "null")
@@ -580,7 +706,28 @@ async fn log_line(text : String) -> Unit {
 }
 
 ///|
-fn unused_entry(item : @liveness.UnusedFn) -> String {
+/// Why `src/roots` agrees (or does not) that the name is dead, as one sentence
+/// appended to the lexical finding. The lexical pass says "the name occurs
+/// once"; the graph says why: no incoming edge at all, or incoming edges whose
+/// sources are themselves unreachable.
+fn unused_evidence(reach : @roots.Reachability?, name : String) -> String {
+  match reach {
+    Some(reach) =>
+      match reach.dead_reason(name) {
+        Some(dead) =>
+          if dead.evidence.length() == 0 {
+            ""
+          } else {
+            "; reachability: " + dead.evidence.join("; ")
+          }
+        None => ""
+      }
+    None => ""
+  }
+}
+
+///|
+fn unused_entry(item : @liveness.UnusedFn, reach : @roots.Reachability?) -> String {
   let line = if item.line > 0 { item.line - 1 } else { 0 }
   "{\"range\":{\"start\":{\"line\":" +
   line.to_string() +
@@ -588,7 +735,10 @@ fn unused_entry(item : @liveness.UnusedFn) -> String {
   line.to_string() +
   ",\"character\":0}},\"severity\":2,\"source\":\"moon-slice\",\"code\":\"unused-function\",\"message\":" +
   json_string(
-    "private function `" + item.name + "` is never referenced in its package",
+    "private function `" +
+    item.name +
+    "` is never referenced in its package" +
+    unused_evidence(reach, item.name),
   ) +
   "}"
 }
@@ -610,24 +760,34 @@ fn entries_json(entries : Array[String]) -> String {
 }
 
 ///|
-/// Package-wide pass: every `.mbt` file next to the edited one is analysed as
-/// one package, so `unused-function` works across files. The buffer is used for
-/// the file the editor has open; everything else is read from disk.
+/// Everything one package scan produced: the facts `src/liveness` and
+/// `src/roots` take, the files they came from, and the read/cache split the
+/// stderr line reports.
+struct PackageFacts {
+  directory : String
+  facts : Array[@liveness.FileFacts]
+  paths : Array[String]
+  re_read : Int
+  reused : Int
+}
+
+///|
+/// Every `.mbt` file of the anchor's directory. The editor's buffer is used for
+/// any file it has open; everything else is read from disk.
 ///
 /// A file whose stamp did not change since the last scan is neither read nor
-/// parsed again: `@scan` hands its facts back. The stderr line reports the
-/// split, and is what the client test asserts against.
+/// parsed again: `@scan` hands its facts back.
 ///
-/// Returns `false` when the pass could not run, so the caller can fall back to
-/// the file-local diagnostics.
-async fn publish_package(anchor_uri : String) -> Bool {
+/// Returns `None` when the directory cannot be listed (a virtual URI, a
+/// directory the server cannot read).
+async fn collect_package(anchor_uri : String) -> PackageFacts? {
   let anchor = match uri_to_path(anchor_uri) {
     Some(path) => path
-    None => return false
+    None => return None
   }
   let directory = parent_dir(anchor)
   let names = @fs.readdir(directory) catch {
-    _ => return false
+    _ => return None
   }
   let scan = scan_cache.begin(directory)
   let facts : Array[@liveness.FileFacts] = []
@@ -646,7 +806,10 @@ async fn publish_package(anchor_uri : String) -> Bool {
     let name = mbt_names[index]
     let full = directory + "/" + name
     let uri = path_to_uri(full)
-    let buffer = if uri == anchor_uri { documents.get(uri) } else { None }
+    // Any open buffer is the authoritative text, not only the anchor's: a
+    // hover can collect the package from a sibling, and re-reading a modified
+    // buffer from disk would both be wrong and evict its cache entry.
+    let buffer = documents.get(uri)
     let stamp = stamps[index]
     let cached = match stamp {
       Some(stamp) => scan.reuse(full, stamp, buffer)
@@ -680,7 +843,32 @@ async fn publish_package(anchor_uri : String) -> Bool {
     }
   }
   scan_cache.commit(scan)
+  Some(PackageFacts::{ directory, facts, paths, re_read, reused })
+}
+
+///|
+/// Package-wide pass: every `.mbt` file next to the edited one is analysed as
+/// one package, so `unused-function` works across files. `collect_package`
+/// does the reading, and the stderr line below is what the client test asserts
+/// against.
+///
+/// Returns `false` when the pass could not run, so the caller can fall back to
+/// the file-local diagnostics.
+async fn publish_package(anchor_uri : String) -> Bool {
+  let pkg = match collect_package(anchor_uri) {
+    Some(pkg) => pkg
+    None => return false
+  }
+  let facts = pkg.facts
+  let paths = pkg.paths
   let findings = @liveness.unused_functions(facts)
+  // Reachability only explains a finding. A clean save does not pay for the
+  // second parse of the package.
+  let reach = if findings.length() > 0 {
+    Some(@roots.analyze(facts))
+  } else {
+    None
+  }
   let by_file : Map[String, Array[@liveness.UnusedFn]] = Map([])
   for item in findings {
     let list = match by_file.get(item.path) {
@@ -712,7 +900,7 @@ async fn publish_package(anchor_uri : String) -> Bool {
     match by_file.get(full) {
       Some(items) =>
         for item in items {
-          entries.push(unused_entry(item))
+          entries.push(unused_entry(item, reach))
         }
       None => ()
     }
@@ -748,13 +936,13 @@ async fn publish_package(anchor_uri : String) -> Bool {
   // `bench/scan.mjs` measures.
   log_line(
     "package " +
-    directory +
+    pkg.directory +
     ": " +
     paths.length().to_string() +
     " files, " +
-    re_read.to_string() +
+    pkg.re_read.to_string() +
     " re-read, " +
-    reused.to_string() +
+    pkg.reused.to_string() +
     " cached",
   )
   true

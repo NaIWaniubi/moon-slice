@@ -249,6 +249,49 @@ try {
   if (!sibling[0].message.includes('orphan')) {
     throw new Error(`package: message does not name the function: ${sibling[0].message}`);
   }
+  // The finding carries `src/roots`' evidence: how many roots were expanded and
+  // why none of them reaches the name.
+  if (!sibling[0].message.includes('reachability:')) {
+    throw new Error(`package: message has no reachability evidence: ${sibling[0].message}`);
+  }
+  if (!sibling[0].message.includes('no function in the package calls')) {
+    throw new Error(`package: message does not explain the missing edge: ${sibling[0].message}`);
+  }
+
+  // Hover on a private function declaration appends a liveness paragraph. For
+  // a function `main` calls, that paragraph is the shortest chain from a root.
+  const hoverAt = async (requestId, targetUri, line) => {
+    send({
+      jsonrpc: '2.0',
+      id: requestId,
+      method: 'textDocument/hover',
+      params: { textDocument: { uri: targetUri }, position: { line, character: 3 } },
+    });
+    const response = await nextResponse(requestId);
+    return response.result?.contents?.value ?? '';
+  };
+  const liveHover = await hoverAt(5, aUri, 0);
+  if (!liveHover.includes('**liveness**')) {
+    throw new Error(`hover: no liveness section for a private function: ${liveHover}`);
+  }
+  if (!liveHover.includes('reachable') || !liveHover.includes('`main`')) {
+    throw new Error(`hover: no live chain through main: ${liveHover}`);
+  }
+
+  // The same paragraph on an unreachable function is the `explain_dead`
+  // evidence: the root count and the incoming-edge accounting.
+  const deadHover = await hoverAt(6, bUri, 0);
+  if (!deadHover.includes('**liveness**') || !deadHover.includes('unreachable')) {
+    throw new Error(`hover: no liveness evidence for a dead function: ${deadHover}`);
+  }
+  if (!deadHover.includes('no function in the package calls')) {
+    throw new Error(`hover: the dead paragraph has no edge evidence: ${deadHover}`);
+  }
+
+  // Existing paragraphs are still there; the liveness one is additive.
+  if (!liveHover.includes('backward slice') || !liveHover.includes('forward slice')) {
+    throw new Error(`hover: slice paragraphs disappeared: ${liveHover}`);
+  }
 
   // A save with nothing changed reuses both files: neither is read again.
   didSave();
@@ -282,7 +325,8 @@ try {
   const code = await new Promise((resolve) => child.on('exit', resolve));
   if (code !== 0) throw new Error(`exit code ${code}`);
   console.log(
-    'lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit',
+    'lsp client ok: initialize, diagnostics, hover, code action, change, ' +
+      'package scan, unused evidence, liveness hover, package cache, shutdown, exit',
   );
 } catch (error) {
   console.error(`lsp client FAILED: ${error.message}`);
