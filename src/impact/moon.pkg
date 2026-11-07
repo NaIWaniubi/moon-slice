@@ -1,0 +1,23 @@
+warnings = "-79"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/slice",
+  "NaIWaniubi/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/interproc",
+  "NaIWaniubi/moon-slice/src/roots",
+  "NaIWaniubi/moon-slice/src/report",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/cdg",
+  "NaIWaniubi/moon-slice/src/pdg",
+  "NaIWaniubi/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/interproc",
+  "NaIWaniubi/moon-slice/src/liveness",
+  "NaIWaniubi/moon-slice/src/roots",
+} for "test"

@@ -1,0 +1,42 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/impact"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/interproc",
+  "NaIWaniubi/moon-slice/src/roots",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn certificate_json(ImpactCertificate) -> String
+
+pub fn certificate_text(ImpactCertificate) -> String
+
+pub fn functions_of(@core.Program, Array[Int32]) -> Array[String]
+
+pub fn impact(@core.Program, @core.Pdg, Array[Int32], path? : String, index? : @interproc.PackageIndex, reachability? : @roots.Reachability) -> ImpactCertificate
+
+// Errors
+
+// Types and methods
+pub(all) struct ImpactCertificate {
+  changed_lines : Array[Int32]
+  affected_statements : Array[Int32]
+  affected_functions : Array[String]
+  reachable_entries : Array[String]
+  cross_package_files : Array[String]
+  related_tests : Array[String]
+  unresolved_boundaries : Array[String]
+  evidence : Array[ImpactEvidence]
+} derive(@debug.Debug)
+
+pub(all) struct ImpactEvidence {
+  node : Int32
+  line : Int32
+  path : Array[Int32]
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits

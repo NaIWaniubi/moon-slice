@@ -13,6 +13,7 @@ import {
   "NaIWaniubi/moon-slice/src/interproc",
   "NaIWaniubi/moon-slice/src/roots",
   "NaIWaniubi/moon-slice/src/resolve",
+  "NaIWaniubi/moon-slice/src/impact",
   "moonbitlang/x/fs",
   "moonbitlang/x/sys",
   "moonbitlang/core/env",

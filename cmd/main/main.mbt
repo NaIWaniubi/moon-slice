@@ -33,6 +33,8 @@ fn usage() -> Unit {
     "        [--out FILE]   the root set and the evidence that F is dead\n" +
     "  coverage --dir D [--json] [--out FILE]  receiver-call resolution:\n" +
     "        total / resolved / ambiguous / unresolved and per-reason counts\n" +
+    "  impact --file F --lines L1,L2 [--json] [--dir D]\n" +
+    "  impact --diff PATCH [--json] [--dir D]   what a change can affect\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
@@ -52,10 +54,12 @@ fn usage() -> Unit {
     "  --write-baseline FILE  record the current findings and exit.\n" +
     "  --fail-on-findings     (dead, unused) exit 1 when a finding remains after\n" +
     "              baseline filtering; output is written first.\n" +
-    "  --dir D     (dead, unused, explain-live, explain-dead, coverage) scan every\n" +
-    "              .mbt file under D. Mutually exclusive with --file; parse failures\n" +
-    "              are reported, not fatal. The explain commands need a package that\n" +
-    "              parses and exit 2 otherwise.\n" +
+    "  --dir D     (dead, unused, explain-live, explain-dead, coverage, impact) scan\n" +
+    "              every .mbt file under D. Mutually exclusive with --file; parse\n" +
+    "              failures are reported, not fatal. The explain commands need a\n" +
+    "              package that parses and exit 2 otherwise.\n" +
+    "  --lines L1,L2  (impact) changed source lines, comma separated. Use\n" +
+    "              --diff instead to take them from a unified patch.\n" +
     "\n" +
     "Suppressing a finding: put `// moon-slice: ignore` on the line, or on its\n" +
     "own line above it to cover the next line of code. Name the rules to narrow\n" +
@@ -124,6 +128,7 @@ fn known_command(command : String) -> Bool {
   command == "graph" ||
   command == "compare" ||
   command == "review" ||
+  command == "impact" ||
   command == "unused" ||
   command == "callers" ||
   command == "callgraph" ||
@@ -1168,6 +1173,7 @@ fn main {
   let mut fail_on_findings = false
   let mut dir_path = ""
   let mut name_var = ""
+  let mut lines_arg = ""
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -1213,6 +1219,9 @@ fn main {
     } else if arg == "--name" {
       name_var = require_value(argv, i, arg)
       i = i + 2
+    } else if arg == "--lines" {
+      lines_arg = require_value(argv, i, arg)
+      i = i + 2
     } else if arg == "--out" {
       out = require_value(argv, i, arg)
       i = i + 2
@@ -1243,6 +1252,10 @@ fn main {
     } else {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
+  }
+  if command == "impact" {
+    run_impact(file, diff_path, lines_arg, dir_path, json, out)
+    return
   }
   if command == "review" {
     if diff_path == "" {
