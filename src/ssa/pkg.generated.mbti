@@ -1,0 +1,89 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/ssa"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn block_of(SsaProgram, Int32) -> Int32?
+
+pub fn build(@core.Program, @core.Cfg) -> SsaProgram
+
+pub fn def_block(SsaProgram, SsaValue) -> Int32?
+
+pub fn def_node(SsaProgram, SsaValue) -> Int32?
+
+pub fn def_of(SsaProgram, @core.VarId, Int32) -> SsaValue?
+
+pub fn def_site(SsaProgram, SsaValue) -> SsaDefSite?
+
+pub fn def_use(SsaProgram) -> @core.DefUse
+
+pub fn defs_of(SsaProgram, Int32) -> Array[SsaValue]
+
+pub fn dominates(SsaProgram, Int32, Int32) -> Bool
+
+pub fn phi_at(SsaProgram, @core.VarId, Int32) -> SsaPhi?
+
+pub fn phi_sources(SsaProgram, @core.VarId, Int32) -> Array[(Int32, SsaValue)]
+
+pub fn ssa_def_use(SsaProgram) -> Array[(Int32, Int32)]
+
+pub fn stmt_of(SsaProgram, Int32) -> SsaStmt?
+
+pub fn uses_of(SsaProgram, Int32) -> Array[SsaValue]
+
+pub fn verify(SsaProgram) -> Array[String]
+
+// Errors
+
+// Types and methods
+pub(all) struct SsaBlock {
+  id : Int32
+  nodes : Array[Int32]
+  preds : Array[Int32]
+  succs : Array[Int32]
+  idom : Int32
+  frontier : Array[Int32]
+} derive(@debug.Debug)
+
+pub(all) enum SsaDefSite {
+  DefStmt(Int32)
+  DefPhi(Int32)
+} derive(Eq, Hash, @debug.Debug)
+
+pub(all) struct SsaPhi {
+  id : Int32
+  base : @core.VarId
+  value : SsaValue
+  block : Int32
+  sources : Array[(Int32, SsaValue)]
+} derive(@debug.Debug)
+
+pub(all) struct SsaProgram {
+  blocks : Array[SsaBlock]
+  phis : Array[SsaPhi]
+  stmts : Array[SsaStmt]
+  entries : Array[(Int32, @core.VarId, SsaValue)]
+  sites : Map[SsaValue, SsaDefSite]
+  node_block : Map[Int32, Int32]
+  function_entries : Array[Int32]
+}
+
+pub(all) struct SsaStmt {
+  node : Int32
+  block : Int32
+  defs : Array[SsaValue]
+  uses : Array[SsaValue]
+} derive(@debug.Debug)
+
+pub(all) struct SsaValue {
+  base : @core.VarId
+  version : Int32
+} derive(Eq, Hash, @debug.Debug)
+
+// Type aliases
+
+// Traits
