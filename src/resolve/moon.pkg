@@ -1,0 +1,5 @@
+import {
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "moonbitlang/parser",
+  "moonbitlang/parser/syntax",
+}

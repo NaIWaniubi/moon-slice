@@ -1,0 +1,90 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/resolve"
+
+import {
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+}
+
+// Values
+pub fn candidate_text(Candidate) -> String
+
+pub fn coverage_of(Array[ResolvedCall]) -> CoverageReport
+
+pub fn declarations(String, String) -> @parser_adapter.DeclTable
+
+pub fn empty_report() -> CoverageReport
+
+pub fn empty_table() -> @parser_adapter.DeclTable
+
+pub fn merge_tables(@parser_adapter.DeclTable, @parser_adapter.DeclTable) -> Unit
+
+pub fn merged_coverage(Array[FileResolution]) -> CoverageReport
+
+pub fn reason_count(CoverageReport, ResolveReason) -> Int32
+
+pub fn reason_name(ResolveReason) -> String
+
+pub fn resolve_package(Array[SourceFile]) -> Array[FileResolution]
+
+pub fn resolve_source(String, String, extra? : @parser_adapter.DeclTable) -> FileResolution
+
+pub fn source_file(String, String) -> SourceFile
+
+pub fn status_name(CallStatus) -> String
+
+// Errors
+
+// Types and methods
+pub(all) enum CallStatus {
+  Resolved
+  Ambiguous
+  Unresolved
+}
+
+pub(all) struct Candidate {
+  owner : String
+  method_name : String
+  line : Int32
+}
+
+pub(all) struct CoverageReport {
+  total : Int32
+  resolved : Int32
+  ambiguous : Int32
+  unresolved : Int32
+  by_reason : Map[String, Int32]
+}
+
+pub(all) struct FileResolution {
+  file : String
+  calls : Array[ResolvedCall]
+  coverage : CoverageReport
+}
+
+pub(all) enum ResolveReason {
+  NoReason
+  UnknownReceiverType
+  MethodNotDeclared
+  ExternalPackage
+  DynamicValue
+}
+
+pub(all) struct ResolvedCall {
+  line : Int32
+  receiver_expr : String
+  receiver_type : String
+  method_name : String
+  owner : String
+  status : CallStatus
+  reason : ResolveReason
+  candidates : Array[Candidate]
+}
+
+pub(all) struct SourceFile {
+  name : String
+  source : String
+}
+
+// Type aliases
+
+// Traits
