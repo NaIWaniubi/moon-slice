@@ -1,0 +1,53 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/refactor"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/suppress",
+}
+
+// Values
+pub fn apply_edits(String, Array[Edit]) -> String
+
+pub fn empty_plan() -> RemovalPlan
+
+pub fn merge_plans(Array[RemovalPlan]) -> RemovalPlan
+
+pub fn plan_dead_bindings(@core.Program, Array[Int32], SourceFile, @suppress.Directives, Array[SourceFile]) -> RemovalPlan
+
+pub fn plan_file(SourceFile, Array[SourceFile], entries? : Array[String]) -> RemovalPlan
+
+pub fn plan_package(Array[SourceFile], entries? : Array[String]) -> RemovalPlan
+
+pub fn to_json(RemovalPlan) -> String
+
+pub fn to_unified_diff(String, String, Array[Edit]) -> String
+
+pub fn verify(String, String, Array[Edit], Array[SourceFile]) -> Array[String]
+
+// Errors
+
+// Types and methods
+pub(all) struct Edit {
+  file : String
+  start_line : Int32
+  start_col : Int32
+  end_line : Int32
+  end_col : Int32
+  reason : String
+}
+pub fn Edit::lines(String, Int32, Int32, String) -> Self
+
+pub(all) struct RemovalPlan {
+  edits : Array[Edit]
+  proof : Array[String]
+}
+
+pub(all) struct SourceFile {
+  path : String
+  source : String
+}
+
+// Type aliases
+
+// Traits

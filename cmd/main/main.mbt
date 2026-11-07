@@ -26,6 +26,8 @@ fn usage() -> Unit {
     "        [--baseline FILE | --write-baseline FILE] [--fail-on-findings]\n" +
     "  unused --dir D [--json] [--format sarif] [--out FILE]  private functions\n" +
     "        [--fail-on-findings]                     nothing calls anymore\n" +
+    "  fix   --file F [--json] [--write]   unified diff of dead code that can be\n" +
+    "  fix   --dir D  [--json] [--write]   deleted safely; --write applies it\n" +
     "  path  --file F --from VAR --to VAR [--json] [--format sarif]\n" +
     "  explain-live --dir D --name F [--json]\n" +
     "        [--out FILE]   shortest call chain from a root to F\n" +
@@ -54,12 +56,14 @@ fn usage() -> Unit {
     "  --write-baseline FILE  record the current findings and exit.\n" +
     "  --fail-on-findings     (dead, unused) exit 1 when a finding remains after\n" +
     "              baseline filtering; output is written first.\n" +
-    "  --dir D     (dead, unused, explain-live, explain-dead, coverage, impact) scan\n" +
-    "              every .mbt file under D. Mutually exclusive with --file; parse\n" +
-    "              failures are reported, not fatal. The explain commands need a\n" +
-    "              package that parses and exit 2 otherwise.\n" +
+    "  --dir D     (dead, unused, fix, explain-live, explain-dead, coverage, impact)\n" +
+    "              scan every .mbt file under D. Mutually exclusive with --file;\n" +
+    "              parse failures are reported, not fatal. The explain commands\n" +
+    "              need a package that parses and exit 2 otherwise.\n" +
     "  --lines L1,L2  (impact) changed source lines, comma separated. Use\n" +
     "              --diff instead to take them from a unified patch.\n" +
+    "  --write     (fix only) apply the planned edits instead of printing a diff.\n" +
+    "              The default prints a unified diff and touches no file.\n" +
     "\n" +
     "Suppressing a finding: put `// moon-slice: ignore` on the line, or on its\n" +
     "own line above it to cover the next line of code. Name the rules to narrow\n" +
@@ -130,6 +134,7 @@ fn known_command(command : String) -> Bool {
   command == "review" ||
   command == "impact" ||
   command == "unused" ||
+  command == "fix" ||
   command == "callers" ||
   command == "callgraph" ||
   command == "dead" ||
@@ -448,7 +453,9 @@ fn skip_scan_dir(name : String) -> Bool {
   name == "_build" ||
   name == "target" ||
   name == "node_modules" ||
-  name == ".mooncakes"
+  name == ".mooncakes" ||
+  name == ".tower" ||
+  name == ".v2c"
 }
 
 ///|
@@ -1174,6 +1181,7 @@ fn main {
   let mut dir_path = ""
   let mut name_var = ""
   let mut lines_arg = ""
+  let mut write_mode = false
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -1249,6 +1257,9 @@ fn main {
     } else if arg == "--diff" {
       diff_path = require_value(argv, i, arg)
       i = i + 2
+    } else if arg == "--write" {
+      write_mode = true
+      i = i + 1
     } else {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
@@ -1262,6 +1273,16 @@ fn main {
       fail_code("missing_diff", "--diff is required for review")
     }
     run_review(diff_path, json)
+    return
+  }
+  if command == "fix" {
+    if dir_path != "" && file != "" {
+      fail_code("bad_flag", "use either --file or --dir, not both")
+    }
+    if dir_path == "" && file == "" {
+      fail_code("missing_file", "fix needs --file F or --dir D")
+    }
+    run_fix(file, dir_path, json, write_mode)
     return
   }
   if command == "unused" {

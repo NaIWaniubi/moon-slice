@@ -853,4 +853,134 @@ printf '%s' "$impact_out" | grep -Fq '"reachable_entries":["api (public api)","a
 printf '%s' "$impact_out" | grep -Fq 'a_test.mbt:2: api'
 rm -rf "$impact_dir"
 
+# `fix`: plan the dead code that can be deleted safely. The default prints a
+# unified diff and must not touch the file; impure dead code is never removed;
+# --write applies the plan and a second run plans nothing (idempotency).
+# Each subdirectory is its own package, so an unresolved boundary in one fixture
+# cannot disable function removal in another.
+fix_dir="$(mktemp -d)"
+mkdir -p "$fix_dir/clean" "$fix_dir/impure" "$fix_dir/guarded"
+cat > "$fix_dir/clean/fixable.mbt" <<'MBT'
+fn orphan() -> Int {
+  7
+}
+
+fn keep(x : Int) -> Int {
+  let unused = 1
+  x
+}
+
+fn main {
+  keep(1)
+}
+MBT
+fix_diff="$(run fix --dir "$fix_dir/clean")"
+printf '%s' "$fix_diff" | grep -Fq -- "-  let unused = 1"
+printf '%s' "$fix_diff" | grep -Fq -- "-fn orphan() -> Int {"
+# Diff mode must leave the working tree alone.
+grep -Fq "let unused = 1" "$fix_dir/clean/fixable.mbt"
+
+fix_json="$(run fix --dir "$fix_dir/clean" --json)"
+printf '%s' "$fix_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(!Array.isArray(j.edits)||j.edits.length!==2) throw new Error("edits != 2: "+JSON.stringify(j.edits));
+  const e=j.edits[0];
+  if(typeof e.file!=="string"||typeof e.start_line!=="number"||typeof e.end_line!=="number"||typeof e.reason!=="string") throw new Error("bad edit shape: "+JSON.stringify(e));
+  if(!Array.isArray(j.proof)||j.proof.length===0) throw new Error("no proof");
+});'
+
+run fix --dir "$fix_dir/clean" --write >/dev/null
+if grep -Fq "let unused = 1" "$fix_dir/clean/fixable.mbt"; then
+  printf 'FAIL: --write did not remove the unused binding\n' >&2
+  exit 1
+fi
+if grep -Fq "fn orphan" "$fix_dir/clean/fixable.mbt"; then
+  printf 'FAIL: --write did not remove the unreachable function\n' >&2
+  exit 1
+fi
+fix_after="$(run fix --dir "$fix_dir/clean" --json)"
+printf '%s' "$fix_after" | grep -Fq '"edits":[]'
+
+# A side-effecting initializer is dead but not removable, and the proof says
+# why. `println` also leaves an unresolved boundary, so no function goes either.
+cat > "$fix_dir/impure/impure.mbt" <<'MBT'
+fn keep(x : Int) -> Int {
+  let ghost = println("side effect")
+  x
+}
+
+fn main {
+  keep(1)
+}
+MBT
+impure_diff="$(run fix --dir "$fix_dir/impure" --json)"
+if printf '%s' "$impure_diff" | grep -Fq -- '"edits":[{'; then
+  printf 'FAIL: fix removed a side-effecting binding\n  %s\n' "$impure_diff" >&2
+  exit 1
+fi
+printf '%s' "$impure_diff" | grep -Fq 'would perform I/O'
+
+# A suppression directive wins over the planner, and a public function is never
+# touched: both stay in the file after --write.
+cat > "$fix_dir/guarded/guarded.mbt" <<'MBT'
+// moon-slice: ignore[unused-function]
+fn suppressed() -> Int {
+  1
+}
+
+pub fn api() -> Int {
+  2
+}
+
+fn main {
+  api()
+}
+MBT
+run fix --dir "$fix_dir/guarded" --write >/dev/null
+grep -Fq "fn suppressed() -> Int {" "$fix_dir/guarded/guarded.mbt"
+grep -Fq "pub fn api() -> Int {" "$fix_dir/guarded/guarded.mbt"
+# Scans must not descend into tool/workspace directories: a dead binding inside
+# .tower, .v2c, _build or .mooncakes is not part of the package under test.
+skip_dir="$(mktemp -d)"
+mkdir -p "$skip_dir/.tower" "$skip_dir/.v2c" "$skip_dir/_build" "$skip_dir/.mooncakes" "$skip_dir/pkg"
+for hidden in .tower .v2c _build .mooncakes; do
+  cat > "$skip_dir/$hidden/hidden.mbt" <<'MBT'
+fn keep() -> Int {
+  let unused = 1
+  7
+}
+
+fn main {
+  keep()
+}
+MBT
+done
+cat > "$skip_dir/pkg/visible.mbt" <<'MBT'
+fn keep() -> Int {
+  let unused = 1
+  7
+}
+
+fn main {
+  keep()
+}
+MBT
+skip_json="$(run fix --dir "$skip_dir" --json)"
+printf '%s' "$skip_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.edits.length!==1) throw new Error("expected 1 edit, got "+j.edits.length+": "+JSON.stringify(j.edits));
+  if(!j.edits[0].file.includes("pkg/visible.mbt")) throw new Error("wrong file: "+j.edits[0].file);
+});'
+run fix --dir "$skip_dir" --write >/dev/null
+for hidden in .tower .v2c _build .mooncakes; do
+  if ! grep -Fq "let unused = 1" "$skip_dir/$hidden/hidden.mbt"; then
+    printf 'FAIL: fix scanned %s\n' "$hidden" >&2
+    exit 1
+  fi
+done
+rm -rf "$skip_dir"
+rm -rf "$fix_dir"
+
 printf 'cli smoke ok\n'
