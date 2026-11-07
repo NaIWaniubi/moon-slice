@@ -1,0 +1,10 @@
+warnings = "-79"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+} for "test"
