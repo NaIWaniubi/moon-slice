@@ -8,6 +8,8 @@ package "NaIWaniubi/moon-slice/cmd/lsp"
 // Types and methods
 type Finding
 
+type PackageFacts
+
 // Type aliases
 
 // Traits
