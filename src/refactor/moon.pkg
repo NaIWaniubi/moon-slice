@@ -1,0 +1,22 @@
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/liveness",
+  "NaIWaniubi/moon-slice/src/roots",
+  "NaIWaniubi/moon-slice/src/sidefx",
+  "NaIWaniubi/moon-slice/src/suppress",
+  "NaIWaniubi/moon-slice/src/report",
+  "moonbitlang/parser",
+  "moonbitlang/parser/syntax",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/suppress",
+} for "test"
