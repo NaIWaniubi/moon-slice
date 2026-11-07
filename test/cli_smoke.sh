@@ -802,4 +802,55 @@ expect_fail "is not used by coverage" coverage --dir "$rw_dir" --name leaf
 
 rm -rf "$rw_dir"
 
+# impact: the certificate reports the forward-slice union, one evidence path per
+# affected statement, and the same proof in text and JSON.
+expect_contains "affected statements: 5,7" impact --file examples/04_while.mbt --lines 7
+expect_contains '"affected_statements":[5,7]' impact --file examples/04_while.mbt --lines 7 --json
+expect_contains '"evidence":[{"node":5,"line":7,"path":[5]},{"node":7,"line":10,"path":[5,7]}]' impact --file examples/04_while.mbt --lines 7 --json
+expect_contains "evidence:" impact --file examples/04_while.mbt --lines 7
+expect_fail "is required for impact" impact --file examples/04_while.mbt
+tmp_empty_patch="$(mktemp)"
+expect_fail "the diff adds no .mbt line" impact --diff "$tmp_empty_patch"
+rm -f "$tmp_empty_patch"
+
+# impact --diff takes the changed lines from a unified patch, one certificate
+# per touched file.
+tmp_impact_patch="$(mktemp)"
+cat > "$tmp_impact_patch" <<'PATCH'
+--- a/examples/04_while.mbt
++++ b/examples/04_while.mbt
+@@ -7 +7 @@
+-    total = total + i // target
++    total = total + i // changed
+PATCH
+expect_contains '"files":1' impact --diff "$tmp_impact_patch" --json
+expect_contains '"certificate":{"changed_lines":[7]' impact --diff "$tmp_impact_patch" --json
+rm -f "$tmp_impact_patch"
+
+# Package scope: the change is in a private helper, but the proof names the
+# public entry that reaches it and the test that has to be run.
+impact_dir="$(mktemp -d)"
+cat > "$impact_dir/a.mbt" <<'MBT'
+pub fn api() -> Int {
+  helper()
+}
+MBT
+cat > "$impact_dir/b.mbt" <<'MBT'
+fn helper() -> Int {
+  let mut x = 1
+  x = x + 1
+  x
+}
+MBT
+cat > "$impact_dir/a_test.mbt" <<'MBT'
+test "api" {
+  assert_eq(api(), 2)
+}
+MBT
+impact_out="$(run impact --file "$impact_dir/b.mbt" --lines 3 --dir "$impact_dir" --json)"
+printf '%s' "$impact_out" | grep -Fq '"affected_functions":["helper"]'
+printf '%s' "$impact_out" | grep -Fq '"reachable_entries":["api (public api)","api (test call)"]'
+printf '%s' "$impact_out" | grep -Fq 'a_test.mbt:2: api'
+rm -rf "$impact_dir"
+
 printf 'cli smoke ok\n'
