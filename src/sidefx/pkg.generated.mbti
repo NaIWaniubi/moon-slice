@@ -1,0 +1,36 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/sidefx"
+
+// Values
+pub fn default_io_names() -> Array[String]
+
+pub fn summarize_package(Array[FnSource], io_names? : Array[String]) -> Array[FnSummary]
+
+pub fn summarize_source(String, String, io_names? : Array[String]) -> SideEffects?
+
+// Errors
+
+// Types and methods
+pub(all) struct FnSource {
+  name : String
+  source : String
+}
+
+pub(all) struct FnSummary {
+  name : String
+  effects : SideEffects
+}
+
+pub(all) struct SideEffects {
+  reads_fields : Array[String]
+  writes_fields : Array[String]
+  mutates_receiver : Bool
+  calls : Array[String]
+  may_raise : Bool
+  may_io : Bool
+  pure : Bool
+}
+
+// Type aliases
+
+// Traits
