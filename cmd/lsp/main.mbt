@@ -18,7 +18,7 @@ let scan_cache : @scan.Cache = @scan.Cache::new()
 ///|
 /// Reported in `serverInfo`. Kept in step with `moon.mod` by the release
 /// checklist; the client test fails when the two disagree.
-let lsp_version : String = "0.10.2"
+let lsp_version : String = "0.11.0"
 
 ///|
 fn hex_char(value : Int) -> Char {

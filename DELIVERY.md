@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-06 (v0.10.2; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-08 (v0.11.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## 0.10.1 – 0.10.2 — incremental package scans (2026-11-06)
@@ -11,7 +11,7 @@ tree.
 | Check | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 381, passed: 381, failed: 0` |
+| `./dev.sh test` | `Total tests: 752, passed: 752, failed: 0` |
 | `node test/lsp_client.mjs` | `lsp client ok: initialize, diagnostics, hover, code action, change, package scan, package cache, shutdown, exit` |
 | `main.exe version` | `moon-slice 0.10.2`; the HTML report's generator meta says the same, and `test/cli_smoke.sh` now takes the expected version from `moon.mod` |
 | `node bench/scan.mjs --dir ~/.moon/lib/core/builtin --reps 5` | 217 files: cold 2.0–2.8 s, warm 0.20–0.23 s (~10x); the log lines are `217 re-read, 0 cached` then `0 re-read, 217 cached` |

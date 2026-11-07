@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (381 tests, including a
+All layers are implemented and covered by `moon test` (752 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.10.2
+moon add NaIWaniubi/moon-slice@0.11.0
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -565,12 +565,12 @@ cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.10.2
+- uses: NaIWaniubi/moon-slice@v0.11.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.10.2
+- uses: NaIWaniubi/moon-slice@v0.11.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

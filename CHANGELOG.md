@@ -1,5 +1,58 @@
 # Changelog
 
+## 0.11.0 — 2026-11-08
+
+The semantic platform wave: six new analysis packages, four new CLI commands,
+LSP liveness evidence, and a safe dead-code fixer — built by a 10-mission
+Tower cluster with independent review gates.
+
+**New analysis packages (Wave 1, 281 tests):**
+
+- `src/workspace` — moon.mod/moon.pkg parsing, package graph, content
+  fingerprints, transitive invalidation (64 tests).
+- `src/resolve` — typed receiver-call resolution with coverage reports:
+  resolved/ambiguous/unresolved plus per-reason counts (45 tests).
+- `src/ssa` — SSA construction with phi placement and dominator checks
+  (44 tests).
+- `src/sidefx` — per-function side-effect summaries with transitive purity
+  (39 tests).
+- `src/roots` — reachability from roots, explain-live/explain-dead proofs
+  (45 tests).
+- `src/oracle` — independent differential slicing oracle and seeded program
+  generator (44 tests).
+
+**New CLI commands (Wave 2):**
+
+- `explain-live --dir D --name F` — shortest call chain from a root to F.
+- `explain-dead --dir D --name F` — root set, evidence, and unresolved
+  boundaries for a dead function.
+- `coverage --dir D` — receiver-call resolution coverage with per-reason
+  breakdown.
+- `impact --file F --lines L1,L2` / `impact --diff PATCH` — impact
+  certificate: affected statements, functions, reachable entries, related
+  tests, and one evidence path per affected statement.
+- `fix --file F | --dir D [--write]` — safe dead-code removal: only deletes
+  bindings whose callees are transitively pure, functions proven unreachable
+  with no unresolved boundaries, and re-verifies the whole plan before
+  applying. Four review rounds hardened shadowing, statement-precise spans,
+  CRLF preservation, and package-wide verification.
+
+**LSP enhancements:**
+
+- Hover on a private function declaration appends a liveness paragraph:
+  shortest live chain or dead evidence.
+- `unused-function` diagnostics carry reachability evidence.
+
+**Quality:**
+
+- 752 tests (was 381), library coverage 5674/6454 = 87.9%.
+- Real-upstream validation: `coverage` on parser (201 files, 12160 call
+  sites), `explain-dead` on parser's 10 known dead helpers with full
+  evidence, `impact` on parser/syntax with reachable entries, `fix`
+  dry-run on examples (9 edits, 28 proof lines).
+- `unused` regression: async 0, x 0, parser 10 (unchanged).
+- Scan benchmark: core/builtin 217 files, cold 6.1 s → warm 0.30 s (20x).
+
 ## 0.10.2 — 2026-11-06
 
 The version the tools print is the version in the manifest.
