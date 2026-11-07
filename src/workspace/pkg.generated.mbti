@@ -1,0 +1,105 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/workspace"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn build_graph(String, Array[WorkspaceFile]) -> PackageGraph
+
+pub fn dependents(PackageGraph, String) -> Array[String]
+
+pub fn dir_of(String) -> String
+
+pub fn file_name(String) -> String
+
+pub fn find_package(PackageGraph, String) -> PackageNode?
+
+pub fn fingerprint(String, String) -> FileFingerprint
+
+pub fn fingerprints(Array[WorkspaceFile]) -> Array[FileFingerprint]
+
+pub fn hash_text(String) -> String
+
+pub fn invalidate(Array[FileFingerprint], Array[FileFingerprint], PackageGraph) -> Invalidation
+
+pub fn is_test_path(String) -> Bool
+
+pub fn normalize_path(String) -> String
+
+pub fn package_dirs(PackageGraph) -> Array[String]
+
+pub fn parse_mod(String) -> Result[ModManifest, ParseError]
+
+pub fn parse_pkg(String) -> Result[PkgManifest, ParseError]
+
+pub fn pkgtype_text(PkgType) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct FileFingerprint {
+  path : String
+  hash : String
+  size : Int32
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Invalidation {
+  changed : Array[String]
+  added : Array[String]
+  removed : Array[String]
+  packages : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ModManifest {
+  name : String
+  version : String
+  imports : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PackageGraph {
+  module_name : String
+  packages : Array[PackageNode]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PackageNode {
+  dir : String
+  name : String
+  has_manifest : Bool
+  imports : Array[String]
+  test_imports : Array[String]
+  pkgtype : PkgType
+  is_main : Bool
+  files : Array[String]
+  test_files : Array[String]
+  deps : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct ParseError {
+  reason : String
+} derive(Eq, @debug.Debug)
+
+pub(all) struct PkgManifest {
+  imports : Array[String]
+  test_imports : Array[String]
+  pkgtype : PkgType
+  is_main : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) enum PkgType {
+  Library
+  Executable
+  Test
+  WhiteBoxTest
+  Unknown(String)
+} derive(Eq, @debug.Debug)
+
+pub(all) struct WorkspaceFile {
+  path : String
+  content : String
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
