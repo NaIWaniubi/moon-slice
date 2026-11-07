@@ -23,7 +23,7 @@ pub fn to_json(RemovalPlan) -> String
 
 pub fn to_unified_diff(String, String, Array[Edit]) -> String
 
-pub fn verify(String, String, Array[Edit]) -> Array[String]
+pub fn verify(String, String, Array[Edit], Array[SourceFile]) -> Array[String]
 
 // Errors
 
@@ -31,9 +31,12 @@ pub fn verify(String, String, Array[Edit]) -> Array[String]
 pub(all) struct Edit {
   file : String
   start_line : Int32
+  start_col : Int32
   end_line : Int32
+  end_col : Int32
   reason : String
 }
+pub fn Edit::lines(String, Int32, Int32, String) -> Self
 
 pub(all) struct RemovalPlan {
   edits : Array[Edit]

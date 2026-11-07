@@ -682,34 +682,31 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
 # `fix`: plan the dead code that can be deleted safely. The default prints a
 # unified diff and must not touch the file; impure dead code is never removed;
 # --write applies the plan and a second run plans nothing (idempotency).
+# Each subdirectory is its own package, so an unresolved boundary in one fixture
+# cannot disable function removal in another.
 fix_dir="$(mktemp -d)"
-cat > "$fix_dir/fixable.mbt" <<'MBT'
+mkdir -p "$fix_dir/clean" "$fix_dir/impure" "$fix_dir/guarded"
+cat > "$fix_dir/clean/fixable.mbt" <<'MBT'
 fn orphan() -> Int {
   7
 }
 
 fn keep(x : Int) -> Int {
   let unused = 1
-  let ghost = println("side effect")
   x
 }
 
 fn main {
-  println(keep(1))
+  keep(1)
 }
 MBT
-fix_diff="$(run fix --dir "$fix_dir")"
+fix_diff="$(run fix --dir "$fix_dir/clean")"
 printf '%s' "$fix_diff" | grep -Fq -- "-  let unused = 1"
 printf '%s' "$fix_diff" | grep -Fq -- "-fn orphan() -> Int {"
-# The binding whose initializer prints is a side effect, not dead code.
-if printf '%s' "$fix_diff" | grep -Fq -- "-  let ghost"; then
-  printf 'FAIL: fix removed a side-effecting binding\n  %s\n' "$fix_diff" >&2
-  exit 1
-fi
 # Diff mode must leave the working tree alone.
-grep -Fq "let unused = 1" "$fix_dir/fixable.mbt"
+grep -Fq "let unused = 1" "$fix_dir/clean/fixable.mbt"
 
-fix_json="$(run fix --dir "$fix_dir" --json)"
+fix_json="$(run fix --dir "$fix_dir/clean" --json)"
 printf '%s' "$fix_json" | node -e '
 let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   const j=JSON.parse(s);
@@ -717,24 +714,42 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   const e=j.edits[0];
   if(typeof e.file!=="string"||typeof e.start_line!=="number"||typeof e.end_line!=="number"||typeof e.reason!=="string") throw new Error("bad edit shape: "+JSON.stringify(e));
   if(!Array.isArray(j.proof)||j.proof.length===0) throw new Error("no proof");
-  if(!j.proof.some(p=>p.includes("would perform I/O"))) throw new Error("proof does not record the skipped side effect");
 });'
 
-run fix --dir "$fix_dir" --write >/dev/null
-if grep -Fq "let unused = 1" "$fix_dir/fixable.mbt"; then
+run fix --dir "$fix_dir/clean" --write >/dev/null
+if grep -Fq "let unused = 1" "$fix_dir/clean/fixable.mbt"; then
   printf 'FAIL: --write did not remove the unused binding\n' >&2
   exit 1
 fi
-if grep -Fq "fn orphan" "$fix_dir/fixable.mbt"; then
+if grep -Fq "fn orphan" "$fix_dir/clean/fixable.mbt"; then
   printf 'FAIL: --write did not remove the unreachable function\n' >&2
   exit 1
 fi
-fix_after="$(run fix --dir "$fix_dir" --json)"
+fix_after="$(run fix --dir "$fix_dir/clean" --json)"
 printf '%s' "$fix_after" | grep -Fq '"edits":[]'
+
+# A side-effecting initializer is dead but not removable, and the proof says
+# why. `println` also leaves an unresolved boundary, so no function goes either.
+cat > "$fix_dir/impure/impure.mbt" <<'MBT'
+fn keep(x : Int) -> Int {
+  let ghost = println("side effect")
+  x
+}
+
+fn main {
+  keep(1)
+}
+MBT
+impure_diff="$(run fix --dir "$fix_dir/impure" --json)"
+if printf '%s' "$impure_diff" | grep -Fq -- '"edits":[{'; then
+  printf 'FAIL: fix removed a side-effecting binding\n  %s\n' "$impure_diff" >&2
+  exit 1
+fi
+printf '%s' "$impure_diff" | grep -Fq 'would perform I/O'
 
 # A suppression directive wins over the planner, and a public function is never
 # touched: both stay in the file after --write.
-cat > "$fix_dir/guarded.mbt" <<'MBT'
+cat > "$fix_dir/guarded/guarded.mbt" <<'MBT'
 // moon-slice: ignore[unused-function]
 fn suppressed() -> Int {
   1
@@ -745,12 +760,12 @@ pub fn api() -> Int {
 }
 
 fn main {
-  println(api())
+  api()
 }
 MBT
-run fix --dir "$fix_dir" --write >/dev/null
-grep -Fq "fn suppressed() -> Int {" "$fix_dir/guarded.mbt"
-grep -Fq "pub fn api() -> Int {" "$fix_dir/guarded.mbt"
+run fix --dir "$fix_dir/guarded" --write >/dev/null
+grep -Fq "fn suppressed() -> Int {" "$fix_dir/guarded/guarded.mbt"
+grep -Fq "pub fn api() -> Int {" "$fix_dir/guarded/guarded.mbt"
 rm -rf "$fix_dir"
 
 printf 'cli smoke ok\n'
