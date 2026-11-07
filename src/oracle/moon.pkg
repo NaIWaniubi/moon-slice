@@ -1,0 +1,15 @@
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/cdg",
+  "NaIWaniubi/moon-slice/src/pdg",
+  "NaIWaniubi/moon-slice/src/slice",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/cdg",
+} for "test"

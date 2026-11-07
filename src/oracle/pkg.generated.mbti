@@ -1,0 +1,82 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/oracle"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+}
+
+// Values
+pub fn agreement_rate(BatchResult) -> Double
+
+pub fn batch_check(Array[Int32]) -> BatchResult
+
+pub fn default_criterion(@core.Program) -> Int32
+
+pub fn differential_check(String) -> DiffResult
+
+pub fn differential_check_all(String) -> Array[DiffResult]
+
+pub fn differential_check_at(String, Int32, Bool) -> DiffResult
+
+pub fn differential_relations(String) -> RelationDiff
+
+pub fn generate(Int32) -> String
+
+pub fn generate_with_stats(Int32) -> Generated
+
+pub fn parse(String) -> @core.Program
+
+pub fn pipeline_relations(@core.Program) -> (@core.DefUse, @core.Cdg)
+
+pub fn pipeline_slice(@core.Program, Int32, Bool) -> Array[Int32]
+
+pub fn reference_backward(@core.Program, Int32) -> Array[Int32]
+
+pub fn reference_dependences(@core.Program) -> RefDependences
+
+pub fn reference_forward(@core.Program, Int32) -> Array[Int32]
+
+// Errors
+
+// Types and methods
+pub(all) struct BatchResult {
+  mut programs : Int32
+  mut comparisons : Int32
+  mut agreeing : Int32
+  mut skipped : Int32
+  failures : Array[String]
+}
+
+pub(all) struct DiffResult {
+  agree : Bool
+  missing : Array[Int32]
+  extra : Array[Int32]
+  reference_size : Int32
+  actual_size : Int32
+  truncated : Bool
+  criterion : Int32
+  forward : Bool
+}
+
+pub(all) struct Generated {
+  source : String
+  statements : Int32
+}
+
+pub(all) struct RefDependences {
+  data : Array[(Int32, Int32)]
+  control : Array[(Int32, Int32)]
+  truncated : Bool
+  paths : Int32
+}
+
+pub(all) struct RelationDiff {
+  data_missing : Array[(Int32, Int32)]
+  data_extra : Array[(Int32, Int32)]
+  control_missing : Array[(Int32, Int32)]
+  control_extra : Array[(Int32, Int32)]
+}
+
+// Type aliases
+
+// Traits
