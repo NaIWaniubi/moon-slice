@@ -27,6 +27,12 @@ fn usage() -> Unit {
     "  unused --dir D [--json] [--format sarif] [--out FILE]  private functions\n" +
     "        [--fail-on-findings]                     nothing calls anymore\n" +
     "  path  --file F --from VAR --to VAR [--json] [--format sarif]\n" +
+    "  explain-live --dir D --name F [--json]\n" +
+    "        [--out FILE]   shortest call chain from a root to F\n" +
+    "  explain-dead --dir D --name F [--json]\n" +
+    "        [--out FILE]   the root set and the evidence that F is dead\n" +
+    "  coverage --dir D [--json] [--out FILE]  receiver-call resolution:\n" +
+    "        total / resolved / ambiguous / unresolved and per-reason counts\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
     "  dump  --file F --line N\n" +
     "  dump-errors / dump-cfg / dump-defuse / dump-pdg --file F\n" +
@@ -46,8 +52,10 @@ fn usage() -> Unit {
     "  --write-baseline FILE  record the current findings and exit.\n" +
     "  --fail-on-findings     (dead, unused) exit 1 when a finding remains after\n" +
     "              baseline filtering; output is written first.\n" +
-    "  --dir D     (dead, unused) scan every .mbt file under D. Mutually\n" +
-    "              exclusive with --file; parse failures are reported, not fatal.\n" +
+    "  --dir D     (dead, unused, explain-live, explain-dead, coverage) scan every\n" +
+    "              .mbt file under D. Mutually exclusive with --file; parse failures\n" +
+    "              are reported, not fatal. The explain commands need a package that\n" +
+    "              parses and exit 2 otherwise.\n" +
     "\n" +
     "Suppressing a finding: put `// moon-slice: ignore` on the line, or on its\n" +
     "own line above it to cover the next line of code. Name the rules to narrow\n" +
@@ -58,7 +66,8 @@ fn usage() -> Unit {
     "--write-baseline, so a baseline stays a full picture.\n" +
     "\n" +
     "Exit codes: 0 success, 1 findings with --fail-on-findings, 2 usage error,\n" +
-    "unreadable input, parse error or write failure. When a line holds several\n" +
+    "unreadable input, parse error, write failure, a name the package does not\n" +
+    "declare, or (explain-live) a function no root reaches. When a line holds several\n" +
     "statements, `dump --line N` lists\n" +
     "their node ids; pass the wanted one with `--node ID`.\n",
   )
@@ -120,6 +129,9 @@ fn known_command(command : String) -> Bool {
   command == "callgraph" ||
   command == "dead" ||
   command == "path" ||
+  command == "explain-live" ||
+  command == "explain-dead" ||
+  command == "coverage" ||
   command == "html" ||
   command == "dump" ||
   command == "dump-errors" ||
@@ -1270,6 +1282,50 @@ fn main {
       fail_code("bad_flag", "callers works on a package directory, not a single file")
     }
     run_callers(dir_path, name_var, json, out)
+    return
+  }
+  // Package reachability and resolution: the question is about every file
+  // under `--dir D`, because a caller may live in a sibling file.
+  if command == "explain-live" || command == "explain-dead" {
+    if dir_path == "" {
+      fail_code(
+        "missing_dir",
+        "\{command} needs --dir D: the package to analyze",
+      )
+    }
+    if name_var == "" {
+      fail_code(
+        "missing_name",
+        "\{command} needs --name F: the function to explain",
+      )
+    }
+    if file != "" {
+      fail_code(
+        "bad_flag",
+        "\{command} works on a package directory, not a single file",
+      )
+    }
+    if command == "explain-live" {
+      run_explain_live(dir_path, name_var, json || format == "json", out)
+    } else {
+      run_explain_dead(dir_path, name_var, json || format == "json", out)
+    }
+    return
+  }
+  if command == "coverage" {
+    if dir_path == "" {
+      fail_code("missing_dir", "coverage scans a package: --dir D is required")
+    }
+    if file != "" {
+      fail_code(
+        "bad_flag",
+        "coverage works on a package directory, not a single file",
+      )
+    }
+    if name_var != "" {
+      fail_code("bad_flag", "--name is not used by coverage")
+    }
+    run_coverage(dir_path, json || format == "json", out)
     return
   }
   if dir_path != "" && command == "slice" {

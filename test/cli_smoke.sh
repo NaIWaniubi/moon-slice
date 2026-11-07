@@ -310,7 +310,7 @@ expect_eq "2,6,7,8,12" slice --file bench/callgraph.mbt --line 12 --direction ba
 
 # HTML report
 tmp_html="$(mktemp)"
-trap 'rm -rf "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}" "${tmp_unused_base:-}" "${unused_sarif:-}" "${unused_json_out:-}" "${tmp_pkg:-}" "${slice_pkg_out:-}"' EXIT
+trap 'rm -rf "${tmp_html:-}" "${tmp_bad:-}" "${tmp_multi:-}" "${tmp_graph:-}" "${tmp_cmp:-}" "${tmp_ispat:-}" "${tmp_impl:-}" "${tmp_review_diff:-}" "${tmp_review_src:-}" "${tmp_sarif:-}" "${tmp_base:-}" "${tmp_dir_base:-}" "${dir_sarif:-}" "${tmp_unused_base:-}" "${unused_sarif:-}" "${unused_json_out:-}" "${tmp_pkg:-}" "${slice_pkg_out:-}" "${rw_dir:-}"' EXIT
 run html --file examples/04_while.mbt --line 7 --out "$tmp_html" >/dev/null
 grep -Fq '<svg' "$tmp_html"
 grep -Fq 'Slice nodes' "$tmp_html"
@@ -678,5 +678,128 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   const rel=r[0].relatedLocations.map(x=>x.physicalLocation.region.startLine);
   if(JSON.stringify(rel)!==JSON.stringify([5,6,8])) throw new Error("bad related lines: "+JSON.stringify(rel));
 });'
+
+# Package reachability and receiver-call coverage: the semantics wave exposed
+# on the CLI. One fixture: `main` -> `middle` -> `leaf`, an `orphan` nothing
+# reaches, and one dot call per resolution category.
+rw_dir="$(mktemp -d)"
+cat > "$rw_dir/a.mbt" <<'MBT'
+fn leaf() -> Int {
+  1
+}
+
+fn middle() -> Int {
+  leaf()
+}
+
+fn main {
+  println(middle())
+}
+
+fn orphan() -> Int {
+  0
+}
+MBT
+cat > "$rw_dir/cov.mbt" <<'MBT'
+struct Point {
+  x : Int
+}
+
+struct Circle {
+  r : Int
+}
+
+impl Point with norm(self : Point) -> Int {
+  self.x
+}
+
+impl Circle with norm(self : Circle) -> Int {
+  self.r
+}
+
+fn on_point(p : Point) -> Int {
+  p.norm()
+}
+
+fn on_circle(c : Circle) -> Int {
+  c.norm()
+}
+
+fn unknown() -> Int {
+  let v = pick()
+  v.norm()
+}
+
+fn ext(s : String) -> Int {
+  s.len()
+}
+
+fn wrong(p : Point) -> Int {
+  p.nope()
+}
+MBT
+
+# explain-live: the shortest chain, one line per frame, each with its site.
+expect_contains "a.mbt:9: main (root)" explain-live --dir "$rw_dir" --name leaf
+expect_contains "a.mbt:10: main -> middle" explain-live --dir "$rw_dir" --name leaf
+expect_contains "a.mbt:6: middle -> leaf" explain-live --dir "$rw_dir" --name leaf
+live_json="$(run explain-live --dir "$rw_dir" --name leaf --json)"
+printf '%s' "$live_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.name!=="leaf"||j.reachable!==true) throw new Error("bad header");
+  const names=j.steps.map(x=>x.function);
+  if(JSON.stringify(names)!==JSON.stringify(["main","middle","leaf"])) throw new Error("bad chain: "+names);
+  if(j.steps[0].line!==9||j.steps[1].line!==10||j.steps[2].line!==6) throw new Error("bad sites");
+  if(!j.steps[0].file.endsWith("a.mbt")) throw new Error("bad file");
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+});'
+
+# A dead function gets a reason and exit 2, never an invented chain.
+expect_fail "not reachable from any root" explain-live --dir "$rw_dir" --name orphan
+expect_json_error unreachable explain-live --dir "$rw_dir" --name orphan
+expect_json_error unknown_name explain-live --dir "$rw_dir" --name no_such_fn
+
+# explain-dead: the root set, the evidence, and the unresolved boundaries.
+expect_contains "entry point: main at" explain-dead --dir "$rw_dir" --name orphan
+expect_contains "no function in the package calls or mentions \`orphan\`" explain-dead --dir "$rw_dir" --name orphan
+expect_contains "call to \`println\`" explain-dead --dir "$rw_dir" --name orphan
+dead_json="$(run explain-dead --dir "$rw_dir" --name orphan --json)"
+printf '%s' "$dead_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.function!=="orphan") throw new Error("bad name");
+  if(!j.file.endsWith("a.mbt")||j.line!==13) throw new Error("bad site");
+  if(j.roots.length!==1||!j.roots[0].includes("entry point: main")) throw new Error("bad roots");
+  if(!j.evidence.some(e=>e.includes("no function in the package calls"))) throw new Error("bad evidence");
+  if(!j.boundaries.some(b=>b.includes("println"))) throw new Error("bad boundaries");
+  if(j.searched_files!==2) throw new Error("bad file count: "+j.searched_files);
+});'
+# A live function has no dead proof to give.
+expect_json_error reachable explain-dead --dir "$rw_dir" --name leaf
+
+# coverage: every dot call gets a verdict, and the three outcomes sum to total.
+expect_contains "total: 5" coverage --dir "$rw_dir"
+expect_contains "resolved: 2" coverage --dir "$rw_dir"
+expect_contains "ambiguous: 1" coverage --dir "$rw_dir"
+expect_contains "unresolved: 2" coverage --dir "$rw_dir"
+expect_contains "method_not_declared: 1" coverage --dir "$rw_dir"
+cov_json="$(run coverage --dir "$rw_dir" --json)"
+printf '%s' "$cov_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  if(j.total!==5||j.resolved!==2||j.ambiguous!==1||j.unresolved!==2) throw new Error("bad counters: "+JSON.stringify(j));
+  if(j.resolved+j.ambiguous+j.unresolved!==j.total) throw new Error("invariant broken");
+  if(j.by_reason.method_not_declared!==1||j.by_reason.external_package!==1) throw new Error("bad reasons: "+JSON.stringify(j.by_reason));
+  if(j.errors.length!==0) throw new Error("errors: "+j.errors);
+});'
+
+# The new commands keep the CLI contract: bad input exits 2, --json keeps the
+# {"error":{"code","message"}} shape.
+expect_fail "not a directory" coverage --dir "$rw_dir/does_not_exist"
+expect_json_error missing_dir explain-dead --name orphan
+expect_fail "is not used by coverage" coverage --dir "$rw_dir" --name leaf
+
+rm -rf "$rw_dir"
 
 printf 'cli smoke ok\n'

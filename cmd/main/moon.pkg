@@ -11,6 +11,8 @@ import {
   "NaIWaniubi/moon-slice/src/query",
   "NaIWaniubi/moon-slice/src/liveness",
   "NaIWaniubi/moon-slice/src/interproc",
+  "NaIWaniubi/moon-slice/src/roots",
+  "NaIWaniubi/moon-slice/src/resolve",
   "moonbitlang/x/fs",
   "moonbitlang/x/sys",
   "moonbitlang/core/env",
