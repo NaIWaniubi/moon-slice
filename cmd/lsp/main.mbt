@@ -428,6 +428,522 @@ fn code_actions_result(uri : String, line0 : Int, rule : String) -> String {
 }
 
 ///|
+/// One `.mbt` file of the package, with the text to scan. An open editor buffer
+/// wins over the copy on disk, so a definition of a not-yet-saved name is still
+/// found.
+struct SourceFile {
+  uri : String
+  path : String
+  text : String
+}
+
+///|
+/// A declaration the word scan recognised: a free function, a method, a `let`
+/// binding, a struct/enum member, or a type. Columns are 0-based.
+struct Declaration {
+  name : String
+  line : Int
+  start_col : Int
+  end_col : Int
+}
+
+///|
+/// One open `{ ... }` block being scanned, so field lines remember whether they
+/// sit in a `struct` or an `enum`.
+struct BlockFrame {
+  kind : String
+  depth : Int
+}
+
+///|
+fn ident_char(ch : Char) -> Bool {
+  let code = ch.to_int()
+  (code >= 'a'.to_int() && code <= 'z'.to_int()) ||
+  (code >= 'A'.to_int() && code <= 'Z'.to_int()) ||
+  (code >= '0'.to_int() && code <= '9'.to_int()) || ch == '_'
+}
+
+///|
+fn ident_start_char(ch : Char) -> Bool {
+  let code = ch.to_int()
+  (code >= 'a'.to_int() && code <= 'z'.to_int()) ||
+  (code >= 'A'.to_int() && code <= 'Z'.to_int()) || ch == '_'
+}
+
+///|
+fn string_chars(text : String) -> Array[Char] {
+  let chars : Array[Char] = []
+  for ch in text.iter() {
+    chars.push(ch)
+  }
+  chars
+}
+
+///|
+fn chars_range(chars : Array[Char], start : Int, end : Int) -> String {
+  let out = StringBuilder()
+  let mut i = start
+  while i < end {
+    out.write_char(chars[i])
+    i = i + 1
+  }
+  out.to_string()
+}
+
+///|
+/// `word` occurs at `start` as a whole word: the character after it is not part
+/// of an identifier, so `fn` does not match `fnord`.
+fn word_at_index(chars : Array[Char], start : Int, word : String) -> Bool {
+  let length = word.length()
+  if start < 0 || start + length > chars.length() {
+    return false
+  }
+  let mut i = 0
+  for ch in word.iter() {
+    if chars[start + i] != ch {
+      return false
+    }
+    i = i + 1
+  }
+  start + length >= chars.length() || !ident_char(chars[start + length])
+}
+
+///|
+fn skip_spaces(chars : Array[Char], start : Int) -> Int {
+  let mut i = start
+  while i < chars.length() && (chars[i] == ' ' || chars[i] == '\t') {
+    i = i + 1
+  }
+  i
+}
+
+///|
+fn ident_end(chars : Array[Char], start : Int) -> Int {
+  let mut i = start
+  while i < chars.length() && ident_char(chars[i]) {
+    i = i + 1
+  }
+  i
+}
+
+///|
+fn push_declaration(
+  out : Array[Declaration],
+  chars : Array[Char],
+  start : Int,
+  end : Int,
+  line0 : Int,
+) -> Unit {
+  if end <= start || !ident_start_char(chars[start]) {
+    return
+  }
+  out.push(
+    Declaration::{
+      name: chars_range(chars, start, end),
+      line: line0,
+      start_col: start,
+      end_col: end,
+    },
+  )
+}
+
+///|
+fn line_text_at(source : String, line0 : Int) -> String {
+  if line0 < 0 {
+    return ""
+  }
+  let lines = source.split("\n").to_array()
+  if line0 >= lines.length() {
+    return ""
+  }
+  let mut text = lines[line0].to_owned()
+  if text.has_suffix("\r") {
+    text = text[: text.length() - 1].to_owned()
+  }
+  text
+}
+
+///|
+/// The identifier under a 0-based `(line, character)`. An editor often puts the
+/// cursor just past a word, so a non-word character looks one to the left
+/// before giving up.
+fn word_at(source : String, line0 : Int, character : Int) -> String? {
+  let chars = string_chars(line_text_at(source, line0))
+  if chars.length() == 0 {
+    return None
+  }
+  let mut pos = character
+  if pos < 0 {
+    pos = 0
+  }
+  if pos >= chars.length() {
+    pos = chars.length() - 1
+  }
+  if !ident_char(chars[pos]) {
+    if pos > 0 && ident_char(chars[pos - 1]) {
+      pos = pos - 1
+    } else {
+      return None
+    }
+  }
+  let mut start = pos
+  while start > 0 && ident_char(chars[start - 1]) {
+    start = start - 1
+  }
+  let mut end = pos + 1
+  while end < chars.length() && ident_char(chars[end]) {
+    end = end + 1
+  }
+  if !ident_start_char(chars[start]) {
+    return None
+  }
+  Some(chars_range(chars, start, end))
+}
+
+///|
+/// Declarations on one line. Returns the block kind the line opens (`struct` or
+/// `enum`) so the caller can track field context.
+fn scan_declarations(
+  line : String,
+  line0 : Int,
+  in_struct : Bool,
+  in_enum : Bool,
+  out : Array[Declaration],
+) -> String? {
+  let chars = string_chars(line)
+  let mut i = skip_spaces(chars, 0)
+  if i >= chars.length() || chars[i] == '/' {
+    return None
+  }
+  // Strip the visibility prefix; `pub(all)` and `priv` change nothing about
+  // where the declared name starts.
+  if word_at_index(chars, i, "pub") {
+    i = skip_spaces(chars, i + 3)
+    if i < chars.length() && chars[i] == '(' {
+      while i < chars.length() && chars[i] != ')' {
+        i = i + 1
+      }
+      i = skip_spaces(chars, i + 1)
+    }
+  } else if word_at_index(chars, i, "priv") {
+    i = skip_spaces(chars, i + 4)
+  }
+  if i >= chars.length() {
+    return None
+  }
+  if word_at_index(chars, i, "fn") {
+    let mut j = skip_spaces(chars, i + 2)
+    let start = j
+    let end = ident_end(chars, j)
+    if end > start {
+      if end + 1 < chars.length() && chars[end] == ':' && chars[end + 1] == ':' {
+        // `fn Type::name(self)` declares a method; the useful target is the
+        // method name, not the type.
+        j = skip_spaces(chars, end + 2)
+        let second_end = ident_end(chars, j)
+        push_declaration(out, chars, j, second_end, line0)
+      } else {
+        push_declaration(out, chars, start, end, line0)
+      }
+    }
+    return None
+  }
+  if word_at_index(chars, i, "let") {
+    let mut j = skip_spaces(chars, i + 3)
+    if word_at_index(chars, j, "mut") {
+      j = skip_spaces(chars, j + 3)
+    }
+    let end = ident_end(chars, j)
+    push_declaration(out, chars, j, end, line0)
+    return None
+  }
+  let is_enum = word_at_index(chars, i, "enum")
+  if is_enum || word_at_index(chars, i, "struct") {
+    let keyword_length = if is_enum { 4 } else { 6 }
+    let j = skip_spaces(chars, i + keyword_length)
+    let end = ident_end(chars, j)
+    if end > j {
+      push_declaration(out, chars, j, end, line0)
+      return Some(if is_enum { "enum" } else { "struct" })
+    }
+    return None
+  }
+  if word_at_index(chars, i, "type") {
+    let j = skip_spaces(chars, i + 4)
+    let end = ident_end(chars, j)
+    push_declaration(out, chars, j, end, line0)
+    return None
+  }
+  if word_at_index(chars, i, "impl") {
+    // `impl T with fn m(...)` declares a method after the first `fn` keyword.
+    let mut k = i + 4
+    while k < chars.length() {
+      if word_at_index(chars, k, "fn") {
+        let j = skip_spaces(chars, k + 2)
+        let end = ident_end(chars, j)
+        push_declaration(out, chars, j, end, line0)
+        break
+      }
+      k = k + 1
+    }
+    return None
+  }
+  if in_struct {
+    // `x : Int`, `pub y : String`, and mutable fields `z : Int`.
+    let end = ident_end(chars, i)
+    if end > i {
+      let mut k = end
+      if k < chars.length() && chars[k] == '?' {
+        k = k + 1
+      }
+      k = skip_spaces(chars, k)
+      if k < chars.length() && chars[k] == ':' {
+        push_declaration(out, chars, i, end, line0)
+      }
+    }
+    return None
+  }
+  if in_enum {
+    // A bare variant (`None`) or one with payload (`Some(Int)`).
+    let end = ident_end(chars, i)
+    if end > i {
+      let k = skip_spaces(chars, end)
+      if k >= chars.length() ||
+        chars[k] == '(' || chars[k] == '{' || chars[k] == '=' || chars[k] == ',' {
+        push_declaration(out, chars, i, end, line0)
+      }
+    }
+    return None
+  }
+  None
+}
+
+///|
+/// Every declaration a file's text spells out, in source order. The scan is
+/// line-based on purpose: it must also see virtual buffers that the parser
+/// cannot resolve, and a declaration is a lexical shape.
+fn file_declarations(source : String) -> Array[Declaration] {
+  let out : Array[Declaration] = []
+  let lines = source.split("\n").to_array()
+  let stack : Array[BlockFrame] = []
+  let mut depth = 0
+  for line_index in 0..<lines.length() {
+    let mut line = lines[line_index].to_owned()
+    if line.has_suffix("\r") {
+      line = line[: line.length() - 1].to_owned()
+    }
+    let kind = match stack.last() {
+      Some(frame) => frame.kind
+      None => ""
+    }
+    let opened = scan_declarations(line, line_index, kind == "struct", kind == "enum", out)
+    let mut opens = 0
+    let mut closes = 0
+    for ch in line.iter() {
+      if ch == '{' {
+        opens = opens + 1
+      } else if ch == '}' {
+        closes = closes + 1
+      }
+    }
+    depth = depth + opens - closes
+    match opened {
+      Some(kind) =>
+        // A one-line `struct Foo { x : Int }` has no following field lines.
+        if opens > closes {
+          stack.push(BlockFrame::{ kind, depth })
+        }
+      None => ()
+    }
+    let mut trimming = true
+    while trimming && stack.length() > 0 {
+      match stack.last() {
+        Some(frame) =>
+          if frame.depth > depth {
+            ignore(stack.pop())
+          } else {
+            trimming = false
+          }
+        None => trimming = false
+      }
+    }
+  }
+  out
+}
+
+///|
+fn declaration_named(decls : Array[Declaration], name : String) -> Declaration? {
+  for decl in decls {
+    if decl.name == name {
+      return Some(decl)
+    }
+  }
+  None
+}
+
+///|
+fn range_json(uri : String, line0 : Int, start : Int, end : Int) -> String {
+  "{\"uri\":" +
+  json_string(uri) +
+  ",\"range\":{\"start\":{\"line\":" +
+  line0.to_string() +
+  ",\"character\":" +
+  start.to_string() +
+  "},\"end\":{\"line\":" +
+  line0.to_string() +
+  ",\"character\":" +
+  end.to_string() +
+  "}}}"
+}
+
+///|
+fn location_json(uri : String, decl : Declaration) -> String {
+  range_json(uri, decl.line, decl.start_col, decl.end_col)
+}
+
+///|
+/// The text of the file under the cursor: its open buffer, or the copy on disk.
+async fn anchor_source(uri : String) -> String {
+  match documents.get(uri) {
+    Some(text) => text
+    None =>
+      match uri_to_path(uri) {
+        Some(path) =>
+          match read_text(path) {
+            Some(text) => text
+            None => ""
+          }
+        None => ""
+      }
+  }
+}
+
+///|
+/// Every `.mbt` file of the cursor's package, plus the cursor's own buffer when
+/// it is not on disk yet. `collect_package` supplies both halves: it already
+/// prefers an open buffer over the file on disk and reuses the scan cache.
+async fn package_sources(anchor_uri : String) -> Array[SourceFile] {
+  let out : Array[SourceFile] = []
+  let anchor_path = match uri_to_path(anchor_uri) {
+    Some(path) => path
+    None => anchor_uri
+  }
+  let directory = parent_dir(anchor_path)
+  // A buffer with no directory on disk (`file:///probe.mbt`) has no package to
+  // list; answering from its own text is the only truthful answer.
+  if directory != "" && directory != "." {
+    match collect_package(anchor_uri) {
+      Some(pkg) => {
+        let mut index = 0
+        while index < pkg.paths.length() {
+          out.push(
+            SourceFile::{
+              uri: path_to_uri(pkg.paths[index]),
+              path: pkg.paths[index],
+              text: pkg.facts[index].source,
+            },
+          )
+          index = index + 1
+        }
+      }
+      None => ()
+    }
+  }
+  let mut found = false
+  for file in out {
+    if file.uri == anchor_uri || file.path == anchor_path {
+      found = true
+    }
+  }
+  if !found {
+    out.push(
+      SourceFile::{ uri: anchor_uri, path: anchor_path, text: anchor_source(anchor_uri) },
+    )
+  }
+  out
+}
+
+///|
+/// `textDocument/definition`: the first declaration of the word under the
+/// cursor in the package. The cursor's own file is searched first, so a local
+/// binding wins over a sibling file's function of the same name.
+async fn definition_result(uri : String, line0 : Int, character : Int) -> String {
+  let source = anchor_source(uri)
+  let name = match word_at(source, line0, character) {
+    Some(name) => name
+    None => return "null"
+  }
+  let files = package_sources(uri)
+  for pass in 0..<2 {
+    for file in files {
+      let is_anchor = file.uri == uri
+      let wanted = if pass == 0 { is_anchor } else { !is_anchor }
+      if wanted {
+        match declaration_named(file_declarations(file.text), name) {
+          Some(decl) => return location_json(file.uri, decl)
+          None => ()
+        }
+      }
+    }
+  }
+  "null"
+}
+
+///|
+/// `textDocument/references`: every whole-word occurrence of the cursor's word
+/// in the package. The declaration's own occurrence is omitted unless the
+/// client asked for it.
+async fn references_result(
+  uri : String,
+  line0 : Int,
+  character : Int,
+  include_declaration : Bool,
+) -> String {
+  let source = anchor_source(uri)
+  let name = match word_at(source, line0, character) {
+    Some(name) => name
+    None => return "[]"
+  }
+  let files = package_sources(uri)
+  let entries : Array[String] = []
+  for file in files {
+    let decls = file_declarations(file.text)
+    let lines = file.text.split("\n").to_array()
+    for line_index in 0..<lines.length() {
+      let mut line = lines[line_index].to_owned()
+      if line.has_suffix("\r") {
+        line = line[: line.length() - 1].to_owned()
+      }
+      let chars = string_chars(line)
+      let mut i = 0
+      while i < chars.length() {
+        if ident_start_char(chars[i]) {
+          let start = i
+          let end = ident_end(chars, start)
+          if chars_range(chars, start, end) == name {
+            let mut is_declaration = false
+            for decl in decls {
+              if decl.line == line_index &&
+                decl.start_col == start &&
+                decl.end_col == end {
+                is_declaration = true
+              }
+            }
+            if include_declaration || !is_declaration {
+              entries.push(range_json(file.uri, line_index, start, end))
+            }
+          }
+          i = end
+        } else {
+          i = i + 1
+        }
+      }
+    }
+  }
+  entries_json(entries)
+}
+
+///|
 /// Returns `false` when the editor asked the server to exit.
 ///
 /// The Json type is never named here: it is reached through pattern matching on
@@ -454,7 +970,7 @@ async fn handle_message(text : String) -> Bool {
     "initialize" =>
       send_response(
         id,
-        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":" +
+        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"definitionProvider\":true,\"referencesProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":" +
         json_string(lsp_version) +
         "}}",
       )
@@ -519,6 +1035,57 @@ async fn handle_message(text : String) -> Bool {
                   } else {
                     send_response(id, code_actions_result(uri, line0, rule))
                   }
+                }
+                _ => send_response(id, "[]")
+              }
+            _ => send_response(id, "[]")
+          }
+        _ => send_response(id, "[]")
+      }
+    }
+    "textDocument/definition" => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match (params.get("textDocument"), params.get("position")) {
+            (Some(Object(document)), Some(Object(position))) =>
+              match (document.get("uri"), position.get("line"), position.get("character")) {
+                (Some(String(uri)), Some(Number(line, ..)), Some(Number(character, ..))) => {
+                  let result = definition_result(
+                    uri,
+                    line.to_int(),
+                    character.to_int(),
+                  )
+                  send_response(id, result)
+                }
+                _ => send_response(id, "null")
+              }
+            _ => send_response(id, "null")
+          }
+        _ => send_response(id, "null")
+      }
+    }
+    "textDocument/references" => {
+      match object.get("params") {
+        Some(Object(params)) =>
+          match (params.get("textDocument"), params.get("position")) {
+            (Some(Object(document)), Some(Object(position))) =>
+              match (document.get("uri"), position.get("line"), position.get("character")) {
+                (Some(String(uri)), Some(Number(line, ..)), Some(Number(character, ..))) => {
+                  let include_declaration = match params.get("context") {
+                    Some(Object(context)) =>
+                      match context.get("includeDeclaration") {
+                        Some(True) => true
+                        _ => false
+                      }
+                    _ => false
+                  }
+                  let result = references_result(
+                    uri,
+                    line.to_int(),
+                    character.to_int(),
+                    include_declaration,
+                  )
+                  send_response(id, result)
                 }
                 _ => send_response(id, "[]")
               }
