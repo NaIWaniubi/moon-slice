@@ -1,8 +1,10 @@
-# Build submission/PROPOSAL.docx from PROPOSAL.md, mirroring the one-page A4
-# layout of submission/PROPOSAL.pdf (same sections, same margins, same density).
+# Build submission/PROPOSAL.docx from PROPOSAL.md: the same four sample
+# sections on one A4 page. Layout matches the PDF in structure, not in points:
+# the DOCX uses 9mm top/bottom margins and 9.6pt body type (the PDF's CSS uses
+# 12mm and 10.1pt), tuned so both render as exactly one page.
 #
 # Usage: python submission/build_docx.py
-# Then:  powershell -File submission/docx_pages.ps1   (converts to PDF, prints pages)
+# Then:  powershell -NoProfile -ExecutionPolicy Bypass -File submission/docx_pages.ps1 -Docx <docx-path> -Pdf <pdf-path>
 
 import io
 import os
@@ -103,6 +105,13 @@ def build():
             run = paragraph.add_run(text[3:].strip())
             set_font(run, BODY_FONT, HEADING_PT, bold=True)
             bottom_border(paragraph)
+        elif re.match(r'\d+\.\s', text):
+            paragraph = doc.add_paragraph(style='List Number')
+            paragraph.paragraph_format.left_indent = Mm(3.5)
+            paragraph.paragraph_format.first_line_indent = Mm(-2.5)
+            paragraph.paragraph_format.space_before = Pt(0)
+            paragraph.paragraph_format.space_after = Pt(1)
+            add_runs(paragraph, text)
         elif text.startswith('- '):
             paragraph = doc.add_paragraph(style='List Bullet')
             paragraph.paragraph_format.left_indent = Mm(3.5)

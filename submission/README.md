@@ -37,9 +37,9 @@ pdf="$(cygpath -m "$PWD/submission/PROPOSAL.pdf")"
 python submission/build_docx.py
 ```
 
-`build_docx.py` 逐行读 `PROPOSAL.md`：`# ` 是标题（17pt），`## ` 是二级标题（11.5pt，带下划线），
-`- ` 是悬挂缩进的条目，反引号片段用 Consolas。页面 A4、上下 9 mm / 左右 14 mm、正文 9pt
-微软雅黑，目标是**一页**。
+`build_docx.py` 逐行读 `PROPOSAL.md`：`# ` 是标题（18pt），`## ` 是二级标题（12.2pt，带下划线），
+`- ` 与 `1.` 是悬挂缩进的条目，反引号片段用 Consolas。页面 A4、上下 9 mm / 左右 14 mm、
+正文 9.6pt 微软雅黑（字号与边距和 PDF 链路不同，各自调到一页），目标是**一页**。
 
 ## 确认页数
 
