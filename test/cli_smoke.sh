@@ -260,7 +260,7 @@ if printf '%s' "$pkg_line" | grep -Fq "b.mbt"; then
 fi
 pkg_cross="$(run slice --dir "$tmp_pkg" --file "$tmp_pkg/a.mbt" --line 2 --interprocedural)"
 printf '%s' "$pkg_cross" | grep -Fq "a.mbt: 2"
-printf '%s' "$pkg_cross" | grep -Fq "b.mbt: 2,6,7,8"
+printf '%s' "$pkg_cross" | grep -Fq "b.mbt: 8"
 slice_pkg_out="$(mktemp)"
 run slice --dir "$tmp_pkg" --file "$tmp_pkg/a.mbt" --line 2 --interprocedural --json > "$slice_pkg_out"
 node -e '
@@ -269,7 +269,7 @@ const j=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));
 if(j.files.length!==2) throw new Error("expected 2 files, got "+j.files.length);
 const b=j.files.find(f=>f.file.endsWith("b.mbt"));
 if(!b) throw new Error("no b.mbt record");
-if(JSON.stringify(b.lines)!==JSON.stringify([2,6,7,8])) throw new Error("bad b.mbt lines: "+b.lines);
+if(JSON.stringify(b.lines)!==JSON.stringify([8])) throw new Error("bad b.mbt lines: "+b.lines);
 if(b.nodes.length===0) throw new Error("no nodes");
 if(j.errors.length!==0) throw new Error("errors: "+j.errors);
 ' "$slice_pkg_out"

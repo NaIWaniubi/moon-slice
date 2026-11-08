@@ -513,7 +513,7 @@ a call is followed into whichever file under `D` defines the callee:
 # pkg/a.mbt: 2
 ./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural
 # pkg/a.mbt: 2
-# pkg/b.mbt: 2,6,7,8
+# pkg/b.mbt: 8
 ```
 
 The result is per file, because a node id only means something inside the program

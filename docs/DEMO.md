@@ -134,7 +134,9 @@ What to do there:
 2. switch **Direction** to `forward` on the while example: `4,5,6,7,8` becomes
    `7,10`;
 3. pick the **interprocedural** example and direction: the slice of `twice(x)`
-   becomes `2,6,7,8,12`, including the callee bodies;
+   becomes `2,6,7,8,12`, including the callee bodies; a bare call to a pure
+callee now contributes only its return expression, so that fixture narrows to
+`b.mbt: 8`;
 4. edit the source: the page re-runs after a pause (`Ctrl`+`Enter` runs at once);
 5. press **Copy link**: the URL now reopens the exact source, line and direction.
 
@@ -184,7 +186,7 @@ MBT
 # pkg/a.mbt: 2
 ./dev.sh run cmd/main -- slice --dir pkg --file pkg/a.mbt --line 2 --interprocedural
 # pkg/a.mbt: 2
-# pkg/b.mbt: 2,6,7,8
+# pkg/b.mbt: 8
 ./dev.sh run cmd/main -- callers --dir pkg --name inc
 # pkg/b.mbt:6: twice
 # pkg/b.mbt:7: twice
