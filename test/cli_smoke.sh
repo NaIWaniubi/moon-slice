@@ -1045,4 +1045,36 @@ done
 rm -rf "$skip_dir"
 rm -rf "$fix_dir"
 
+# taint: a source-to-sink path over the PDG, with a custom config, JSON shape
+# and the gate exit code.
+taint_dir="$(mktemp -d)"
+cat > "$taint_dir/a.mbt" <<'MBT'
+fn read_env() -> String {
+  "secret"
+}
+
+fn run(cmd : String) -> Unit {
+  println(cmd)
+}
+
+fn main {
+  let secret = read_env()
+  run(secret)
+}
+MBT
+cat > "$taint_dir/cfg.json" <<'JSON'
+{"sources": ["read_env"], "sinks": ["run"], "sanitizers": []}
+JSON
+taint_out="$(run taint --dir "$taint_dir" --config "$taint_dir/cfg.json")"
+printf '%s' "$taint_out" | grep -Fq "read_env:10 -> run:11"
+printf '%s' "$taint_out" | grep -Fq "findings=1"
+taint_json="$(run taint --dir "$taint_dir" --config "$taint_dir/cfg.json" --json)"
+printf '%s' "$taint_json" | grep -Fq '"findings":1'
+printf '%s' "$taint_json" | grep -Fq '"source_name":"read_env"'
+if run taint --dir "$taint_dir" --config "$taint_dir/cfg.json" --fail-on-findings >/dev/null 2>&1; then
+  printf 'FAIL: taint --fail-on-findings should exit 1\n' >&2
+  exit 1
+fi
+expect_fail "not a directory" taint --dir "$taint_dir/does_not_exist"
+rm -rf "$taint_dir"
 printf 'cli smoke ok\n'

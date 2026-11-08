@@ -10,6 +10,7 @@ import {
   "NaIWaniubi/moon-slice/src/suppress",
   "NaIWaniubi/moon-slice/src/query",
   "NaIWaniubi/moon-slice/src/refactor",
+  "NaIWaniubi/moon-slice/src/taint",
   "NaIWaniubi/moon-slice/src/liveness",
   "NaIWaniubi/moon-slice/src/interproc",
   "NaIWaniubi/moon-slice/src/roots",

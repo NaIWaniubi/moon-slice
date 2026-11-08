@@ -35,6 +35,8 @@ fn usage() -> Unit {
     "        [--out FILE]   the root set and the evidence that F is dead\n" +
     "  coverage --dir D [--json] [--out FILE]  receiver-call resolution:\n" +
     "        total / resolved / ambiguous / unresolved and per-reason counts\n" +
+    "  taint --dir D [--config FILE] [--json] [--out FILE]\n" +
+    "        [--fail-on-findings]  source-to-sink paths over the PDG\n" +
     "  impact --file F --lines L1,L2 [--json] [--dir D]\n" +
     "  impact --diff PATCH [--json] [--dir D]   what a change can affect\n" +
     "  html  --file F --line N [--out report.html] [--interprocedural] [--node ID]\n" +
@@ -133,6 +135,7 @@ fn known_command(command : String) -> Bool {
   command == "compare" ||
   command == "review" ||
   command == "impact" ||
+  command == "taint" ||
   command == "unused" ||
   command == "fix" ||
   command == "callers" ||
@@ -1182,6 +1185,7 @@ fn main {
   let mut name_var = ""
   let mut lines_arg = ""
   let mut write_mode = false
+  let mut config_path = ""
   let mut i = 2
   while i < argv.length() {
     let arg = argv[i]
@@ -1257,12 +1261,22 @@ fn main {
     } else if arg == "--diff" {
       diff_path = require_value(argv, i, arg)
       i = i + 2
+    } else if arg == "--config" {
+      config_path = require_value(argv, i, arg)
+      i = i + 2
     } else if arg == "--write" {
       write_mode = true
       i = i + 1
     } else {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
+  }
+  if command == "taint" {
+    if file != "" {
+      fail_code("bad_flag", "taint works on a package directory, not a single file")
+    }
+    run_taint(dir_path, config_path, json, out, fail_on_findings)
+    return
   }
   if command == "impact" {
     run_impact(file, diff_path, lines_arg, dir_path, json, out)
