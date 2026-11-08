@@ -1,5 +1,6 @@
 // Browser entry point. The JS host defines two globals:
-//   moonSliceReadInput() -> "direction@@MOONSLICE@@line@@MOONSLICE@@source"
+//   moonSliceReadInput() -> "direction\nline\nnode\nsource" (four newline-
+//     delimited fields; node may be empty to pick the line's first statement)
 //   moonSliceWriteOutput(html) -> unit
 // The MoonBit side runs the full analysis pipeline and returns a self-contained
 // HTML report, which the host renders in an iframe.
