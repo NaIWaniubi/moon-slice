@@ -21,15 +21,15 @@ fi
 # Prints "<target>|<l1,l2,...>" with spaces removed from the list only.
 parse() {
   local file="$1" dir="$2" line
-  line="$(grep -m1 -E "^// EXPECT-${dir} [0-9]+ -> \[" "$file" || true)"
+  line="$(grep -m1 -E "^// EXPECT-${dir}[[:space:]]+[0-9]+[[:space:]]*->[[:space:]]*\[" "$file" || true)"
   [ -n "$line" ] || { echo "MISSING"; return 0; }
   printf '%s\n' "$line" \
-    | sed -E "s#^// EXPECT-${dir} ([0-9]+) -> \[(.*)\][[:space:]]*#\\1|\\2#" \
+    | sed -E "s#^// EXPECT-${dir}[[:space:]]+([0-9]+)[[:space:]]*->[[:space:]]*\[(.*)\][[:space:]]*#\\1|\\2#" \
     | awk -F'|' '{gsub(/[[:space:]]/,"",$2); print $1 "|" $2}'
 }
 
 for f in "${files[@]}"; do
-  total_lines="$(wc -l < "$f" | tr -d ' ')"
+  total_lines="$(awk 'END { print NR }' "$f")"
   if [ "$total_lines" -gt 30 ]; then
     err "$f: $total_lines lines (> 30)"
   fi
@@ -47,7 +47,7 @@ for f in "${files[@]}"; do
       || err "$f: EXPECT-$dir target line $target outside 1..$total_lines"
 
     prev=0
-    for n in $(printf '%s' "$listed" | tr ',' ' '); do
+    for n in $(printf '%s' "$listed" | tr ',' ' ' | grep -Eo '[0-9]+'); do
       case "$n" in (*[!0-9]*) err "$f: EXPECT-$dir non-numeric entry '$n'"; continue;; esac
       [ "$n" -ge 1 ] && [ "$n" -le "$total_lines" ] \
         || err "$f: EXPECT-$dir line $n outside 1..$total_lines"
