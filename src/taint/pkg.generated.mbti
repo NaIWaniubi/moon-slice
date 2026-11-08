@@ -1,0 +1,47 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "NaIWaniubi/moon-slice/src/taint"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn analyze(@core.Program, @core.Pdg, TaintConfig) -> TaintReport
+
+pub fn default_config() -> TaintConfig
+
+pub fn parse_config(String) -> TaintConfig
+
+pub fn report_json(TaintReport) -> String
+
+pub fn report_text(TaintReport) -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct TaintConfig {
+  sources : Array[String]
+  sinks : Array[String]
+  sanitizers : Array[String]
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TaintFinding {
+  source_name : String
+  source_line : Int32
+  sink_name : String
+  sink_line : Int32
+  path : Array[Int32]
+  sanitized : Bool
+} derive(Eq, @debug.Debug)
+
+pub(all) struct TaintReport {
+  findings : Array[TaintFinding]
+  sources_seen : Int32
+  sinks_seen : Int32
+  truncated : Int32
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits

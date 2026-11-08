@@ -1,0 +1,14 @@
+warnings = "-79"
+
+import {
+  "NaIWaniubi/moon-slice/src/core",
+  "moonbitlang/core/json",
+}
+
+import {
+  "NaIWaniubi/moon-slice/src/parser_adapter",
+  "NaIWaniubi/moon-slice/src/cfg",
+  "NaIWaniubi/moon-slice/src/defuse",
+  "NaIWaniubi/moon-slice/src/cdg",
+  "NaIWaniubi/moon-slice/src/pdg",
+} for "test"
