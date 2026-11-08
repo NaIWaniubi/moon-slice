@@ -1271,6 +1271,12 @@ fn main {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
   }
+  if (baseline_path != "" || write_baseline != "") && command != "dead" {
+    fail_code(
+      "bad_flag",
+      "--baseline and --write-baseline are only supported by dead",
+    )
+  }
   if command == "taint" {
     if file != "" {
       fail_code("bad_flag", "taint works on a package directory, not a single file")

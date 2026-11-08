@@ -970,7 +970,7 @@ async fn handle_message(text : String) -> Bool {
     "initialize" =>
       send_response(
         id,
-        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"definitionProvider\":true,\"referencesProvider\":true,\"diagnosticProvider\":{\"interFileDependencies\":false,\"workspaceDiagnostics\":false}},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":" +
+        "{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"codeActionProvider\":true,\"definitionProvider\":true,\"referencesProvider\":true},\"serverInfo\":{\"name\":\"moon-slice\",\"version\":" +
         json_string(lsp_version) +
         "}}",
       )

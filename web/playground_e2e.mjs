@@ -35,6 +35,10 @@ const proc = spawn(chrome, [
   '--headless=new', '--disable-gpu', '--no-sandbox', '--no-first-run',
   `--user-data-dir=${profile}`, `--remote-debugging-port=${port}`, 'about:blank',
 ], { windowsHide: true, stdio: 'ignore' });
+proc.on('error', (error) => {
+  console.error(`playground e2e: failed to start ${chrome}: ${error.message}`);
+  process.exit(2);
+});
 
 async function waitJson(url, tries = 80) {
   for (let i = 0; i < tries; i++) {
@@ -140,7 +144,9 @@ try {
   );
 
   const report = await evaluate(`document.getElementById('out').srcdoc`);
-  const mutated = await evaluate(`document.documentElement.getAttribute('data-pwned')`);
+  const mutated = await evaluate(
+      `document.getElementById('out').contentDocument.documentElement.getAttribute('data-pwned')`,
+    );
   const markerPreserved = report.includes('@@MOONSLICE@@');
 
   if (!report.includes('&lt;script&gt;')) throw new Error('source was not HTML-escaped');
@@ -158,7 +164,12 @@ try {
   proc.kill();
   server.close();
   await new Promise((resolve) => setTimeout(resolve, 500));
-  try {
-    fs.rmSync(profile, { recursive: true, force: true });
-  } catch {}
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    try {
+      fs.rmSync(profile, { recursive: true, force: true });
+      break;
+    } catch {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
 }

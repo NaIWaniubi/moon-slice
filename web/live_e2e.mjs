@@ -15,6 +15,10 @@ const proc = spawn(chrome, [
   '--headless=new', '--disable-gpu', '--no-sandbox', '--no-first-run',
   `--user-data-dir=${profile}`, `--remote-debugging-port=${port}`, 'about:blank',
 ], { windowsHide: true, stdio: 'ignore' });
+proc.on('error', (error) => {
+  console.error(`live e2e: failed to start ${chrome}: ${error.message}`);
+  process.exit(2);
+});
 
 async function waitJson(target, tries = 120) {
   for (let i = 0; i < tries; i++) {
@@ -94,7 +98,9 @@ try {
   })()`);
   const second = await waitRendered('second live render', first);
   const report = await evaluate(`document.getElementById('out').srcdoc`);
-  const mutated = await evaluate(`document.documentElement.getAttribute('data-pwned')`);
+  const mutated = await evaluate(
+      `document.getElementById('out').contentDocument.documentElement.getAttribute('data-pwned')`,
+    );
 
   if (!report.includes('target n')) throw new Error('report does not name the selected node');
   if (!report.includes('@@MOONSLICE@@')) throw new Error('source sentinel was truncated');
@@ -106,5 +112,8 @@ try {
   try { ws?.close(); } catch {}
   proc.kill();
   await new Promise((r) => setTimeout(r, 500));
-  try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    try { fs.rmSync(profile, { recursive: true, force: true }); break; } catch {}
+    await new Promise((r) => setTimeout(r, 1000));
+  }
 }
