@@ -1,6 +1,7 @@
 // Real-browser acceptance for the playground: one page, two consecutive runs.
 // Uses headless Chrome via CDP, so a stale bundle or a re-declaration bug fails.
 import { spawn } from 'node:child_process';
+import net from 'node:net';
 import fs from 'node:fs';
 import http from 'node:http';
 import os from 'node:os';
@@ -8,7 +9,19 @@ import path from 'node:path';
 
 const root = path.resolve(process.argv[2] ?? '.');
 const chrome = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-const port = 9411;
+// A fixed port risks colliding with a lingering Chrome, so the script tries a
+// small range and picks the first port nothing is listening on.
+function freePort(start) {
+  for (let candidate = start; candidate < start + 10; candidate += 1) {
+    try {
+      const probe = net.createServer();
+      probe.listen(candidate, '127.0.0.1');
+      probe.close();
+      return candidate;
+    } catch {}
+  }
+  throw new Error('no free port in range');
+}
 const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'moon-slice-chrome-'));
 
 const types = {
@@ -31,9 +44,30 @@ const server = http.createServer((req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const base = `http://127.0.0.1:${server.address().port}`;
 
+// Chrome with --remote-debugging-port=0 writes the real port here.
+function cdpBase() {
+  const file = path.join(profile, 'DevToolsActivePort');
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    try {
+      const [portText] = fs.readFileSync(file, 'utf8').split('\n');
+      if (portText.trim() !== '') return `http://127.0.0.1:${portText.trim()}`;
+    } catch {}
+  }
+  return null;
+}
+const cdp_port = freePort(9411);
+const portWait = new Promise((resolve) => {
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries += 1;
+    const base = cdpBase();
+    if (base !== null || tries > 40) { clearInterval(timer); resolve(base); }
+  }, 250);
+});
+
 const proc = spawn(chrome, [
   '--headless=new', '--disable-gpu', '--no-sandbox', '--no-first-run',
-  `--user-data-dir=${profile}`, `--remote-debugging-port=${port}`, 'about:blank',
+  `--user-data-dir=${profile}`, `--remote-debugging-port=${cdp_port}`, 'about:blank',
 ], { windowsHide: true, stdio: 'ignore' });
 proc.on('error', (error) => {
   console.error(`playground e2e: failed to start ${chrome}: ${error.message}`);
@@ -53,7 +87,8 @@ async function waitJson(url, tries = 80) {
 
 let ws;
 try {
-  const version = await waitJson(`http://127.0.0.1:${port}/json/version`);
+  await portWait;
+  const version = await waitJson(`http://127.0.0.1:${cdp_port}/json/version`);
   ws = new WebSocket(version.webSocketDebuggerUrl);
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
