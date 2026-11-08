@@ -135,7 +135,7 @@ fi
 expect_fail "only supported by dead" slice --file examples/04_while.mbt --line 7 --baseline "$tmp_base"
 expect_fail "only supported by dead" slice --dir examples --file examples/04_while.mbt --line 7 --baseline "$tmp_base"
 expect_fail "only supported by dead" fix --dir examples --baseline "$tmp_base" --json
-expect_fail "only supported by dead" fix --dir examples --write-baseline "$tmp_base"
+expect_fail "only supported by dead and unused" fix --dir examples --write-baseline "$tmp_base"
 expect_json_error bad_format slice --file examples/04_while.mbt --line 7 --format sarif
 expect_json_error read_failed dead --file examples/08_dead_assignment.mbt --baseline "$tmp_base.missing"
 

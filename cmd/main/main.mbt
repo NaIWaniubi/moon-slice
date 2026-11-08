@@ -1271,10 +1271,16 @@ fn main {
       fail_code("unknown_argument", "unknown argument \{arg}")
     }
   }
-  if (baseline_path != "" || write_baseline != "") && command != "dead" {
+  if baseline_path != "" && command != "dead" && command != "unused" {
     fail_code(
       "bad_flag",
-      "--baseline and --write-baseline are only supported by dead",
+      "--baseline is only supported by dead",
+    )
+  }
+  if write_baseline != "" && command != "dead" && command != "unused" {
+    fail_code(
+      "bad_flag",
+      "--write-baseline is only supported by dead and unused",
     )
   }
   if command == "taint" {
