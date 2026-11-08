@@ -24,7 +24,8 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { pathToFileURL } from 'node:url';
 
 const args = new Map();
@@ -32,8 +33,13 @@ for (let i = 2; i < process.argv.length; i += 2) {
   args.set(process.argv[i].replace(/^--/, ''), process.argv[i + 1]);
 }
 const reps = Number(args.get('reps') ?? 3);
+if (!Number.isFinite(reps) || reps < 1) {
+  console.error('scan bench: --reps must be a positive integer');
+  if (cleanup) cleanup();
+  process.exit(2);
+}
 
-const root = resolve(new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const exe = [
   join(root, '_build', 'native', 'release', 'build', 'cmd', 'lsp', 'lsp.exe'),
   join(root, '_build', 'native', 'release', 'build', 'cmd', 'lsp', 'lsp'),
@@ -92,11 +98,23 @@ child.stdout.on('data', (chunk) => {
     const headerEnd = incoming.indexOf('\r\n\r\n');
     if (headerEnd < 0) return;
     const match = /Content-Length:\s*(\d+)/i.exec(incoming.slice(0, headerEnd).toString('ascii'));
+    if (!match) {
+      console.error('scan bench: bad header', incoming.slice(0, headerEnd).toString('ascii'));
+      child.kill();
+      process.exit(1);
+    }
     const length = Number(match[1]);
     if (incoming.length < headerEnd + 4 + length) return;
     const body = incoming.slice(headerEnd + 4, headerEnd + 4 + length).toString('utf8');
     incoming = incoming.slice(headerEnd + 4 + length);
-    const message = JSON.parse(body);
+    let message;
+    try {
+      message = JSON.parse(body);
+    } catch (error) {
+      console.error('scan bench: non-JSON body from server:', body.slice(0, 120));
+      child.kill();
+      process.exit(1);
+    }
     if (message.id !== undefined && responses.has(message.id)) {
       responses.get(message.id)(message);
       responses.delete(message.id);
@@ -186,13 +204,18 @@ const main = async () => {
 
   const coldMs = cold.ms;
   const warmMs = Math.min(...warm.map((run) => run.ms));
+  if (!Number.isFinite(coldMs) || !Number.isFinite(warmMs)) {
+    console.error('scan bench: no samples were taken');
+    if (cleanup) cleanup();
+    process.exit(1);
+  }
   const perFile = (ms) => (ms / files.length).toFixed(3);
   console.log(`scan bench: ${files.length} files in ${dir}`);
   console.log(`  cold (first open): ${coldMs.toFixed(1)} ms (${perFile(coldMs)} ms/file)`);
   console.log(`  warm (no change):  ${warmMs.toFixed(1)} ms (${perFile(warmMs)} ms/file)`);
   console.log(`  speedup: ${(coldMs / warmMs).toFixed(1)}x`);
   console.log(`  ${cold.line}`);
-  console.log(`  ${warm[0].line}`);
+  if (warm[0]) console.log(`  ${warm[0].line}`);
 };
 
 main()

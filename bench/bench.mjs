@@ -13,6 +13,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const args = new Map();
 for (let i = 2; i < process.argv.length; i += 2) {
@@ -20,8 +21,11 @@ for (let i = 2; i < process.argv.length; i += 2) {
 }
 const sizes = (args.get('sizes') ?? '500,2000,8000').split(',').map(Number);
 const reps = Number(args.get('reps') ?? 3);
+if (!Number.isFinite(reps) || reps < 1) {
+  throw new Error('--reps must be a positive integer');
+}
 
-const root = path.resolve(new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const exe = path.join(root, '_build', 'native', 'release', 'build', 'cmd', 'main', 'main.exe');
 if (!fs.existsSync(exe)) {
   throw new Error(`missing ${exe}; run: ./dev.sh build --target native --release cmd/main`);
