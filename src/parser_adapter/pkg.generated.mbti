@@ -6,9 +6,13 @@ import {
 }
 
 // Values
+pub fn call_arguments(String, String, Int32) -> Array[CallArgument]
+
 pub fn call_facts(String, String, extra? : DeclTable) -> CallFacts
 
 pub fn declared_types(String, String) -> DeclTable
+
+pub fn effect_lines(String, String) -> EffectLines
 
 pub fn empty_decls() -> DeclTable
 
@@ -19,6 +23,13 @@ pub fn parse_source(String, String) -> @core.Program
 // Errors
 
 // Types and methods
+pub(all) struct CallArgument {
+  index : Int32
+  param_name : String
+  expr_text : String
+  expr_line : Int32
+}
+
 pub(all) struct CallFacts {
   receivers : Array[ReceiverCall]
   methods : Array[MethodDecl]
@@ -29,6 +40,18 @@ pub(all) struct DeclTable {
   method_returns : Map[String, String]
   fields : Map[String, String]
   enums : Map[String, EnumDecl]
+}
+
+pub(all) struct EffectCall {
+  line : Int32
+  name : String
+}
+
+pub(all) struct EffectLines {
+  writes : Array[Int32]
+  raises : Array[Int32]
+  io : Array[Int32]
+  calls : Array[EffectCall]
 }
 
 pub(all) struct EnumDecl {
