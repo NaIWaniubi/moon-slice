@@ -1272,7 +1272,7 @@ fn main {
     if diff_path == "" {
       fail_code("missing_diff", "--diff is required for review")
     }
-    run_review(diff_path, json)
+    run_review(diff_path, dir_path, json)
     return
   }
   if command == "fix" {
