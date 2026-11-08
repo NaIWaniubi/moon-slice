@@ -40,11 +40,21 @@ for (const file of files) {
     encoding: 'utf8',
     maxBuffer: 1 << 26,
   });
+  if (result.error || result.status === null) {
+    console.error(`# error: failed to run ${exe}: ${result.error?.message ?? 'spawn failed'}`);
+    process.exit(1);
+  }
   if (result.status !== 0) {
     parseFailures++;
     continue;
   }
-  const report = JSON.parse(result.stdout);
+  let report;
+  try {
+    report = JSON.parse(result.stdout);
+  } catch (error) {
+    console.error(`# error: ${path}: analyzer printed non-JSON output: ${error.message}`);
+    process.exit(1);
+  }
   if (report.errors && report.errors.length > 0) {
     parseFailures++;
     continue;

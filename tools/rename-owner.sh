@@ -29,7 +29,15 @@ if [ "$owner" = "$old" ]; then
 fi
 
 # Tracked text files only: the generated bundle and the PDF are rebuilt below.
-mapfile -t files < <(git grep -l "$old" -- '*.md' '*.mbt' '*.mjs' '*.yml' '*.yaml' '*.sh' 'moon.mod' | sort)
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  echo "rename-owner: not a git repository; refusing to guess" >&2
+  exit 1
+fi
+mapfile -t files < <(git grep -l "$old" -- '*.md' '*.mbt' '*.mjs' '*.yml' '*.yaml' '*.sh' 'moon.mod' '*/moon.pkg' '*.pkg' | sort)
+if [ "${#files[@]}" -eq 0 ] && [ -n "$(git grep -l "$old" | head -1)" ]; then
+  echo "rename-owner: references exist outside the known file set; update the globs" >&2
+  exit 1
+fi
 
 if [ "${#files[@]}" -eq 0 ]; then
   echo "rename-owner: no references to $old"
@@ -65,7 +73,7 @@ if command -v pandoc >/dev/null 2>&1; then
   rm -f submission/PROPOSAL.html
 fi
 
-leftover="$(git grep -c "$old" -- '*.md' '*.mbt' '*.mjs' '*.yml' '*.yaml' '*.sh' 'moon.mod' 2>/dev/null || true)"
+leftover="$(git grep -c "$old" -- '*.md' '*.mbt' '*.mjs' '*.yml' '*.yaml' '*.sh' 'moon.mod' 2>/dev/null || { echo "rename-owner: leftover check failed" >&2; exit 1; })"
 if [ -n "$leftover" ]; then
   echo "rename-owner: references still present:" >&2
   echo "$leftover" >&2
