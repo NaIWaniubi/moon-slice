@@ -15,11 +15,16 @@ check that proves each one.
 | Analysis | Six new semantic packages: workspace graph, typed call resolution with coverage, SSA, side-effect summaries, root reachability proofs, independent differential oracle | 0.11.0; 281 new tests; `src/{workspace,resolve,ssa,sidefx,roots,oracle}` |
 | CLI | `explain-live`, `explain-dead`, `coverage`, `impact`, `fix` — reachability proofs, resolution coverage, impact certificates, safe dead-code removal | 0.11.0; `test/cli_smoke.sh` 91 assertions; real-upstream runs recorded in `DELIVERY.md` |
 | Editor | LSP hover appends liveness evidence for private functions; unused diagnostics carry reachability | 0.11.0; `test/lsp_client.mjs` |
+| Analysis | Interprocedural expansion filters callee statements by side effects and maps actual arguments to parameters | 0.12.0; 54 new tests in `src/interproc` + `src/parser_adapter/calls.mbt` |
+| Editor | LSP definition and references over the package, with `includeDeclaration` | 0.12.0; `test/lsp_client.mjs` |
+| CI | `review --diff` prints an impact certificate per file (functions, entries, tests, evidence paths) | 0.12.0; `test/cli_smoke.sh` |
+| Security | `taint --dir D [--config F]`: source→sink PDG paths, sanitizer cut-off, `--fail-on-findings` | 0.12.0; `src/taint` |
+
 
 Verify it yourself, in this order:
 
 ```bash
-./dev.sh check && ./dev.sh test          # 752 tests
+./dev.sh check && ./dev.sh test          # 861 tests
 node test/lsp_client.mjs                 # diagnostics, both slices, quick fix, cache hit and invalidation
 ./dev.sh build --target native --release cmd/lsp
 node bench/scan.mjs --dir ~/.moon/lib/core/builtin --reps 5
@@ -30,4 +35,4 @@ Commits in the period: `29d869e` (incremental scans, linear liveness),
 the proposal), then the 0.11.0 wave: six package commits plus `tower(m-00x)`
 merges for workspace, resolve, ssa, sidefx, roots, oracle, explain, LSP
 liveness, impact and refactor.
-Releases: `v0.10.1`, `v0.10.2`, `v0.11.0`, all on mooncakes.io.
+Releases: `v0.10.1`, `v0.10.2`, `v0.11.0`, `v0.12.0`, all on mooncakes.io.

@@ -26,7 +26,7 @@ source, and stays self-contained (no network, no CDN).
 
 ## Status
 
-All layers are implemented and covered by `moon test` (752 tests, including a
+All layers are implemented and covered by `moon test` (861 tests, including a
 10-example end-to-end corpus, a path-based precision oracle, a seeded
 property-based differential suite, and package-level liveness). The data model is
 frozen; the CLI is usable.
@@ -64,7 +64,7 @@ cd moon-slice
 The library is published on mooncakes.io as `NaIWaniubi/moon-slice@0.7.0`:
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.11.0
+moon add NaIWaniubi/moon-slice@0.12.0
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · release details in
@@ -101,6 +101,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 ./dev.sh run cmd/main -- explain-live --dir examples --name leaf
 ./dev.sh run cmd/main -- coverage --dir examples
 ./dev.sh run cmd/main -- impact --file examples/04_while.mbt --lines 7
+./dev.sh run cmd/main -- taint --dir examples
 ```
 
 `explain-live` prints the shortest chain from a root to a function;
@@ -224,6 +225,7 @@ five-pass pipeline alone could not.
 | `impact` | what does changing these lines affect | `impact --file F --lines L` |
 | `refactor` | what can be deleted without changing behaviour | `fix --dir D` |
 | `oracle` | does an independent reference implementation agree with ours | differential tests |
+| `taint` | does untrusted input reach a dangerous call, and does a sanitizer cut it | `taint --dir D [--config F]` |
 
 `explain-dead` is the honest inverse of `unused`: it prints the root set, the
 number of files and functions searched, the reachability evidence, and the
@@ -599,12 +601,12 @@ cheaper to silence where it lives: `// moon-slice: ignore[dead-store]` (see
 `templates/review-workflow.yml` is a ready-to-copy workflow:
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.11.0
+- uses: NaIWaniubi/moon-slice@v0.12.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.11.0
+- uses: NaIWaniubi/moon-slice@v0.12.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings

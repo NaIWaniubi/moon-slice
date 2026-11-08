@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 752 个测试
+./dev.sh test                  # 861 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -76,12 +76,15 @@ cd moon-slice
 
 # 变更行的影响证明
 ./dev.sh run cmd/main -- impact --file examples/04_while.mbt --lines 7
+
+# 污点分析：source 到 sink 的 PDG 数据边路径
+./dev.sh run cmd/main -- taint --dir examples
 ```
 
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.11.0
+moon add NaIWaniubi/moon-slice@0.12.0
 ```
 
 <https://mooncakes.io/docs/NaIWaniubi/moon-slice> · 发布细节见 `PUBLISHING.md`。
@@ -128,12 +131,12 @@ review: 5 file(s), 163 changed line(s), 212 affected line(s)
 `templates/review-workflow.yml` 可直接复制到业务仓库：
 
 ```yaml
-- uses: NaIWaniubi/moon-slice@v0.11.0
+- uses: NaIWaniubi/moon-slice@v0.12.0
   with:
     command: review
     since: ${{ github.event.pull_request.base.sha }}
 
-- uses: NaIWaniubi/moon-slice@v0.11.0
+- uses: NaIWaniubi/moon-slice@v0.12.0
   with:
     command: dead
     args: --dir . --baseline .moon-slice-baseline --format sarif --out moon-slice.sarif --fail-on-findings
@@ -340,7 +343,7 @@ VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式、扫�
 
 ## 工程
 
-- 752 个测试；库代码行覆盖率约 88%
+- 861 个测试；库代码行覆盖率约 88%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

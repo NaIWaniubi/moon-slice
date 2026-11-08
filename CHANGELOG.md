@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.12.0 — 2026-11-08
+
+The second semantic wave: precision inside the pipeline, and two new surfaces.
+
+- **Interprocedural expansion is no longer "whole body".** A bare call now
+  pulls in only the callee statements that write fields, mutate the receiver,
+  or may raise/do IO — plus the return statement — using `src/sidefx`; a
+  summary with unresolved calls falls back to the whole body (the safe
+  direction). Value-returning calls keep the return cone and add the effect
+  statements. Actual arguments are mapped to parameters (positional, named,
+  default) through `src/parser_adapter/calls.mbt`, and identifier arguments
+  bring their defining statements into the slice.
+- **The LSP answers "where is this defined" and "who references this".**
+  `textDocument/definition` jumps to the declaration (functions, lets, fields,
+  impl methods), `textDocument/references` lists word-boundary occurrences in
+  the package with `includeDeclaration` honoured; both are advertised in
+  `initialize`.
+- **`review --diff` now prints an impact certificate per file.** The forward
+  slice union, affected functions, reachable public/test entries, cross-file
+  files, related tests, unresolved boundaries, and one evidence path per
+  affected statement — the same data as the `impact` command, attached to the
+  diff view CI already uses.
+- **`taint --dir D [--config FILE]`** runs source-to-sink reachability over
+  PDG data edges: `src/taint` parses a sources/sinks/sanitizers config
+  (defaults cover env/fs/io/process), cuts a path at a sanitizer, reports the
+  shortest path per finding, and exits 1 with `--fail-on-findings`.
+- 861 tests (was 752); two missions (interprocedural expansion, LSP
+  definition/references) and the taint package each passed independent review
+  before merging.
+
 ## 0.11.0 — 2026-11-08
 
 The semantic platform wave: six new analysis packages, four new CLI commands,
