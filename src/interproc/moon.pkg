@@ -6,6 +6,7 @@ import {
   "NaIWaniubi/moon-slice/src/cdg",
   "NaIWaniubi/moon-slice/src/pdg",
   "NaIWaniubi/moon-slice/src/query",
+  "NaIWaniubi/moon-slice/src/sidefx",
 }
 
 import {
