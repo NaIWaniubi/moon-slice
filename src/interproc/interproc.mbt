@@ -243,14 +243,380 @@ fn add_whole_body(target : Array[Int32], info : @core.FunctionInfo) -> Bool {
 }
 
 ///|
+/// Side-effect summaries of every function the package declares, keyed by name.
+///
+/// The batch is what closes the call graph: `pure` means "transitively
+/// effect-free within this package", which is the verdict a bare call needs.
+/// The first summary of a name wins, matching `@sidefx`'s own lookup.
+fn summaries_of(index : PackageIndex) -> Map[String, @sidefx.SideEffects] {
+  let sources : Array[@sidefx.FnSource] = []
+  for file in index.files {
+    for info in file.program.functions {
+      sources.push(@sidefx.FnSource::{ name: info.name, source: file.source })
+    }
+  }
+  let table : Map[String, @sidefx.SideEffects] = Map([])
+  for summary in @sidefx.summarize_package(sources) {
+    if !table.contains(summary.name) {
+      table.set(summary.name, summary.effects)
+    }
+  }
+  table
+}
+
+///|
+/// Every name a call inside the package can resolve to: the functions and
+/// methods it declares, the IO names, and the panic helpers. A call to anything
+/// else is a boundary the summary cannot see through.
+fn callable_names(index : PackageIndex) -> Set[String] {
+  let known : Set[String] = Set([])
+  for file in index.files {
+    for info in file.program.functions {
+      known.add(info.name)
+    }
+    for declared in file.methods {
+      known.add(declared.name)
+    }
+  }
+  for name in @sidefx.default_io_names() {
+    known.add(name)
+  }
+  known.add("panic")
+  known.add("fail")
+  known.add("abort")
+  known.add("unreachable")
+  known
+}
+
+///|
+/// A structural node with no source statement of its own: a branch region or a
+/// loop's step block.
+fn is_container_node(node : @core.SNode) -> Bool {
+  node.children.length() > 0 && node.defs.length() == 0 && node.uses.length() == 0
+}
+
+///|
+/// Add every node of `info`'s body that starts on `line`.
+fn add_line_nodes(
+  program : @core.Program,
+  info : @core.FunctionInfo,
+  line : Int32,
+  target : Array[Int32],
+) -> Bool {
+  let mut grew = false
+  for node in program.nodes {
+    if node.id > info.entry && node.id < info.exit && node.loc.start_line == line {
+      if push_new(target, node.id) {
+        grew = true
+      }
+    }
+  }
+  grew
+}
+
+///|
+/// The value a bare call hands back: every `Return` node of the body, or — for
+/// a body whose value is its trailing expression — that last statement.
+fn add_return_nodes(
+  program : @core.Program,
+  info : @core.FunctionInfo,
+  target : Array[Int32],
+) -> Bool {
+  let mut grew = false
+  let mut has_return = false
+  for node in program.nodes {
+    if node.id > info.entry && node.id < info.exit && node.kind == @core.SNodeKind::Return {
+      has_return = true
+      if push_new(target, node.id) {
+        grew = true
+      }
+    }
+  }
+  if !has_return {
+    let mut last : Int32 = -1
+    for node in program.nodes {
+      if node.id > info.entry &&
+        node.id < info.exit &&
+        !is_container_node(node) &&
+        node.id > last {
+        last = node.id
+      }
+    }
+    if last >= 0 && push_new(target, last) {
+      grew = true
+    }
+  }
+  grew
+}
+
+///|
+fn effect_lines_of(
+  file : PackageFile,
+  name : String,
+  cache : Map[String, @parser_adapter.EffectLines],
+) -> @parser_adapter.EffectLines {
+  let key = file.path + "\u{0}" + name
+  match cache.get(key) {
+    Some(found) => found
+    None => {
+      let found = @parser_adapter.effect_lines(file.source, name)
+      cache.set(key, found)
+      found
+    }
+  }
+}
+
+///|
+/// A callee in UpperCamelCase is a constructor application (`Some(v)`,
+/// `Failure("x")`), which allocates a value and is not an edge the summary has
+/// to resolve. `@sidefx` records it as a call because it cannot tell either; it
+/// is filtered here so it does not force the whole body back in.
+fn is_constructor_name(name : String) -> Bool {
+  for ch in name.iter() {
+    let code = ch.to_int()
+    return code >= 'A'.to_int() && code <= 'Z'.to_int()
+  }
+  false
+}
+
+///|
+/// Whether the summary can be acted on. A call the package does not declare — a
+/// dependency, a function value, a method of an unknown type — may do anything,
+/// so the summary is not a safe reason to drop the body.
+fn summary_is_usable(
+  effects : @sidefx.SideEffects,
+  lines : @parser_adapter.EffectLines,
+  known : Set[String],
+) -> Bool {
+  for name in effects.calls {
+    if !known.contains(name) && !is_constructor_name(name) {
+      return false
+    }
+  }
+  for call in lines.calls {
+    if call.name == "" || !known.contains(call.name) {
+      return false
+    }
+  }
+  true
+}
+
+///|
+/// Pull in the statements of `info` a caller can observe. `effects` decides
+/// whether the body does anything at all; `lines` says where.
+fn add_observable(
+  program : @core.Program,
+  info : @core.FunctionInfo,
+  effects : @sidefx.SideEffects,
+  lines : @parser_adapter.EffectLines,
+  summaries : Map[String, @sidefx.SideEffects],
+  target : Array[Int32],
+) -> Bool {
+  if effects.pure {
+    return false
+  }
+  let mut grew = false
+  for line in lines.writes {
+    if add_line_nodes(program, info, line, target) {
+      grew = true
+    }
+  }
+  for line in lines.raises {
+    if add_line_nodes(program, info, line, target) {
+      grew = true
+    }
+  }
+  for line in lines.io {
+    if add_line_nodes(program, info, line, target) {
+      grew = true
+    }
+  }
+  // Impurity also travels through calls. The call statement has to be part of
+  // the slice, or the next round cannot follow it into the impure callee.
+  for call in lines.calls {
+    match summaries.get(call.name) {
+      Some(callee_effects) =>
+        if !callee_effects.pure {
+          if add_line_nodes(program, info, call.line, target) {
+            grew = true
+          }
+        }
+      None => ()
+    }
+  }
+  grew
+}
+
+///|
+/// A bare call: the observable statements plus the returned value, or the whole
+/// body when the summary cannot be trusted.
+fn expand_bare_call(
+  index : PackageIndex,
+  callee_file : Int,
+  info : @core.FunctionInfo,
+  sets : Array[Array[Int32]],
+  summaries : Map[String, @sidefx.SideEffects],
+  known : Set[String],
+  cache : Map[String, @parser_adapter.EffectLines],
+) -> Bool {
+  let file = index.files[callee_file]
+  let target = sets[callee_file]
+  let effects = match summaries.get(info.name) {
+    Some(found) => found
+    None => return add_whole_body(target, info)
+  }
+  let lines = effect_lines_of(file, info.name, cache)
+  if !summary_is_usable(effects, lines, known) {
+    return add_whole_body(target, info)
+  }
+  let mut grew = false
+  if add_return_nodes(file.program, info, target) {
+    grew = true
+  }
+  if add_observable(file.program, info, effects, lines, summaries, target) {
+    grew = true
+  }
+  grew
+}
+
+///|
+/// A value-returning call keeps its return cone and gains the callee's
+/// observable statements: a write before the `return` is part of what the call
+/// does, even though it does not produce the value.
+fn add_value_effects(
+  index : PackageIndex,
+  callee_file : Int,
+  info : @core.FunctionInfo,
+  target : Array[Int32],
+  summaries : Map[String, @sidefx.SideEffects],
+  cache : Map[String, @parser_adapter.EffectLines],
+) -> Bool {
+  let effects = match summaries.get(info.name) {
+    Some(found) => found
+    None => return false
+  }
+  let file = index.files[callee_file]
+  let lines = effect_lines_of(file, info.name, cache)
+  add_observable(file.program, info, effects, lines, summaries, target)
+}
+
+///|
+fn is_ident_char(ch : Char) -> Bool {
+  let code = ch.to_int()
+  (code >= 'a'.to_int() && code <= 'z'.to_int()) ||
+  (code >= 'A'.to_int() && code <= 'Z'.to_int()) ||
+  (code >= '0'.to_int() && code <= '9'.to_int()) ||
+  ch == '_'
+}
+
+///|
+fn flush_name(out : Array[String], buffer : StringBuilder) -> Unit {
+  if !buffer.is_empty() {
+    let name = buffer.to_string()
+    if !out.contains(name) {
+      out.push(name)
+    }
+    ignore(buffer.reset())
+  }
+}
+
+///|
+/// The names an argument expression mentions. A bare identifier is its own
+/// name; a compound expression is tokenised, which over-approximates a string
+/// literal but never drops a variable the expression really reads.
+fn argument_names(text : String) -> Array[String] {
+  let out : Array[String] = []
+  let buffer = StringBuilder()
+  for ch in text.iter() {
+    if is_ident_char(ch) {
+      buffer.write_char(ch)
+    } else {
+      flush_name(out, buffer)
+    }
+  }
+  flush_name(out, buffer)
+  out
+}
+
+///|
+/// The definition of `name` in `info` that reaches `before`: the last defining
+/// node strictly inside the body and before the call.
+fn definition_before(
+  program : @core.Program,
+  info : @core.FunctionInfo,
+  before : Int32,
+  name : String,
+) -> Int32? {
+  let mut best : Int32 = -1
+  for node in program.nodes {
+    if node.id > info.entry && node.id < info.exit && node.id < before {
+      for variable in node.defs {
+        if variable.name == name && node.id > best {
+          best = node.id
+        }
+      }
+    }
+  }
+  if best >= 0 { Some(best) } else { None }
+}
+
+///|
+/// The caller side of a call edge: the definition of every variable the call
+/// passes. A slice started at the call statement then reports where each
+/// argument came from, which is the dependency the edge represents.
+fn add_argument_nodes(
+  file : PackageFile,
+  caller : @core.FunctionInfo,
+  call_node : Int32,
+  line : Int32,
+  target : Array[Int32],
+  cache : Map[String, Array[@parser_adapter.CallArgument]],
+) -> Bool {
+  let key = file.path + "\u{0}" + caller.name + "\u{0}" + line.to_string()
+  let arguments = match cache.get(key) {
+    Some(found) => found
+    None => {
+      let found = @parser_adapter.call_arguments(file.source, caller.name, line)
+      cache.set(key, found)
+      found
+    }
+  }
+  let mut grew = false
+  for argument in arguments {
+    if argument.expr_text == "" {
+      continue
+    }
+    for name in argument_names(argument.expr_text) {
+      match definition_before(file.program, caller, call_node, name) {
+        Some(id) =>
+          if push_new(target, id) {
+            grew = true
+          }
+        None => ()
+      }
+    }
+  }
+  grew
+}
+
+///|
 /// Expand `result` (a slice of `target`) to a fixed point, following call sites
 /// into whichever file of the package defines the callee.
 ///
-/// Semantics match the single-file expansion exactly: a bare call statement
-/// contributes the callee's whole body (its side effects cannot be summarised),
-/// while a value-returning call contributes only the callee's return-value
-/// cone. Arguments are never mapped onto parameters, for the soundness reason
-/// documented on `@query.expand_calls`.
+/// A bare call statement is answered with the callee's side-effect summary, not
+/// its whole body: only the statements a caller can observe — a field or element
+/// write, a receiver mutation, a raise, an IO call, a call to a function that is
+/// itself impure — and the value it hands back are pulled in. When the summary
+/// cannot be trusted (the callee is unknown, its body does not parse, or it
+/// calls something this package does not declare) the whole body is the safe
+/// answer and is used instead.
+///
+/// A value-returning call keeps its return-value cone and gains those same
+/// observable statements, so an assignment position no longer hides a write
+/// that happens before the value is produced.
+///
+/// Arguments are mapped onto parameters: the definition of every variable the
+/// call passes is part of the slice, which is the caller side of the call edge.
 pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult) -> Array[FileSlice] {
   let start = file_index_of(index, target)
   if start < 0 {
@@ -260,6 +626,10 @@ pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult)
   for file in index.files {
     sets.push(if file.path == target { result.nodes.copy() } else { [] })
   }
+  let summaries = summaries_of(index)
+  let known = callable_names(index)
+  let effect_cache : Map[String, @parser_adapter.EffectLines] = Map([])
+  let argument_cache : Map[String, Array[@parser_adapter.CallArgument]] = Map([])
   // A receiver call only becomes an edge when this package declares that method
   // on the receiver's type; otherwise it may belong to a dependency.
   let declared : Set[String] = Set([])
@@ -294,8 +664,19 @@ pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult)
                     None => ()
                     Some((callee_file, info)) => {
                       let callee_nodes = sets[callee_file]
-                      let grew = if node.kind == @core.SNodeKind::Call {
-                        add_whole_body(callee_nodes, info)
+                      let mut grew = false
+                      if node.kind == @core.SNodeKind::Call {
+                        if expand_bare_call(
+                          index,
+                          callee_file,
+                          info,
+                          sets,
+                          summaries,
+                          known,
+                          effect_cache,
+                        ) {
+                          grew = true
+                        }
                       } else {
                         let cone = @query.return_cone(
                           index.files[callee_file].program,
@@ -303,16 +684,36 @@ pub fn expand(index : PackageIndex, target : String, result : @core.SliceResult)
                           info,
                         )
                         if cone.length() == 0 {
-                          add_whole_body(callee_nodes, info)
+                          if add_whole_body(callee_nodes, info) {
+                            grew = true
+                          }
                         } else {
-                          let mut grew = false
                           for id in cone {
                             if push_new(callee_nodes, id) {
                               grew = true
                             }
                           }
-                          grew
                         }
+                        if add_value_effects(
+                          index,
+                          callee_file,
+                          info,
+                          callee_nodes,
+                          summaries,
+                          effect_cache,
+                        ) {
+                          grew = true
+                        }
+                      }
+                      if add_argument_nodes(
+                        file,
+                        caller,
+                        node.id,
+                        call.line,
+                        nodes,
+                        argument_cache,
+                      ) {
+                        grew = true
                       }
                       if grew {
                         changed = true
