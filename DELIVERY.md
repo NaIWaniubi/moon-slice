@@ -3,6 +3,34 @@
 Date: 2026-11-08 (v0.11.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
+## 0.11.0 — the semantic platform wave (2026-11-08)
+
+Ten Tower missions in two waves, each with an independent review gate; four of
+them approved only after review findings were fixed and re-reviewed.
+
+| Check | Result |
+| --- | --- |
+| `./dev.sh check` | 0 errors, 0 warnings |
+| `./dev.sh test` | `Total tests: 752, passed: 752, failed: 0` |
+| `bash test/cli_smoke.sh` | `cli smoke ok` (91 assertions, includes explain/coverage/impact/fix) |
+| `node test/lsp_client.mjs` | `lsp client ok: ... unused evidence, liveness hover ...` |
+| `node web/smoke.mjs` | `web smoke ok: 7007 bytes` |
+| `node web/presets.mjs` | `playground presets ok` |
+| `node web/playground_e2e.mjs .` | `playground e2e ok` |
+| `coverage --dir .mooncakes/moonbitlang/parser` | 201 files, 12,160 call sites: 3,904 resolved / 2,659 ambiguous / 5,597 unresolved |
+| `coverage --dir ~/.moon/lib/core/builtin` | 217 files, 3,894 call sites: 2,044 resolved / 1,566 ambiguous / 284 unresolved |
+| `explain-dead --dir .mooncakes/moonbitlang/parser --name lower_child_token_name` | 201 files / 7,709 functions searched; 6,327 roots expanded; 40,277 unresolved boundaries recorded as evidence |
+| `explain-live --dir <demo> --name leaf` | `main (root) -> middle -> leaf` with file:line per step |
+| `impact --file .mooncakes/.../ast_to_json.mbt --lines 3` | 1 affected statement; functions `to_json`; entries `to_json (public api)`, `to_json (trait impl)` |
+| `fix --dir examples` | 9 edits, 28 proof lines, dry run only |
+| `unused --dir` regression | async 0, x 0, parser 10 — unchanged |
+| `node bench/scan.mjs --dir ~/.moon/lib/core/builtin` | 217 files: cold 6.1 s, warm 0.30 s (20x) |
+| Coverage | 5,879/8,581 total; library 5,674/6,454 = 87.9% |
+| Package | `1,404,358 bytes`, `216 files`; `moon publish` → `Server status: 200 OK` |
+| CI / Pages | `42404943897` / `42404943874` success; tag `v0.11.0` green |
+| Live bundle | contains `moon-slice 0.11.0` |
+| Consumer | clean module `moon add --upgrade NaIWaniubi/moon-slice@0.11.0` → `lines=4 / line=2..5` |
+
 ## 0.10.1 – 0.10.2 — incremental package scans (2026-11-06)
 
 Everything in this section was run against the release binary built from this

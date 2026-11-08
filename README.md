@@ -83,7 +83,7 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 
 ```bash
 ./dev.sh run cmd/main -- version
-# moon-slice 0.6.0
+# moon-slice 0.11.0
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
 # 4,5,6,7,8
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction forward
@@ -98,7 +98,18 @@ Run the CLI with `./dev.sh run cmd/main -- ...`:
 ./dev.sh run cmd/main -- path  --file examples/04_while.mbt --from i --to total
 # n1 L4 -> n5 L7
 ./dev.sh run cmd/main -- html  --file examples/04_while.mbt --line 7 --out report.html
+./dev.sh run cmd/main -- explain-live --dir examples --name leaf
+./dev.sh run cmd/main -- coverage --dir examples
+./dev.sh run cmd/main -- impact --file examples/04_while.mbt --lines 7
 ```
+
+`explain-live` prints the shortest chain from a root to a function;
+`explain-dead` prints the root set and the evidence that a function is dead;
+`coverage` reports typed receiver-call resolution (resolved / ambiguous /
+unresolved with per-reason counts); `impact` prints an impact certificate for
+changed lines — affected statements, functions, reachable entries, related
+tests, and one evidence path per statement; `fix` prints a unified diff of
+provably safe dead-code removals (`--write` applies it).
 
 `bench/bench.mjs` measures the native release binary on generated inputs; see
 `bench/README.md` for the command and the current numbers.
@@ -197,6 +208,29 @@ Design points worth knowing:
   gives two distinct ids, and def-use does not conflate them.
 - **Slices include the target.** The target statement's own definition is part
   of its slice, and the reported line lists are inclusive.
+
+## Semantic layer (0.11.0)
+
+The analysis now has a second tier: six packages that answer questions the
+five-pass pipeline alone could not.
+
+| Package | Question it answers | Command |
+| --- | --- | --- |
+| `workspace` | what packages exist, how they depend, what changed | internal |
+| `resolve` | which method does this receiver call, and how sure are we | `coverage --dir D` |
+| `ssa` | which definition reaches this use, through phi nodes | internal |
+| `sidefx` | what can this function do besides return a value | internal |
+| `roots` | is this function reachable from a real entry point, and why | `explain-live`, `explain-dead` |
+| `impact` | what does changing these lines affect | `impact --file F --lines L` |
+| `refactor` | what can be deleted without changing behaviour | `fix --dir D` |
+| `oracle` | does an independent reference implementation agree with ours | differential tests |
+
+`explain-dead` is the honest inverse of `unused`: it prints the root set, the
+number of files and functions searched, the reachability evidence, and the
+unresolved boundaries that could hide a caller. `coverage` reports the same
+split for receiver calls: resolved, ambiguous, unresolved, and why. `impact`
+attaches one evidence path to every affected statement. `fix` only deletes what
+it can prove safe, and re-runs the analysis on the whole plan before writing.
 
 ## Supported subset
 

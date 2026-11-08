@@ -144,8 +144,8 @@ moon publish
 发布产物与消费验证（在空模块里只依赖已发布版本，不读工作区源码）：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.10.2
-# Downloading NaIWaniubi/moon-slice@0.10.2
+moon add NaIWaniubi/moon-slice@0.11.0
+# Downloading NaIWaniubi/moon-slice@0.11.0
 moon run cmd/main
 # lines=4
 # line=2
@@ -154,8 +154,8 @@ moon run cmd/main
 # line=5
 ```
 
-打包结果：`_build/publish/NaIWaniubi-moon-slice-0.10.2.zip`（1,229,989 字节，
-156 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
+打包结果：`_build/publish/NaIWaniubi-moon-slice-0.11.0.zip`（1,404,358 字节，
+216 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
 才上传。
 
 发布细节、命名空间不匹配时的改名步骤、以及 CI 发布选项见 `PUBLISHING.md`。

@@ -6,7 +6,9 @@ Status: **published** — `NaIWaniubi/moon-slice@0.7.0` went live on 2026-10-31,
 0.7.4 receiver edges in slicing plus inherent-method liveness, 0.7.5 the
 `data-flow-path` SARIF rule, 0.7.6 wider type evidence for receiver calls, 0.7.7 field types, 0.7.8 `let` pattern payloads, 0.7.9 `match` arms plus package-scoped declarations, 0.8.0 the LSP server, 0.8.1 its portability fixes, 0.9.0 hover and quick fixes,
 0.10.0 the forward slice plus package-wide diagnostics, 0.10.1 incremental
-package scans, and 0.10.2 the version strings the CLI and report print.
+package scans, 0.10.2 the version strings the CLI and report print, and
+0.11.0 the semantic platform (six analysis packages, explain/coverage/impact/fix,
+LSP liveness evidence).
 
 ```
 Server status: 200 OK
@@ -20,8 +22,8 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 | --- | --- |
 | `moonc --version` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
 | `moon check` | 0 errors, 0 warnings |
-| `moon test` | 381 / 381 |
-| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.10.2.zip` (1,229,989 bytes, 156 files) |
+| `moon test` | 752 / 752 |
+| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.11.0.zip` (1,404,358 bytes, 216 files) |
 | `moon publish` | `Server status: 200 OK` |
 | Manifest | name, version, readme, repository, license, keywords, description |
 | License | Apache-2.0 (`LICENSE`), dependencies Apache-2.0 (`THIRD_PARTY.md`) |
@@ -29,8 +31,8 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 ## Evidence from the registry
 
 ```bash
-$ moon add NaIWaniubi/moon-slice@0.10.2
-Downloading NaIWaniubi/moon-slice@0.10.2
+$ moon add NaIWaniubi/moon-slice@0.11.0
+Downloading NaIWaniubi/moon-slice@0.11.0
 ```
 
 A scratch module consuming the published package, not the working tree:

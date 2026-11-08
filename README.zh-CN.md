@@ -66,6 +66,16 @@ cd moon-slice
 
 # 生成自包含 HTML 报告（内联 SVG + 源码高亮 + 节点表）
 ./dev.sh run cmd/main -- html --file examples/04_while.mbt --line 7 --out report.html
+
+# 可达性证明：从根到该函数的最短链 / 为什么这个函数是死的
+./dev.sh run cmd/main -- explain-live --dir examples --name leaf
+./dev.sh run cmd/main -- explain-dead --dir examples --name orphan
+
+# 类型化接收者调用的解析覆盖
+./dev.sh run cmd/main -- coverage --dir examples
+
+# 变更行的影响证明
+./dev.sh run cmd/main -- impact --file examples/04_while.mbt --lines 7
 ```
 
 Windows 的 cmd/PowerShell 用 `dev.cmd` 代替 `./dev.sh`。库已发布到 mooncakes.io：
