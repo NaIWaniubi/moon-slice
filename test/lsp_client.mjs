@@ -144,6 +144,9 @@ try {
   }
   if (caps.hoverProvider !== true) throw new Error('initialize: no hoverProvider');
   if (caps.codeActionProvider !== true) throw new Error('initialize: no codeActionProvider');
+  // Navigation is advertised as part of the same capability set.
+  if (caps.definitionProvider !== true) throw new Error('initialize: no definitionProvider');
+  if (caps.referencesProvider !== true) throw new Error('initialize: no referencesProvider');
 
   // The version the server reports is the version in the manifest; a release
   // that bumps one and forgets the other fails here rather than in the wild.
@@ -317,6 +320,163 @@ try {
   }
   rmSync(packageDir, { recursive: true, force: true });
 
+  // Navigation: `textDocument/definition` and `textDocument/references` work
+  // on the package, not just the open file. The fixture's line numbers are
+  // commented so the expected positions are readable next to them.
+  const navDir = mkdtempSync(join(tmpdir(), 'moon-slice-nav-'));
+  const navSource = [
+    'struct Point {', // 0
+    '  x : Int', // 1
+    '  y : Int', // 2
+    '}', // 3
+    '', // 4
+    'enum Shape {', // 5
+    '  Circle(Int)', // 6
+    '  Empty', // 7
+    '}', // 8
+    '', // 9
+    'fn make(value : Int) -> Point {', // 10
+    '  Point::{ x: value, y: value }', // 11
+    '}', // 12
+    '', // 13
+    'fn helper() -> Int {', // 14
+    '  let total = 0', // 15
+    '  total', // 16
+    '}', // 17
+    '', // 18
+    'impl Point with fn distance(self) -> Int {', // 19
+    '  self.x', // 20
+    '}', // 21
+    '', // 22
+    'fn main {', // 23
+    '  let point = make(1)', // 24
+    '  let shape = Shape::Circle(1)', // 25
+    '  println(helper())', // 26
+    '  println(point.distance())', // 27
+    '}', // 28
+  ].join('\n') + '\n';
+  const navPath = join(navDir, 'a.mbt');
+  writeFileSync(navPath, navSource);
+  const navUri = pathToFileURL(navPath).href;
+
+  const definitionAt = async (requestId, line, character) => {
+    send({
+      jsonrpc: '2.0',
+      id: requestId,
+      method: 'textDocument/definition',
+      params: { textDocument: { uri: navUri }, position: { line, character } },
+    });
+    const response = await nextResponse(requestId);
+    return response.result;
+  };
+  const referencesAt = async (requestId, line, character, includeDeclaration) => {
+    send({
+      jsonrpc: '2.0',
+      id: requestId,
+      method: 'textDocument/references',
+      params: {
+        textDocument: { uri: navUri },
+        position: { line, character },
+        context: { includeDeclaration },
+      },
+    });
+    const response = await nextResponse(requestId);
+    return response.result;
+  };
+
+  // `helper()` on line 26 jumps to its `fn helper` declaration on line 14.
+  const helperDef = await definitionAt(10, 26, 11);
+  if (!helperDef || !helperDef.uri.endsWith('/a.mbt')) {
+    throw new Error(`definition: no location for helper ${JSON.stringify(helperDef)}`);
+  }
+  if (helperDef.range.start.line !== 14 || helperDef.range.start.character !== 3) {
+    throw new Error(`definition: helper landed on ${JSON.stringify(helperDef.range)}`);
+  }
+  if (helperDef.range.end.line !== 14 || helperDef.range.end.character !== 9) {
+    throw new Error(`definition: helper range has the wrong end ${JSON.stringify(helperDef.range.end)}`);
+  }
+
+  // A struct field: `self.x` on line 20 jumps to the field declared on line 1.
+  const fieldDef = await definitionAt(11, 20, 7);
+  if (!fieldDef || fieldDef.range.start.line !== 1 || fieldDef.range.start.character !== 2) {
+    throw new Error(`definition: struct field landed on ${JSON.stringify(fieldDef?.range)}`);
+  }
+
+  // An enum variant: `Shape::Circle(1)` on line 25 jumps to line 6.
+  const variantDef = await definitionAt(12, 25, 22);
+  if (!variantDef || variantDef.range.start.line !== 6 || variantDef.range.start.character !== 2) {
+    throw new Error(`definition: enum variant landed on ${JSON.stringify(variantDef?.range)}`);
+  }
+
+  // An `impl T with fn m` method: `point.distance()` on line 27 jumps to line 19.
+  const methodDef = await definitionAt(13, 27, 18);
+  if (!methodDef || methodDef.range.start.line !== 19 || methodDef.range.start.character !== 19) {
+    throw new Error(`definition: impl method landed on ${JSON.stringify(methodDef?.range)}`);
+  }
+
+  // A `let` binding: `point` on line 27 jumps to `let point` on line 24.
+  const letDef = await definitionAt(14, 27, 11);
+  if (!letDef || letDef.range.start.line !== 24 || letDef.range.start.character !== 6) {
+    throw new Error(`definition: let binding landed on ${JSON.stringify(letDef?.range)}`);
+  }
+
+  // A word with no declaration anywhere in the package is an explicit null.
+  const unknownDef = await definitionAt(15, 26, 3);
+  if (unknownDef !== null) {
+    throw new Error(`definition: unknown name must be null, got ${JSON.stringify(unknownDef)}`);
+  }
+
+  // References include the declaration when the client asks for it: `helper`
+  // is declared on line 14 and called on line 26.
+  const helperRefs = await referencesAt(16, 14, 4, true);
+  if (!Array.isArray(helperRefs) || helperRefs.length !== 2) {
+    throw new Error(`references: expected 2 locations for helper, got ${JSON.stringify(helperRefs)}`);
+  }
+  const helperRefLines = helperRefs.map((location) => location.range.start.line);
+  if (!helperRefLines.includes(14) || !helperRefLines.includes(26)) {
+    throw new Error(`references: helper locations are ${JSON.stringify(helperRefLines)}`);
+  }
+
+  // ...and omit it when it does not.
+  const helperUses = await referencesAt(17, 14, 4, false);
+  if (!Array.isArray(helperUses) || helperUses.length !== 1) {
+    throw new Error(`references: expected 1 use of helper, got ${JSON.stringify(helperUses)}`);
+  }
+  if (helperUses.some((location) => location.range.start.line === 14)) {
+    throw new Error('references: the declaration leaked into a use-only result');
+  }
+
+  // Asking from the call site gives the same answer: the declaration is on
+  // line 10, the call on line 24.
+  const makeUses = await referencesAt(18, 24, 15, false);
+  if (!Array.isArray(makeUses) || makeUses.length !== 1 || makeUses[0].range.start.line !== 24) {
+    throw new Error(`references: make uses are ${JSON.stringify(makeUses)}`);
+  }
+  const makeAll = await referencesAt(19, 10, 4, true);
+  if (!Array.isArray(makeAll) || makeAll.length !== 2) {
+    throw new Error(`references: make with declaration is ${JSON.stringify(makeAll)}`);
+  }
+
+  // Unknown methods still fail as MethodNotFound, so a client never waits.
+  send({ jsonrpc: '2.0', id: 20, method: 'textDocument/navigateNowhere', params: {} });
+  const unknownMethod = await nextResponse(20);
+  if (unknownMethod.error?.code !== -32601) {
+    throw new Error(`unknown method: expected -32601, got ${JSON.stringify(unknownMethod)}`);
+  }
+
+  // Navigation changed nothing about hover on the same file.
+  send({
+    jsonrpc: '2.0',
+    id: 21,
+    method: 'textDocument/hover',
+    params: { textDocument: { uri: navUri }, position: { line: 24, character: 3 } },
+  });
+  const navHover = (await nextResponse(21)).result?.contents?.value ?? '';
+  if (!navHover.includes('backward slice') || !navHover.includes('forward slice')) {
+    throw new Error(`hover: navigation regressed the slice paragraphs: ${navHover}`);
+  }
+  rmSync(navDir, { recursive: true, force: true });
+
   send({ jsonrpc: '2.0', id: 2, method: 'shutdown' });
   const shutdown = await nextResponse(2);
   if (shutdown.id !== 2 || shutdown.result !== null) throw new Error('shutdown: bad response');
@@ -326,7 +486,8 @@ try {
   if (code !== 0) throw new Error(`exit code ${code}`);
   console.log(
     'lsp client ok: initialize, diagnostics, hover, code action, change, ' +
-      'package scan, unused evidence, liveness hover, package cache, shutdown, exit',
+      'package scan, unused evidence, liveness hover, package cache, ' +
+      'definition, references, includeDeclaration, unknown method, shutdown, exit',
   );
 } catch (error) {
   console.error(`lsp client FAILED: ${error.message}`);

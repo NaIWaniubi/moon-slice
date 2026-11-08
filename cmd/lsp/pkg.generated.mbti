@@ -6,9 +6,15 @@ package "NaIWaniubi/moon-slice/cmd/lsp"
 // Errors
 
 // Types and methods
+type BlockFrame
+
+type Declaration
+
 type Finding
 
 type PackageFacts
+
+type SourceFile
 
 // Type aliases
 
