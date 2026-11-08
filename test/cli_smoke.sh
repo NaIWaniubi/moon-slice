@@ -424,6 +424,11 @@ DIFF
 review_out="$(run review --diff "$tmp_review_diff")"
 printf '%s' "$review_out" | grep -Fq 'review_probe.mbt: changed 1 line(s) -> affected 2 line(s)'
 printf '%s' "$review_out" | grep -Fq 'affected lines: 3,4'
+# The impact certificate is appended under every file result.
+printf '%s' "$review_out" | grep -Fq 'impact functions: probe'
+printf '%s' "$review_out" | grep -Fq 'reachable entries: (none)'
+printf '%s' "$review_out" | grep -Fq 'evidence paths: 2'
+printf '%s' "$review_out" | grep -Fq 'unresolved boundaries: 0'
 review_json="$(run review --diff "$tmp_review_diff" --json)"
 printf '%s' "$review_json" | node -e '
 let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
@@ -433,8 +438,65 @@ let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
   const r=j.records[0];
   if(r.file!=="review_probe.mbt") throw new Error("bad file");
   if(JSON.stringify(r.affected)!==JSON.stringify([3,4])) throw new Error("bad affected lines");
+  if(!r.impact) throw new Error("missing impact object");
+  const keys=["changed_lines","affected_statements","affected_functions",
+    "reachable_entries","cross_package_files","related_tests",
+    "unresolved_boundaries","evidence_paths"];
+  for(const k of keys) if(!(k in r.impact)) throw new Error("impact missing "+k);
+  if(r.impact.evidence_paths!==2) throw new Error("evidence_paths != 2");
+  if(JSON.stringify(r.impact.affected_functions)!==JSON.stringify(["probe"]))
+    throw new Error("bad impact functions");
 });'
 rm -f "$tmp_review_src"
+
+# Review with a package directory: the certificate must see the sibling file,
+# the public entry that reaches the change, and the test that calls into it.
+review_pkg_dir="review_smoke_pkg"
+rm -rf "$review_pkg_dir"
+mkdir -p "$review_pkg_dir"
+cat > "$review_pkg_dir/a.mbt" <<'MBT'
+pub fn api() -> Int {
+  helper()
+}
+MBT
+cat > "$review_pkg_dir/b.mbt" <<'MBT'
+fn helper() -> Int {
+  return 1
+}
+MBT
+cat > "$review_pkg_dir/a_test.mbt" <<'MBT'
+test "helper" {
+  assert_eq(api(), 1)
+}
+MBT
+tmp_review_pkg_diff="$(mktemp)"
+cat > "$tmp_review_pkg_diff" <<DIFF
+--- a/$review_pkg_dir/a.mbt
++++ b/$review_pkg_dir/a.mbt
+@@ -1,0 +2,1 @@
++  helper()
+DIFF
+review_pkg_out="$(run review --diff "$tmp_review_pkg_diff" --dir "$review_pkg_dir")"
+printf '%s' "$review_pkg_out" | grep -Fq 'impact functions: api'
+printf '%s' "$review_pkg_out" | grep -Fq 'reachable entries: api (public api)'
+printf '%s' "$review_pkg_out" | grep -Fq "related tests: $review_pkg_dir/a_test.mbt:"
+review_pkg_json="$(run review --diff "$tmp_review_pkg_diff" --dir "$review_pkg_dir" --json)"
+printf '%s' "$review_pkg_json" | node -e '
+let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{
+  const j=JSON.parse(s);
+  const r=j.records[0];
+  if(!r.impact) throw new Error("missing impact object");
+  if(!r.impact.reachable_entries.includes("api (public api)"))
+    throw new Error("missing public entry");
+  if(JSON.stringify(r.impact.cross_package_files)!==
+     JSON.stringify([process.argv[1]+"/b.mbt"]))
+    throw new Error("bad cross-package files: "+r.impact.cross_package_files);
+  if(!r.impact.related_tests.length ||
+     r.impact.related_tests[0].indexOf(process.argv[1]+"/a_test.mbt:")!==0)
+    throw new Error("bad related tests");
+});' "$review_pkg_dir"
+rm -f "$tmp_review_pkg_diff"
+rm -rf "$review_pkg_dir"
 
 
 # In-source suppressions: a directive hides the finding on its line, a bare one

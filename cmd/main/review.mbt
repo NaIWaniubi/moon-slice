@@ -185,8 +185,173 @@ fn names_json(names : Array[String]) -> String {
 }
 
 ///|
-/// Entry point for `review --diff FILE [--json]`.
-fn run_review(diff_path : String, json : Bool) -> Unit {
+fn lines_json(lines : Array[Int32]) -> String {
+  "[" + lines_csv(lines) + "]"
+}
+
+///|
+/// Inline rendering of a string list for the one-line impact summary. An empty
+/// list reads as `(none)` so the line is never blank in the middle of a report.
+fn names_inline(names : Array[String]) -> String {
+  if names.length() == 0 {
+    "(none)"
+  } else {
+    names.join(", ")
+  }
+}
+
+///|
+/// The package context for a `review --dir` run: every `.mbt` file under the
+/// directory, indexed for cross-file expansion, plus the liveness facts that
+/// make reachable entries and related tests possible.
+///
+/// `review` without `--dir` has no package context: the slice is still a valid
+/// proof for the single file, it just cannot see entries or sibling files.
+priv struct ReviewPackage {
+  index : @interproc.PackageIndex
+  reachability : @roots.Reachability
+}
+
+///|
+/// Load a directory into a package index and reachability graph. Returns `None`
+/// when the directory is unusable or contains no parsable file, which keeps a
+/// review run alive with single-file certificates.
+fn load_review_package(dir : String) -> ReviewPackage? {
+  let is_directory = @fs.is_dir(dir) catch {
+    @fs.IOError(_) => false
+  }
+  if !is_directory {
+    return None
+  }
+  let paths : Array[String] = []
+  collect_mbt_files(dir, paths)
+  paths.sort_by(fn(a, b) { a.lexical_compare(b) })
+  let files : Array[@interproc.PackageFile] = []
+  let facts : Array[@liveness.FileFacts] = []
+  let errors : Array[String] = []
+  for path in paths {
+    let normalized = normalize_path(path)
+    match read_scan_file(path, errors) {
+      None => ()
+      Some(source) => {
+        facts.push(@liveness.collect(normalized, source))
+        match @interproc.build_file(normalized, source) {
+          None => ()
+          Some(built) => files.push(built)
+        }
+      }
+    }
+  }
+  if files.length() == 0 {
+    return None
+  }
+  Some({ index: @interproc.index(files), reachability: @roots.analyze(facts) })
+}
+
+///|
+/// A certificate with no statements: used when a changed file cannot be read or
+/// parsed. The shape is kept so JSON consumers always see the same keys.
+fn empty_impact(changed : Array[Int32]) -> @impact.ImpactCertificate {
+  let lines : Array[Int32] = []
+  for line in changed {
+    if !lines.contains(line) {
+      lines.push(line)
+    }
+  }
+  lines.sort()
+  @impact.ImpactCertificate::{
+    changed_lines: lines,
+    affected_statements: [],
+    affected_functions: [],
+    reachable_entries: [],
+    cross_package_files: [],
+    related_tests: [],
+    unresolved_boundaries: [],
+    evidence: [],
+  }
+}
+
+///|
+/// Build the impact certificate for one reviewed file. With a package context,
+/// the certificate sees sibling files, reachable entries and related tests;
+/// without one it is the single-file proof.
+fn review_impact(
+  path : String,
+  changed : Array[Int32],
+  context : ReviewPackage?,
+) -> @impact.ImpactCertificate {
+  let source = match read_optional(path) {
+    None => return empty_impact(changed)
+    Some(text) => text
+  }
+  let program = @parser_adapter.parse_source(source, path)
+  if program.errors.length() > 0 {
+    return empty_impact(changed)
+  }
+  let cfg = @cfg.build(program)
+  let defuse = @defuse.analyze(program, cfg)
+  let cdg = @cdg.build(program, cfg)
+  let pdg = @pdg.build(defuse, cdg)
+  match context {
+    None => @impact.impact(program, pdg, changed, path=path)
+    Some(loaded) =>
+      @impact.impact(
+        program,
+        pdg,
+        changed,
+        path=path,
+        index=loaded.index,
+        reachability=loaded.reachability,
+      )
+  }
+}
+
+///|
+/// The certificate as the `impact` object of a review record. Field names and
+/// order follow the mission contract; `evidence_paths` is a count because the
+/// per-line witness paths would dominate a diff review.
+fn impact_json(certificate : @impact.ImpactCertificate) -> String {
+  "{\"changed_lines\":" +
+  lines_json(certificate.changed_lines) +
+  ",\"affected_statements\":" +
+  lines_json(certificate.affected_statements) +
+  ",\"affected_functions\":" +
+  names_json(certificate.affected_functions) +
+  ",\"reachable_entries\":" +
+  names_json(certificate.reachable_entries) +
+  ",\"cross_package_files\":" +
+  names_json(certificate.cross_package_files) +
+  ",\"related_tests\":" +
+  names_json(certificate.related_tests) +
+  ",\"unresolved_boundaries\":" +
+  names_json(certificate.unresolved_boundaries) +
+  ",\"evidence_paths\":" +
+  certificate.evidence.length().to_string() +
+  "}"
+}
+
+///|
+/// The text summary appended under each file's changed/affected lines.
+fn impact_text(certificate : @impact.ImpactCertificate) -> String {
+  "  impact functions: " +
+  names_inline(certificate.affected_functions) +
+  "\n" +
+  "  reachable entries: " +
+  names_inline(certificate.reachable_entries) +
+  "\n" +
+  "  related tests: " +
+  names_inline(certificate.related_tests) +
+  "\n" +
+  "  evidence paths: " +
+  certificate.evidence.length().to_string() +
+  "\n" +
+  "  unresolved boundaries: " +
+  certificate.unresolved_boundaries.length().to_string()
+}
+
+///|
+/// Entry point for `review --diff FILE [--dir D] [--json]`.
+fn run_review(diff_path : String, dir : String, json : Bool) -> Unit {
   let diff = match read_optional(diff_path) {
     Some(text) => text
     None => {
@@ -195,6 +360,9 @@ fn run_review(diff_path : String, json : Bool) -> Unit {
     }
   }
   let hunks = parse_diff(diff)
+  // One package load for the whole run: every reviewed file shares the same
+  // index and call graph, and rebuilding it per hunk would be quadratic.
+  let context = if dir == "" { None } else { load_review_package(dir) }
   let records = StringBuilder()
   let mut first = true
   let mut total_changed = 0
@@ -210,6 +378,7 @@ fn run_review(diff_path : String, json : Bool) -> Unit {
     }
     let program = @parser_adapter.parse_source(source, hunk.path)
     let functions = functions_touching(program, affected)
+    let certificate = review_impact(hunk.path, hunk.lines, context)
     total_changed = total_changed + hunk.lines.length()
     total_affected = total_affected + affected.length()
     if json {
@@ -224,6 +393,8 @@ fn run_review(diff_path : String, json : Bool) -> Unit {
       records.write_string(lines_csv(affected))
       records.write_string("],\"functions\":")
       records.write_string(names_json(functions))
+      records.write_string(",\"impact\":")
+      records.write_string(impact_json(certificate))
       records.write_char('}')
       first = false
     } else {
@@ -243,6 +414,7 @@ fn run_review(diff_path : String, json : Bool) -> Unit {
       if affected.length() > 0 {
         println("  affected lines: " + lines_csv(affected))
       }
+      println(impact_text(certificate))
     }
   }
   if json {
