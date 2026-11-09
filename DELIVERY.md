@@ -1,6 +1,6 @@
 # moon-slice — delivery evidence
 
-Date: 2026-11-08 (v0.11.0; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
+Date: 2026-11-09 (v0.12.1; v0.7.0 released 2026-10-30). Repository: https://github.com/NaIWaniubi/moon-slice (public, `master`).
 Live playground: https://NaIWaniubi.github.io/moon-slice/
 
 ## 0.12.0 — precision, navigation and taint (2026-11-08)
@@ -11,13 +11,13 @@ fix round.
 | Check | Result |
 | --- | --- |
 | `./dev.sh check` | 0 errors, 0 warnings |
-| `./dev.sh test` | `Total tests: 861, passed: 861, failed: 0` |
+| `./dev.sh test` | `Total tests: 863, passed: 863, failed: 0` |
 | `bash test/cli_smoke.sh` | `cli smoke ok` (taint: text path `read_env:10 -> run:11`, JSON shape, `--fail-on-findings` exit 1, missing-dir exit 2) |
 | `node test/lsp_client.mjs` | `... definition, references, includeDeclaration, unknown method ...` |
 | `slice --dir D --file b.mbt --line 8 --interprocedural` (pure callee) | callee body reduces to its trailing expression: `4,8` |
 | `slice --dir D --file a.mbt --line 12 --interprocedural` (pure callee) | `3,12` — unrelated let excluded |
 | Coverage | 6,570/9,728 total; library 6,267/7,126 = 88.0% |
-| Package | `1,441,656 bytes`, `225 files`; `moon publish` → `Server status: 200 OK` |
+| Package | `1,444,556 bytes`, `225 files`; `moon publish` → `Server status: 200 OK` |
 
 ## 0.11.0 — the semantic platform wave (2026-11-08)
 

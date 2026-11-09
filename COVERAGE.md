@@ -1,6 +1,6 @@
 # Coverage
 
-Measured on 2026-11-08 (v0.12.0) with the legacy MoonBit reporter:
+Measured on 2026-11-09 (v0.12.1) with the legacy MoonBit reporter:
 
 ```bash
 MOON_COVE_REPORT_ENABLED=0 ./dev.sh coverage analyze

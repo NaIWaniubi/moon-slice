@@ -46,7 +46,7 @@ git clone https://github.com/NaIWaniubi/moon-slice
 cd moon-slice
 
 ./dev.sh check                 # 类型检查
-./dev.sh test                  # 861 个测试
+./dev.sh test                  # 863 个测试
 
 # 向后切片：examples/04_while.mbt 第 7 行依赖什么
 ./dev.sh run cmd/main -- slice --file examples/04_while.mbt --line 7 --direction backward
@@ -343,7 +343,7 @@ VS Code 与 Neovim 的接法、客户端测试实际验证的报文格式、扫�
 
 ## 工程
 
-- 861 个测试；库代码行覆盖率约 88%
+- 863 个测试；库代码行覆盖率约 88%
 - GitHub Actions：`check` / `test` / 语料 / CLI smoke / JS 构建与 smoke
 - 性能：32,000 行单文件，`slice` 1.55 s、`dead` 0.80 s、`graph` 0.74 s
   （native release，`bench/bench.mjs` 可复现）

@@ -1,18 +1,18 @@
 # 验收对照表
 
 按「2026 MoonBit 黑客松」验收指南逐条对照（11 月赛以已有项目的本期实质新增参赛，本期变更见
-[docs/NOVEMBER.md](docs/NOVEMBER.md)）。所有命令都在仓库根目录执行；当前版本 `v0.12.0`，`master` 已有 60+ 个提交。
+[docs/NOVEMBER.md](docs/NOVEMBER.md)）。所有命令都在仓库根目录执行；当前版本 `v0.12.1`，`master` 已有 60+ 个提交。
 
 | # | 验收要求 | 状态 | 证据 |
 | --- | --- | --- | --- |
 | 1 | MoonBit 为主要实现语言，moonc >= 0.10.16 | 通过 | `moonc -v` = `v0.10.17+d971670cd` |
-| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，60+ commits，tag `v0.12.0` |
+| 2 | 仓库公开、提交记录清晰 | 通过 | https://github.com/NaIWaniubi/moon-slice，60+ commits，tag `v0.12.1` |
 | 3 | 源代码结构清晰，核心功能可完成 | 通过 | 22 个库包（core / parser_adapter / cfg / defuse / cdg / pdg / slice / query / liveness / interproc / suppress / report / scan / web / workspace / resolve / ssa / sidefx / roots / oracle / impact / refactor）+ 2 个测试包（integration_test / smoke）+ CLI + LSP 服务；见下方命令 |
 | 4 | README：目标、安装、使用、示例、可复现 | 通过 | `README.md` / `README.zh-CN.md`，quickstart 逐条可运行 |
 | 5 | CI 覆盖检查、构建、测试 | 通过 | `.github/workflows/ci.yml` 的 `test` / `action` 两个 job |
 | 6 | 至少一个可运行示例 | 通过 | `examples/` 10 个；在线 playground |
-| 7 | 完整测试覆盖核心路径 | 通过 | 861 个测试 + corpus + CLI smoke + web smoke |
-| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.12.0` 已上线（`Server status: 200 OK`），见第 8 节 |
+| 7 | 完整测试覆盖核心路径 | 通过 | 863 个测试 + corpus + CLI smoke + web smoke |
+| 8 | 发布到 mooncakes.io | 通过 | `NaIWaniubi/moon-slice@0.12.1` 已上线（`Server status: 200 OK`），见第 8 节 |
 | 9 | OSI 认可许可证，依赖合规 | 通过 | Apache-2.0；`LICENSE`、`THIRD_PARTY.md` |
 
 ## 1. MoonBit 为主要实现语言
@@ -113,7 +113,7 @@ node web/smoke.mjs
 
 ```bash
 ./dev.sh test
-# Total tests: 861, passed: 861, failed: 0.
+# Total tests: 863, passed: 863, failed: 0.
 ```
 
 覆盖层次：
@@ -130,7 +130,7 @@ node web/smoke.mjs
 ## 8. mooncakes.io
 
 **已发布**：`NaIWaniubi/moon-slice@0.7.0`（2026-10-31）、`@0.7.1`（2026-11-01，
-仓库、清单、注册表三者对齐）、`@0.7.2`（就地抑制）、`@0.7.3`（接收者调用）、`@0.7.4`（切片跟进接收者调用 + 方法存活）、`@0.7.5`（`data-flow-path` SARIF 规则）、`@0.7.6`（更广的接收者类型证据）、`@0.7.7`（字段类型）、`@0.7.8`（`let` 模式 payload）、`@0.7.9`（`match` 分支 + 跨文件声明合并）、`@0.8.0`（LSP 服务）、`@0.8.1`（跨版本修正）、`@0.9.0`（hover 切片 + quick fix）、`@0.10.0`（双向切片 + 整包诊断）、`@0.10.1`（增量整包扫描）、`@0.10.2`（版本号与清单一致）、`@0.11.0`（语义平台：六个新分析包 + explain/coverage/impact/fix 命令 + LSP 存活证据）、`@0.12.0`（过程间实参映射与副作用过滤、LSP definition/references、review 影响证明、taint 污点分析）。
+仓库、清单、注册表三者对齐）、`@0.7.2`（就地抑制）、`@0.7.3`（接收者调用）、`@0.7.4`（切片跟进接收者调用 + 方法存活）、`@0.7.5`（`data-flow-path` SARIF 规则）、`@0.7.6`（更广的接收者类型证据）、`@0.7.7`（字段类型）、`@0.7.8`（`let` 模式 payload）、`@0.7.9`（`match` 分支 + 跨文件声明合并）、`@0.8.0`（LSP 服务）、`@0.8.1`（跨版本修正）、`@0.9.0`（hover 切片 + quick fix）、`@0.10.0`（双向切片 + 整包诊断）、`@0.10.1`（增量整包扫描）、`@0.10.2`（版本号与清单一致）、`@0.11.0`（语义平台：六个新分析包 + explain/coverage/impact/fix 命令 + LSP 存活证据）、`@0.12.0`（过程间实参映射与副作用过滤、LSP definition/references、review 影响证明、taint 污点分析）、`@0.12.1`（赛前全仓审查修复）。
 
 ```bash
 moon publish
@@ -144,8 +144,8 @@ moon publish
 发布产物与消费验证（在空模块里只依赖已发布版本，不读工作区源码）：
 
 ```bash
-moon add NaIWaniubi/moon-slice@0.12.0
-# Downloading NaIWaniubi/moon-slice@0.12.0
+moon add NaIWaniubi/moon-slice@0.12.1
+# Downloading NaIWaniubi/moon-slice@0.12.1
 moon run cmd/main
 # lines=4
 # line=2
@@ -154,7 +154,7 @@ moon run cmd/main
 # line=5
 ```
 
-打包结果：`_build/publish/NaIWaniubi-moon-slice-0.12.0.zip`（1,441,656 字节，
+打包结果：`_build/publish/NaIWaniubi-moon-slice-0.12.0.zip`（1,444,556 字节，
 225 个文件）。`moon publish` 会先解压打好的 zip 并再次 `moon check`，通过后
 才上传。
 

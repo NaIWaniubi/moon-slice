@@ -22,8 +22,8 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 | --- | --- |
 | `moonc --version` | `v0.10.17+d971670cd` (requirement: >= 0.10.16) |
 | `moon check` | 0 errors, 0 warnings |
-| `moon test` | 861 / 861 |
-| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.12.0.zip` (1,441,656 bytes, 225 files) |
+| `moon test` | 863 / 863 |
+| `moon package` | `_build/publish/NaIWaniubi-moon-slice-0.12.0.zip` (1,444,556 bytes, 225 files) |
 | `moon publish` | `Server status: 200 OK` |
 | Manifest | name, version, readme, repository, license, keywords, description |
 | License | Apache-2.0 (`LICENSE`), dependencies Apache-2.0 (`THIRD_PARTY.md`) |
@@ -31,8 +31,8 @@ The registry entry is at <https://mooncakes.io/docs/NaIWaniubi/moon-slice>.
 ## Evidence from the registry
 
 ```bash
-$ moon add NaIWaniubi/moon-slice@0.12.0
-Downloading NaIWaniubi/moon-slice@0.12.0
+$ moon add NaIWaniubi/moon-slice@0.12.1
+Downloading NaIWaniubi/moon-slice@0.12.1
 ```
 
 A scratch module consuming the published package, not the working tree:
