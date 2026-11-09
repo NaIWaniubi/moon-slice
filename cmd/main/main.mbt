@@ -104,7 +104,7 @@ fn prescan_json(argv : Array[String]) -> Bool {
 let json_mode : Array[Bool] = [false]
 
 ///|
-let tool_version : String = "0.12.1"
+let tool_version : String = "0.12.2"
 
 ///|
 /// Emit a machine-readable error object when `--json` was requested, otherwise

@@ -17,7 +17,7 @@ fix round.
 | `slice --dir D --file b.mbt --line 8 --interprocedural` (pure callee) | callee body reduces to its trailing expression: `4,8` |
 | `slice --dir D --file a.mbt --line 12 --interprocedural` (pure callee) | `3,12` — unrelated let excluded |
 | Coverage | 6,570/9,728 total; library 6,267/7,126 = 88.0% |
-| Package | `1,444,556 bytes`, `225 files`; `moon publish` → `Server status: 200 OK` |
+| Package | `1,445,113 bytes`, `225 files`; `moon publish` → `Server status: 200 OK` |
 
 ## 0.11.0 — the semantic platform wave (2026-11-08)
 

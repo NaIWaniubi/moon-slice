@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.2 — 2026-11-09
+
+Two more review findings, both about honesty at the boundary.
+
+- **The playground rejects an unknown direction.** Every value but `forward`
+  used to run as `backward`, so a host sending a misspelled or empty direction
+  silently got a different slice than it asked for; it now reports the bad
+  value, matching the CLI's `bad_direction`.
+- **The CLI smoke pins exit code 2.** `expect_fail`/`expect_json_error` only
+  asserted "nonzero", so a regression from 2 (usage/read/parse error) to 1
+  (findings under `--fail-on-findings`) would have passed the suite while
+  changing what CI reads.
+
 ## 0.12.1 — 2026-11-09
 
 The pre-submission review round: every finding that touched this repository is
