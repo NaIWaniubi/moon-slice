@@ -35,6 +35,12 @@ expect_fail() {
     printf 'FAIL: %s exited 0 (expected failure)\n  output: %s\n' "$*" "$got" >&2
     exit 1
   fi
+  # The documented contract is exit 2 for usage, read and parse errors; exit 1
+  # is reserved for findings under --fail-on-findings.
+  if [ "$rc" -ne 2 ]; then
+    printf 'FAIL: %s exited %s (expected 2)\n  output: %s\n' "$*" "$rc" "$got" >&2
+    exit 1
+  fi
   if ! printf '%s' "$got" | grep -Fq -- "$want"; then
     printf 'FAIL: %s\n  missing: %s\n  output: %s\n' "$*" "$want" "$got" >&2
     exit 1
@@ -52,6 +58,14 @@ expect_json_error() {
     printf 'FAIL: %s exited 0 (expected failure)
   output: %s
 ' "$*" "$got" >&2
+    exit 1
+  fi
+  # The documented contract is exit 2 for usage, read and parse errors; exit 1
+  # is reserved for findings under --fail-on-findings.
+  if [ "$rc" -ne 2 ]; then
+    printf 'FAIL: %s exited %s (expected 2)
+  output: %s
+' "$*" "$rc" "$got" >&2
     exit 1
   fi
   if ! printf '%s' "$got" | grep -Fq -- "\"code\":\"$want_code\""; then

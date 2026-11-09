@@ -60,6 +60,15 @@ fn main {
     return
   }
   let direction = parts[0]
+  // The three directions the CLI exposes. Anything else is a host bug: the page
+  // only ever sends one of these, so a wrong value is reported rather than
+  // silently treated as `backward`.
+  if direction != "backward" &&
+    direction != "forward" &&
+    direction != "interprocedural" {
+    write_output(error_html("bad direction: \{direction}"))
+    return
+  }
   let line = @string.parse_int(parts[1]) catch { _ => 0 }
   let node_field = parts[2]
   let source = join_source(parts)
