@@ -71,7 +71,14 @@ if (dir) {
 } else {
   const count = Number(args.get('files') ?? 1200);
   dir = mkdtempSync(join(tmpdir(), 'moon-slice-scan-'));
-  cleanup = () => rmSync(dir, { recursive: true, force: true });
+  // The generated package is removed on every exit path, including the ones
+  // that throw before the child process is even spawned.
+  cleanup = () => {
+    try {
+      rmSync(dir, { recursive: true, force: true });
+    } catch {}
+  };
+  process.on('exit', cleanup);
   for (let i = 0; i < count; i += 1) {
     writeFileSync(join(dir, `f${String(i).padStart(5, '0')}.mbt`), synthetic(i));
   }

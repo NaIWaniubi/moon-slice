@@ -63,6 +63,7 @@ for f in "${files[@]}"; do
 done
 
 # JSON agreement, using node (present in this environment).
+json_checked=1
 if command -v node >/dev/null 2>&1; then
   if ! node - "$root" <<'JS'
 const fs = require("fs");
@@ -121,10 +122,16 @@ JS
   fi
 else
   printf 'SKIP testdata/expected.json agreement (node not found)\n' >&2
+  json_checked=0
 fi
 
 if [ "$fail" -ne 0 ]; then
   printf '\ncorpus check FAILED\n' >&2
   exit 1
 fi
-printf 'corpus ok: %d examples, headers and expected.json agree\n' "${#files[@]}"
+if [ "$json_checked" -eq 1 ]; then
+  printf 'corpus ok: %d examples, headers and expected.json agree\n' "${#files[@]}"
+else
+  # The JSON agreement check did not run, so the summary must not claim it.
+  printf 'corpus ok (headers only): %d examples; expected.json was NOT checked\n' "${#files[@]}"
+fi
