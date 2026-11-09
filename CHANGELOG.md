@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.12.1 — 2026-11-09
+
+The pre-submission review round: every finding that touched this repository is
+fixed, and one analysis bug is gone.
+
+- **A match guard reads its own pattern binder.** The guard of a case was
+  collected into the match head's uses *before* the case's binder was bound, so
+  a name the guard read resolved against the enclosing scope: an outer variable
+  of the same name, or scope -1 when there was none. That invented a data
+  dependency on a variable the guard never read — which both widened slices and
+  hid a dead store. The guard is now collected inside the case, where the
+  binder is in scope.
+- **The server no longer advertises a capability it does not implement.**
+  `diagnosticProvider` was advertised while only push diagnostics existed, so
+  every LSP 3.17 client asked for pull diagnostics and got MethodNotFound.
+- **The `--baseline` contract is enforced on every path.** The guard sat after
+  the `slice --dir`, `dead --dir` and `fix` dispatches, so those silently
+  accepted and ignored it; `dead` reads a baseline, `unused` reads and writes
+  one, and nothing else accepts either.
+- **The browser e2e scripts clean up.** A Chrome spawn failure exited with an
+  unhandled `error` event that leaked the profile; the removal now retries
+  instead of one 500 ms attempt swallowed by an empty catch; and the XSS
+  assertion reads the report iframe's document, where the injected script
+  actually runs, instead of the top-level document where it never appears.
+- **The tools report failures instead of faking success.** `tools/scan.mjs`
+  counted a failed spawn as a parse failure and crashed on non-JSON output;
+  `tools/rename-owner.sh` read "no references" out of a `git grep` failure.
+- **The corpus checker accepts the syntax its own README documents**, counts
+  lines the way the JSON side does, and says the JSON table was NOT checked
+  when node is missing instead of claiming agreement.
+- **The DOCX keeps its ordered list**, and the header no longer claims margins
+  and density it does not share with the PDF.
+- **The benches decode the repository path** (a path with a space used to look
+  like a missing binary), validate `--reps`, guard the LSP frame parsing, and
+  remove their generated package on every exit path.
+- 863 tests (was 861).
+
 ## 0.12.0 — 2026-11-08
 
 The second semantic wave: precision inside the pipeline, and two new surfaces.

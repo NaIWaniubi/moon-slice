@@ -3817,7 +3817,7 @@ const _M0FP311moonbitlang6parser12yacc__parser16yy__action__1135N6constrS29689 =
 const _M0FP311moonbitlang6parser12yacc__parser16yy__action__1136N6constrS29692 = new _M0DTP311moonbitlang6parser6syntax8Constant4Bool(false);
 const _M0FPB4seed = _M0FPB12random__seed();
 const _M0MPC16string10StringView4findN6constrS517 = 0;
-const _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51284 = new _M0TPC16string10StringView("\n", 0, 1);
+const _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51280 = new _M0TPC16string10StringView("\n", 0, 1);
 const _M0FP311moonbitlang6parser18handrolled__parser26expect__tokens__to__stringN6recordS9640 = new _M0TPC16string10StringView(", ", 0, 2);
 const _M0MP311moonbitlang6parser18handrolled__parser5State32parse__error__annotation_2einnerN6constrS9817 = new _M0DTP311moonbitlang6parser6syntax9LongIdent5Ident("Error");
 const _M0MP311moonbitlang6parser6syntax9DocString5emptyN7_2abindS9482 = "";
@@ -22775,7 +22775,7 @@ const _M0FP311moonbitlang6parser12yacc__parser15yy__state__1158N6constrS50038 = 
 const _M0MPC16string10StringView4trimN6recordS781 = new _M0TPC16string10StringView("\t\n\r ", 0, 4);
 const _M0FP211moonbitlang6parser18attach__docstringsN6recordS50307 = new _M0TP311moonbitlang5lexer5basic8Position("", -1, 0, 0);
 const _M0FP211moonbitlang5lexer20tokens__from__stringN6recordS5460 = new _M0TP311moonbitlang5lexer5basic8Position("", 1, 0, 0);
-const _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51370 = new _M0TPC16string10StringView("\n", 0, 1);
+const _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51366 = new _M0TPC16string10StringView("\n", 0, 1);
 function _M0FPB13consume4__acc(acc, input) {
   const _p = (acc >>> 0) + ((Math.imul(input, -1028477379) | 0) >>> 0) | 0;
   const _p$2 = 17;
@@ -173580,30 +173580,10 @@ function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, 
             const loc$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10loc__whole(whole$2);
             _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _scrutinee);
             const uses$12 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter8uses__of(ctx, _scrutinee);
+            const head$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 6, loc$6, [], uses$12, parent);
             let _tmp$16 = _cases;
             while (true) {
               const _p$5 = _tmp$16;
-              if (_p$5.$tag === 0) {
-                break;
-              } else {
-                const _p$6 = _p$5;
-                const _p$7 = _p$6._0;
-                const _p$8 = _p$6._1;
-                const _p$9 = _p$7.guard_;
-                if (_p$9 === undefined) {
-                } else {
-                  const _p$10 = _p$9;
-                  const _p$11 = _p$10;
-                  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$11, uses$12);
-                }
-                _tmp$16 = _p$8;
-                continue;
-              }
-            }
-            const head$6 = _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11begin__node(ctx, 6, loc$6, [], uses$12, parent);
-            let _tmp$17 = _cases;
-            while (true) {
-              const _p$5 = _tmp$17;
               if (_p$5.$tag === 0) {
                 return;
               } else {
@@ -173616,26 +173596,26 @@ function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, 
                 const _p$12 = [];
                 _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter16collect__pattern(_p$7.pattern, _p$11, _p$12);
                 const _p$13 = _p$12.length;
-                let _tmp$18 = 0;
+                let _tmp$17 = 0;
                 while (true) {
-                  const _p$14 = _tmp$18;
+                  const _p$14 = _tmp$17;
                   if (_p$14 < _p$13) {
                     const _p$15 = _p$12[_p$14];
                     _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$15, _p$10.uses);
-                    _tmp$18 = _p$14 + 1 | 0;
+                    _tmp$17 = _p$14 + 1 | 0;
                     continue;
                   } else {
                     break;
                   }
                 }
                 const _p$14 = _p$11.length;
-                let _tmp$19 = 0;
+                let _tmp$18 = 0;
                 while (true) {
-                  const _p$15 = _tmp$19;
+                  const _p$15 = _tmp$18;
                   if (_p$15 < _p$14) {
                     const _p$16 = _p$11[_p$15];
                     _M0MPC15array5Array4pushGsE(_p$10.defs, _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter11bind__fresh(ctx, _p$16));
-                    _tmp$19 = _p$15 + 1 | 0;
+                    _tmp$18 = _p$15 + 1 | 0;
                     continue;
                   } else {
                     break;
@@ -173646,11 +173626,12 @@ function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter10emit__expr(ctx, 
                 } else {
                   const _p$16 = _p$15;
                   const _p$17 = _p$16;
+                  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter23record__calls__in__expr(ctx, _p$17);
                   _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12append__uses(ctx, _p$17, _p$10.uses);
                 }
                 _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter18emit__into__region(ctx, _p$10, _p$7.body);
                 _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter12pop__env__to(ctx, _p$9);
-                _tmp$17 = _p$8;
+                _tmp$16 = _p$8;
                 continue;
               }
             }
@@ -173953,7 +173934,7 @@ function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311m
     return;
   }
 }
-function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env) {
+function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50876(_env) {
   const out = _env._1;
   const current = _env._0;
   if (!(current.val === "")) {
@@ -173984,13 +173965,13 @@ function _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source_
         if (is_part && !(current.val === "")) {
           _M0IPB13StringBuilderPB6Logger11write__char(current, _ch);
         } else {
-          _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
+          _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50876(_env);
         }
       }
       continue;
     }
   }
-  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50880(_env);
+  _M0FP410NaIWaniubi12moon_2dslice3src15parser__adapter28collect__source__identifiersN5flushS50876(_env);
 }
 function _M0IP410NaIWaniubi12moon_2dslice3src15parser__adapter11IdCollectorP311moonbitlang6parser6syntax11IterVisitor19visit__Expr__Interp(self, elems, loc) {
   let _tmp = elems;
@@ -175224,7 +175205,7 @@ function _M0FP410NaIWaniubi12moon_2dslice3src6report10vars__text(vars) {
   return out;
 }
 function _M0FP410NaIWaniubi12moon_2dslice3src6report8to__html(source, program, pdg, result, target_line, target_node) {
-  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51284), (line) => _M0MPC16string10StringView9to__owned(line)));
+  const lines = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(source, _M0FP410NaIWaniubi12moon_2dslice3src6report8to__htmlN6recordS51280), (line) => _M0MPC16string10StringView9to__owned(line)));
   const _bind$2 = [];
   const hit_lines = _M0MPC13set3Set3SetGiE(new _M0TPB9ArrayViewGiE(_bind$2, 0, 0), undefined);
   const _bind$3 = result.lines;
@@ -175402,7 +175383,7 @@ function _M0FP410NaIWaniubi12moon_2dslice3src6report8to__html(source, program, p
     }
   }
   const metrics = `nodes ${_M0MPC13int3Int18to__string_2einner(program.nodes.length, 10)} · edges ${_M0MPC13int3Int18to__string_2einner(pdg.edges.length, 10)} · slice nodes ${_M0MPC13int3Int18to__string_2einner(result.nodes.length, 10)} · slice lines ${_M0MPC13int3Int18to__string_2einner(result.lines.length, 10)} · target n${_M0MPC13int3Int18to__string_2einner(target_node, 10)} on line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}`;
-  return `<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.12.0\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}</h1>\n<p class=\"metrics\">${metrics}</p>\n<div class=\"graph\">${svg}</div>\n<h2>Source</h2>\n<pre>${body.val}</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>${rows.val}</tbody></table>\n<h2>Errors</h2>\n<ul>${errs.val}</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>${_M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(_M0FP410NaIWaniubi12moon_2dslice3src6report7to__dot(pdg))}</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">${_M0FP410NaIWaniubi12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node)}</script>\n</body>\n</html>\n`;
+  return `<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"generator\" content=\"moon-slice 0.12.1\">\n<title>moon-slice report</title>\n<style>\nbody{font-family:ui-monospace,Menlo,Consolas,monospace;margin:2rem;background:#0f1115;color:#d7dae0}\nh1{margin:0 0 .25rem}h1 span{color:#ffb74d}\n.muted{color:#9aa0a6}\n.hit{background:#1f3b2a;color:#b7f7c1}\npre{white-space:pre-wrap;line-height:1.45}\n.graph{margin:1rem 0;padding:1rem;background:#151922;border:1px solid #2b2f3a;border-radius:10px;overflow:auto}\n.graph svg{display:block;max-width:100%;height:auto;margin:0 auto}\n.metrics{color:#9aa0a6;font-size:13px}\ndetails{margin:.5rem 0}\nsummary{cursor:pointer;color:#8ab4f8}\ntable{border-collapse:collapse;width:100%;font-size:13px}\nth,td{border:1px solid #2b2f3a;padding:.3rem .55rem;text-align:left}\nth{background:#151922;color:#9aa0a6}\n</style>\n</head>\n<body>\n<h1>moon-slice <span>·</span> line ${_M0MPC13int3Int18to__string_2einner(target_line, 10)}</h1>\n<p class=\"metrics\">${metrics}</p>\n<div class=\"graph\">${svg}</div>\n<h2>Source</h2>\n<pre>${body.val}</pre>\n<h2>Slice nodes</h2>\n<table><thead><tr><th scope=\"col\">node</th><th scope=\"col\">kind</th><th scope=\"col\">line</th><th scope=\"col\">defs</th><th scope=\"col\">uses</th></tr></thead><tbody>${rows.val}</tbody></table>\n<h2>Errors</h2>\n<ul>${errs.val}</ul>\n<details><summary>PDG (DOT)</summary>\n<pre>${_M0FP410NaIWaniubi12moon_2dslice3src6report12escape__html(_M0FP410NaIWaniubi12moon_2dslice3src6report7to__dot(pdg))}</pre>\n</details>\n<script type=\"application/json\" id=\"moon-slice-result\">${_M0FP410NaIWaniubi12moon_2dslice3src6report16to__result__json(program, result, target_line, target_node)}</script>\n</body>\n</html>\n`;
 }
 function _M0FP410NaIWaniubi12moon_2dslice3src3web19escape__error__text(s) {
   const out = _M0MPB13StringBuilder21StringBuilder_2einner(0);
@@ -175466,7 +175447,7 @@ function _M0FP410NaIWaniubi12moon_2dslice3src3web12join__source(parts) {
 }
 (() => {
   const input = _M0FP410NaIWaniubi12moon_2dslice3src3web11read__input();
-  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51370), (p) => _M0MPC16string10StringView9to__owned(p)));
+  const parts = _M0MPB4Iter9to__arrayGsE(_M0MPB4Iter3mapGRPC16string10StringViewsE(_M0MPC16string6String5split(input, _M0FP410NaIWaniubi12moon_2dslice3src3web7_2amainN6recordS51366), (p) => _M0MPC16string10StringView9to__owned(p)));
   if (parts.length < 4) {
     _M0FP410NaIWaniubi12moon_2dslice3src3web13write__output(_M0FP410NaIWaniubi12moon_2dslice3src3web11error__html("bad input"));
     return;
