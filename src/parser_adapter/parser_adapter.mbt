@@ -669,13 +669,12 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
     Match(expr=scrutinee, cases~, ..) => {
       let loc = loc_whole(whole)
       record_calls_in_expr(ctx, scrutinee)
+      // The head's uses are the scrutinee's alone. A guard belongs to its case
+      // and is read *after* the pattern binder is in scope, so collecting guard
+      // uses here would resolve a binder's name against the enclosing scope: an
+      // outer variable of the same name, or scope -1 when there is none. That
+      // invented an edge from a variable the guard never reads.
       let uses = uses_of(ctx, scrutinee)
-      cases.each(fn(case_) {
-        match case_.guard_ {
-          Some(guard_) => append_uses(ctx, guard_, uses)
-          None => ()
-        }
-      })
       let head = begin_node(ctx, @core.SNodeKind::Match, loc, [], uses, parent)
       cases.each(fn(case_) {
         let mark = ctx.env.length()
@@ -688,7 +687,12 @@ fn emit_expr(ctx : Adapter, whole : @syntax.Expr, parent : Int32?) -> Unit {
           region.defs.push(bind_fresh(ctx, bound_name))
         })
         match case_.guard_ {
-          Some(guard_) => append_uses(ctx, guard_, region.uses)
+          Some(guard_) => {
+            // Inside the case, the binder is bound, so the guard's reads
+            // resolve to it and its calls are the guard's own.
+            record_calls_in_expr(ctx, guard_)
+            append_uses(ctx, guard_, region.uses)
+          }
           None => ()
         }
         emit_into_region(ctx, region, case_.body)

@@ -221,6 +221,36 @@ test "match case patterns bind and their bodies use the binding" {
 }
 
 ///|
+test "a match guard reads its own pattern binder, not an outer name" {
+  // The guard runs after the pattern binder is in scope. Collecting the guard's
+  // uses before binding would resolve `unused` to the parameter of the same
+  // name and invent a dependency on a variable the guard never reads.
+  let source =
+    "fn f(v : Option[Int], unused : Int) -> Int {\n  match v {\n    Some(unused) if unused > 100 => unused\n    None => 0\n  }\n}\n"
+  let program = @parser_adapter.parse_source(source, "guard-binder.mbt")
+  let head = program.nodes[1]
+  assert_eq(head.kind, @core.SNodeKind::Match)
+  // The head reads the scrutinee only.
+  assert_eq(var_names(head.uses), [("v", 1)])
+  let region = program.nodes[head.children[0]]
+  // The region binds the binder and the guard reads that binding.
+  assert_eq(var_names(region.defs), [("unused", 3)])
+  let guard_uses = region.uses.filter(fn(v) { v.name == "unused" })
+  assert_eq(var_names(guard_uses), [("unused", 3)])
+}
+
+///|
+test "a match guard without an outer name does not resolve to scope -1" {
+  let source =
+    "fn f(v : Option[Int]) -> Int {\n  match v {\n    Some(x) if x > 0 => x\n    None => 0\n  }\n}\n"
+  let program = @parser_adapter.parse_source(source, "guard-noscope.mbt")
+  let head = program.nodes[1]
+  let region = program.nodes[head.children[0]]
+  let guard_uses = region.uses.filter(fn(v) { v.name == "x" })
+  assert_eq(var_names(guard_uses), [("x", 2)])
+}
+
+///|
 test "return is modeled as a Return node" {
   let source = "fn f(a : Int) -> Int {\n  return a\n}\n"
   let program = @parser_adapter.parse_source(source, "r.mbt")
