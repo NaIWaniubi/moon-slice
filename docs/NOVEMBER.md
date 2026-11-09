@@ -19,12 +19,15 @@ check that proves each one.
 | Editor | LSP definition and references over the package, with `includeDeclaration` | 0.12.0; `test/lsp_client.mjs` |
 | CI | `review --diff` prints an impact certificate per file (functions, entries, tests, evidence paths) | 0.12.0; `test/cli_smoke.sh` |
 | Security | `taint --dir D [--config F]`: source→sink PDG paths, sanitizer cut-off, `--fail-on-findings` | 0.12.0; `src/taint` |
+| Correctness | A match case's guard now reads its own pattern binder instead of an outer name of the same name (or scope -1), which had invented a data dependency and hidden a dead store | 0.12.1; two tests in `src/parser_adapter/parser_adapter_test.mbt`; fixture slice narrows from `2,3,5` to `3,5` |
+| Correctness | The LSP no longer advertises `diagnosticProvider` it does not implement; `--baseline` is rejected where it is not honoured; the playground rejects an unknown direction | 0.12.1–0.12.2; `test/lsp_client.mjs`, `test/cli_smoke.sh` (exit code 2 pinned) |
+| Tooling | Pre-submission review round: 55 confirmed defects triaged, every finding inside this repository fixed (benches, corpus checker, browser e2e, DOCX list style, temp-dir cleanup) | 0.12.1–0.12.2; `863 tests`, `cli smoke ok`, both e2e scripts green |
 
 
 Verify it yourself, in this order:
 
 ```bash
-./dev.sh check && ./dev.sh test          # 861 tests
+./dev.sh check && ./dev.sh test          # 863 tests
 node test/lsp_client.mjs                 # diagnostics, both slices, quick fix, cache hit and invalidation
 ./dev.sh build --target native --release cmd/lsp
 node bench/scan.mjs --dir ~/.moon/lib/core/builtin --reps 5
@@ -35,4 +38,6 @@ Commits in the period: `29d869e` (incremental scans, linear liveness),
 the proposal), then the 0.11.0 wave: six package commits plus `tower(m-00x)`
 merges for workspace, resolve, ssa, sidefx, roots, oracle, explain, LSP
 liveness, impact and refactor.
-Releases: `v0.10.1`, `v0.10.2`, `v0.11.0`, `v0.12.0`, all on mooncakes.io.
+Releases: `v0.10.1`, `v0.10.2`, `v0.11.0`, `v0.12.0`, `v0.12.1`, `v0.12.2`, all
+on mooncakes.io. The last two are the pre-submission review round; `CHANGELOG.md`
+lists every fix.
